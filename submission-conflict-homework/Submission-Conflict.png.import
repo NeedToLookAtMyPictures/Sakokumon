@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgihyv24ifcyl"
-path="res://.godot/imported/Submission-Conflict.png-7fd6ad41c7a44f111937524d76d69fbc.ctex"
+path="res://.godot/imported/Submission-Conflict.png-de1a36680f5946a520190e493c45ec6f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Submission-Conflict.png"
-dest_files=["res://.godot/imported/Submission-Conflict.png-7fd6ad41c7a44f111937524d76d69fbc.ctex"]
+source_file="res://submission-conflict-homework/Submission-Conflict.png"
+dest_files=["res://.godot/imported/Submission-Conflict.png-de1a36680f5946a520190e493c45ec6f.ctex"]
 
 [params]
 

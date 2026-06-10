@@ -119,7 +119,7 @@ namespace Data
 	class Database
 	{
         private static readonly Random rand = new Random();
-		public Dictionary<int,Item> items;
+		public Item[] items;
 
         public struct AssetGroup
         {
@@ -154,7 +154,7 @@ namespace Data
             string itemJSON = System.IO.File.ReadAllText(item_path);
             string assetJSON = System.IO.File.ReadAllText(asset_path);
             string dataJSON = System.IO.File.ReadAllText(data_path);
-            items = JsonSerializer.Deserialize<Dictionary<int, Item>>(itemJSON);
+            items = JsonSerializer.Deserialize<Item[]>(itemJSON);
             assets = JsonSerializer.Deserialize<AssetGroup>(assetJSON);
             data = JsonSerializer.Deserialize<GameData>(dataJSON);
             GD.Print("Game data loaded into memory");

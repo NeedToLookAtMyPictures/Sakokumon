@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dh2phnxt0n3qg"]
+
+[ext_resource type="Script" uid="uid://cupmodxluonob" path="res://scenes/Return.cs" id="1_5p8wc"]
+
+[node name="Settings" type="Control" unique_id=1487254743]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoundingBox" type="HBoxContainer" parent="." unique_id=1695959013]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -1.0
+offset_right = 433.0
+offset_bottom = 370.0
+
+[node name="Master Vol" type="VSlider" parent="BoundingBox" unique_id=1468100955]
+layout_mode = 2
+
+[node name="Music Vol" type="VSlider" parent="BoundingBox" unique_id=1767877638]
+layout_mode = 2
+
+[node name="SFX Vol" type="VSlider" parent="BoundingBox" unique_id=101066251]
+layout_mode = 2
+
+[node name="Dialogue Vol" type="VSlider" parent="BoundingBox" unique_id=1355306284]
+layout_mode = 2
+
+[node name="Resolution" type="OptionButton" parent="BoundingBox" unique_id=1055325983]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "Resolution 1"
+popup/item_0/id = 0
+popup/item_1/text = "Resolution 2"
+popup/item_1/id = 1
+
+[node name="Return" type="Button" parent="BoundingBox" unique_id=660613374]
+layout_mode = 2
+text = "Return"
+script = ExtResource("1_5p8wc")
+
+[connection signal="pressed" from="BoundingBox/Return" to="BoundingBox/Return" method="OnPressedReturn"]

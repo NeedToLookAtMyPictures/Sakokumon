@@ -15,9 +15,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Sakokumon"
-run/main_scene="uid://3kc58agn60ic"
-config/features=PackedStringArray("4.6", "Forward Plus")
+run/main_scene="uid://cmxgswmbesmh5"
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="res://scripts/Global.cs"
 
 [dotnet]
 

@@ -15,6 +15,6 @@ public partial class Return : Button
 	
 	public void OnPressedReturn(){
 		var global = GetNode<Global>("/root/Global");
-		global.GotoScene("res://scenes/main_menu.tscn");
+		global.ReturnToPreviousScene();
 	}
 }

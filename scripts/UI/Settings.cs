@@ -17,6 +17,6 @@ public partial class Settings : Button
 	public void OnPressedSettings()
 	{
 		var global = GetNode<Global>("/root/Global");
-		global.GotoScene("res://scenes/settings.tscn");
+		global.GoToScene("res://scenes/settings.tscn");
 	}
 }

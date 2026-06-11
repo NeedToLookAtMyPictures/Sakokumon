@@ -12,4 +12,21 @@ public partial class VolumeControl : HSlider
 	public override void _Process(double delta)
 	{
 	}
+	
+	// Organize all main_menu.tscn button behaviors in one function
+	public void OnChangedVolumeSliders(string ID){
+		var global = GetNode<Global>("/root/Global");
+		if (ID == "master"){
+			GD.Print("Master Toggled");
+		}
+		else if (ID == "music"){
+			GD.Print("Music Toggled");
+		}
+		else if (ID == "sfx"){
+			GD.Print("SFX Toggled");
+		}
+		else{
+			GD.PushWarning("Invalid slider ID in VolumeControls.cs");
+		}
+	}
 }

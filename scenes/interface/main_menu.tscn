@@ -1,9 +1,8 @@
-[gd_scene format=3 uid="uid://dik1bx8x1qjc"]
+[gd_scene format=3 uid="uid://cmxgswmbesmh5"]
 
 [ext_resource type="Texture2D" uid="uid://c0u166mty8kh0" path="res://icons/main-menu/[PH] MainMenu.png" id="1_bqqt6"]
 [ext_resource type="Script" uid="uid://ghbplikkku57" path="res://scripts/UI/Settings.cs" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://duvaankc3agf0" path="res://scripts/UI/Quit.cs" id="1_l6cm7"]
-[ext_resource type="Script" uid="uid://haixwhivawnr" path="res://scripts/UI/SaveAccess.cs" id="2_8ln24"]
 [ext_resource type="Script" uid="uid://bcimbhp5r3ka" path="res://scripts/UI/Statistics.cs" id="3_wu84c"]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]
@@ -28,16 +27,14 @@ offset_top = 240.0
 offset_right = 904.0
 offset_bottom = 443.0
 text = "New Game"
-script = ExtResource("2_8ln24")
 
-[node name="Load Game" type="Button" parent="." unique_id=1985514870]
+[node name="Continue" type="Button" parent="." unique_id=1985514870]
 layout_mode = 0
 offset_left = 1044.0
 offset_top = 240.0
 offset_right = 1475.0
 offset_bottom = 443.0
-text = "Load Game"
-script = ExtResource("2_8ln24")
+text = "Continue"
 
 [node name="Settings" type="Button" parent="." unique_id=981319319]
 layout_mode = 0

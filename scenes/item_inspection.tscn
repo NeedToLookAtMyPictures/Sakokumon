@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dc7as6lm0l2y4"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lkbh4"]
+[ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
 
-[sub_resource type="TileSet" id="TileSet_lkbh4"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lkbh4"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_roc8h"]
 
@@ -27,9 +27,7 @@ flip_v = true
 [node name="InspectionBox" type="Node2D" parent="." unique_id=140198155]
 
 [node name="GoodsGrid" type="Node2D" parent="InspectionBox" unique_id=1662621992]
-
-[node name="TileMapLayer" type="TileMapLayer" parent="InspectionBox/GoodsGrid" unique_id=1110337897]
-tile_set = SubResource("TileSet_lkbh4")
+script = ExtResource("1_roc8h")
 
 [node name="BoxBackground" type="Sprite2D" parent="InspectionBox" unique_id=1522367781]
 position = Vector2(325, 325)

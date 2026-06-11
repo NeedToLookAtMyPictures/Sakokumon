@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://cmxgswmbesmh5"]
 
-[ext_resource type="Script" uid="uid://cbafhqsvhwsne" path="res://scripts/UI/Settings.cs" id="1_ekxnf"]
-[ext_resource type="Script" uid="uid://8tp1bs0clwo4" path="res://scripts/UI/Quit.cs" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://c0u166mty8kh0" path="res://icons/main-menu/[PH] MainMenu.png" id="1_bqqt6"]
+[ext_resource type="Script" uid="uid://ghbplikkku57" path="res://scripts/UI/Settings.cs" id="1_ekxnf"]
+[ext_resource type="Script" uid="uid://duvaankc3agf0" path="res://scripts/UI/Quit.cs" id="1_l6cm7"]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]
 layout_mode = 3
@@ -13,25 +14,52 @@ offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BoundingBox" type="VBoxContainer" parent="." unique_id=320868957]
-layout_mode = 0
-offset_left = 1.0
-offset_right = 80.0
-offset_bottom = 101.0
+[node name="Background" type="Sprite2D" parent="." unique_id=1656313475]
+position = Vector2(990, 540)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_bqqt6")
 
-[node name="Continue" type="Button" parent="BoundingBox" unique_id=1985514870]
-layout_mode = 2
+[node name="New Game" type="Button" parent="." unique_id=1625591059]
+layout_mode = 0
+offset_left = 473.0
+offset_top = 240.0
+offset_right = 904.0
+offset_bottom = 443.0
+text = "New Game"
+
+[node name="Continue" type="Button" parent="." unique_id=1985514870]
+layout_mode = 0
+offset_left = 1044.0
+offset_top = 240.0
+offset_right = 1475.0
+offset_bottom = 443.0
 text = "Continue"
 
-[node name="Settings" type="Button" parent="BoundingBox" unique_id=981319319]
-layout_mode = 2
+[node name="Settings" type="Button" parent="." unique_id=981319319]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 602.0
+offset_right = 911.0
+offset_bottom = 797.0
 text = "Settings"
 script = ExtResource("1_ekxnf")
 
-[node name="Quit" type="Button" parent="BoundingBox" unique_id=1497351047]
-layout_mode = 2
+[node name="Statistics" type="Button" parent="." unique_id=680231055]
+layout_mode = 0
+offset_left = 1046.0
+offset_top = 601.0
+offset_right = 1477.0
+offset_bottom = 804.0
+text = "Statistics"
+
+[node name="Quit" type="Button" parent="." unique_id=1497351047]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 886.0
+offset_right = 1232.0
+offset_bottom = 971.0
 text = "Quit"
 script = ExtResource("1_l6cm7")
 
-[connection signal="pressed" from="BoundingBox/Settings" to="BoundingBox/Settings" method="OnPressedSettings"]
-[connection signal="pressed" from="BoundingBox/Quit" to="BoundingBox/Quit" method="OnPressedQuit"]
+[connection signal="pressed" from="Settings" to="Settings" method="OnPressedSettings"]
+[connection signal="pressed" from="Quit" to="Quit" method="OnPressedQuit"]

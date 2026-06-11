@@ -1,7 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-
+using Data;
+using System.Linq;
 public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html

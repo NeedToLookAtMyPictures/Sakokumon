@@ -12,6 +12,11 @@ public partial class Global : Node
 		set; 
 	}
 	
+	public Database Database
+	{
+		get;
+		set;
+	}
 	private Stack<string> _previousScenePaths = new Stack<string>();
 	
 	// Called when the node enters the scene tree for the first time.
@@ -20,6 +25,8 @@ public partial class Global : Node
 		// Using a negative index counts from the end, so this gets the last child node of `root`.
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
+		Database = new Database("res://test/templates/item.json","res://test/templates/asset.json");
+		Database.load();
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

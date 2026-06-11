@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace Data
 {  
-	enum AssetType
+	public enum AssetType
 	{
 		Hair,
 		Eyes,
@@ -15,7 +15,7 @@ namespace Data
 		Torso,
 		Face
 	}
-	class Asset
+	public class Asset
 	{
 		public string Name {get; set;}
 		public int Id {get; set;}
@@ -30,7 +30,7 @@ namespace Data
 
 	}
 
-	class Item
+	public class Item
 	{
 		public Asset asset {get; set;}
 		public bool contraband {get; set;}
@@ -42,7 +42,7 @@ namespace Data
 		
 	}
 
-	class Person
+	public class Person
 	{
 		private static readonly Random rand = new Random();
 		public Item[] goods {get; set;}
@@ -86,13 +86,13 @@ namespace Data
 		
 	}
 
-	struct Encounter
+	public class Encounter
 	{
-		public Person[] people;
-		public Stats stats;
+		public Person[] people {get; set;}
+		public Stats stats {get; set;}
 	}
 
-	struct Stats
+	public struct Stats
 	{
 		int inspectedGroups;
 		int inspectedInnocents;
@@ -104,7 +104,7 @@ namespace Data
 		double catchRate;
 
 	}
-	struct GameData
+	public struct GameData
 	{
 		public int currentYear;
 		public Dictionary<int, Encounter> encounters;
@@ -113,7 +113,7 @@ namespace Data
 	}
 
 	
-	class Database
+	public class Database
 	{
 		private static readonly Random rand = new Random();
 		public Item[] items;
@@ -161,7 +161,7 @@ namespace Data
 			GD.Print("Game data loaded into memory");
 		}
 
-		public Database(string ipath, string apath, string dpath)
+		public Database(string ipath, string apath, string dpath = "")
 		{
 
 			item_path = ipath;
@@ -169,11 +169,11 @@ namespace Data
 			data_path = dpath;
 		}
 		
-		public void save()
+		public void save(string saveName)
 		{
 			System.IO.File.WriteAllText(item_path, JsonSerializer.Serialize(items));
 			System.IO.File.WriteAllText(asset_path, JsonSerializer.Serialize(assets));
-			System.IO.File.WriteAllText(data_path, JsonSerializer.Serialize(data));
+			System.IO.File.WriteAllText($"user://saves/{saveName}.save", JsonSerializer.Serialize(data));
 			GD.Print("Game data saved to disk");
 		}
 
@@ -184,7 +184,7 @@ namespace Data
 		public void encounterGenerate()
 		{
 			int max = 40;
-			int num = data.encounters.Values.Count;
+			int num = data.encounters != null ? data.encounters.Values.Count : 0;
 			if (num == max)
 			{
 				GD.Print("No new encounters were generated");
@@ -196,9 +196,10 @@ namespace Data
 			foreach (int step in Enumerable.Range(0,max))
 			{
 
-				if (data.encounters.TryGetValue(step,out Encounter val))
+				if (data.encounters != null && data.encounters.TryGetValue(step,out Encounter val))
 				{
 					GD.Print("Encounter already found! Skipping..");
+                    encounters[step] = data.encounters[step];
 					continue;
 				}
 				Person[] arr = Enumerable.Range(1,rand.Next(5,11)) // anywhere from 5-10 people
@@ -213,6 +214,7 @@ namespace Data
 				encounters[step] = new Encounter {people = arr};
 
 			}
+            data.encounters = encounters;
 			GD.Print("Generated all encounters!");
 			
 		}

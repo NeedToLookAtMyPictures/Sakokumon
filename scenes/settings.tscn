@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dh2phnxt0n3qg"]
 
-[ext_resource type="Script" uid="uid://cupmodxluonob" path="res://scenes/Return.cs" id="1_5p8wc"]
+[ext_resource type="Script" uid="uid://c6mjak0mcgdhb" path="res://scripts/UI/Return.cs" id="1_5p8wc"]
 
 [node name="Settings" type="Control" unique_id=1487254743]
 layout_mode = 3

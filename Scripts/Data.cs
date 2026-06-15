@@ -1,20 +1,13 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 
 
 namespace Data
 {  
-	public enum AssetType
-	{
-		Hair,
-		Eyes,
-		Nose,
-		Torso,
-		Face
-	}
 	public class Asset
 	{
 		public string Name {get; set;}
@@ -24,7 +17,7 @@ namespace Data
 		// sizes are defined in 1 grid unit (grid unit = tbd)
 		public int Width {get; set;}
 		public int Height {get; set;}
-		public AssetType Type {get; set;}
+		public string Type {get; set;}
 		
 		public double Rotation {get; set;} // radians
 
@@ -35,16 +28,16 @@ namespace Data
 		public Asset asset {get; set;}
 		public bool contraband {get; set;}
 		public int introYear {get; set;} // when will the item appear in the game
-		public  string type {get; set;}
+		public string type {get; set;}
 		public int exitYear {get; set;} // when will the item leave the game?
 		public int legalStartYear {get; set;} // -1 = never legal
 		public int legalEndYear {get; set;}
-		
+
 	}
+
 
 	public class Person
 	{
-		private static readonly Random rand = new Random();
 		public Item[] goods {get; set;}
 		public int id {get; set;}
 		public int gender {get; set;} // male = 0, female = 1
@@ -62,34 +55,23 @@ namespace Data
 		public Person(Database db, int newId, bool forceSmuggler = false)
 		{
 			id = newId;
-			smuggler = forceSmuggler ? true : rand.Next(0,4) == 1;
-			gender = rand.Next(0,1);
-			if (gender == 0) // male
-			{
-				hair = db.assets["male"].Where(x => x.Type == AssetType.Hair)
-									.OrderBy(_ => Random.Shared.Next())
-									.First();
-				nose = db.assets["male"].Where(x => x.Type == AssetType.Nose)
-									.OrderBy(_ => Random.Shared.Next())
-									.First();
-				face = db.assets["male"].Where(x => x.Type == AssetType.Face)
-									.OrderBy(_ => Random.Shared.Next())
-									.First();
-				eyes = db.assets["male"].Where(x => x.Type == AssetType.Eyes)
-									.OrderBy(_ => Random.Shared.Next())
-									.First();
-				torso = db.assets["male"].Where(x => x.Type == AssetType.Torso)
-									.OrderBy(_ => Random.Shared.Next())
-									.First();
-			}
+			smuggler = forceSmuggler ? true : Random.Shared.Next(0,4) == 1;
+			gender = Random.Shared.Next(0,1);
+            hair = db.cassets["hair"].OrderBy(_ => Random.Shared.Next()).First();
+            nose = db.cassets["nose"].OrderBy(_ => Random.Shared.Next()).First();
+            eyes = db.cassets["eyes"].OrderBy(_ => Random.Shared.Next()).First();
+            torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First();
+            face = db.cassets["face"].OrderBy(_ => Random.Shared.Next()).First();
+			
 		}
 		
 	}
 
-	public class Encounter
+	public struct Encounter
 	{
 		public Person[] people {get; set;}
 		public Stats stats {get; set;}
+        public bool custom {get; set;}
 	}
 
 	public struct Stats
@@ -106,27 +88,30 @@ namespace Data
 	}
 	public struct GameData
 	{
+        public string name;
 		public int currentYear;
 		public Dictionary<int, Encounter> encounters;
 		public Stats gameStats;
-		
+        public DateTime lastUpdated;
+
 	}
 
 	
 	public class Database
 	{
 		private static readonly Random rand = new Random();
-		public Item[] items;
+		public Dictionary<string, Item[]> items;
 
-		public struct AssetGroup
-		{
-			public Asset[] male;
-			public Asset[] female;
+		private struct AssetJson
+        {
+            public Dictionary<string, Asset[]> characters { get; set; }
+            public Dictionary<string, Item[]> items { get; set; }
+            public Dictionary<int, Encounter> custom_encounters {get; set;}
+        }
 
-		}
-		public Dictionary<string, Asset[]> assets; // exclusively for characters
+		public Dictionary<string, Asset[]> cassets; // exclusively for characters
+        private Dictionary<int, Encounter> cencounters;
 		public GameData data;
-		private readonly string item_path;
 		private readonly string asset_path;
 		private string data_path;
 
@@ -144,42 +129,59 @@ namespace Data
 		}
 		public void load()
 		{
-			// should possibly be async in the future?
-			string itemJSON = FileAccess.GetFileAsString(item_path);
-			string assetJSON = FileAccess.GetFileAsString(asset_path);
-			items = JsonSerializer.Deserialize<Item[]>(itemJSON);
-			assets = JsonSerializer.Deserialize<Dictionary<string,Asset[]>>(assetJSON);
-			if (!FileAccess.FileExists(data_path))
-			{
-				data = default;
-				GD.Print("No save data found, other data loaded");
-				return;
-			}
-			string dataJSON = FileAccess.GetFileAsString(data_path);
 			
+
+			string dataJSON = Godot.FileAccess.GetFileAsString(data_path);
 			data = JsonSerializer.Deserialize<GameData>(dataJSON);
 			GD.Print("Game data loaded into memory");
 		}
 
-		public Database(string ipath, string apath, string dpath = "")
+		public Database(string apath)
 		{
-
-			item_path = ipath;
 			asset_path = apath;
-			data_path = dpath;
+            string assetJson = Godot.FileAccess.GetFileAsString(asset_path);
+			var gameData = JsonSerializer.Deserialize<AssetJson>(assetJson);
+            cassets = gameData.characters;
+            items = gameData.items;
+            cencounters = gameData.custom_encounters;
 		}
+
+        public GameData[] ListSaves()
+        {
+            if (!DirAccess.DirExistsAbsolute("usr://saves"))
+            {
+                DirAccess.MakeDirAbsolute("usr://saves");
+                return [];
+            }
+            return DirAccess.GetFilesAt("usr://saves") // list save files
+                                  .Select(x => Godot.FileAccess.GetFileAsString(x)) // open each save file
+                                  .Select(x => JsonSerializer.Deserialize<GameData>(x)) // convert to gamedata type
+                                  .ToArray();
+            
+        }
+        public void LoadSave(GameData save)
+        {
+            data = save;
+        }
 		
-		public void save(string saveName)
+        public void CreateSave(string name)
+        {
+            data = default;
+            data.encounters = cencounters; // loads prev custom encounters into arr
+            this.encounterGenerate();
+            this.save();
+
+        }
+		public void save() // saves the current game as stored in the Data attr of database
 		{
-			System.IO.File.WriteAllText(item_path, JsonSerializer.Serialize(items));
-			System.IO.File.WriteAllText(asset_path, JsonSerializer.Serialize(assets));
-			System.IO.File.WriteAllText($"user://saves/{saveName}.save", JsonSerializer.Serialize(data));
-			GD.Print("Game data saved to disk");
+			var file = Godot.FileAccess.Open($"usr://saves/{data.name}.save",Godot.FileAccess.ModeFlags.WriteRead);
+            file.StoreString(JsonSerializer.Serialize(data));
+            GD.Print("Saved!");
 		}
 
 		/**
-		* Generates up to max (40) unique encounters with 5-10 persons per encounter, 
-		* less any existing/custom encounters, and stores them in GameData.
+            * Generates up to max (40) unique encounters with 5-10 persons per encounter, 
+            * less any existing/custom encounters, and stores them in GameData.
 		*/
 		public void encounterGenerate()
 		{

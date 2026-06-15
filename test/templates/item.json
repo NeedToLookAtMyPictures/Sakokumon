@@ -9,6 +9,7 @@
             "rotation": 0
         },
         "contraband": true,
+        "type": "test",
         "introYear": 0,
         "exitYear": 40,
         "legalStartYear": -1, 

@@ -25,7 +25,7 @@ public partial class Global : Node
 		// Using a negative index counts from the end, so this gets the last child node of `root`.
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
-		Database = new Database("res://test/templates/item.json","res://test/templates/asset.json");
+		Database = new Database("res://test/templates/data.json");
 		Database.load();
 	}
 	

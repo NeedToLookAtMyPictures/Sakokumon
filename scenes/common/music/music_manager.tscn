@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://b4ij8m0m63ba6"]
-
-[node name="Master" type="AudioStreamPlayer2D" unique_id=92813516]
-
-[node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=1740455605]
-
-[node name="SFX" type="AudioStreamPlayer2D" parent="." unique_id=1543479490]

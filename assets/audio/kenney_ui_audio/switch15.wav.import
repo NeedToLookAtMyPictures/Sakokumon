@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://csv3pfbknajx7"
-path="res://.godot/imported/switch15.wav-24288111c02611be773644dfb67bf096.sample"
+path="res://.godot/imported/switch15.wav-c58bff470324352d050657fbfaec6f61.sample"
 
 [deps]
 
-source_file="res://assets/music/kenney_ui_audio/switch15.wav"
-dest_files=["res://.godot/imported/switch15.wav-24288111c02611be773644dfb67bf096.sample"]
+source_file="res://assets/audio/kenney_ui_audio/switch15.wav"
+dest_files=["res://.godot/imported/switch15.wav-c58bff470324352d050657fbfaec6f61.sample"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://02k20iqs2u2p"
-path="res://.godot/imported/mouserelease1.wav-2594d50303435a0c440444eaa5bb286e.sample"
+path="res://.godot/imported/mouserelease1.wav-ddf70b8910b97590ffa26ec042770473.sample"
 
 [deps]
 
-source_file="res://assets/music/kenney_ui_audio/mouserelease1.wav"
-dest_files=["res://.godot/imported/mouserelease1.wav-2594d50303435a0c440444eaa5bb286e.sample"]
+source_file="res://assets/audio/kenney_ui_audio/mouserelease1.wav"
+dest_files=["res://.godot/imported/mouserelease1.wav-ddf70b8910b97590ffa26ec042770473.sample"]
 
 [params]
 

@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://cmxgswmbesmh5"]
 
-[ext_resource type="Texture2D" uid="uid://c0u166mty8kh0" path="res://icons/main-menu/[PH] MainMenu.png" id="1_bqqt6"]
 [ext_resource type="Script" uid="uid://cwrn421d6vohb" path="res://scripts/UI/MainMenuOptions.cs" id="2_b5nk6"]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]
@@ -16,7 +15,6 @@ grow_vertical = 2
 [node name="Background" type="Sprite2D" parent="." unique_id=1656313475]
 position = Vector2(990, 540)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("1_bqqt6")
 
 [node name="New Game" type="Button" parent="." unique_id=1625591059]
 layout_mode = 0
@@ -26,6 +24,7 @@ offset_right = 904.0
 offset_bottom = 443.0
 text = "New Game"
 script = ExtResource("2_b5nk6")
+metadata/_edit_use_anchors_ = true
 
 [node name="Load Game" type="Button" parent="." unique_id=1985514870]
 layout_mode = 0
@@ -36,6 +35,7 @@ offset_bottom = 443.0
 text = "Load Game
 "
 script = ExtResource("2_b5nk6")
+metadata/_edit_use_anchors_ = true
 
 [node name="Settings" type="Button" parent="." unique_id=981319319]
 layout_mode = 0
@@ -45,6 +45,7 @@ offset_right = 911.0
 offset_bottom = 797.0
 text = "Settings"
 script = ExtResource("2_b5nk6")
+metadata/_edit_use_anchors_ = true
 
 [node name="Statistics" type="Button" parent="." unique_id=680231055]
 layout_mode = 0
@@ -54,6 +55,7 @@ offset_right = 1477.0
 offset_bottom = 804.0
 text = "Statistics"
 script = ExtResource("2_b5nk6")
+metadata/_edit_use_anchors_ = true
 
 [node name="Quit" type="Button" parent="." unique_id=1497351047]
 layout_mode = 0
@@ -63,6 +65,7 @@ offset_right = 1232.0
 offset_bottom = 971.0
 text = "Quit"
 script = ExtResource("2_b5nk6")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="New Game" to="New Game" method="OnPressedMainMenuOptions" binds= ["new"]]
 [connection signal="pressed" from="Load Game" to="Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cp44typ4p3rr1"
-path="res://.godot/imported/rollover5.wav-ca84973699126a710f471cd946247bad.sample"
+path="res://.godot/imported/rollover5.wav-c72f954548825c9fc5a3bdd95e1156cd.sample"
 
 [deps]
 
-source_file="res://assets/music/kenney_ui_audio/rollover5.wav"
-dest_files=["res://.godot/imported/rollover5.wav-ca84973699126a710f471cd946247bad.sample"]
+source_file="res://assets/audio/kenney_ui_audio/rollover5.wav"
+dest_files=["res://.godot/imported/rollover5.wav-c72f954548825c9fc5a3bdd95e1156cd.sample"]
 
 [params]
 

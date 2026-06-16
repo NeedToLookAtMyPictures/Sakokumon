@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://csyrdes6gxtau"
-path="res://.godot/imported/switch10.wav-48bad1bd130329263b935ac0c51fe808.sample"
+path="res://.godot/imported/switch10.wav-ec4219f368c0a1062c4049fd3ae8559b.sample"
 
 [deps]
 
-source_file="res://assets/music/kenney_ui_audio/switch10.wav"
-dest_files=["res://.godot/imported/switch10.wav-48bad1bd130329263b935ac0c51fe808.sample"]
+source_file="res://assets/audio/kenney_ui_audio/switch10.wav"
+dest_files=["res://.godot/imported/switch10.wav-ec4219f368c0a1062c4049fd3ae8559b.sample"]
 
 [params]
 

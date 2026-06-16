@@ -26,7 +26,11 @@ public partial class Global : Node
 		// Using a negative index counts from the end, so this gets the last child node of `root`.
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
-		Database = new Database("res://test/templates/data.json");
+		if (!FileAccess.FileExists("res://data/data.json"))
+		{
+			GetTree().Quit(1); // crash the game if no data.json is present
+		}
+		Database = new Database("res://data/data.json");
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

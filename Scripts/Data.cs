@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 
 namespace Data
@@ -41,6 +42,7 @@ namespace Data
 		public Item[] goods {get; set;}
 		public int id {get; set;}
 		public int gender {get; set;} // male = 0, female = 1
+        public bool smuggler {get; set;}
 		public Asset hair {get; set;}
 		public Asset face {get; set;} // i assume primarily refers to head...
 		public Asset eyes {get; set;}
@@ -48,10 +50,10 @@ namespace Data
 		public Asset torso {get; set;}
 		// possibly a weapon Asset?
 		// Asset weapon {get; set;}
-		public bool smuggler {get; set;}
+		
 		// we'll see...
 		// public string[] dialogue {get; set;}
-
+        public Person() {}
 		public Person(Database db, int newId, bool forceSmuggler = false)
 		{
 			id = newId;
@@ -76,14 +78,16 @@ namespace Data
 
 	public struct Stats
 	{
-		int inspectedGroups;
-		int inspectedInnocents;
-		int innocentsAccused;
-		int smugglersCaught;
-		int smugglersMissed;
+		int inspectedGroups = 0;
+		int inspectedInnocents = 0;
+		int innocentsAccused = 0;
+		int smugglersCaught = 0;
+		int smugglersMissed = 0;
 
-		double accuracy;
-		double catchRate;
+		double accuracy = 0;
+		double catchRate = 0;
+
+        public Stats() {}
 
 	}
 	public struct GameData
@@ -104,7 +108,7 @@ namespace Data
 
 		private struct AssetJson
         {
-            public Dictionary<string, Asset[]> characters { get; set; }
+            public Dictionary<string, Asset[]> character_assets { get; set; }
             public Dictionary<string, Item[]> items { get; set; }
             public Dictionary<int, Encounter> custom_encounters {get; set;}
         }
@@ -127,21 +131,13 @@ namespace Data
 				data_path = value;
 			}
 		}
-		public void load()
-		{
-			
-
-			string dataJSON = Godot.FileAccess.GetFileAsString(data_path);
-			data = JsonSerializer.Deserialize<GameData>(dataJSON);
-			GD.Print("Game data loaded into memory");
-		}
 
 		public Database(string apath)
 		{
 			asset_path = apath;
             string assetJson = Godot.FileAccess.GetFileAsString(asset_path);
 			var gameData = JsonSerializer.Deserialize<AssetJson>(assetJson);
-            cassets = gameData.characters;
+            cassets = gameData.character_assets;
             items = gameData.items;
             cencounters = gameData.custom_encounters;
 		}

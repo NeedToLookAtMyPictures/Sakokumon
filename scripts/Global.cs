@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Data;
 using System.Linq;
+using System.Text.Json;
 public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
@@ -26,7 +27,6 @@ public partial class Global : Node
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
 		Database = new Database("res://test/templates/data.json");
-		Database.load();
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -41,7 +41,6 @@ namespace Data
 	{
 		public Item[] goods {get; set;}
 		public int id {get; set;}
-		public int gender {get; set;} // male = 0, female = 1
         public bool smuggler {get; set;}
 		public Asset hair {get; set;}
 		public Asset face {get; set;} // i assume primarily refers to head...
@@ -58,7 +57,6 @@ namespace Data
 		{
 			id = newId;
 			smuggler = forceSmuggler ? true : Random.Shared.Next(0,4) == 1;
-			gender = Random.Shared.Next(0,1);
             hair = db.cassets["hair"].OrderBy(_ => Random.Shared.Next()).First();
             nose = db.cassets["nose"].OrderBy(_ => Random.Shared.Next()).First();
             eyes = db.cassets["eyes"].OrderBy(_ => Random.Shared.Next()).First();

@@ -75,7 +75,6 @@
                 {
                     "goods": [],
                     "id": 1,
-                    "gender": 0,
                     "smuggler": true,
                     "hair": {
                         "Name": "test",

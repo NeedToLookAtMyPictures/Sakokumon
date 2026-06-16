@@ -64,4 +64,5 @@ offset_bottom = 927.0
 text = "Return"
 script = ExtResource("1_5p8wc")
 
+[connection signal="drag_started" from="Master Vol" to="Master Vol" method="OnChangedVolumeSliders" binds= ["master"]]
 [connection signal="pressed" from="Return" to="Return" method="OnPressedReturn"]

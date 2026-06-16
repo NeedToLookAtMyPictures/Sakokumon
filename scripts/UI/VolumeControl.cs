@@ -13,20 +13,24 @@ public partial class VolumeControl : HSlider
 	{
 	}
 	
+	private float getPercentage(double currentVal, double maxVal){
+		return (float) (currentVal / maxVal);
+	}
+	
 	// Organize all main_menu.tscn button behaviors in one function
 	public void OnChangedVolumeSliders(string ID){
 		var global = GetNode<Global>("/root/Global");
 		if (ID == "master"){
-			GD.Print("Master Toggled");
+			global.ChangeAudioMember("master", getPercentage(this.Value,this.MaxValue));
 		}
 		else if (ID == "music"){
-			GD.Print("Music Toggled");
+			global.ChangeAudioMember("music", getPercentage(this.Value,this.MaxValue));
 		}
 		else if (ID == "sfx"){
-			GD.Print("SFX Toggled");
+			global.ChangeAudioMember("sfx", getPercentage(this.Value,this.MaxValue));
 		}
 		else{
-			GD.PushWarning("Invalid slider ID in VolumeControls.cs");
+			GD.PushWarning("Invalid slider ID in VolumeControls.OnChangedVolumeSliders()");
 		}
 	}
 }

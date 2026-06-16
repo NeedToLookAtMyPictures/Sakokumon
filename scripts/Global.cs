@@ -11,6 +11,9 @@ public partial class Global : Node
 		set; 
 	}
 	
+	// volume multipliers
+	private float _masterFactor, _musicFactor, _sfxFactor;
+	
 	private Stack<string> _previousScenePaths = new Stack<string>();
 	
 	// Called when the node enters the scene tree for the first time.
@@ -66,6 +69,21 @@ public partial class Global : Node
 		}
 		else{
 			GD.PushWarning("No entries left in _previousScenePaths");
+		}
+	}
+	
+	public void ChangeAudioMember(string element, float factor){
+		if (element == "master"){
+			_masterFactor = factor;
+		}
+		else if (element == "music"){
+			_musicFactor = factor;
+		}
+		else if (element == "sfx"){
+			_sfxFactor = factor;
+		}
+		else{
+			GD.PushWarning("Invalid element ID in Global.ChangeAudioMember()");
 		}
 	}
 }

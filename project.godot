@@ -23,6 +23,11 @@ config/icon="res://icon.svg"
 
 Global="res://scripts/Global.cs"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [dotnet]
 
 project/assembly_name="Sakokumon"

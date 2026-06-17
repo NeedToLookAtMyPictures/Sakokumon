@@ -13,6 +13,7 @@ public partial class MusicManager : Node
 		set
 		{
 			_musicVolume = value;
+			GD.Print(value);
 			if (_musicPlayer != null)
 			{
 				_musicPlayer.VolumeDb = Mathf.LinearToDb(value);

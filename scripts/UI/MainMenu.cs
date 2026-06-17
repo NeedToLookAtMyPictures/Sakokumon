@@ -10,6 +10,12 @@ public partial class MainMenu : Control
 	{
 		var sceneMusic = GetNode<MusicManager>("/root/MusicManager");
 		sceneMusic.Play(_backgroundSong);
+		// float num = 0;
+		// while (true) {
+		// 	num += 0.1f;
+		// 	sceneMusic.volume = num;
+		// 	System.Threading.Thread.Sleep(500);
+		// }
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

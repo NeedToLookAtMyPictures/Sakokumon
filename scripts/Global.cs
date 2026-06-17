@@ -6,13 +6,12 @@ public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
 	
-	public Node CurrentScene{ 
-		get; 
-		set; 
-	}
+	public Node CurrentScene{ get; set; }
 	
 	// volume multipliers
-	private float _masterFactor, _musicFactor, _sfxFactor;
+	private float _masterFactor { get; set; } = 1.0f;
+	private float _musicFactor { get; set; } = 1.0f; 
+	private float _sfxFactor { get; set; } = 1.0f;
 	
 	private Stack<string> _previousScenePaths = new Stack<string>();
 	
@@ -25,7 +24,9 @@ public partial class Global : Node
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta){}
+	public override void _Process(double delta)
+	{
+	}
 	
 	public void DeferredGoToScene(string path){
 		// Store this new scene in our stack

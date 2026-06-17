@@ -23,35 +23,63 @@ public partial class PopulateGrid : Node2D
 	public static void createNode(baseItemClass currentObject)
 	{
 		// define some basic parameters here so they can be changed as a whole
-		int screenTopOffset = 64;
-		int screenLeftOffset = 64;
+		int screenTopOffset = 64;	// These are separate so we can adjust them independently
+		int screenLeftOffset = 64;	// These are separate so we can adjust them independently
 		int gridSizeMultiplier = 64;
+
+		// generate root node
+		var rootNode = new Node2D();
+
+		// add data to root node
+		rootNode.SetMeta("tileWidth", currentObject.itemWidth);
+		rootNode.SetMeta("tileHeight", currentObject.itemHeight);
+		rootNode.SetMeta("itemType", currentObject.itemType);
+
 
 		// create new sprite object
 		var currentObjectSprite = new Sprite2D();
-
-		// calculate location of center of sprite
-		float yLocation = screenTopOffset + (currentObject.positionVector[0] * gridSizeMultiplier) + (currentObject.itemHeight / 2 * gridSizeMultiplier);
-		float xLocation = screenLeftOffset + (currentObject.positionVector[1] * gridSizeMultiplier) + (currentObject.itemWidth / 2 * gridSizeMultiplier);
 		
-		// set location of center of sprite
-		currentObjectSprite.Position = new Godot.Vector2(xLocation, yLocation);
-
 		// load texture from file
 		Texture2D textureFile = GD.Load<Texture2D>(currentObject.pngFilePath);
 		currentObjectSprite.Texture = textureFile;
 
-		// rotate sprite
-		currentObjectSprite.RotationDegrees = currentObject.rotationValue * 90;
+		// add sprite as child of root node
+		rootNode.AddChild(currentObjectSprite);
+
+
+		// generate area2d node
+		Area2D objectArea = new Area2D();
+		CollisionShape2D objectCollisionShape = new CollisionShape2D();
+
+		// create and configure item shape
+		RectangleShape2D itemShape = new RectangleShape2D();
+		itemShape.Size = new Vector2(gridSizeMultiplier * currentObject.itemWidth, gridSizeMultiplier * currentObject.itemHeight);
+		objectCollisionShape.Shape = itemShape;
+
+		// set hierarchy
+		objectArea.AddChild(objectCollisionShape);
+		rootNode.AddChild(objectArea);
+
+
+
+		// calculate location of center of item
+		float yLocation = screenTopOffset + (currentObject.positionVector[0] * gridSizeMultiplier) + (currentObject.itemHeight / 2 * gridSizeMultiplier);
+		float xLocation = screenLeftOffset + (currentObject.positionVector[1] * gridSizeMultiplier) + (currentObject.itemWidth / 2 * gridSizeMultiplier);
+		
+		// set location of center of item
+		rootNode.Position = new Godot.Vector2(xLocation, yLocation);
+
+		// rotate item	(Location is based off of object size/position, which is calculated before this function, so no problem there)
+		rootNode.RotationDegrees = currentObject.rotationValue * 90;
 
 		// flip sprite if needed
 		if (currentObject.isXFlipped)
 		{
-			currentObjectSprite.FlipH = true;
+			rootNode.GetChild<Sprite2D>(0).FlipH = true;
 		}
 		if (currentObject.isYFlipped)
 		{
-			currentObjectSprite.FlipV = true;
+			rootNode.GetChild<Sprite2D>(0).FlipV = true;
 		}
 	}
 
@@ -63,6 +91,14 @@ public partial class PopulateGrid : Node2D
 			// for row in current item height
 			for (int j = 0; j < currentObject.itemHeight; j++)
 			{
+				// if attempting to fill already filled slot, write error message
+				if (itemGrid[(int)(j + currentObject.positionVector[1])][(int)(i + currentObject.positionVector[0])] == true)
+				{
+					GD.Print("Issue placing item at: " +
+					((int)(j + currentObject.positionVector[1])) + ", " +
+					((int)(i + currentObject.positionVector[0])) + ", attempting to place object in slot, but slot is already filled\n");
+				}
+
 				// at placement row + j (object height) - at placement column + i (object width)
 				// mark filled
 				itemGrid[(int)(j + currentObject.positionVector[1])][(int)(i + currentObject.positionVector[0])] = true;
@@ -82,7 +118,7 @@ public partial class PopulateGrid : Node2D
 			// for row in current item height
 			for (int j = 0; j < currentObject.itemHeight; j++)
 			{
-				// at placement row + j (object height) - at placement column + i (object width)
+				// at placement row + j (object height)    &    at placement column + i (object width)
 				// if node is filled (boolean set to true)
 				// set function return value to false
 				if (itemGrid[(int)(j+checkedLocation[1])][(int)(i+checkedLocation[0])] == true)

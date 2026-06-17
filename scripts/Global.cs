@@ -73,11 +73,12 @@ public partial class Global : Node
 	}
 	
 	public void ChangeAudioMember(string element, float factor){
+		var musicPlayer = GetNode<MusicManager>("/root/MusicManager");
 		if (element == "master"){
 			_masterFactor = factor;
 		}
 		else if (element == "music"){
-			_musicFactor = factor;
+			_musicFactor = 1.0f;
 		}
 		else if (element == "sfx"){
 			_sfxFactor = factor;
@@ -85,5 +86,6 @@ public partial class Global : Node
 		else{
 			GD.PushWarning("Invalid element ID in Global.ChangeAudioMember()");
 		}
+		musicPlayer.volume = _masterFactor * _musicFactor;
 	}
 }

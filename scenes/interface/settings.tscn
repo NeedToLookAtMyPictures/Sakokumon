@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dh2phnxt0n3qg"]
 
 [ext_resource type="Script" uid="uid://c6mjak0mcgdhb" path="res://scripts/UI/Return.cs" id="1_5p8wc"]
-[ext_resource type="Texture2D" uid="uid://cwyegmt0trqf3" path="res://icons/settings/[PH] SettingsMenu.png" id="1_r6d6q"]
+[ext_resource type="Texture2D" uid="uid://cwyegmt0trqf3" path="res://assets/icons/settings/[PH] SettingsMenu.png" id="1_r6d6q"]
 [ext_resource type="Script" uid="uid://l07c3s07cukr" path="res://scripts/UI/VolumeControl.cs" id="2_bybga"]
 [ext_resource type="Script" uid="uid://drhmhbg18l08g" path="res://scripts/UI/Resolution.cs" id="2_rog5w"]
 

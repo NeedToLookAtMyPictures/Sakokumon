@@ -5,6 +5,21 @@ public partial class MusicManager : Node
 {
 	private AudioStreamPlayer _musicPlayer;
 
+	private float _musicVolume { get; set; } = 1.0f;
+
+	public float volume
+	{
+		get => _musicVolume;
+		set
+		{
+			_musicVolume = value;
+			if (_musicPlayer != null)
+			{
+				_musicPlayer.VolumeDb = Mathf.LinearToDb(value);
+			}
+		}
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -18,7 +33,7 @@ public partial class MusicManager : Node
 	{
 	}
 
-	public void PlayMusic(AudioStream stream, float fadeIn = 0.0f)
+	public void Play(AudioStream stream, float fadeIn = 0.0f)
 	{
 		if (_musicPlayer.Stream == stream && _musicPlayer.Playing)
 			return;

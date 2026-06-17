@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c0g5cvc12opif"]
+
+[ext_resource type="Texture2D" uid="uid://78ym7vuuk6el" path="res://assets/stats_bg.png" id="1_qkx3n"]
+[ext_resource type="PackedScene" uid="uid://bph0my2a0wgld" path="res://scenes/interface/stats_text.tscn" id="2_74t8q"]
+[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="3_emq7m"]
+
+[node name="StatsMenu" type="Node2D" unique_id=2038880874]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=670453206]
+position = Vector2(990, 540)
+scale = Vector2(0.40442657, 0.4189815)
+texture = ExtResource("1_qkx3n")
+
+[node name="Node2D" parent="." unique_id=465052785 instance=ExtResource("2_74t8q")]
+position = Vector2(744, 304)
+
+[node name="Return" type="Button" parent="." unique_id=1189588254]
+offset_left = 731.0
+offset_top = 767.0
+offset_right = 848.0
+offset_bottom = 810.0
+text = "Return"
+script = ExtResource("3_emq7m")
+
+[connection signal="pressed" from="Return" to="Return" method="OnPressedReturn"]

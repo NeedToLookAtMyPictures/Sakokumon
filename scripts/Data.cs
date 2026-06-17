@@ -76,16 +76,30 @@ namespace Data
 
 	public struct Stats
 	{
-		int inspectedGroups = 0;
-		int inspectedInnocents = 0;
-		int innocentsAccused = 0;
-		int smugglersCaught = 0;
-		int smugglersMissed = 0;
+		public int inspectedGroups = 0;
+		public int inspectedInnocents = 0;
+		public int innocentsAccused = 0;
+		public int smugglersCaught = 0;
+		public int smugglersMissed = 0;
 
-		double accuracy = 0;
-		double catchRate = 0;
+		public double accuracy = 0;
+		public double catchRate = 0;
 
         public Stats() {}
+
+		public static Stats operator +(Stats a, Stats b)
+		{
+			return new Stats
+			{
+				inspectedGroups = a.inspectedGroups + b.inspectedGroups,
+				inspectedInnocents = a.inspectedInnocents + b.inspectedInnocents,
+				innocentsAccused = a.innocentsAccused + b.innocentsAccused,
+				smugglersCaught = a.smugglersCaught + b.smugglersCaught,
+				smugglersMissed = a.smugglersMissed + b.smugglersMissed,
+				accuracy = a.accuracy + b.accuracy,
+				catchRate = a.catchRate + b.catchRate
+			};
+		}
 
 	}
 	public struct GameData

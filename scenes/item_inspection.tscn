@@ -56,3 +56,5 @@ flip_v = true
 [node name="Button" type="Button" parent="FlagIllegalItemButton" unique_id=2090313018]
 offset_right = 300.0
 offset_bottom = 100.0
+
+[connection signal="child_entered_tree" from="InspectionBox/GoodsGrid" to="InspectionBox/GoodsGrid" method="PopulateGrid"]

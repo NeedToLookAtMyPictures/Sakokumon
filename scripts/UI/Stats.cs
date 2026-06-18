@@ -11,7 +11,23 @@ public partial class Stats : RichTextLabel
 		var global = GetNode<Global>("/root/Global");
 		var stats = new Data.Stats();
 		
-		// testing
+		// testing: produces a test save with dummy stats
+		// var db = global.Database;
+		// db.CreateSave("newgame");
+		// db.data.gameStats = new Data.Stats
+		// {
+		// 	inspectedGroups = 20,
+		// 	inspectedInnocents = 10,
+		// 	innocentsAccused = 9,
+		// 	smugglersCaught = 5,
+		// 	smugglersMissed = 5,
+		// 	accuracy = (double) (1.0 + 5.0) / 20,
+		// 	catchRate = 5.0 / 10.0
+		// };
+		// db.save();
+		
+
+		
 		if (global.CurrentScene.Name == "StatsMenu")
 		{
 			var saves = global.Database.ListSaves();

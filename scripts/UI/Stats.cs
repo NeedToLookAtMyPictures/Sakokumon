@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
+using System.Text.Json;
 
 public partial class Stats : RichTextLabel
 {
@@ -8,8 +9,9 @@ public partial class Stats : RichTextLabel
 	public override void _Ready()
 	{
 		var global = GetNode<Global>("/root/Global");
+		var stats = new Data.Stats();
 		
-		Data.Stats stats = default;
+		// testing
 		if (global.CurrentScene.Name == "StatsMenu")
 		{
 			var saves = global.Database.ListSaves();

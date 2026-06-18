@@ -67,28 +67,32 @@ namespace Data
 		
 	}
 
-	public struct Encounter
+	public class Encounter
 	{
 		public Person[] people {get; set;}
 		public Stats stats {get; set;}
         public bool custom {get; set;}
 	}
 
-	public struct Stats
+	public class Stats
 	{
-		public int inspectedGroups = 0;
-		public int inspectedInnocents = 0;
-		public int innocentsAccused = 0;
-		public int smugglersCaught = 0;
-		public int smugglersMissed = 0;
+		public int inspectedGroups {get; set;}
+		public int inspectedInnocents {get; set;}
+		public int innocentsAccused {get; set;}
+		public int smugglersCaught {get; set;}
+		public int smugglersMissed {get; set;}
 
-		public double accuracy = 0;
-		public double catchRate = 0;
+		public double accuracy {get; set;}
+		public double catchRate {get; set;}
 
         public Stats() {}
 
 		public static Stats operator +(Stats a, Stats b)
 		{
+			if (a == null || b == null)
+			{
+				throw new Exception("One of the statistics objects is null");
+			}
 			return new Stats
 			{
 				inspectedGroups = a.inspectedGroups + b.inspectedGroups,
@@ -102,14 +106,15 @@ namespace Data
 		}
 
 	}
-	public struct GameData
+	public class GameData
 	{
-        public string name;
-		public int currentYear;
-		public Dictionary<int, Encounter> encounters;
-		public Stats gameStats;
-        public DateTime lastUpdated;
+        public string name {get; set;}
+		public int currentYear {get; set;}
+		public Dictionary<int, Encounter> encounters {get; set;}
+        public DateTime lastUpdated {get; set;}
+		public Stats gameStats {get; set;}
 
+		
 	}
 
 	
@@ -127,7 +132,7 @@ namespace Data
 
 		public Dictionary<string, Asset[]> cassets; // exclusively for characters
         private Dictionary<int, Encounter> cencounters;
-		public GameData data;
+		public GameData data {get; set;}
 		private readonly string asset_path;
 		private string data_path;
 
@@ -156,13 +161,13 @@ namespace Data
 
         public GameData[] ListSaves()
         {
-            if (!DirAccess.DirExistsAbsolute("usr://saves"))
+            if (!DirAccess.DirExistsAbsolute("user://saves"))
             {
-                DirAccess.MakeDirAbsolute("usr://saves");
+                DirAccess.MakeDirAbsolute("user://saves");
                 return [];
             }
-            return DirAccess.GetFilesAt("usr://saves") // list save files
-                                  .Select(x => Godot.FileAccess.GetFileAsString(x)) // open each save file
+            return DirAccess.GetFilesAt("user://saves/") // list save files
+                                  .Select(x => Godot.FileAccess.GetFileAsString($"user://saves/{x}")) // open each save file
                                   .Select(x => JsonSerializer.Deserialize<GameData>(x)) // convert to gamedata type
                                   .ToArray();
             
@@ -174,15 +179,24 @@ namespace Data
 		
         public void CreateSave(string name)
         {
-            data = default;
-            data.encounters = cencounters; // loads prev custom encounters into arr
+            data = new GameData
+            {
+				name = name,
+                encounters = cencounters // loads prev custom encounters into arr
+            };
             this.encounterGenerate();
             this.save();
-
         }
 		public void save() // saves the current game as stored in the Data attr of database
 		{
-			var file = Godot.FileAccess.Open($"usr://saves/{data.name}.save",Godot.FileAccess.ModeFlags.WriteRead);
+			if (!DirAccess.DirExistsAbsolute("user://saves")) DirAccess.MakeDirAbsolute("user://saves");
+			using var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.Write);
+			if (file == null)
+			{
+				var err = Godot.FileAccess.GetOpenError();
+				GD.Print($"error: {err}");
+				return;
+			}
             file.StoreString(JsonSerializer.Serialize(data));
             GD.Print("Saved!");
 		}

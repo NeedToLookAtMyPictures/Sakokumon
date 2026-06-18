@@ -113,8 +113,6 @@ namespace Data
 		public Dictionary<int, Encounter> encounters {get; set;}
         public DateTime lastUpdated {get; set;}
 		public Stats gameStats {get; set;}
-
-		
 	}
 
 	
@@ -174,6 +172,10 @@ namespace Data
         }
         public void LoadSave(GameData save)
         {
+			if (save.encounters.Values.Count == 0)
+			{
+				throw new Exception("The game has no encounters");
+			}
             data = save;
         }
 		
@@ -189,6 +191,7 @@ namespace Data
         }
 		public void save() // saves the current game as stored in the Data attr of database
 		{
+			data.lastUpdated = DateTime.Now;
 			if (!DirAccess.DirExistsAbsolute("user://saves")) DirAccess.MakeDirAbsolute("user://saves");
 			using var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.Write);
 			if (file == null)

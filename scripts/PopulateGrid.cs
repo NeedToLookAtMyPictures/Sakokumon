@@ -7,13 +7,13 @@ public partial class PopulateGrid : Node2D
 {
 
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
-	bool isSmuggler = true;
-	int currentYear = 1750;
+	bool isSmuggler = false;
+	int currentYear = 1680;
 
 	public class baseItemClass
 	{
-		public virtual int itemWidth { get; set; } = 0;
-		public virtual int itemHeight { get; set; } = 0;
+		public int itemWidth = 0;
+		public int itemHeight = 0;
 		public virtual int illegalStartYear { get; set; } = 0;
 		public virtual int illegalEndYear { get; set; } = 9999;
 		public virtual string itemType { get; set; } = "ERROR_CLASS";
@@ -25,21 +25,23 @@ public partial class PopulateGrid : Node2D
 		public bool isYFlipped = false;
 		public void swapWidthAndHeight()
 		{
-			(itemWidth, itemHeight) = (itemHeight, itemWidth);
+			int tempVar = itemWidth;
+			itemWidth = itemHeight;
+			itemHeight = tempVar;
 		}
 	}
 
 
 	public class goldBar : baseItemClass
 	{
-		public override int itemWidth => 1;
-		public override int itemHeight => 2;
 		public override string itemType => "goldBar";
 		public override string pngFilePath => "Sprites/goldBar.png";
 		public override int illegalStartYear => 1700;
 		public override int illegalEndYear => 9999;
 		public goldBar(int rotationValue, bool isXFlipped, bool isYFlipped, Vector2 positionVector)
 		{
+			this.itemWidth = 1;
+			this.itemHeight = 2;
 			this.rotationValue = rotationValue;
 			this.isXFlipped = isXFlipped;
 			this.isYFlipped = isYFlipped;
@@ -49,8 +51,6 @@ public partial class PopulateGrid : Node2D
 
 	public class copperCoin : baseItemClass
 	{
-		public override int itemWidth => 1;
-		public override int itemHeight => 1;
 		public override string itemType => "copperCoin";
 		public override string pngFilePath => "Sprites/copperCoin.png";
 		public override int illegalStartYear => 1875;
@@ -58,6 +58,8 @@ public partial class PopulateGrid : Node2D
 		public copperCoin(
 			int rotationValue, bool isXFlipped, bool isYFlipped, Vector2 positionVector)
 		{
+			this.itemWidth = 1;
+			this.itemHeight = 1;
 			this.rotationValue = rotationValue;
 			this.isXFlipped = isXFlipped;
 			this.isYFlipped = isYFlipped;
@@ -83,7 +85,7 @@ public partial class PopulateGrid : Node2D
 
 	public static bool isIllegal(baseItemClass currentObject, int currentYear)
 	{
-				GD.Print("TRYING TO isIllegal");
+				//GD.Print("TRYING TO isIllegal");
 
 		bool isIllegalNow = false;
 		//	if it is after item illegal start and before item illegal end
@@ -97,13 +99,13 @@ public partial class PopulateGrid : Node2D
 		return isIllegalNow;
 	}
 
-	public static void createNode(baseItemClass currentObject)
+	public static void createNode(baseItemClass currentObject, Node itemGridNode)
 	{
-				GD.Print("TRYING TO createNode");
+				//GD.Print("TRYING TO createNode");
 
 		// define some basic parameters here so they can be changed as a whole
-		int screenTopOffset = 64;	// These are separate so we can adjust them independently
-		int screenLeftOffset = 64;	// These are separate so we can adjust them independently
+		int screenTopOffset = 0;	// These are separate so we can adjust them independently
+		int screenLeftOffset = 0;	// These are separate so we can adjust them independently
 		int gridSizeMultiplier = 64;
 
 		// generate root node
@@ -142,11 +144,13 @@ public partial class PopulateGrid : Node2D
 
 
 		// calculate location of center of item
-		float yLocation = screenTopOffset + (currentObject.positionVector[0] * gridSizeMultiplier) + (currentObject.itemHeight / 2 * gridSizeMultiplier);
-		float xLocation = screenLeftOffset + (currentObject.positionVector[1] * gridSizeMultiplier) + (currentObject.itemWidth / 2 * gridSizeMultiplier);
+		float yLocation = screenTopOffset + (currentObject.positionVector[1] * gridSizeMultiplier) + ((currentObject.itemHeight * gridSizeMultiplier) / 2.0f);
+		float xLocation = screenLeftOffset + (currentObject.positionVector[0] * gridSizeMultiplier) + ((currentObject.itemWidth * gridSizeMultiplier) / 2.0f);
+		
 		
 		// set location of center of item
 		rootNode.Position = new Godot.Vector2(xLocation, yLocation);
+		rootNode.ZIndex = 3;
 
 		// rotate item	(Location is based off of object size/position, which is calculated before this function, so no problem there)
 		rootNode.RotationDegrees = currentObject.rotationValue * 90;
@@ -162,14 +166,14 @@ public partial class PopulateGrid : Node2D
 		}
 
 
-		// TODO: THIS PART MUST BE DONE, FIX THIS SO IT ADDS TO THE TREE. UNTIL THIS IS DONE THE OBJECTS WILL NOT ACTUALLY BE VISIBLE
-		Node itemGridNode = rootNode.FindChild("GoodsGrid");
+				//GD.Print("TRYING TO addChild");
+
 		itemGridNode.AddChild(rootNode);
 	}
 
-	public static void placeObject(baseItemClass currentObject, List<List<bool>> itemGrid)
+	public static void placeObject(baseItemClass currentObject, List<List<bool>> itemGrid, Node itemGridNode)
 	{
-		GD.Print("TRYING TO placeObject");
+		//GD.Print("TRYING TO placeObject");
 
 
 		// for column in current item width
@@ -181,9 +185,9 @@ public partial class PopulateGrid : Node2D
 				// if attempting to fill already filled slot, write error message
 				if (itemGrid[(int)(j + currentObject.positionVector[1])][(int)(i + currentObject.positionVector[0])] == true)
 				{
-					GD.Print("Issue placing item at: " +
-					((int)(j + currentObject.positionVector[1])) + ", " +
-					((int)(i + currentObject.positionVector[0])) + ", attempting to place object in slot, but slot is already filled\n");
+					//GD.Print("Issue placing item at: " +
+					//((int)(j + currentObject.positionVector[1])) + ", " +
+					//((int)(i + currentObject.positionVector[0])) + ", attempting to place object in slot, but slot is already filled\n");
 				}
 
 				// at placement row + j (object height) - at placement column + i (object width)
@@ -193,12 +197,12 @@ public partial class PopulateGrid : Node2D
 		}
 
 		// create actual node object in Godot
-		createNode(currentObject);
+		createNode(currentObject, itemGridNode);
 	}
 
 	public static bool checkPlacement(baseItemClass currentObject, List<List<bool>> itemGrid, Godot.Vector2 checkedLocation)
 	{
-				GD.Print("TRYING TO checkPlacement");
+				//GD.Print("TRYING TO checkPlacement");
 
 		bool isValid = true;
 		// for column in current item width
@@ -220,17 +224,17 @@ public partial class PopulateGrid : Node2D
 		return isValid;
 	}
 
-	public static bool attemptPlacement(baseItemClass currentObject, List<List<bool>> itemGrid, ref int attemptCount)
+	public static bool attemptPlacement(baseItemClass currentObject, List<List<bool>> itemGrid, ref int attemptCount, Node itemGridNode)
 	{
-				GD.Print("TRYING TO attemptPlacement");
+				//GD.Print("TRYING TO attemptPlacement");
 
 		bool successfullyPlacedObject = false;
 
 		List<Godot.Vector2> validLocations = [];
 		// number of valid locations to check before randomizing (higher for more randomness)
-		int validLocationCheckCount = 20;
+		int validLocationCheckCount = 8;
 		// number of last valid locations found to randomly choose selected location from (higher for more randomness)
-		int validLocationMaxCount = 10;
+		int validLocationMaxCount = 4;
 
 		// for row in grid (where object can fit vertically (starting top left corner of item))
 		for (int j = 0; j < itemGrid.Count() - currentObject.itemHeight; j++)
@@ -245,7 +249,7 @@ public partial class PopulateGrid : Node2D
 				// if valid location
 				if (checkPlacement(currentObject, itemGrid, new Godot.Vector2(i, j)))
 				{
-							GD.Print("location was valid");
+							//GD.Print("location was valid");
 
 					// add to possible locations
 					validLocations.Add(new Godot.Vector2(i, j));
@@ -254,7 +258,7 @@ public partial class PopulateGrid : Node2D
 		}
 		if (validLocations.Count() != 0)
 		{
-					GD.Print("TRYING TO PLACE THINGS (validLocations exist)");
+					//GD.Print("TRYING TO PLACE THINGS (validLocations exist)");
 
 			// trim first found locations until max of 10 remain (this is done to reduce greedy algorithms bias towards top left corner)
 			while (validLocations.Count() > validLocationMaxCount)
@@ -268,7 +272,7 @@ public partial class PopulateGrid : Node2D
 			// update object position vector to final location
 			currentObject.positionVector = validLocations[chosenLocationIndex];
 			// place at chosen location
-			placeObject(currentObject, itemGrid);
+			placeObject(currentObject, itemGrid, itemGridNode);
 
 			successfullyPlacedObject = true;
 		}
@@ -281,17 +285,20 @@ public partial class PopulateGrid : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Node2D itemGridNode = this;
+
+
 		// Reference data from the autoloader for the library of possible objects and the object subclasses
-		GD.Print("TRYING TO PLACE THINGS");
+		//GD.Print("TRYING TO PLACE THINGS");
 
 		// Make 12x12 grid of booleans (true if slot filled, false if empty) to represent item grid
-		List<List<bool>> itemGrid = Enumerable.Repeat(Enumerable.Repeat(false, 12).ToList(), 12).ToList();
+		List<List<bool>> itemGrid = Enumerable.Repeat(Enumerable.Repeat(false, 10).ToList(), 10).ToList();
 
 		// seed random function
 		Random randomGenerator = new Random();
 
 		// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
-		int attemptCount = 21;
+		int attemptCount = 41;
 
 		// if current person is a smuggler
 		if (isSmuggler)
@@ -314,8 +321,9 @@ public partial class PopulateGrid : Node2D
 				Type selectedItemType = itemLibrary[randomItemType];
 				baseItemClass currentObject = (baseItemClass)Activator.CreateInstance(selectedItemType, randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
+
 				// flip width/height if rotated 90 or 270 degrees
-				if (randomRotation == 1 || randomRotation == 3)
+				if (currentObject.rotationValue == 1 || currentObject.rotationValue == 3)
 				{
 					currentObject.swapWidthAndHeight();
 				}
@@ -324,7 +332,7 @@ public partial class PopulateGrid : Node2D
 				if (isIllegal(currentObject, currentYear))
 				{
 					// attempt placement and set success boolean to true
-					attemptPlacement(currentObject, itemGrid, ref attemptCount);
+					attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 					successBool = true;
 				}
 			}
@@ -348,8 +356,9 @@ public partial class PopulateGrid : Node2D
 				Type selectedItemType = itemLibrary[randomItemType];
 				baseItemClass currentObject = (baseItemClass)Activator.CreateInstance(selectedItemType, randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
+
 				// flip width/height if rotated 90 or 270 degrees
-				if (randomRotation == 1 || randomRotation == 3)
+				if (currentObject.rotationValue == 1 || currentObject.rotationValue == 3)
 				{
 					currentObject.swapWidthAndHeight();
 				}
@@ -358,7 +367,7 @@ public partial class PopulateGrid : Node2D
 				if (!isIllegal(currentObject, currentYear))
 				{
 					// attempt placement and set success boolean to true
-					attemptPlacement(currentObject, itemGrid, ref attemptCount);
+					attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 					successBool = true;
 				}
 			}
@@ -380,11 +389,12 @@ public partial class PopulateGrid : Node2D
 			Type selectedItemType = itemLibrary[randomItemType];
 			baseItemClass currentObject = (baseItemClass)Activator.CreateInstance(selectedItemType, randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
-			// flip width/height if rotated 90 or 270 degrees
-			if (randomRotation == 1 || randomRotation == 3)
-			{
-				currentObject.swapWidthAndHeight();
-			}
+
+				// flip width/height if rotated 90 or 270 degrees
+				if (currentObject.rotationValue == 1 || currentObject.rotationValue == 3)
+				{
+					currentObject.swapWidthAndHeight();
+				}
 
 			// if item is illegal
 			if (isIllegal(currentObject, currentYear))
@@ -405,7 +415,7 @@ public partial class PopulateGrid : Node2D
 				}
 			}
 			// attempt placement of item
-			attemptPlacement(currentObject, itemGrid, ref attemptCount);
+			attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 		}
 
 		/*	--------------------------------  LOGIC WRITTEN OUT  --------------------------------

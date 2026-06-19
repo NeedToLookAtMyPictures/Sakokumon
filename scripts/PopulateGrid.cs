@@ -129,7 +129,7 @@ public partial class PopulateGrid : Node2D
 
 
 		// generate area2d node
-		Area2D objectArea = new Area2D();
+		var objectArea = new draggableObject();
 		CollisionShape2D objectCollisionShape = new CollisionShape2D();
 
 		// create and configure item shape

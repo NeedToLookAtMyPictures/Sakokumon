@@ -104,8 +104,8 @@ public partial class PopulateGrid : Node2D
 				//GD.Print("TRYING TO createNode");
 
 		// define some basic parameters here so they can be changed as a whole
-		int screenTopOffset = 0;	// These are separate so we can adjust them independently
-		int screenLeftOffset = 0;	// These are separate so we can adjust them independently
+		int screenTopOffset = 4;	// These are separate so we can adjust them independently
+		int screenLeftOffset = 4;	// These are separate so we can adjust them independently
 		int gridSizeMultiplier = 64;
 
 		// generate root node
@@ -184,7 +184,7 @@ public partial class PopulateGrid : Node2D
 			for (int j = 0; j < currentObject.itemHeight; j++)
 			{
 				// if attempting to fill already filled slot, write error message
-				if (itemGrid[(int)(j + currentObject.positionVector[1])][(int)(i + currentObject.positionVector[0])] == true)
+				if (itemGrid[(int)(j + currentObject.positionVector.Y)][(int)(i + currentObject.positionVector.X)] == true)
 				{
 					//GD.Print("Issue placing item at: " +
 					//((int)(j + currentObject.positionVector[1])) + ", " +
@@ -193,7 +193,8 @@ public partial class PopulateGrid : Node2D
 
 				// at placement row + j (object height) - at placement column + i (object width)
 				// mark filled
-				itemGrid[(int)(j + currentObject.positionVector[1])][(int)(i + currentObject.positionVector[0])] = true;
+				itemGrid[(int)(j + currentObject.positionVector.Y)][(int)(i + currentObject.positionVector.X)] = true;
+				// GD.Print($"Filling slot: {currentObject.positionVector.X}, {currentObject.positionVector.Y}");
 			}
 		}
 
@@ -215,7 +216,7 @@ public partial class PopulateGrid : Node2D
 				// at placement row + j (object height)    &    at placement column + i (object width)
 				// if node is filled (boolean set to true)
 				// set function return value to false
-				if (itemGrid[(int)(j+checkedLocation[1])][(int)(i+checkedLocation[0])] == true)
+				if (itemGrid[(int)(j + checkedLocation.Y)][(int)(i + checkedLocation.X)] == true)
 				{
 					isValid = false;
 				}
@@ -293,7 +294,12 @@ public partial class PopulateGrid : Node2D
 		//GD.Print("TRYING TO PLACE THINGS");
 
 		// Make 12x12 grid of booleans (true if slot filled, false if empty) to represent item grid
-		List<List<bool>> itemGrid = Enumerable.Repeat(Enumerable.Repeat(false, 10).ToList(), 10).ToList();
+		List<List<bool>> itemGrid = new List<List<bool>>(10);
+
+		for (int i = 0; i < 10; i++)
+		{
+			itemGrid.Add(Enumerable.Repeat(false, 10).ToList());
+		}
 
 		// seed random function
 		Random randomGenerator = new Random();
@@ -417,6 +423,7 @@ public partial class PopulateGrid : Node2D
 			}
 			// attempt placement of item
 			attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+			Global.Instance.itemGrid = itemGrid;
 		}
 
 		/*	--------------------------------  LOGIC WRITTEN OUT  --------------------------------

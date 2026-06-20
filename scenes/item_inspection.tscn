@@ -13,14 +13,15 @@
 [node name="ItemInspection" type="Node2D" unique_id=1346857749]
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=1753863181]
-position = Vector2(325, 325)
-scale = Vector2(650, 650)
+position = Vector2(324, 324)
+scale = Vector2(648, 648)
 texture = SubResource("PlaceholderTexture2D_lkbh4")
 flip_h = true
 flip_v = true
 
 [node name="BackgroundSprite" type="Sprite2D" parent="BackgroundSprite" unique_id=1715608636]
-position = Vector2(1, 0)
+position = Vector2(0.875, 0)
+scale = Vector2(0.75, 1)
 texture = SubResource("PlaceholderTexture2D_lkbh4")
 flip_v = true
 
@@ -30,31 +31,31 @@ flip_v = true
 script = ExtResource("1_roc8h")
 
 [node name="BoxBackground" type="Sprite2D" parent="InspectionBox" unique_id=1522367781]
-position = Vector2(325, 325)
-scale = Vector2(650, 650)
+position = Vector2(324, 324)
+scale = Vector2(640, 640)
 texture = SubResource("PlaceholderTexture2D_roc8h")
 
 [node name="InspectedGoods" type="Node2D" parent="." unique_id=387388703]
-position = Vector2(1000, 0)
+position = Vector2(864, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="InspectedGoods" unique_id=300521072]
-position = Vector2(150, 275)
-scale = Vector2(300, 550)
+position = Vector2(144, 275)
+scale = Vector2(288, 550)
 texture = SubResource("PlaceholderTexture2D_q8wnc")
 flip_h = true
 
 [node name="FlagIllegalItemButton" type="Node2D" parent="." unique_id=879858922]
-position = Vector2(1000, 550)
+position = Vector2(864, 550)
 
 [node name="Sprite2D" type="Sprite2D" parent="FlagIllegalItemButton" unique_id=953431619]
-position = Vector2(150, 50)
-scale = Vector2(300, 100)
+position = Vector2(144, 50)
+scale = Vector2(288, 100)
 texture = SubResource("PlaceholderTexture2D_j35y3")
 flip_h = true
 flip_v = true
 
 [node name="Button" type="Button" parent="FlagIllegalItemButton" unique_id=2090313018]
-offset_right = 300.0
+offset_right = 288.0
 offset_bottom = 100.0
 
 [connection signal="child_entered_tree" from="InspectionBox/GoodsGrid" to="InspectionBox/GoodsGrid" method="PopulateGrid"]

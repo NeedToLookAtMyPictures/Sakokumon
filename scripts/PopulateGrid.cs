@@ -115,6 +115,7 @@ public partial class PopulateGrid : Node2D
 		rootNode.SetMeta("tileWidth", currentObject.itemWidth);
 		rootNode.SetMeta("tileHeight", currentObject.itemHeight);
 		rootNode.SetMeta("itemType", currentObject.itemType);
+		rootNode.SetMeta("positionVector", currentObject.positionVector);
 
 
 		// create new sprite object
@@ -144,8 +145,8 @@ public partial class PopulateGrid : Node2D
 
 
 		// calculate location of center of item
-		float yLocation = screenTopOffset + (currentObject.positionVector[1] * gridSizeMultiplier) + ((currentObject.itemHeight * gridSizeMultiplier) / 2.0f);
-		float xLocation = screenLeftOffset + (currentObject.positionVector[0] * gridSizeMultiplier) + ((currentObject.itemWidth * gridSizeMultiplier) / 2.0f);
+		float yLocation = screenTopOffset + (currentObject.positionVector.Y * gridSizeMultiplier) + ((currentObject.itemHeight * gridSizeMultiplier) / 2.0f);
+		float xLocation = screenLeftOffset + (currentObject.positionVector.X * gridSizeMultiplier) + ((currentObject.itemWidth * gridSizeMultiplier) / 2.0f);
 		
 		
 		// set location of center of item

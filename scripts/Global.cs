@@ -1,11 +1,32 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
 	
+	public static Global Instance
+	{
+		get;
+		set;
+	}
+
+	public List<List<bool>> itemGrid
+	{
+		get;
+		set;
+	}
+
+	public List<Object> itemsInHolding
+	{
+		get;
+		set;
+	}
+
+
+
 	public Node CurrentScene{ 
 		get; 
 		set; 
@@ -19,6 +40,7 @@ public partial class Global : Node
 		// Using a negative index counts from the end, so this gets the last child node of `root`.
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
+		Instance = this;
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

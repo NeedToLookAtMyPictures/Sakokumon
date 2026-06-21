@@ -19,7 +19,7 @@ public partial class Global : Node
 		set;
 	}
 
-	public List<Object> itemsInHolding
+	public List<draggableObject> itemsInHolding
 	{
 		get;
 		set;
@@ -41,6 +41,7 @@ public partial class Global : Node
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
 		Instance = this;
+		itemsInHolding = new List<draggableObject>();
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

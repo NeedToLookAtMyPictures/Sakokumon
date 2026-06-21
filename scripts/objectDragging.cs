@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public partial class draggableObject : Area2D
 {
-	
+	private static draggableObject currentDraggedNode = null;
 	List<List<bool>> itemGrid;
 	public static bool checkPlacement(int itemWidth, int itemHeight, List<List<bool>> itemGrid, Godot.Vector2 checkedLocation)
 	{
@@ -31,6 +31,26 @@ public partial class draggableObject : Area2D
 		return isValid;
 	}
 
+	public void updateStorage()
+	{
+		// stack starts at y = 550 (going up)
+		// for each item:
+		//	currentPos =- stackBuffer -> then place sprite at currentPos =- ((itemHeight * 64) / 2) -> then currentPos =- (((itemHeight * 64) / 2) + storageBuffer)
+		int currentHeightInStorage = 550;
+		for (int i = 0; i < Global.Instance.itemsInHolding.Count; i++)
+		{
+			var parent = Global.Instance.itemsInHolding[i].GetParent<Node2D>();
+			currentHeightInStorage -= storageBuffer;
+			int itemHeight = ((int)parent.GetMeta("tileHeight")) * gridSnapSize;
+			parent.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
+			currentHeightInStorage -= itemHeight;
+			currentHeightInStorage -= storageBuffer;
+		}
+
+		
+		// when adding new thing to storage, add to list of items in holding, set position vector to (-1, -1), and update storage
+		// when removing from storage, remove that instance from  items in holding, set position vector, and update storage
+	}
 
 
 
@@ -53,13 +73,15 @@ public partial class draggableObject : Area2D
 	
 	int storageBuffer = 16;
 	int storageStart = 704;
+	int storageCenterX = 1008;
 
 
 	public override void _InputEvent(Viewport viewport, InputEvent @event, int shapeIdx)
 	{
 		// when clicked on
 		if (@event is InputEventMouseButton mouseClickButton &&
-		mouseClickButton.ButtonIndex == MouseButton.Left && mouseClickButton.Pressed)
+		mouseClickButton.ButtonIndex == MouseButton.Left &&
+		mouseClickButton.Pressed && currentDraggedNode == null)
 		{
 			// make it dragging
 			isDragging = true;
@@ -69,23 +91,28 @@ public partial class draggableObject : Area2D
 			// set drag offset
 			draggingMouseOffset = parent.GetGlobalMousePosition() - GlobalPosition;
 
+			// set current node to be dragged so other nodes cannot also be grabbed
+			currentDraggedNode = this;
 			
 			// make sure item grid is up to date
 			itemGrid = Global.Instance.itemGrid;
 
-			// empty grid locations
+			// if not in storage, then empty grid locations
 			int itemWidth = (int)parent.GetMeta("tileWidth");
 			int itemHeight = (int)parent.GetMeta("tileHeight");
 			Vector2 positionVector = (Vector2)parent.GetMeta("positionVector");
 
-			for (int i = 0; i < itemWidth; i++)
+			if (positionVector != new Vector2(-1, -1))
 			{
-				// for row in current item height
-				for (int j = 0; j < itemHeight; j++)
+				for (int i = 0; i < itemWidth; i++)
 				{
-					// at placement row + j (object height) - at placement column + i (object width)
-					// mark empty
-					itemGrid[(int)(j + positionVector.Y)][(int)(i + positionVector.X)] = false;
+					// for row in current item height
+					for (int j = 0; j < itemHeight; j++)
+					{
+						// at placement row + j (object height) - at placement column + i (object width)
+						// mark empty
+						itemGrid[(int)(j + positionVector.Y)][(int)(i + positionVector.X)] = false;
+					}
 				}
 			}
 
@@ -95,7 +122,8 @@ public partial class draggableObject : Area2D
 			GetViewport().SetInputAsHandled();
 		}
 		else if (@event is InputEventMouseButton mouseButton &&
-		mouseButton.ButtonIndex == MouseButton.Left && !mouseButton.Pressed)
+		mouseButton.ButtonIndex == MouseButton.Left &&
+		!mouseButton.Pressed && currentDraggedNode == this)
 		{
 			// make it stop dragging
 			isDragging = false;
@@ -103,14 +131,31 @@ public partial class draggableObject : Area2D
 			var parent =  GetParent<Node2D>();
 			parent.ZIndex = 3;
 
+			// unbind current dragging from this node
+			currentDraggedNode = null;
+
 
 			// if far enough over to go into storage
 			if (GlobalPosition.X >= storageStart)
 			{
 				// move into storage
-				parent.GlobalPosition = new Godot.Vector2((storageStart + 64), (64 * 5));
+	
+				int itemWidth = (int)parent.GetMeta("tileWidth");
+				int itemHeight = (int)parent.GetMeta("tileHeight");
+				Vector2 positionVector = (Vector2)parent.GetMeta("positionVector");
 
-				// tag items in stack with something, add to global list of items in stack, update positions of items in stack
+				// if already in stack
+				if (positionVector == new Vector2(-1.0f, -1.0f))
+				{
+					updateStorage(); // update positions in storage
+				}
+				else
+				{ // update locations of items in holding, also set position vector to (-1,-1) to indicate that it is in storage/holding
+					parent.SetMeta("positionVector", new Vector2(-1, -1));
+					Global.Instance.itemsInHolding.Add(this);
+					updateStorage();
+				}
+
 			}
 			else
 			{
@@ -197,6 +242,13 @@ public partial class draggableObject : Area2D
 							itemGrid[(int)(j + positionVector.Y)][(int)(i + positionVector.X)] = true;
 						}
 					}
+					
+					// remove from list of items in storage if it was in storage
+					if ((Vector2)parent.GetMeta("positionVector") == new Vector2(-1, -1))
+					{
+						Global.Instance.itemsInHolding.Remove(this);
+						updateStorage();
+					}
 
 					// calculate location of center of item
 					float yLocation = topOffset + (positionVector.Y * 64) + ((itemHeight * 64) / 2.0f);
@@ -209,17 +261,14 @@ public partial class draggableObject : Area2D
 					// update itemgrid
 					Global.Instance.itemGrid = itemGrid;
 				}
-				else
-				{
-					
-
-					// calculate location of center of item
-					float yLocation = (5 * 64) + ((itemHeight * 64) / 2.0f);
-					float xLocation = (14 * 64) + ((itemWidth * 64) / 2.0f);
-					
-					// set location of center of item
-					parent.Position = new Godot.Vector2(xLocation, yLocation);
-					parent.SetMeta("positionVector", new Vector2(-1, -1));
+				else // move to storage
+				{ 
+					if ((Vector2)parent.GetMeta("positionVector") != new Vector2(-1, -1))
+					{ // if not already in storage: update position vector and add to storage items
+						parent.SetMeta("positionVector", new Vector2(-1, -1));
+						Global.Instance.itemsInHolding.Add(this);
+					}
+					updateStorage(); // update storage item positions
 				}
 				// TEMP |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 				// This section should be updated to use this positionVector as the starting location to find the nearest *valid* positionVector, then use that instead (if coming from stack, remove from stack and move those items down). If no valid locations exist, teleport to stack (if coming from stack, put back in place)

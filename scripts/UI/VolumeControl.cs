@@ -3,15 +3,12 @@ using System;
 
 public partial class VolumeControl : HSlider
 {
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Value = MaxValue;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) { }
 	
 	// Organize all main_menu.tscn button behaviors in one function
 	public void OnChangedVolumeSliders(bool _valueChanged, string ID){

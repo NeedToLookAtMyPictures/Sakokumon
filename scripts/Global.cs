@@ -87,6 +87,7 @@ public partial class Global : Node
 		else{
 			GD.PushWarning("Invalid element ID in Global.ChangeAudioMember()");
 		}
-		musicPlayer.volume = _masterFactor * _musicFactor;
+		musicPlayer.MusicVolume = _masterFactor * _musicFactor;
+		musicPlayer.SfxVolume = _masterFactor * _sfxFactor;
 	}
 }

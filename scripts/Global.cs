@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Data;
 using System.Linq;
 using System.Text.Json;
->>>>>>> release/demo
+using System.Numerics;
 public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
@@ -54,7 +54,6 @@ public partial class Global : Node
 			GetTree().Quit(1); // crash the game if no data.json is present
 		}
 		Database = new Database("res://data/data.json");
->>>>>>> release/demo
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

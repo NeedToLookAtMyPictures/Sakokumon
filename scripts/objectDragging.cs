@@ -18,12 +18,17 @@ public partial class draggableObject : Area2D
 			// for row in current item height
 			for (int j = 0; j < itemHeight; j++)
 			{
+				// so long as placement is within grid size (it shouldn't not be, but just in case)
+
 				// at placement row + j (object height)    &    at placement column + i (object width)
 				// if node is filled (boolean set to true)
 				// set function return value to false
-				if (itemGrid[(int)(j + checkedLocation.Y)][(int)(i + checkedLocation.X)] == true)
+				if ((int)(j + checkedLocation.Y) < itemGrid.Capacity && (int)(i + checkedLocation.X) < itemGrid[0].Capacity)
 				{
-					isValid = false;
+					if (itemGrid[(int)(j + checkedLocation.Y)][(int)(i + checkedLocation.X)] == true)
+					{
+						isValid = false;
+					}
 				}
 			}
 		}

@@ -4,10 +4,31 @@ using System.Collections.Generic;
 using Data;
 using System.Linq;
 using System.Text.Json;
+>>>>>>> release/demo
 public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
 	
+	public static Global Instance
+	{
+		get;
+		set;
+	}
+
+	public List<List<bool>> itemGrid
+	{
+		get;
+		set;
+	}
+
+	public List<draggableObject> itemsInHolding
+	{
+		get;
+		set;
+	}
+
+
+
 	public Node CurrentScene{ 
 		get; 
 		set; 
@@ -26,11 +47,14 @@ public partial class Global : Node
 		// Using a negative index counts from the end, so this gets the last child node of `root`.
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
+		Instance = this;
+		itemsInHolding = new List<draggableObject>();
 		if (!FileAccess.FileExists("res://data/data.json"))
 		{
 			GetTree().Quit(1); // crash the game if no data.json is present
 		}
 		Database = new Database("res://data/data.json");
+>>>>>>> release/demo
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,30 +1,60 @@
 using Godot;
-using System;
 using System.Linq;
-using System.Text.Json;
 
 public partial class Stats : RichTextLabel
 {
-	// Called when the node enters the scene tree for the first time.
+	private Data.GameData[] _saves;
+	private OptionButton _saveSelect;
+
 	public override void _Ready()
 	{
 		var global = GetNode<Global>("/root/Global");
-		var stats = new Data.Stats();
-		
+		_saveSelect = GetParent().GetNode<OptionButton>("SaveSelect");
+
 		if (global.CurrentScene.Name == "StatsMenu")
 		{
-			var saves = global.Database.ListSaves();
-			if (saves.Length == 0)
-			{
-				AppendText("\n\nNo statistics available.");
-				return;
-			}
-			foreach (var item in saves) stats += item.gameStats;
-		} else
-		{
-			stats = global.Database.data.gameStats;
+			_saves = global.Database.ListSaves();
+
+			_saveSelect.AddItem("All Saves");
+			foreach (var save in _saves)
+				_saveSelect.AddItem(save.name);
+
+			_saveSelect.ItemSelected += OnSaveSelected;
+			DisplayAllStats();
 		}
-		
+		else
+		{
+			_saveSelect.Hide();
+			DisplayStats(global.Database.data.gameStats);
+		}
+	}
+
+	public override void _Process(double delta) { }
+
+	private void OnSaveSelected(long index)
+	{
+		if (index == 0)
+			DisplayAllStats();
+		else
+			DisplayStats(_saves[index - 1].gameStats);
+	}
+
+	private void DisplayAllStats()
+	{
+		if (_saves.Length == 0)
+		{
+			Clear();
+			AppendText("\n\nNo statistics available.");
+			return;
+		}
+		var total = new Data.Stats();
+		foreach (var save in _saves) total += save.gameStats;
+		DisplayStats(total);
+	}
+
+	private void DisplayStats(Data.Stats stats)
+	{
+		Clear();
 		AppendText($"\n\nInspected groups: {stats.inspectedGroups}\n");
 		AppendText($"Inspected innocents: {stats.inspectedInnocents}\n");
 		AppendText($"Innocents accused: {stats.innocentsAccused}\n");
@@ -32,11 +62,5 @@ public partial class Stats : RichTextLabel
 		AppendText($"Smugglers missed: {stats.smugglersMissed}\n");
 		AppendText($"\nAccuracy: {stats.accuracy}\n");
 		AppendText($"Catch rate: {stats.catchRate}\n");
-		// catch rate specifically refers to the percentage of caught smugglers.
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 }

@@ -1,8 +1,10 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Numerics;
-
+using Data;
+using System.Linq;
+using System.Text.Json;
+>>>>>>> release/demo
 public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
@@ -32,6 +34,11 @@ public partial class Global : Node
 		set; 
 	}
 	
+	public Database Database
+	{
+		get;
+		set;
+	}
 	private Stack<string> _previousScenePaths = new Stack<string>();
 	
 	// Called when the node enters the scene tree for the first time.
@@ -42,6 +49,12 @@ public partial class Global : Node
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
 		Instance = this;
 		itemsInHolding = new List<draggableObject>();
+		if (!FileAccess.FileExists("res://data/data.json"))
+		{
+			GetTree().Quit(1); // crash the game if no data.json is present
+		}
+		Database = new Database("res://data/data.json");
+>>>>>>> release/demo
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

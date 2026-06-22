@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-
+using Data;
+using System.Linq;
+using System.Text.Json;
 public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
@@ -13,6 +15,11 @@ public partial class Global : Node
 	private float _musicFactor { get; set; } = 1.0f; 
 	private float _sfxFactor { get; set; } = 1.0f;
 	
+	public Database Database
+	{
+		get;
+		set;
+	}
 	private Stack<string> _previousScenePaths = new Stack<string>();
 	
 	// Called when the node enters the scene tree for the first time.
@@ -21,6 +28,11 @@ public partial class Global : Node
 		// Using a negative index counts from the end, so this gets the last child node of `root`.
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
+		if (!FileAccess.FileExists("res://data/data.json"))
+		{
+			GetTree().Quit(1); // crash the game if no data.json is present
+		}
+		Database = new Database("res://data/data.json");
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

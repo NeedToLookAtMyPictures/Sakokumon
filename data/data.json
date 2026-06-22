@@ -1,0 +1,130 @@
+{
+    "character_assets": {
+        "hair": [
+            {
+                "Name": "test",
+                "Id": 1,
+                "Path": "res://icons/assets/test.png",
+                "Width": 1,
+                "Height": 1,
+                "Type": "test item",
+                "Rotation": 1
+            }
+        ],
+        "nose": [
+            {
+                "Name": "test",
+                "Id": 1,
+                "Path": "res://icons/assets/test.png",
+                "Width": 1,
+                "Height": 1,
+                "Type": "test item",
+                "Rotation": 1
+            }
+        ],
+        "eyes": [
+            {
+                "Name": "test",
+                "Id": 1,
+                "Path": "res://icons/assets/test.png",
+                "Width": 1,
+                "Height": 1,
+                "Type": "test item",
+                "Rotation": 1
+            }
+        ],
+        "torso": [
+            {
+                "Name": "test",
+                "Id": 1,
+                "Path": "res://icons/assets/test.png",
+                "Width": 1,
+                "Height": 1,
+                "Type": "test item",
+                "Rotation": 1
+            }
+        ],
+        "face": [
+            {
+                "Name": "test",
+                "Id": 1,
+                "Path": "res://icons/assets/test.png",
+                "Width": 1,
+                "Height": 1,
+                "Type": "test item",
+                "Rotation": 1
+            }
+        ]
+    },
+    "items": {
+        "test": [
+            {
+                "Name": "test",
+                "Id": 1,
+                "Path": "res://icons/assets/test.png",
+                "Width": 1,
+                "Height": 1,
+                "Type": "test item",
+                "Rotation": 1
+            }
+        ]
+    },
+    "custom_encounters": {
+        "20": {
+            "people": [
+                {
+                    "goods": [],
+                    "id": 1,
+                    "smuggler": true,
+                    "hair": {
+                        "Name": "test",
+                        "Id": 1,
+                        "Path": "res://icons/assets/test.png",
+                        "Width": 1,
+                        "Height": 1,
+                        "Type": "test item",
+                        "Rotation": 1
+                    },
+                    "face": {
+                        "Name": "test",
+                        "Id": 1,
+                        "Path": "res://icons/assets/test.png",
+                        "Width": 1,
+                        "Height": 1,
+                        "Type": "test item",
+                        "Rotation": 1
+                    },
+                    "eyes": {
+                        "Name": "test",
+                        "Id": 1,
+                        "Path": "res://icons/assets/test.png",
+                        "Width": 1,
+                        "Height": 1,
+                        "Type": "test item",
+                        "Rotation": 1
+                    },
+                    "nose": {
+                        "Name": "test",
+                        "Id": 1,
+                        "Path": "res://icons/assets/test.png",
+                        "Width": 1,
+                        "Height": 1,
+                        "Type": "test item",
+                        "Rotation": 1
+                    },
+                    "torso": {
+                        "Name": "test",
+                        "Id": 1,
+                        "Path": "res://icons/assets/test.png",
+                        "Width": 1,
+                        "Height": 1,
+                        "Type": "test item",
+                        "Rotation": 1
+                    }
+                }
+            ],
+            "custom": true,
+            "stats": {}
+        }
+    }
+}

@@ -18,3 +18,7 @@ mono_crash.*.json
 
 # Local IDE ignores
 .vscode/
+
+test.png
+
+.DS_Store

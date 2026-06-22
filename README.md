@@ -15,7 +15,7 @@ https://github.com/NeedToLookAtMyPictures/Sakokumon/
 
 
 - Link to installation package executable (desktop) or link to the application package (APK) (mobile)
-https://github.com/NeedToLookAtMyPictures/Sakokumon/release/demo/build/Sakokumon.exe
+https://github.com/NeedToLookAtMyPictures/Sakokumon/blob/release/demo/build/Sakokumon.exe
 
 
 - Run executable command

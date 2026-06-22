@@ -28,10 +28,7 @@ public partial class MainMenuOptions : Button
 			global.GoToScene("res://scenes/interface/settings.tscn");
 		}
 		else if (ID == "statistics"){
-			GD.Print("Statistics is under construction");
-			// # TODO: Jossaya, set this to whatever .tscn you want to navigate to.
-			//         Please make sure to organize it within the scenes/ folder.
-			// global.GoToScene("res://scenes/interface/statistics.tscn");
+			global.GoToScene("res://scenes/interface/stats.tscn");
 		}
 		else if (ID == "quit"){
 			GetTree().Quit();

@@ -194,6 +194,7 @@ namespace Data
 			data.lastUpdated = DateTime.Now;
 			if (!DirAccess.DirExistsAbsolute("user://saves")) DirAccess.MakeDirAbsolute("user://saves");
 			using var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.Write);
+			GD.Print($"Debug: File Saved to {ProjectSettings.GlobalizePath(file.GetPath())}");
 			if (file == null)
 			{
 				var err = Godot.FileAccess.GetOpenError();

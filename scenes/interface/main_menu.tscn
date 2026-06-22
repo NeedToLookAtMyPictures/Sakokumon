@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c0u166mty8kh0" path="res://assets/icons/main-menu/[PH] MainMenu.png" id="1_b5nk6"]
 [ext_resource type="Script" uid="uid://brr21xurgr8d6" path="res://scripts/UI/MainMenu.cs" id="1_bvgs0"]
 [ext_resource type="Script" uid="uid://cwrn421d6vohb" path="res://scripts/UI/MainMenuOptions.cs" id="2_b5nk6"]
+[ext_resource type="Script" uid="uid://k6o6buhkuubh" path="res://scripts/UI/SaveGeneration.cs" id="4_ylig1"]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]
 layout_mode = 3
@@ -61,6 +62,15 @@ text = "Statistics"
 script = ExtResource("2_b5nk6")
 metadata/_edit_use_anchors_ = true
 
+[node name="Generate Save" type="Button" parent="." unique_id=682904246]
+layout_mode = 0
+offset_left = 1286.0
+offset_top = 817.0
+offset_right = 1477.0
+offset_bottom = 890.0
+text = "Debug: Generate Save"
+script = ExtResource("4_ylig1")
+
 [node name="Quit" type="Button" parent="." unique_id=1497351047]
 layout_mode = 0
 offset_left = 650.0
@@ -75,4 +85,5 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="Load Game" to="Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]
 [connection signal="pressed" from="Settings" to="Settings" method="OnPressedMainMenuOptions" binds= ["settings"]]
 [connection signal="pressed" from="Statistics" to="Statistics" method="OnPressedMainMenuOptions" binds= ["statistics"]]
+[connection signal="pressed" from="Generate Save" to="Generate Save" method="DebugSave"]
 [connection signal="pressed" from="Quit" to="Quit" method="OnPressedMainMenuOptions" binds= ["quit"]]

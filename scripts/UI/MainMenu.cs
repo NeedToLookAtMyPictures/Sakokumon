@@ -3,7 +3,7 @@ using System;
 
 public partial class MainMenu : Control
 {
-	private readonly AudioStream _backgroundSong = GD.Load<AudioStream>("res://assets/audio/music/Rachmaninoff_Elegie_in_E-flat_minor.mp3");
+	private readonly AudioStream _backgroundSong = GD.Load<AudioStream>("res://assets/audio/music/hitslab-japan-japanese-music-502006.mp3");
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

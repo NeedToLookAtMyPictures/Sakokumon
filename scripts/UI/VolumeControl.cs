@@ -3,9 +3,12 @@ using System;
 
 public partial class VolumeControl : HSlider
 {
+	[Export] public string SliderID { get; set; } = "";
+
 	public override void _Ready()
 	{
-		Value = MaxValue;
+		var global = GetNode<Global>("/root/Global");
+		Value = global.GetAudioFactor(SliderID) * MaxValue;
 	}
 
 	public override void _Process(double delta) { }

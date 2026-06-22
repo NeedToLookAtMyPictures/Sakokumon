@@ -27,6 +27,7 @@ offset_bottom = 230.0
 max_value = 100.0
 value = 100.0
 script = ExtResource("2_bybga")
+SliderID = "master"
 
 [node name="Music Vol" type="HSlider" parent="." unique_id=1683176247]
 layout_mode = 0
@@ -37,6 +38,7 @@ offset_bottom = 445.0
 max_value = 100.0
 value = 100.0
 script = ExtResource("2_bybga")
+SliderID = "music"
 
 [node name="SFX Vol" type="HSlider" parent="." unique_id=1820208156]
 layout_mode = 0
@@ -47,6 +49,7 @@ offset_bottom = 665.0
 max_value = 100.0
 value = 100.0
 script = ExtResource("2_bybga")
+SliderID = "sfx"
 
 [node name="Resolution" type="OptionButton" parent="." unique_id=1055325983]
 layout_mode = 0

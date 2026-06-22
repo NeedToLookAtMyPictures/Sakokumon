@@ -73,6 +73,15 @@ public partial class Global : Node
 		}
 	}
 	
+	public float GetAudioFactor(string element){
+		return element switch {
+			"master" => _masterFactor,
+			"music"  => _musicFactor,
+			"sfx"    => _sfxFactor,
+			_        => 1.0f
+		};
+	}
+
 	public void ChangeAudioMember(string element, float factor){
 		var musicPlayer = GetNode<MusicManager>("/root/MusicManager");
 		if (element == "master"){

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Text.Json;
 
-public partial class GraphicsControl : OptionButton
+public partial class Resolution : OptionButton
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

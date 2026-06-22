@@ -8,10 +8,12 @@ public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
 	
-	public Node CurrentScene{ 
-		get; 
-		set; 
-	}
+	public Node CurrentScene{ get; set; }
+	
+	// volume multipliers
+	private float _masterFactor { get; set; } = 1.0f;
+	private float _musicFactor { get; set; } = 1.0f; 
+	private float _sfxFactor { get; set; } = 1.0f;
 	
 	public Database Database
 	{
@@ -34,7 +36,9 @@ public partial class Global : Node
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta){}
+	public override void _Process(double delta)
+	{
+	}
 	
 	public void DeferredGoToScene(string path){
 		// Store this new scene in our stack
@@ -79,5 +83,32 @@ public partial class Global : Node
 		else{
 			GD.PushWarning("No entries left in _previousScenePaths");
 		}
+	}
+	
+	public float GetAudioFactor(string element){
+		return element switch {
+			"master" => _masterFactor,
+			"music"  => _musicFactor,
+			"sfx"    => _sfxFactor,
+			_        => 1.0f
+		};
+	}
+
+	public void ChangeAudioMember(string element, float factor){
+		var musicPlayer = GetNode<MusicManager>("/root/MusicManager");
+		if (element == "master"){
+			_masterFactor = factor;
+		}
+		else if (element == "music"){
+			_musicFactor = factor;
+		}
+		else if (element == "sfx"){
+			_sfxFactor = factor;
+		}
+		else{
+			GD.PushWarning("Invalid element ID in Global.ChangeAudioMember()");
+		}
+		musicPlayer.MusicVolume = _masterFactor * _musicFactor;
+		musicPlayer.SfxVolume = _masterFactor * _sfxFactor;
 	}
 }

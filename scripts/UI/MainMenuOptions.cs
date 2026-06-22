@@ -13,11 +13,11 @@ public partial class MainMenuOptions : Button
 	{
 	}
 	
-	// Organize all main_menu.tscn button behaviors in one function
 	public void OnPressedMainMenuOptions(string ID){
+		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		var global = GetNode<Global>("/root/Global");
 		if (ID == "new"){
-			GD.Print("New Game is under construciton");
+			GD.Print("New Game is under construction");
 			// global.GoToScene("res://scenes/common/save-access/newgame.tscn");
 		}
 		else if (ID == "load"){

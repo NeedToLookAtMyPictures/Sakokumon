@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="res://scripts/Global.cs"
+MusicManager="uid://b7vim7c4sxxvv"
 
 [display]
 
@@ -31,3 +32,7 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="Sakokumon"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

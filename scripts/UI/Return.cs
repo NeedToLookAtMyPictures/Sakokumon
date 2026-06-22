@@ -14,6 +14,7 @@ public partial class Return : Button
 	}
 	
 	public void OnPressedReturn(){
+		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		var global = GetNode<Global>("/root/Global");
 		global.ReturnToPreviousScene();
 	}

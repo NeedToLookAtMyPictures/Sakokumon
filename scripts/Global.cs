@@ -79,7 +79,7 @@ public partial class Global : Node
 			_masterFactor = factor;
 		}
 		else if (element == "music"){
-			_musicFactor = 1.0f;
+			_musicFactor = factor;
 		}
 		else if (element == "sfx"){
 			_sfxFactor = factor;

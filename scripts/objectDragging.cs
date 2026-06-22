@@ -72,7 +72,7 @@ public partial class draggableObject : Area2D
 	int gridSize = 10;
 	
 	int storageBuffer = 16;
-	int storageStart = 704;
+	int storageStart = 650;
 	int storageCenterX = 1008;
 
 
@@ -283,6 +283,7 @@ public partial class draggableObject : Area2D
 			}
 		}
 	}
+	float rotateTimer = 1.0f;
 
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -292,6 +293,60 @@ public partial class draggableObject : Area2D
 		{
 			var parent =  GetParent<Node2D>();
 			parent.GlobalPosition = parent.GetGlobalMousePosition() - draggingMouseOffset;
+
+			float rotateDelay = 0.25f;
+
+			if (currentDraggedNode == this)
+			{
+				rotateTimer += (float)delta;
+
+				if (Input.IsKeyPressed(Key.Q))
+				{
+					if (rotateTimer >= rotateDelay)
+					{
+						int itemWidth = (int)parent.GetMeta("tileWidth");
+						int itemHeight = (int)parent.GetMeta("tileHeight");
+
+						// rotate -90 degrees
+						parent.RotationDegrees = parent.RotationDegrees - 90;
+
+						// flip width/height
+						int itemHeightTemp = itemHeight;
+						itemHeight = itemWidth;
+						itemWidth = itemHeightTemp;
+
+						// save flipped width/height
+						parent.SetMeta("tileWidth", itemWidth);
+						parent.SetMeta("tileHeight", itemHeight);
+
+						// reset timer for delay
+						rotateTimer = 0.0f;
+					}
+				}
+				else if (Input.IsKeyPressed(Key.E))
+				{
+					if (rotateTimer >= rotateDelay)
+					{
+						int itemWidth = (int)parent.GetMeta("tileWidth");
+						int itemHeight = (int)parent.GetMeta("tileHeight");
+
+						// rotate 90 degrees
+						parent.RotationDegrees = parent.RotationDegrees + 90;
+
+						// flip width/height
+						int itemHeightTemp = itemHeight;
+						itemHeight = itemWidth;
+						itemWidth = itemHeightTemp;
+
+						// save flipped width/height
+						parent.SetMeta("tileWidth", itemWidth);
+						parent.SetMeta("tileHeight", itemHeight);
+
+						// reset timer for delay
+						rotateTimer = 0.0f;
+					}
+				}
+			}
 		}
 	}
 }

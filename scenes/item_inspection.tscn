@@ -58,6 +58,7 @@ flip_v = true
 [node name="Return" type="Button" parent="FlagIllegalItemButton" unique_id=2090313018]
 offset_right = 288.0
 offset_bottom = 100.0
+text = "Return"
 script = ExtResource("2_8vciv")
 
 [connection signal="child_entered_tree" from="InspectionBox/GoodsGrid" to="InspectionBox/GoodsGrid" method="PopulateGrid"]

@@ -84,7 +84,6 @@ public partial class MusicManager : Node
 		{
 			GD.Print("NOTICE: PlayAndWait was stopped by another track");
 		}
-		await ToSignal(_musicPlayer, AudioStreamPlayer.SignalName.Finished);
 	}
 
 	public void PlayButtonSfx()

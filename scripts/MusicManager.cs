@@ -49,11 +49,14 @@ public partial class MusicManager : Node
 
 	public override void _Process(double delta) { }
 
-	public void Play(AudioStream stream)
+	public void Play(AudioStream stream, bool stopCurrentTrack = true)
 	{
-		// used to force PlayAndWait to stop
-		_cts?.Cancel();
-		_cts = new CancellationTokenSource();
+		if (stopCurrentTrack)
+		{
+			// used to force PlayAndWait to stop
+			_cts?.Cancel();
+			_cts = new CancellationTokenSource();
+		}
 
 		// ignore repeated stream
 		if (_musicPlayer.Stream == stream && _musicPlayer.Playing)

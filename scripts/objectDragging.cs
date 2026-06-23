@@ -275,15 +275,6 @@ public partial class draggableObject : Area2D
 					}
 					updateStorage(); // update storage item positions
 				}
-				// TEMP |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
-				// This section should be updated to use this positionVector as the starting location to find the nearest *valid* positionVector, then use that instead (if coming from stack, remove from stack and move those items down). If no valid locations exist, teleport to stack (if coming from stack, put back in place)
-				
-
-				// TEMP |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
-				// TODO: also make sure that you can't interact with another item if you are dragging one already
-
-
-
 				GetViewport().SetInputAsHandled();
 			}
 		}

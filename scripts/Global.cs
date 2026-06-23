@@ -6,34 +6,16 @@ public partial class Global : Node
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
 	
 	public Node CurrentScene{ get; set; }
+	public static Global Instance { get; set; }
+	public List<List<bool>> itemGrid { get; set; }
+	public List<draggableObject> itemsInHolding { get; set; }
+	public Database Database { get; set; }
 	
 	// volume multipliers
 	private float _masterFactor { get; set; } = 1.0f;
 	private float _musicFactor { get; set; } = 1.0f; 
 	private float _sfxFactor { get; set; } = 1.0f;
-	public static Global Instance
-	{
-		get;
-		set;
-	}
 
-	public List<List<bool>> itemGrid
-	{
-		get;
-		set;
-	}
-
-	public List<draggableObject> itemsInHolding
-	{
-		get;
-		set;
-	}
-	
-	public Database Database
-	{
-		get;
-		set;
-	}
 	private Stack<string> _previousScenePaths = new Stack<string>();
 	
 	// Called when the node enters the scene tree for the first time.

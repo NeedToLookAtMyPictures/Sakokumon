@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Text.Json;
 
 public partial class Resolution : OptionButton
 {

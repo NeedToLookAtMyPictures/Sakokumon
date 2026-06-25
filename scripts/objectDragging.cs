@@ -11,6 +11,14 @@ public partial class draggableObject : Area2D
 	{
 				//GD.Print("TRYING TO checkPlacement");
 
+		/// if each item has a list of lists of lists, with the first [] being the rotation then the next [][] being rows/columns
+		/// Filter this by automatically marking true if value at itemShapeGrid[rot][y][x] is false (that slot at this rotation in the item hitbox is empty)
+		/// I would need to generate another area2d for the second non-standard part of the shape each time, but it rotates with parent so all good
+		/// I need to make it so that the item size (for the area2d specifically, *NOT* the parent) increases to 10x when picked up then drops to normal when let go
+
+
+
+
 		bool isValid = true;
 		// for column in current item width
 		for (int i = 0; i < itemWidth; i++)
@@ -90,6 +98,10 @@ public partial class draggableObject : Area2D
 		{
 			// make it dragging
 			isDragging = true;
+			
+			// set scale to be massive so rotation can never make the player no longer hold the item
+			this.Scale = new Vector2(10, 10);
+
 			// increase z so it shows on top
 			var parent =  GetParent<Node2D>();
 			parent.ZIndex = 999;
@@ -132,6 +144,10 @@ public partial class draggableObject : Area2D
 		{
 			// make it stop dragging
 			isDragging = false;
+
+			// set hitbox back to normal
+			this.Scale = new Vector2(1, 1);
+
 			// reset Z to normal
 			var parent =  GetParent<Node2D>();
 			parent.ZIndex = 3;

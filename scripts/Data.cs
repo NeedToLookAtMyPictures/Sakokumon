@@ -26,10 +26,24 @@ namespace Data
 
 	public class Item
 	{
-		public Asset asset {get; set;}
+		// props
+		public string Name {get; set;}
+		public int Id {get; set;}
+		public string Path {get; set;}
 		public bool contraband {get; set;}
-		public int introYear {get; set;} // when will the item appear in the game
 		public string type {get; set;}
+		private List<List<bool>> size;
+        public List<List<bool>> Size
+        {
+            get => size; 
+			set
+			{
+				if (value.Count < 1) throw new Exception("Size must be greater than 0");
+				size = value;
+			}
+		}
+		// years
+		public int introYear {get; set;} // when will the item appear in the game
 		public int exitYear {get; set;} // when will the item leave the game?
 		public int legalStartYear {get; set;} // -1 = never legal
 		public int legalEndYear {get; set;}

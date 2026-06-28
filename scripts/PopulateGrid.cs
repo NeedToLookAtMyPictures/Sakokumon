@@ -11,6 +11,9 @@ public partial class PopulateGrid : Node2D
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
 	bool isSmuggler = true;
 	int currentYear = 1695;
+	int difficulty = 10;
+	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
+	// (1/difficulty) is the chance for smugglers to keep any illegal items beyond the first guaranteed item
 
 
 	public Dictionary<String, (string typeName,
@@ -455,10 +458,10 @@ public partial class PopulateGrid : Node2D
 					continue;
 				} else
 				{ // if smuggler
-					// generate number 0-9
-					// if not 0 (90% chance), skip illegal item
+					// generate number 0-difficulty
+					// if not 0 (1/difficulty chance), skip illegal item
 					// this is done to reduce the amount of illegal items (1 guaranteed above) so it isn't super obvious every time
-					if (randomGenerator.Next(0,10) != 0)
+					if (randomGenerator.Next(0,difficulty) != 0)
 					{
 						continue;
 					}

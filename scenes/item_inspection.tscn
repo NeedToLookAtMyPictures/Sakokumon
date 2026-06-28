@@ -2,20 +2,21 @@
 
 [ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="2_8vciv"]
+[ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://Sprites/boxBackground.png" id="2_j35y3"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lkbh4"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_roc8h"]
-
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_q8wnc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j35y3"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_j35y3"]
 
 [node name="ItemInspection" type="Node2D" unique_id=1346857749]
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=1753863181]
-position = Vector2(576, 324)
-scale = Vector2(1152, 648)
+position = Vector2(432, 324)
+scale = Vector2(864, 648)
 texture = SubResource("PlaceholderTexture2D_lkbh4")
 flip_h = true
 flip_v = true
@@ -27,17 +28,23 @@ script = ExtResource("1_roc8h")
 
 [node name="BoxBackground" type="Sprite2D" parent="InspectionBox" unique_id=1522367781]
 position = Vector2(324, 324)
-scale = Vector2(640, 640)
-texture = SubResource("PlaceholderTexture2D_roc8h")
+texture = ExtResource("2_j35y3")
 
 [node name="InspectedGoods" type="Node2D" parent="." unique_id=387388703]
 position = Vector2(864, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="InspectedGoods" unique_id=300521072]
+[node name="InspectedGoodsBackground" type="Sprite2D" parent="InspectedGoods" unique_id=300521072]
 position = Vector2(144, 275)
 scale = Vector2(288, 550)
 texture = SubResource("PlaceholderTexture2D_q8wnc")
 flip_h = true
+
+[node name="InspectedGoodsArea" type="Area2D" parent="InspectedGoods" unique_id=1344813508]
+
+[node name="InspectedGoodsCollision" type="CollisionShape2D" parent="InspectedGoods/InspectedGoodsArea" unique_id=1641745947]
+position = Vector2(144, 275)
+scale = Vector2(14.4, 27.5)
+shape = SubResource("RectangleShape2D_j35y3")
 
 [node name="FlagIllegalItemButton" type="Node2D" parent="." unique_id=879858922]
 position = Vector2(864, 550)

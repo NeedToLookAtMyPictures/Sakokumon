@@ -9,8 +9,8 @@ public partial class PopulateGrid : Node2D
 {
 
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
-	bool isSmuggler = false;
-	int currentYear = 1680;
+	bool isSmuggler = true;
+	int currentYear = 1695;
 
 
 	public Dictionary<String, (string typeName,
@@ -137,19 +137,11 @@ public partial class PopulateGrid : Node2D
 		{
 			// if x flipped invert x scale of object as a whole (this flips the hitbox & sprite at the same time)
 			rootNode.ApplyScale(new Vector2 (-1,1));
-
-			// flip items grid too
-			for (int currRow = 0; currRow < currentObject.itemGrid.Count; currRow++)
-			{
-				currentObject.itemGrid[currRow].Reverse();
-			}
 		}
 		if (currentObject.isYFlipped)
 		{
 			// if y flipped invert y scale of object as a whole (this flips the hitbox & sprite at the same time)
 			rootNode.ApplyScale(new Vector2 (1,-1));
-			// flip items grid too
-			currentObject.itemGrid.Reverse();
 		}
 
 
@@ -233,14 +225,14 @@ public partial class PopulateGrid : Node2D
 		int validLocationMaxCount = 4;
 
 		// for row in grid (where object can fit vertically (starting top left corner of item))
-		for (int j = 0; j < itemGrid.Count() - currentObject.itemHeight; j++)
+		for (int j = 0; j <= itemGrid.Count() - currentObject.itemHeight; j++)
 		{
 			if (validLocations.Count() > validLocationCheckCount)
 			{
 				break;
 			}
 			// for column in grid (where object can fit horizontally (starting top left corner of item))
-			for (int i = 0; i < itemGrid[0].Count() - currentObject.itemWidth; i++)
+			for (int i = 0; i <= itemGrid[0].Count() - currentObject.itemWidth; i++)
 			{
 				// if valid location
 				if (checkPlacement(currentObject, itemGrid, new Godot.Vector2(i, j)))
@@ -302,7 +294,7 @@ public partial class PopulateGrid : Node2D
 		Random randomGenerator = new Random();
 
 		// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
-		int attemptCount = 41;
+		int attemptCount = 101;
 		
 		// if current person is a smuggler
 		if (isSmuggler)
@@ -335,7 +327,19 @@ public partial class PopulateGrid : Node2D
 						currentObject.rotateClockwise();
 						currentRotation++;
 					}
-					
+				}
+
+				// flip grid if needed
+				if (currentObject.isXFlipped)
+				{
+					for (int currRow = 0; currRow < currentObject.itemGrid.Count; currRow++)
+					{
+						currentObject.itemGrid[currRow].Reverse();
+					}
+				}
+				if (currentObject.isYFlipped)
+				{
+					currentObject.itemGrid.Reverse();
 				}
 
 				// if item is illegal, attempt placement
@@ -378,6 +382,19 @@ public partial class PopulateGrid : Node2D
 					}
 				}
 
+				// flip grid if needed
+				if (currentObject.isXFlipped)
+				{
+					for (int currRow = 0; currRow < currentObject.itemGrid.Count; currRow++)
+					{
+						currentObject.itemGrid[currRow].Reverse();
+					}
+				}
+				if (currentObject.isYFlipped)
+				{
+					currentObject.itemGrid.Reverse();
+				}
+
 				// if item is legal
 				if (!isIllegal(currentObject, currentYear))
 				{
@@ -416,6 +433,19 @@ public partial class PopulateGrid : Node2D
 				}
 			}
 
+			// flip grid if needed
+			if (currentObject.isXFlipped)
+			{
+				for (int currRow = 0; currRow < currentObject.itemGrid.Count; currRow++)
+				{
+					currentObject.itemGrid[currRow].Reverse();
+				}
+			}
+			if (currentObject.isYFlipped)
+			{
+				currentObject.itemGrid.Reverse();
+			}
+
 			// if item is illegal
 			if (isIllegal(currentObject, currentYear))
 			{
@@ -425,10 +455,10 @@ public partial class PopulateGrid : Node2D
 					continue;
 				} else
 				{ // if smuggler
-					// generate number 0-3
-					// if not 0 (75% chance), skip illegal item
+					// generate number 0-9
+					// if not 0 (90% chance), skip illegal item
 					// this is done to reduce the amount of illegal items (1 guaranteed above) so it isn't super obvious every time
-					if (randomGenerator.Next(0,4) != 0)
+					if (randomGenerator.Next(0,10) != 0)
 					{
 						continue;
 					}

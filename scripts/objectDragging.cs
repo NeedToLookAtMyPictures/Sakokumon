@@ -7,9 +7,9 @@ public partial class draggableObject : Area2D
 {
 	private static draggableObject currentDraggedNode = null;
 	List<List<bool>> itemGrid;
-	public static bool checkPlacement(int itemWidth, int itemHeight, List<List<bool>> itemGrid, Godot.Vector2 checkedLocation)
+	public static bool checkPlacement(ObjectData currentObject, int itemWidth, int itemHeight, List<List<bool>> itemGrid, Godot.Vector2 checkedLocation)
 	{
-				//GD.Print("TRYING TO checkPlacement");
+		GD.Print("TRYING TO checkPlacement");
 
 		/// if each item has a list of lists of lists, with the first [] being the rotation then the next [][] being rows/columns
 		/// Filter this by automatically marking true if value at itemShapeGrid[rot][y][x] is false (that slot at this rotation in the item hitbox is empty)
@@ -27,7 +27,12 @@ public partial class draggableObject : Area2D
 			for (int j = 0; j < itemHeight; j++)
 			{
 				// so long as placement is within grid size (it shouldn't not be, but just in case)
-
+				
+				if (!currentObject.itemGrid[j][i]) // if slot at current index within item hitbox is empty, skip checking
+				{
+					continue;
+				}
+				
 				// at placement row + j (object height)    &    at placement column + i (object width)
 				// if node is filled (boolean set to true)
 				// set function return value to false
@@ -54,7 +59,8 @@ public partial class draggableObject : Area2D
 		{
 			var parent = Global.Instance.itemsInHolding[i].GetParent<Node2D>();
 			currentHeightInStorage -= storageBuffer;
-			int itemHeight = ((int)parent.GetMeta("tileHeight")) * gridSnapSize;
+			ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
+			int itemHeight = parentData.itemHeight * gridSnapSize;
 			parent.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
 			currentHeightInStorage -= itemHeight;
 			currentHeightInStorage -= storageBuffer;
@@ -115,20 +121,21 @@ public partial class draggableObject : Area2D
 			itemGrid = Global.Instance.itemGrid;
 
 			// if not in storage, then empty grid locations
-			int itemWidth = (int)parent.GetMeta("tileWidth");
-			int itemHeight = (int)parent.GetMeta("tileHeight");
-			Vector2 positionVector = (Vector2)parent.GetMeta("positionVector");
+			ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
 
-			if (positionVector != new Vector2(-1, -1))
+			if (parentData.positionVector != new Vector2(-1, -1))
 			{
-				for (int i = 0; i < itemWidth; i++)
+				for (int i = 0; i < parentData.itemWidth; i++)
 				{
 					// for row in current item height
-					for (int j = 0; j < itemHeight; j++)
+					for (int j = 0; j < parentData.itemHeight; j++)
 					{
-						// at placement row + j (object height) - at placement column + i (object width)
-						// mark empty
-						itemGrid[(int)(j + positionVector.Y)][(int)(i + positionVector.X)] = false;
+						if (parentData.itemGrid[j][i]) // if slot in hitbox is taken by item, mark false
+						{
+							// at placement row + j (object height) - at placement column + i (object width)
+							// mark empty
+							itemGrid[(int)(j + parentData.positionVector.Y)][(int)(i + parentData.positionVector.X)] = false;
+						}
 					}
 				}
 			}
@@ -161,18 +168,15 @@ public partial class draggableObject : Area2D
 			{
 				// move into storage
 	
-				int itemWidth = (int)parent.GetMeta("tileWidth");
-				int itemHeight = (int)parent.GetMeta("tileHeight");
-				Vector2 positionVector = (Vector2)parent.GetMeta("positionVector");
+				ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
 
 				// if already in stack
-				if (positionVector == new Vector2(-1.0f, -1.0f))
+				if (parentData.positionVector == new Vector2(-1.0f, -1.0f))
 				{
 					updateStorage(); // update positions in storage
 				}
 				else
 				{ // update locations of items in holding, also set position vector to (-1,-1) to indicate that it is in storage/holding
-					parent.SetMeta("positionVector", new Vector2(-1, -1));
 					Global.Instance.itemsInHolding.Add(this);
 					updateStorage();
 				}
@@ -185,11 +189,10 @@ public partial class draggableObject : Area2D
 				
 				// try to place item to nearest open location
 				// fill grid locations
-				int itemWidth = (int)parent.GetMeta("tileWidth");
-				int itemHeight = (int)parent.GetMeta("tileHeight");
+				ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
 
 				// This helps handle the difference in positionVector being the top left tile of the object and the objects globalPosition being the center of the sprite, which might be very different in size
-				Vector2 positionVectorToSpriteCenterOffset = new Vector2((itemWidth - 1) * 32, (itemHeight - 1) * 32);
+				Vector2 positionVectorToSpriteCenterOffset = new Vector2((parentData.itemWidth - 1) * 32, (parentData.itemHeight - 1) * 32);
 				Vector2 positionVector = ((parent.GlobalPosition - positionVectorToSpriteCenterOffset) / 64.0f).Floor();
 
 				int currentPositionCheck = 1;
@@ -201,37 +204,37 @@ public partial class draggableObject : Area2D
 					// if next check should be the slot to the right of the current location
 					if (currentPositionCheck == 1 || currentPositionCheck == 7 || currentPositionCheck == 8)
 					{
-						foundValidLocation = checkPlacement(itemWidth, itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
 						directionChange = new Vector2(1, 0);
 					}
 					// if next check should be the slot below the current location
 					if (currentPositionCheck == 2)
 					{
-						foundValidLocation = checkPlacement(itemWidth, itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
 						directionChange = new Vector2(0, 1);
 					}
 					// if next check should be the slot to the left of the current location
 					if (currentPositionCheck == 3 || currentPositionCheck == 4)
 					{
-						foundValidLocation = checkPlacement(itemWidth, itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
 						directionChange = new Vector2(-1, 0);
 					}
 					// if next check should be the slot above the current location
 					if (currentPositionCheck == 5 || currentPositionCheck == 6)
 					{
-						foundValidLocation = checkPlacement(itemWidth, itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
 						directionChange = new Vector2(0, -1);
 					}
 					// if this is the last check
 					if (currentPositionCheck == 9)
 					{
-						foundValidLocation = checkPlacement(itemWidth, itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
 						break;
 					}
 					// exit loop if checked location was valid
 					if (foundValidLocation)
 					{
-						/*
+						
 						GD.Print("I found a location!\nCurrent grid:\n");
 						GD.Print($"{Convert.ToInt32(itemGrid[0][0])}, {Convert.ToInt32(itemGrid[0][1])}, {Convert.ToInt32(itemGrid[0][2])}, {Convert.ToInt32(itemGrid[0][3])}, {Convert.ToInt32(itemGrid[0][4])}, {Convert.ToInt32(itemGrid[0][5])}, {Convert.ToInt32(itemGrid[0][6])}, {Convert.ToInt32(itemGrid[0][7])}, {Convert.ToInt32(itemGrid[0][8])}, {Convert.ToInt32(itemGrid[0][9])}");
 						GD.Print($"{Convert.ToInt32(itemGrid[1][0])}, {Convert.ToInt32(itemGrid[1][1])}, {Convert.ToInt32(itemGrid[1][2])}, {Convert.ToInt32(itemGrid[1][3])}, {Convert.ToInt32(itemGrid[1][4])}, {Convert.ToInt32(itemGrid[1][5])}, {Convert.ToInt32(itemGrid[1][6])}, {Convert.ToInt32(itemGrid[1][7])}, {Convert.ToInt32(itemGrid[1][8])}, {Convert.ToInt32(itemGrid[1][9])}");
@@ -243,7 +246,7 @@ public partial class draggableObject : Area2D
 						GD.Print($"{Convert.ToInt32(itemGrid[7][0])}, {Convert.ToInt32(itemGrid[7][1])}, {Convert.ToInt32(itemGrid[7][2])}, {Convert.ToInt32(itemGrid[7][3])}, {Convert.ToInt32(itemGrid[7][4])}, {Convert.ToInt32(itemGrid[7][5])}, {Convert.ToInt32(itemGrid[7][6])}, {Convert.ToInt32(itemGrid[7][7])}, {Convert.ToInt32(itemGrid[7][8])}, {Convert.ToInt32(itemGrid[7][9])}");
 						GD.Print($"{Convert.ToInt32(itemGrid[8][0])}, {Convert.ToInt32(itemGrid[8][1])}, {Convert.ToInt32(itemGrid[8][2])}, {Convert.ToInt32(itemGrid[8][3])}, {Convert.ToInt32(itemGrid[8][4])}, {Convert.ToInt32(itemGrid[8][5])}, {Convert.ToInt32(itemGrid[8][6])}, {Convert.ToInt32(itemGrid[8][7])}, {Convert.ToInt32(itemGrid[8][8])}, {Convert.ToInt32(itemGrid[8][9])}");
 						GD.Print($"{Convert.ToInt32(itemGrid[9][0])}, {Convert.ToInt32(itemGrid[9][1])}, {Convert.ToInt32(itemGrid[9][2])}, {Convert.ToInt32(itemGrid[9][3])}, {Convert.ToInt32(itemGrid[9][4])}, {Convert.ToInt32(itemGrid[9][5])}, {Convert.ToInt32(itemGrid[9][6])}, {Convert.ToInt32(itemGrid[9][7])}, {Convert.ToInt32(itemGrid[9][8])}, {Convert.ToInt32(itemGrid[9][9])}");
-						*/
+						
 						break;
 					}
 					currentPositionCheck++; // increment to check next location
@@ -253,40 +256,45 @@ public partial class draggableObject : Area2D
 				if (foundValidLocation)
 				{
 					// Mark grid as filled where item will be
-					for (int i = 0; i < itemWidth; i++)
+					for (int i = 0; i < parentData.itemWidth; i++)
 					{
 						// for row in current item height
-						for (int j = 0; j < itemHeight; j++)
+						for (int j = 0; j < parentData.itemHeight; j++)
 						{
-							// at placement row + j (object height) - at placement column + i (object width)
-							// mark filled
-							itemGrid[(int)(j + positionVector.Y)][(int)(i + positionVector.X)] = true;
+							if (parentData.itemGrid[j][i]) // if slot in hitbox is taken by item, mark true
+							{
+								// at placement row + j (object height) - at placement column + i (object width)
+								// mark filled
+								itemGrid[(int)(j + positionVector.Y)][(int)(i + positionVector.X)] = true;
+							}
 						}
 					}
+
+					
 					
 					// remove from list of items in storage if it was in storage
-					if ((Vector2)parent.GetMeta("positionVector") == new Vector2(-1, -1))
+					if (parentData.positionVector == new Vector2(-1, -1))
 					{
 						Global.Instance.itemsInHolding.Remove(this);
 						updateStorage();
 					}
 
 					// calculate location of center of item
-					float yLocation = topOffset + (positionVector.Y * 64) + ((itemHeight * 64) / 2.0f);
-					float xLocation = leftOffset + (positionVector.X * 64) + ((itemWidth * 64) / 2.0f);
+					float yLocation = topOffset + (positionVector.Y * 64) + ((parentData.itemHeight * 64) / 2.0f);
+					float xLocation = leftOffset + (positionVector.X * 64) + ((parentData.itemWidth * 64) / 2.0f);
 					
 					// set location of center of item
 					parent.Position = new Godot.Vector2(xLocation, yLocation);
-					parent.SetMeta("positionVector", positionVector);
+					parentData.positionVector = positionVector;
 
 					// update itemgrid
 					Global.Instance.itemGrid = itemGrid;
 				}
 				else // move to storage
 				{ 
-					if ((Vector2)parent.GetMeta("positionVector") != new Vector2(-1, -1))
+					if (parentData.positionVector != new Vector2(-1, -1))
 					{ // if not already in storage: update position vector and add to storage items
-						parent.SetMeta("positionVector", new Vector2(-1, -1));
+						parentData.positionVector = new Vector2(-1, -1);
 						Global.Instance.itemsInHolding.Add(this);
 					}
 					updateStorage(); // update storage item positions
@@ -316,20 +324,13 @@ public partial class draggableObject : Area2D
 				{
 					if (rotateTimer >= rotateDelay)
 					{
-						int itemWidth = (int)parent.GetMeta("tileWidth");
-						int itemHeight = (int)parent.GetMeta("tileHeight");
-
+						ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
+						
 						// rotate -90 degrees
 						parent.RotationDegrees = parent.RotationDegrees - 90;
 
-						// flip width/height
-						int itemHeightTemp = itemHeight;
-						itemHeight = itemWidth;
-						itemWidth = itemHeightTemp;
-
-						// save flipped width/height
-						parent.SetMeta("tileWidth", itemWidth);
-						parent.SetMeta("tileHeight", itemHeight);
+						// effect in data
+						parentData.rotateCounterClockwise();
 
 						// reset timer for delay
 						rotateTimer = 0.0f;
@@ -339,20 +340,14 @@ public partial class draggableObject : Area2D
 				{
 					if (rotateTimer >= rotateDelay)
 					{
-						int itemWidth = (int)parent.GetMeta("tileWidth");
-						int itemHeight = (int)parent.GetMeta("tileHeight");
+						ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
+
 
 						// rotate 90 degrees
 						parent.RotationDegrees = parent.RotationDegrees + 90;
 
-						// flip width/height
-						int itemHeightTemp = itemHeight;
-						itemHeight = itemWidth;
-						itemWidth = itemHeightTemp;
-
-						// save flipped width/height
-						parent.SetMeta("tileWidth", itemWidth);
-						parent.SetMeta("tileHeight", itemHeight);
+						// effect in data
+						parentData.rotateClockwise();
 
 						// reset timer for delay
 						rotateTimer = 0.0f;

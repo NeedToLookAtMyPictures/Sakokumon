@@ -14,16 +14,10 @@
 [node name="ItemInspection" type="Node2D" unique_id=1346857749]
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=1753863181]
-position = Vector2(324, 324)
-scale = Vector2(648, 648)
+position = Vector2(576, 324)
+scale = Vector2(1152, 648)
 texture = SubResource("PlaceholderTexture2D_lkbh4")
 flip_h = true
-flip_v = true
-
-[node name="BackgroundSprite" type="Sprite2D" parent="BackgroundSprite" unique_id=1715608636]
-position = Vector2(0.875, 0)
-scale = Vector2(0.75, 1)
-texture = SubResource("PlaceholderTexture2D_lkbh4")
 flip_v = true
 
 [node name="InspectionBox" type="Node2D" parent="." unique_id=140198155]

@@ -1,7 +1,11 @@
 using Godot;
+using System.Threading; // CancellationTokenSource
+using System.Threading.Tasks; // Task
 
 public partial class MusicManager : Node
 {
+	private CancellationTokenSource _cts;
+
 	private AudioStreamPlayer _musicPlayer;
 	private AudioStreamPlayer _sfxPlayer;
 
@@ -39,18 +43,50 @@ public partial class MusicManager : Node
 		AddChild(_musicPlayer);
 
 		_sfxPlayer = new AudioStreamPlayer();
-		_sfxPlayer.Bus = "Master";
+		_sfxPlayer.Bus = "SFX";
 		AddChild(_sfxPlayer);
 	}
 
 	public override void _Process(double delta) { }
 
-	public void Play(AudioStream stream)
+	public void Play(AudioStream stream, bool stopCurrentTrack = true)
 	{
+		if (stopCurrentTrack)
+		{
+			// used to force PlayAndWait to stop
+			_cts?.Cancel();
+			_cts = new CancellationTokenSource();
+		}
+
+		// ignore repeated stream
 		if (_musicPlayer.Stream == stream && _musicPlayer.Playing)
 			return;
+
 		_musicPlayer.Stream = stream;
 		_musicPlayer.Play();
+	}
+
+	public async Task PlayAndWait(AudioStream stream)
+	{
+		_cts?.Cancel();
+		_cts = new CancellationTokenSource();
+		var token = _cts.Token;
+
+		_musicPlayer.Stream = stream;
+		_musicPlayer.Play();
+
+		try
+		{
+			while (_musicPlayer.Playing)
+			{
+				await Task.Delay(100, token);
+			}
+			GD.Print("PlayAndWait completed naturally");
+		}
+		catch 
+		{
+			GD.Print("NOTICE: PlayAndWait was stopped by another track");
+		}
 	}
 
 	public void PlayButtonSfx()

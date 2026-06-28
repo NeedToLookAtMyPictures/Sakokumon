@@ -36,7 +36,3 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="Sakokumon"
-
-[rendering]
-
-textures/canvas_textures/default_texture_filter=0

@@ -234,8 +234,9 @@ namespace Data
         }
 		public void save() // saves the current game as stored in the Data attr of database
 		{
-			GD.Print($"saving {data.name}.save");
-			var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.WriteRead);
+			data.lastUpdated = DateTime.Now;
+			if (!DirAccess.DirExistsAbsolute("user://saves")) DirAccess.MakeDirAbsolute("user://saves");
+			using var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.WriteRead);
 			if (file == null)
 			{
 				GD.PrintErr($"Failed to open file: {Godot.FileAccess.GetOpenError()}");
@@ -246,7 +247,8 @@ namespace Data
 			GD.Print(datastring);
             file.StoreString(datastring);
 			file.Close();
-            GD.Print("Saved!");
+            GD.Print($"Debug: File Saved to {ProjectSettings.GlobalizePath(file.GetPath())}");
+
 
 		}
 

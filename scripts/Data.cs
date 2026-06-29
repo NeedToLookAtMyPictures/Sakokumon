@@ -26,19 +26,31 @@ namespace Data
 
 	public class Item
 	{
+		public Item() {}
 		// props
 		public string Name {get; set;}
 		public int Id {get; set;}
-		public string Path {get; set;}
-		public bool contraband {get; set;}
+		public string[] Textures {
+			get => textures; 
+			set
+			{
+				foreach (var texture in textures)
+				if (!Godot.FileAccess.FileExists(texture)) throw new Exception($"{texture} does not exist");
+			}
+		}
 		public string type {get; set;}
-		private List<List<bool>> size;
+		
         public List<List<bool>> Size
         {
             get => size; 
 			set
 			{
 				if (value.Count < 1) throw new Exception("Size must be greater than 0");
+				var rowsize = value[0].Count;
+				foreach (var row in value)
+				{
+					if (row.Count != rowsize) throw new Exception("All rows must be same length");
+				}
 				size = value;
 			}
 		}
@@ -48,6 +60,26 @@ namespace Data
 		public int legalStartYear {get; set;} // -1 = never legal
 		public int legalEndYear {get; set;}
 
+		// DO NOT DEFINE IN JSON
+		private string[] textures;
+		private List<List<bool>> size;
+		public int Length { get
+			{
+				return size.Count;
+			}
+		}
+		public int Width { get
+			{
+				return size[0].Count;
+			}
+		}
+		// END DO NOT DEFINE IN JSON
+
+		// 0 = clockwise, 1 = counterclockwise
+		public void rotate(int rotation) 
+		{
+			
+		}
 	}
 
 
@@ -63,7 +95,6 @@ namespace Data
 		public Asset torso {get; set;}
 		// possibly a weapon Asset?
 		// Asset weapon {get; set;}
-		
 		// we'll see...
 		// public string[] dialogue {get; set;}
         public Person() {}
@@ -81,7 +112,7 @@ namespace Data
 		
 	}
 
-	public struct Encounter
+	public struct Level
 	{
 		public Person[] people {get; set;}
 		public Stats stats {get; set;}
@@ -106,7 +137,7 @@ namespace Data
 	{
         public string name;
 		public int currentYear;
-		public Dictionary<int, Encounter> encounters;
+		public Dictionary<int, Level> levels;
 		public Stats gameStats;
         public DateTime lastUpdated;
 
@@ -122,11 +153,11 @@ namespace Data
         {
             public Dictionary<string, Asset[]> character_assets { get; set; }
             public Dictionary<string, Item[]> items { get; set; }
-            public Dictionary<int, Encounter> custom_encounters {get; set;}
+            public Dictionary<int, Level> custom_levels {get; set;}
         }
 
 		public Dictionary<string, Asset[]> cassets; // exclusively for characters
-        private Dictionary<int, Encounter> cencounters;
+        private Dictionary<int, Level> clevels;
 		public GameData data;
 		private readonly string asset_path;
 		private string data_path;
@@ -151,7 +182,7 @@ namespace Data
 			var gameData = JsonSerializer.Deserialize<AssetJson>(assetJson);
             cassets = gameData.character_assets;
             items = gameData.items;
-            cencounters = gameData.custom_encounters;
+            clevels = gameData.custom_levels;
 		}
 
         public GameData[] ListSaves()
@@ -175,7 +206,7 @@ namespace Data
         public void CreateSave(string name)
         {
             data = default;
-            data.encounters = cencounters; // loads prev custom encounters into arr
+            data.levels = clevels; // loads prev custom encounters into arr
             this.encounterGenerate();
             this.save();
 
@@ -194,7 +225,7 @@ namespace Data
 		public void encounterGenerate()
 		{
 			int max = 40;
-			int num = data.encounters != null ? data.encounters.Values.Count : 0;
+			int num = data.levels != null ? data.levels.Values.Count : 0;
 			if (num == max)
 			{
 				GD.Print("No new encounters were generated");
@@ -202,14 +233,14 @@ namespace Data
 			}
 			// defines each step(decade?) from 1600 to 2000
 
-			var encounters = new Dictionary<int, Encounter>();
+			var encounters = new Dictionary<int, Level>();
 			foreach (int step in Enumerable.Range(0,max))
 			{
 
-				if (data.encounters != null && data.encounters.TryGetValue(step,out Encounter val))
+				if (data.levels != null && data.levels.TryGetValue(step,out Level val))
 				{
 					GD.Print("Encounter already found! Skipping..");
-                    encounters[step] = data.encounters[step];
+                    encounters[step] = data.levels[step];
 					continue;
 				}
 				Person[] arr = Enumerable.Range(1,rand.Next(5,11)) // anywhere from 5-10 people
@@ -221,10 +252,10 @@ namespace Data
 					arr = arr.OrderBy(_ => Random.Shared.Next()).ToArray(); // well..
 				};
 				
-				encounters[step] = new Encounter {people = arr};
+				encounters[step] = new Level {people = arr};
 
 			}
-            data.encounters = encounters;
+            data.levels = encounters;
 			GD.Print("Generated all encounters!");
 			
 		}

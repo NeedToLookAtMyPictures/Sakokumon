@@ -121,16 +121,37 @@ namespace Data
 
 	public struct Stats
 	{
-		int inspectedGroups = 0;
-		int inspectedInnocents = 0;
-		int innocentsAccused = 0;
-		int smugglersCaught = 0;
-		int smugglersMissed = 0;
+		public int inspectedGroups = 0;
+		public int inspectedInnocents = 0;
+		public int innocentsAccused = 0;
+		public int smugglersCaught = 0;
+		public int smugglersMissed = 0;
 
-		double accuracy = 0;
-		double catchRate = 0;
+		public double accuracy = 0;
+		public double catchRate = 0;
 
         public Stats() {}
+
+		public static Stats operator +(Stats a, Stats b)
+		{
+			Stats result = new Stats();
+
+			result.inspectedGroups   = a.inspectedGroups   + b.inspectedGroups;
+			result.inspectedInnocents = a.inspectedInnocents + b.inspectedInnocents;
+			result.innocentsAccused  = a.innocentsAccused  + b.innocentsAccused;
+			result.smugglersCaught   = a.smugglersCaught   + b.smugglersCaught;
+			result.smugglersMissed   = a.smugglersMissed   + b.smugglersMissed;
+
+			// Recalculate derived stats from the combined raw counts
+			int totalSmugglers = result.smugglersCaught + result.smugglersMissed;
+			int totalInspected = result.inspectedInnocents + result.innocentsAccused;
+
+			result.accuracy   = totalInspected  > 0 ? 1.0 - ((double)result.innocentsAccused / totalInspected) : 0;
+			result.catchRate  = totalSmugglers  > 0 ? (double)result.smugglersCaught / totalSmugglers : 0;
+
+			return result;
+		}
+		
 
 	}
 	public struct GameData

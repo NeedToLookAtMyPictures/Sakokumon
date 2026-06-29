@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bph0my2a0wgld"]
+
+[ext_resource type="Script" uid="uid://dwbyejq23tt6k" path="res://scripts/Stats.cs" id="1_uuprp"]
+
+[node name="Node2D" type="Node2D" unique_id=465052785]
+
+[node name="SaveSelect" type="OptionButton" parent="." unique_id=112233445]
+offset_left = 0.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -5.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=29768826]
+offset_right = 413.0
+offset_bottom = 307.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Game Statistics"
+script = ExtResource("1_uuprp")

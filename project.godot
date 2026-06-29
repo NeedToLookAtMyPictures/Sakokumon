@@ -22,6 +22,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="res://scripts/Global.cs"
+MusicManager="uid://b7vim7c4sxxvv"
+
+[debug]
+
+settings/stdout/verbose_stdout=true
 
 [display]
 

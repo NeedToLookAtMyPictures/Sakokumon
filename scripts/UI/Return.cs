@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Return : Button
 {
@@ -14,6 +13,7 @@ public partial class Return : Button
 	}
 	
 	public void OnPressedReturn(){
+		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		var global = GetNode<Global>("/root/Global");
 		global.ReturnToPreviousScene();
 	}

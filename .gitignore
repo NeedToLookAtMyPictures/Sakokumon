@@ -22,3 +22,5 @@ mono_crash.*.json
 test.png
 
 .DS_Store
+
+test_data/

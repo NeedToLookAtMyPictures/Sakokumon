@@ -36,3 +36,7 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="Sakokumon"
+
+[editor]
+
+version_control/autoload_on_startup=true

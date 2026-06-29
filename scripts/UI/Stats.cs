@@ -24,7 +24,7 @@ public partial class Stats : RichTextLabel
 		else
 		{
 			_saveSelect.Hide();
-			DisplayStats(global.Database.data.gameStats);
+			DisplayStats(global.Database.Data.gameStats);
 		}
 	}
 

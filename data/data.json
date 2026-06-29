@@ -1,130 +1,198 @@
 {
-    "character_assets": {
-        "hair": [
-            {
-                "Name": "test",
-                "Id": 1,
-                "Path": "res://icons/assets/test.png",
-                "Width": 1,
-                "Height": 1,
-                "Type": "test item",
-                "Rotation": 1
-            }
+  "character_assets": {
+    "hair": [
+      {
+        "Name": "Topknot",
+        "Id": 1001,
+        "Path": "res://Sprites/Character/Hair/topknot.png",
+        "Width": 2,
+        "Height": 2,
+        "Type": "hair",
+        "Rotation": 0.0
+      },
+      {
+        "Name": "Ronin Loose",
+        "Id": 1002,
+        "Path": "res://Sprites/Character/Hair/ronin_loose.png",
+        "Width": 2,
+        "Height": 3,
+        "Type": "hair",
+        "Rotation": 0.0
+      }
+    ],
+    "eyes": [
+      {
+        "Name": "Narrow",
+        "Id": 2001,
+        "Path": "res://Sprites/Character/Eyes/narrow.png",
+        "Width": 2,
+        "Height": 1,
+        "Type": "eyes",
+        "Rotation": 0.0
+      },
+      {
+        "Name": "Wide",
+        "Id": 2002,
+        "Path": "res://Sprites/Character/Eyes/wide.png",
+        "Width": 2,
+        "Height": 1,
+        "Type": "eyes",
+        "Rotation": 0.0
+      }
+    ],
+    "nose": [
+      {
+        "Name": "Flat",
+        "Id": 3001,
+        "Path": "res://Sprites/Character/Nose/flat.png",
+        "Width": 1,
+        "Height": 1,
+        "Type": "nose",
+        "Rotation": 0.0
+      },
+      {
+        "Name": "Hooked",
+        "Id": 3002,
+        "Path": "res://Sprites/Character/Nose/hooked.png",
+        "Width": 1,
+        "Height": 1,
+        "Type": "nose",
+        "Rotation": 0.0
+      }
+    ],
+    "face": [
+      {
+        "Name": "Round",
+        "Id": 4001,
+        "Path": "res://Sprites/Character/Face/round.png",
+        "Width": 3,
+        "Height": 4,
+        "Type": "face",
+        "Rotation": 0.0
+      },
+      {
+        "Name": "Angular",
+        "Id": 4002,
+        "Path": "res://Sprites/Character/Face/angular.png",
+        "Width": 3,
+        "Height": 4,
+        "Type": "face",
+        "Rotation": 0.0
+      }
+    ],
+    "torso": [
+      {
+        "Name": "Kimono Base",
+        "Id": 5001,
+        "Path": "res://Sprites/Character/Torso/kimono_base.png",
+        "Width": 3,
+        "Height": 4,
+        "Type": "torso",
+        "Rotation": 0.0
+      },
+      {
+        "Name": "Merchant Coat",
+        "Id": 5002,
+        "Path": "res://Sprites/Character/Torso/merchant_coat.png",
+        "Width": 3,
+        "Height": 4,
+        "Type": "torso",
+        "Rotation": 0.0
+      }
+    ],
+    "weapon": [
+      {
+        "Name": "Katana",
+        "Id": 6001,
+        "Path": "res://Sprites/Character/Weapon/katana.png",
+        "Width": 1,
+        "Height": 4,
+        "Type": "weapon",
+        "Rotation": 0.0
+      },
+      {
+        "Name": "Tanto",
+        "Id": 6002,
+        "Path": "res://Sprites/Character/Weapon/tanto.png",
+        "Width": 1,
+        "Height": 2,
+        "Type": "weapon",
+        "Rotation": 0.0
+      }
+    ]
+  },
+  "items": {
+    "goldBar": [
+      {
+        "Name": "Gold Bar",
+        "Id": 101,
+        "Textures": [
+          "res://Sprites/goldBar.png"
         ],
-        "nose": [
-            {
-                "Name": "test",
-                "Id": 1,
-                "Path": "res://icons/assets/test.png",
-                "Width": 1,
-                "Height": 1,
-                "Type": "test item",
-                "Rotation": 1
-            }
+        "type": "goldBar",
+        "Size": [
+          [true, true],
+          [true, true]
         ],
-        "eyes": [
-            {
-                "Name": "test",
-                "Id": 1,
-                "Path": "res://icons/assets/test.png",
-                "Width": 1,
-                "Height": 1,
-                "Type": "test item",
-                "Rotation": 1
-            }
+        "introYear": 1600,
+        "exitYear": 1868,
+        "legalStartYear": 1603,
+        "legalEndYear": 1800
+      }
+    ],
+    "copperCoin": [
+      {
+        "Name": "Copper Coin",
+        "Id": 102,
+        "Textures": [
+          "res://Sprites/copperCoin.png"
         ],
-        "torso": [
-            {
-                "Name": "test",
-                "Id": 1,
-                "Path": "res://icons/assets/test.png",
-                "Width": 1,
-                "Height": 1,
-                "Type": "test item",
-                "Rotation": 1
-            }
+        "type": "copperCoin",
+        "Size": [
+          [true]
         ],
-        "face": [
-            {
-                "Name": "test",
-                "Id": 1,
-                "Path": "res://icons/assets/test.png",
-                "Width": 1,
-                "Height": 1,
-                "Type": "test item",
-                "Rotation": 1
-            }
-        ]
-    },
-    "items": {
-        "test": [
-            {
-                "Name": "test",
-                "Id": 1,
-                "Path": "res://icons/assets/test.png",
-                "Width": 1,
-                "Height": 1,
-                "Type": "test item",
-                "Rotation": 1
-            }
-        ]
-    },
-    "custom_encounters": {
-        "20": {
-            "people": [
-                {
-                    "goods": [],
-                    "id": 1,
-                    "smuggler": true,
-                    "hair": {
-                        "Name": "test",
-                        "Id": 1,
-                        "Path": "res://icons/assets/test.png",
-                        "Width": 1,
-                        "Height": 1,
-                        "Type": "test item",
-                        "Rotation": 1
-                    },
-                    "face": {
-                        "Name": "test",
-                        "Id": 1,
-                        "Path": "res://icons/assets/test.png",
-                        "Width": 1,
-                        "Height": 1,
-                        "Type": "test item",
-                        "Rotation": 1
-                    },
-                    "eyes": {
-                        "Name": "test",
-                        "Id": 1,
-                        "Path": "res://icons/assets/test.png",
-                        "Width": 1,
-                        "Height": 1,
-                        "Type": "test item",
-                        "Rotation": 1
-                    },
-                    "nose": {
-                        "Name": "test",
-                        "Id": 1,
-                        "Path": "res://icons/assets/test.png",
-                        "Width": 1,
-                        "Height": 1,
-                        "Type": "test item",
-                        "Rotation": 1
-                    },
-                    "torso": {
-                        "Name": "test",
-                        "Id": 1,
-                        "Path": "res://icons/assets/test.png",
-                        "Width": 1,
-                        "Height": 1,
-                        "Type": "test item",
-                        "Rotation": 1
-                    }
-                }
-            ],
-            "custom": true,
-            "stats": {}
-        }
-    }
+        "introYear": 1580,
+        "exitYear": 1868,
+        "legalStartYear": 1580,
+        "legalEndYear": 1868
+      }
+    ],
+    "cross": [
+      {
+        "Name": "Christian Cross",
+        "Id": 103,
+        "Textures": [
+          "res://Sprites/cross.png"
+        ],
+        "type": "cross",
+        "Size": [
+          [false, true, false],
+          [true,  true, true],
+          [false, true, false]
+        ],
+        "introYear": 1543,
+        "exitYear": 1868,
+        "legalStartYear": 1543,
+        "legalEndYear": 1597
+      }
+    ],
+    "boxBackground": [
+      {
+        "Name": "Storage Box",
+        "Id": 104,
+        "Textures": [
+          "res://Sprites/boxBackground.png"
+        ],
+        "type": "boxBackground",
+        "Size": [
+          [true, true],
+          [true, true]
+        ],
+        "introYear": 1600,
+        "exitYear": 1868,
+        "legalStartYear": 1600,
+        "legalEndYear": 1868
+      }
+    ]
+  }
 }

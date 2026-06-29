@@ -15,13 +15,10 @@ namespace Data
 		public int Id {get; set;}
 		public string Path {get; set;}
 
-		// sizes are defined in 1 grid unit (grid unit = tbd)
+		// character asset unit sizes?
 		public int Width {get; set;}
 		public int Height {get; set;}
 		public string Type {get; set;}
-		
-		public double Rotation {get; set;} // radians
-
 	}
 
 	public class Item
@@ -30,12 +27,17 @@ namespace Data
 		// props
 		public string Name {get; set;}
 		public int Id {get; set;}
-		public string[] Textures {
+		public List<string> Textures {
 			get => textures; 
 			set
 			{
-				foreach (var texture in textures)
-				if (!Godot.FileAccess.FileExists(texture)) throw new Exception($"{texture} does not exist");
+				textures = [];
+				foreach (var texture in value)
+				{
+					if (!Godot.FileAccess.FileExists(texture)) throw new Exception($"{texture} does not exist");
+					textures.Append(texture);
+				}
+				
 			}
 		}
 		public string type {get; set;}
@@ -61,7 +63,7 @@ namespace Data
 		public int legalEndYear {get; set;}
 
 		// DO NOT DEFINE IN JSON
-		private string[] textures;
+		private List<string> textures;
 		private List<List<bool>> size;
 		public int Length { get
 			{
@@ -74,12 +76,8 @@ namespace Data
 			}
 		}
 		// END DO NOT DEFINE IN JSON
-
+		public List<int> corners;
 		// 0 = clockwise, 1 = counterclockwise
-		public void rotate(int rotation) 
-		{
-			
-		}
 	}
 
 
@@ -94,7 +92,7 @@ namespace Data
 		public Asset nose {get; set;}
 		public Asset torso {get; set;}
 		// possibly a weapon Asset?
-		// Asset weapon {get; set;}
+		Asset weapon {get; set;}
 		// we'll see...
 		// public string[] dialogue {get; set;}
         public Person() {}
@@ -107,6 +105,7 @@ namespace Data
             eyes = db.cassets["eyes"].OrderBy(_ => Random.Shared.Next()).First();
             torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First();
             face = db.cassets["face"].OrderBy(_ => Random.Shared.Next()).First();
+			weapon = db.cassets["weapon"].OrderBy(_ => Random.Shared.Next()).First();
 			
 		}
 		
@@ -134,16 +133,17 @@ namespace Data
 
 		public static Stats operator +(Stats a, Stats b)
 		{
-			Stats result = new Stats();
+            Stats result = new Stats
+            {
+                inspectedGroups = a.inspectedGroups + b.inspectedGroups,
+                inspectedInnocents = a.inspectedInnocents + b.inspectedInnocents,
+                innocentsAccused = a.innocentsAccused + b.innocentsAccused,
+                smugglersCaught = a.smugglersCaught + b.smugglersCaught,
+                smugglersMissed = a.smugglersMissed + b.smugglersMissed
+            };
 
-			result.inspectedGroups   = a.inspectedGroups   + b.inspectedGroups;
-			result.inspectedInnocents = a.inspectedInnocents + b.inspectedInnocents;
-			result.innocentsAccused  = a.innocentsAccused  + b.innocentsAccused;
-			result.smugglersCaught   = a.smugglersCaught   + b.smugglersCaught;
-			result.smugglersMissed   = a.smugglersMissed   + b.smugglersMissed;
-
-			// Recalculate derived stats from the combined raw counts
-			int totalSmugglers = result.smugglersCaught + result.smugglersMissed;
+            // Recalculate derived stats from the combined raw counts
+            int totalSmugglers = result.smugglersCaught + result.smugglersMissed;
 			int totalInspected = result.inspectedInnocents + result.innocentsAccused;
 
 			result.accuracy   = totalInspected  > 0 ? 1.0 - ((double)result.innocentsAccused / totalInspected) : 0;
@@ -161,10 +161,10 @@ namespace Data
 		public Dictionary<int, Level> levels;
 		public Stats gameStats;
         public DateTime lastUpdated;
+		public GameData() {}
 
 	}
 
-	
 	public class Database
 	{
 		private static readonly Random rand = new Random();
@@ -180,21 +180,16 @@ namespace Data
 		public Dictionary<string, Asset[]> cassets; // exclusively for characters
         private Dictionary<int, Level> clevels;
 		public GameData data;
-		private readonly string asset_path;
-		private string data_path;
-
-		public string Data
-		{
-			get { return data_path; }
+		public GameData Data 
+		{ 
+			get => data; 
 			set
 			{
-				if (value == null)
-				{
-					throw new Exception("Empty data path");
-				}
-				data_path = value;
-			}
+				data = value;
+			} 
 		}
+		private readonly string asset_path;
+		
 
 		public Database(string apath)
 		{
@@ -208,15 +203,19 @@ namespace Data
 
         public GameData[] ListSaves()
         {
-            if (!DirAccess.DirExistsAbsolute("usr://saves"))
+            if (!DirAccess.DirExistsAbsolute("user://saves"))
             {
-                DirAccess.MakeDirAbsolute("usr://saves");
+                DirAccess.MakeDirAbsolute("user://saves");
                 return [];
+				
             }
-            return DirAccess.GetFilesAt("usr://saves") // list save files
-                                  .Select(x => Godot.FileAccess.GetFileAsString(x)) // open each save file
-                                  .Select(x => JsonSerializer.Deserialize<GameData>(x)) // convert to gamedata type
+			var options = new JsonSerializerOptions { IncludeFields = true };
+			var result = DirAccess.GetFilesAt("user://saves") // list save files
+                                  .Select(x => Godot.FileAccess.GetFileAsString($"user://saves/{x}")) // open each save file
+                                  .Select(x => JsonSerializer.Deserialize<GameData>(x,options)) // convert to gamedata type
                                   .ToArray();
+			
+            return result;
             
         }
         public void LoadSave(GameData save)
@@ -227,6 +226,7 @@ namespace Data
         public void CreateSave(string name)
         {
             data = default;
+			data.name = name;
             data.levels = clevels; // loads prev custom encounters into arr
             this.encounterGenerate();
             this.save();
@@ -234,9 +234,20 @@ namespace Data
         }
 		public void save() // saves the current game as stored in the Data attr of database
 		{
-			var file = Godot.FileAccess.Open($"usr://saves/{data.name}.save",Godot.FileAccess.ModeFlags.WriteRead);
-            file.StoreString(JsonSerializer.Serialize(data));
+			GD.Print($"saving {data.name}.save");
+			var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.WriteRead);
+			if (file == null)
+			{
+				GD.PrintErr($"Failed to open file: {Godot.FileAccess.GetOpenError()}");
+				return;
+			}
+			var options = new JsonSerializerOptions { IncludeFields = true };
+			var datastring = JsonSerializer.Serialize(Data, options);
+			GD.Print(datastring);
+            file.StoreString(datastring);
+			file.Close();
             GD.Print("Saved!");
+
 		}
 
 		/**

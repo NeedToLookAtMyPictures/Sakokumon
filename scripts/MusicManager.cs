@@ -66,7 +66,7 @@ public partial class MusicManager : Node
 		_musicPlayer.Play();
 	}
 
-	public async Task PlayAndWait(AudioStream stream)
+	public async Task<int> PlayAndWait(AudioStream stream)
 	{
 		_cts?.Cancel();
 		_cts = new CancellationTokenSource();
@@ -74,7 +74,6 @@ public partial class MusicManager : Node
 
 		_musicPlayer.Stream = stream;
 		_musicPlayer.Play();
-
 		try
 		{
 			while (_musicPlayer.Playing)
@@ -82,10 +81,12 @@ public partial class MusicManager : Node
 				await Task.Delay(100, token);
 			}
 			GD.Print("PlayAndWait completed naturally");
+			return 0;
 		}
 		catch 
 		{
 			GD.Print("NOTICE: PlayAndWait was stopped by another track");
+			return 1;
 		}
 	}
 

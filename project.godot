@@ -21,8 +21,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="res://scripts/Global.cs"
 MusicManager="uid://b7vim7c4sxxvv"
+Global="res://scripts/Global.cs"
 
 [display]
 

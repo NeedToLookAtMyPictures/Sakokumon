@@ -31,16 +31,13 @@ namespace Data
 			get => textures; 
 			set
 			{
-				textures = [];
 				foreach (var texture in value)
-				{
-					if (!Godot.FileAccess.FileExists(texture)) throw new Exception($"{texture} does not exist");
-					textures.Append(texture);
-				}
-				
+					if (!Godot.FileAccess.FileExists(texture))
+						throw new Exception($"{texture} does not exist");
+
+				textures = value;
 			}
 		}
-		public string type {get; set;}
 		
         public List<List<bool>> Size
         {
@@ -74,6 +71,7 @@ namespace Data
 			{
 				return size[0].Count;
 			}
+			
 		}
 		// END DO NOT DEFINE IN JSON
 		public List<int> corners;
@@ -167,13 +165,14 @@ namespace Data
 
 	public class Database
 	{
+		private JsonSerializerOptions options = new JsonSerializerOptions { IncludeFields = true };
 		private static readonly Random rand = new Random();
-		public Dictionary<string, Item[]> items;
+		public Dictionary<string, Item> items;
 
 		private struct AssetJson
         {
             public Dictionary<string, Asset[]> character_assets { get; set; }
-            public Dictionary<string, Item[]> items { get; set; }
+            public Dictionary<string, Item> items { get; set; }
             public Dictionary<int, Level> custom_levels {get; set;}
         }
 
@@ -195,9 +194,13 @@ namespace Data
 		{
 			asset_path = apath;
             string assetJson = Godot.FileAccess.GetFileAsString(asset_path);
-			var gameData = JsonSerializer.Deserialize<AssetJson>(assetJson);
+			var gameData = JsonSerializer.Deserialize<AssetJson>(assetJson, options);
             cassets = gameData.character_assets;
             items = gameData.items;
+			if (items.Count == 0)
+			{
+				throw new Exception("No items appear in the database");
+			}
             clevels = gameData.custom_levels;
 		}
 
@@ -209,7 +212,6 @@ namespace Data
                 return [];
 				
             }
-			var options = new JsonSerializerOptions { IncludeFields = true };
 			var result = DirAccess.GetFilesAt("user://saves") // list save files
                                   .Select(x => Godot.FileAccess.GetFileAsString($"user://saves/{x}")) // open each save file
                                   .Select(x => JsonSerializer.Deserialize<GameData>(x,options)) // convert to gamedata type
@@ -244,7 +246,6 @@ namespace Data
 			}
 			var options = new JsonSerializerOptions { IncludeFields = true };
 			var datastring = JsonSerializer.Serialize(Data, options);
-			GD.Print(datastring);
             file.StoreString(datastring);
 			file.Close();
             GD.Print($"Debug: File Saved to {ProjectSettings.GlobalizePath(file.GetPath())}");

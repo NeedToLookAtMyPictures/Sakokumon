@@ -1,3 +1,4 @@
+using Data;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -10,90 +11,61 @@ public partial class ObjectData : RefCounted
 	/// There should be a constructor that when called is given a tuple of data for the item type, using that as a way to have 'different types'
 	/// </summary>
 
-
-	public string itemType;
-	public string pngFilePath;
-	public int illegalStartYear;
-	public int illegalEndYear;
-	public int firstAvailableYear;
-	public int lastAvailableYear;
-
-	public int itemWidth;
-	public int itemHeight;
-	public List<List<bool>> itemGrid = [[false]];
+	public Item item;
 	public int rotationValue;
 	public bool isXFlipped;
 	public bool isYFlipped;
 	public Vector2 positionVector = Vector2.Zero;
 
-	public ObjectData(
-		(string typeName,
-		string pngFilePath,
-		int illegalStartYear,
-		int illegalEndYear,
-		int firstAvailableYear,
-		int lastAvailableYear,
-		int itemWidth,
-		int itemHeight,
-		List<List<bool>> itemGrid) itemTypeData,
-		int thisRotationValue,
-		bool isThisXFlipped,
-		bool isThisYFlipped,
-		Vector2 thisPositionVector)
+	public ObjectData (Item new_item, int thisRotationValue, bool isThisXFlipped, bool isThisYFlipped, Vector2 thisPositionVector)
 	{
-		itemType = itemTypeData.typeName;
-		pngFilePath = itemTypeData.pngFilePath;
-		illegalStartYear = itemTypeData.illegalStartYear;
-		illegalEndYear = itemTypeData.illegalEndYear;
-		firstAvailableYear = itemTypeData.firstAvailableYear;
-		lastAvailableYear = itemTypeData.lastAvailableYear;
-		itemWidth = itemTypeData.itemWidth;
-		itemHeight = itemTypeData.itemHeight;
-		itemGrid = itemTypeData.itemGrid;
+		this.item = new_item;
 		rotationValue = thisRotationValue;
 		isXFlipped = isThisXFlipped;
 		isYFlipped = isThisYFlipped;
 		positionVector = thisPositionVector;
 	}
 
-	public void swapWidthAndHeight()
-	{
-		int tempVar = itemWidth;
-		itemWidth = itemHeight;
-		itemHeight = tempVar;
-	}
+	// public void swapWidthAndHeight() redundant, pending review
+	// {
+	// 	int tempVar = itemWidth;
+	// 	itemWidth = itemHeight;
+	// 	itemHeight = tempVar;
+	// }
+
+	// we define the width as the X direction and the length as the Y direction.
 	public void rotateClockwise()
 	{
 		List<List<bool>> newItemGrid = [];
-		for (int i = 0; i < itemWidth; i++)
+		for (int i = 0; i < this.item.Width; i++)
 		{
 			// invert rows/columns because rotating clockwise
 			// each new row should be the same indexed column but read bottom up
 			List<bool> newRow = [];
-			for (int j = 0; j < this.itemHeight; j++)
+			for (int j = 0; j < this.item.Length; j++)
 			{
-				newRow.Add(this.itemGrid[this.itemHeight - 1 - j][i]);
+				newRow.Add(this.item.Size[this.item.Length - 1 - j][i]);
 			}
 			newItemGrid.Add(newRow);
 		}
-		this.itemGrid = newItemGrid;
+		this.item.Size = newItemGrid;
 
-		this.swapWidthAndHeight();
+		// this.swapWidthAndHeight();
 	}
 	public void rotateCounterClockwise()
 	{        
 		List<List<bool>> newItemGrid = [];
-		for (int i = 0; i < this.itemWidth; i++)
+		for (int i = 0; i < this.item.Width; i++)
 		{				
 			List<bool> newRow = [];
-			for (int j = 0; j < this.itemHeight; j++)
+			for (int j = 0; j < this.item.Length; j++)
 			{
-				newRow.Add(this.itemGrid[j][this.itemWidth - 1 - i]);
+				newRow.Add(this.item.Size[j][this.item.Width - 1 - i]);
 			}
 			newItemGrid.Add(newRow);
 		}
-		this.itemGrid = newItemGrid;
+		this.item.Size = newItemGrid;
 
-		this.swapWidthAndHeight();
+		// this.swapWidthAndHeight();
 	}
 }

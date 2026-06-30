@@ -28,7 +28,7 @@ public partial class draggableObject : Area2D
 			{
 				// so long as placement is within grid size (it shouldn't not be, but just in case)
 				
-				if (!currentObject.itemGrid[j][i]) // if slot at current index within item hitbox is empty, skip checking
+				if (!currentObject.item.Size[j][i]) // if slot at current index within item hitbox is empty, skip checking
 				{
 					continue;
 				}
@@ -60,7 +60,7 @@ public partial class draggableObject : Area2D
 			var parent = Global.Instance.itemsInHolding[i].GetParent<Node2D>();
 			currentHeightInStorage -= storageBuffer;
 			ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
-			int itemHeight = parentData.itemHeight * gridSnapSize;
+			int itemHeight = parentData.item.Length * gridSnapSize;
 			parent.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
 			currentHeightInStorage -= itemHeight;
 			currentHeightInStorage -= storageBuffer;
@@ -125,12 +125,12 @@ public partial class draggableObject : Area2D
 
 			if (parentData.positionVector != new Vector2(-1, -1))
 			{
-				for (int i = 0; i < parentData.itemWidth; i++)
+				for (int i = 0; i < parentData.item.Width; i++)
 				{
 					// for row in current item height
-					for (int j = 0; j < parentData.itemHeight; j++)
+					for (int j = 0; j < parentData.item.Length; j++)
 					{
-						if (parentData.itemGrid[j][i]) // if slot in hitbox is taken by item, mark false
+						if (parentData.item.Size[j][i]) // if slot in hitbox is taken by item, mark false
 						{
 							// at placement row + j (object height) - at placement column + i (object width)
 							// mark empty
@@ -192,7 +192,7 @@ public partial class draggableObject : Area2D
 				ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
 
 				// This helps handle the difference in positionVector being the top left tile of the object and the objects globalPosition being the center of the sprite, which might be very different in size
-				Vector2 positionVectorToSpriteCenterOffset = new Vector2((parentData.itemWidth - 1) * 32, (parentData.itemHeight - 1) * 32);
+				Vector2 positionVectorToSpriteCenterOffset = new Vector2((parentData.item.Width - 1) * 32, (parentData.item.Length - 1) * 32);
 				Vector2 positionVector = ((parent.GlobalPosition - positionVectorToSpriteCenterOffset) / 64.0f).Floor();
 
 				int currentPositionCheck = 1;
@@ -204,31 +204,31 @@ public partial class draggableObject : Area2D
 					// if next check should be the slot to the right of the current location
 					if (currentPositionCheck == 1 || currentPositionCheck == 7 || currentPositionCheck == 8)
 					{
-						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.item.Width, parentData.item.Length, itemGrid, positionVector);
 						directionChange = new Vector2(1, 0);
 					}
 					// if next check should be the slot below the current location
 					if (currentPositionCheck == 2)
 					{
-						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.item.Width, parentData.item.Length, itemGrid, positionVector);
 						directionChange = new Vector2(0, 1);
 					}
 					// if next check should be the slot to the left of the current location
 					if (currentPositionCheck == 3 || currentPositionCheck == 4)
 					{
-						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.item.Width, parentData.item.Length, itemGrid, positionVector);
 						directionChange = new Vector2(-1, 0);
 					}
 					// if next check should be the slot above the current location
 					if (currentPositionCheck == 5 || currentPositionCheck == 6)
 					{
-						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.item.Width, parentData.item.Length, itemGrid, positionVector);
 						directionChange = new Vector2(0, -1);
 					}
 					// if this is the last check
 					if (currentPositionCheck == 9)
 					{
-						foundValidLocation = checkPlacement(parentData, parentData.itemWidth, parentData.itemHeight, itemGrid, positionVector);
+						foundValidLocation = checkPlacement(parentData, parentData.item.Width, parentData.item.Length, itemGrid, positionVector);
 						break;
 					}
 					// exit loop if checked location was valid
@@ -256,12 +256,12 @@ public partial class draggableObject : Area2D
 				if (foundValidLocation)
 				{
 					// Mark grid as filled where item will be
-					for (int i = 0; i < parentData.itemWidth; i++)
+					for (int i = 0; i < parentData.item.Width; i++)
 					{
 						// for row in current item height
-						for (int j = 0; j < parentData.itemHeight; j++)
+						for (int j = 0; j < parentData.item.Length; j++)
 						{
-							if (parentData.itemGrid[j][i]) // if slot in hitbox is taken by item, mark true
+							if (parentData.item.Size[j][i]) // if slot in hitbox is taken by item, mark true
 							{
 								// at placement row + j (object height) - at placement column + i (object width)
 								// mark filled
@@ -280,8 +280,8 @@ public partial class draggableObject : Area2D
 					}
 
 					// calculate location of center of item
-					float yLocation = topOffset + (positionVector.Y * 64) + ((parentData.itemHeight * 64) / 2.0f);
-					float xLocation = leftOffset + (positionVector.X * 64) + ((parentData.itemWidth * 64) / 2.0f);
+					float yLocation = topOffset + (positionVector.Y * 64) + ((parentData.item.Length * 64) / 2.0f);
+					float xLocation = leftOffset + (positionVector.X * 64) + ((parentData.item.Width * 64) / 2.0f);
 					
 					// set location of center of item
 					parent.Position = new Godot.Vector2(xLocation, yLocation);

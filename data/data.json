@@ -130,7 +130,8 @@
           "res://Sprites/goldBar.png"
         ],
             "Size": [
-          [true, true]
+          [true],
+          [true]
         ],
         "introYear": 1600,
         "exitYear": 1868,
@@ -149,8 +150,8 @@
         ],
         "introYear": 1580,
         "exitYear": 1868,
-        "legalStartYear": 1580,
-        "legalEndYear": 1868
+        "legalStartYear": 2000,
+        "legalEndYear": 3000
       },
     "cross":
       {
@@ -167,8 +168,8 @@
         ],
         "introYear": 1543,
         "exitYear": 1868,
-        "legalStartYear": 1543,
-        "legalEndYear": 1597
+        "legalStartYear": 0,
+        "legalEndYear": 2000
       }
     }
 }

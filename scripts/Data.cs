@@ -222,12 +222,17 @@ namespace Data
         }
         public void LoadSave(GameData save)
         {
+			
             data = save;
         }
 		
         public void CreateSave(string name)
         {
-            data = default;
+            data = new GameData
+            {
+				name = name,
+                levels = clevels // loads prev custom encounters into arr
+            };
 			data.name = name;
             data.levels = clevels; // loads prev custom encounters into arr
             this.encounterGenerate();
@@ -238,7 +243,7 @@ namespace Data
 		{
 			data.lastUpdated = DateTime.Now;
 			if (!DirAccess.DirExistsAbsolute("user://saves")) DirAccess.MakeDirAbsolute("user://saves");
-			using var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.WriteRead);
+			using var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.Write);
 			if (file == null)
 			{
 				GD.PrintErr($"Failed to open file: {Godot.FileAccess.GetOpenError()}");

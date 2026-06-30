@@ -44,11 +44,11 @@ public partial class ObjectData : RefCounted
 			List<bool> newRow = [];
 			for (int j = 0; j < this.item.Length; j++)
 			{
-				newRow.Add(this.item.Size[this.item.Length - 1 - j][i]);
+				newRow.Add(this.item.Grid[this.item.Length - 1 - j][i]);
 			}
 			newItemGrid.Add(newRow);
 		}
-		this.item.Size = newItemGrid;
+		this.item.Grid = newItemGrid;
 
 		// this.swapWidthAndHeight();
 	}
@@ -60,11 +60,11 @@ public partial class ObjectData : RefCounted
 			List<bool> newRow = [];
 			for (int j = 0; j < this.item.Length; j++)
 			{
-				newRow.Add(this.item.Size[j][this.item.Width - 1 - i]);
+				newRow.Add(this.item.Grid[j][this.item.Width - 1 - i]);
 			}
 			newItemGrid.Add(newRow);
 		}
-		this.item.Size = newItemGrid;
+		this.item.Grid = newItemGrid;
 
 		// this.swapWidthAndHeight();
 	}

@@ -13,17 +13,20 @@ public partial class PopulateGrid : Node2D
 	bool isSmuggler = true;
 	int currentYear = 1695;
 	int difficulty = 10;
-    // on the backend this is done by changing the odds that a smuggler drops extra illegal items
-    // (1/difficulty) is the chance for smugglers to keep any illegal items beyond the first guaranteed item
-    private Dictionary<string, Item> ItemLibrary;
+	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
+	// (1/difficulty) is the chance for smugglers to keep any illegal items beyond the first guaranteed item
+
+
+	public Dictionary<string, Item> itemLibrary;
 	
-    // --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
+
+	
 
 
+	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
 
 
-
-    public static bool isIllegal(ObjectData currentObject, int currentYear)
+	public static bool isIllegal(ObjectData currentObject, int currentYear)
 	{
 				GD.Print("TRYING TO isIllegal");
 
@@ -57,11 +60,9 @@ public partial class PopulateGrid : Node2D
 
 		// create new sprite object
 		var currentObjectSprite = new Sprite2D();
-		// pull random texture
-		GD.Print($"Debug: Textures: {JsonSerializer.Serialize(currentObject.item)}");
-		var texture = currentObject.item.Textures.OrderBy(_ => Random.Shared.Next()).First();
 		
 		// load texture from file
+		var texture = currentObject.item.Textures.OrderBy(_ => Random.Shared.Next()).First();
 		Texture2D textureFile = GD.Load<Texture2D>(texture);
 		currentObjectSprite.Texture = textureFile;
 
@@ -91,8 +92,8 @@ public partial class PopulateGrid : Node2D
 
 
 		// calculate location of center of item
-		float yLocation = screenTopOffset + (currentObject.positionVector.Y * gridSizeMultiplier) + currentObject.item.Length * gridSizeMultiplier / 2.0f;
-		float xLocation = screenLeftOffset + (currentObject.positionVector.X * gridSizeMultiplier) + currentObject.item.Width * gridSizeMultiplier / 2.0f;
+		float yLocation = screenTopOffset + (currentObject.positionVector.Y * gridSizeMultiplier) + ((currentObject.item.Length * gridSizeMultiplier) / 2.0f);
+		float xLocation = screenLeftOffset + (currentObject.positionVector.X * gridSizeMultiplier) + ((currentObject.item.Width * gridSizeMultiplier) / 2.0f);
 		
 		
 		// set location of center of item
@@ -140,7 +141,7 @@ public partial class PopulateGrid : Node2D
 				}
 
 
-				if (currentObject.item.Size[j][i]) // if slot in hitbox is taken by item, mark true
+				if (currentObject.item.Grid[j][i]) // if slot in hitbox is taken by item, mark true
 						{
 							// at placement row + j (object height) - at placement column + i (object width)
 							// mark filled
@@ -165,7 +166,7 @@ public partial class PopulateGrid : Node2D
 			// for row in current item height
 			for (int j = 0; j < currentObject.item.Length; j++)
 			{
-				if (!currentObject.item.Size[j][i]) // if slot at current index within item hitbox is empty, skip checking
+				if (!currentObject.item.Grid[j][i]) // if slot at current index within item hitbox is empty, skip checking
 				{
 					continue;
 				}
@@ -244,8 +245,9 @@ public partial class PopulateGrid : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		ItemLibrary = GetNode<Global>("/root/Global").Database.items;
+		itemLibrary = GetNode<Global>("/root/Global").Database.items;
 		GD.Print("TRYING TO PLACE THINGS");
+		GD.Print(JsonSerializer.Serialize(itemLibrary["goldBar"]));
 
 		Node2D itemGridNode = this;
 
@@ -265,7 +267,7 @@ public partial class PopulateGrid : Node2D
 		Random randomGenerator = new Random();
 
 		// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
-		int attemptCount = 101;
+		int attemptCount = 10;
 		
 		// if current person is a smuggler
 		if (isSmuggler)
@@ -283,9 +285,9 @@ public partial class PopulateGrid : Node2D
 				Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
 				// randomly select class and attempt to create
-				int randomIndex = randomGenerator.Next(ItemLibrary.Count);
-				string randomItemType = ItemLibrary.Keys.ElementAt(randomGenerator.Next(ItemLibrary.Count));
-				ObjectData currentObject = new ObjectData(ItemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				int randomIndex = randomGenerator.Next(itemLibrary.Count);
+				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
+				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 				// rotate as needed
@@ -303,14 +305,14 @@ public partial class PopulateGrid : Node2D
 				// flip grid if needed
 				if (currentObject.isXFlipped)
 				{
-					for (int currRow = 0; currRow < currentObject.item.Size.Count; currRow++)
+					for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
 					{
-						currentObject.item.Size[currRow].Reverse();
+						currentObject.item.Grid[currRow].Reverse();
 					}
 				}
 				if (currentObject.isYFlipped)
 				{
-					currentObject.item.Size.Reverse();
+					currentObject.item.Grid.Reverse();
 				}
 
 				// if item is illegal, attempt placement
@@ -336,9 +338,9 @@ public partial class PopulateGrid : Node2D
 				Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
 				// randomly select class and attempt to create
-				int randomIndex = randomGenerator.Next(ItemLibrary.Count);
-				string randomItemType = ItemLibrary.Keys.ElementAt(randomGenerator.Next(ItemLibrary.Count));
-				ObjectData currentObject = new ObjectData(ItemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				int randomIndex = randomGenerator.Next(itemLibrary.Count);
+				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
+				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 				// rotate as needed
@@ -356,14 +358,14 @@ public partial class PopulateGrid : Node2D
 				// flip grid if needed
 				if (currentObject.isXFlipped)
 				{
-					for (int currRow = 0; currRow < currentObject.item.Size.Count; currRow++)
+					for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
 					{
-						currentObject.item.Size[currRow].Reverse();
+						currentObject.item.Grid[currRow].Reverse();
 					}
 				}
 				if (currentObject.isYFlipped)
 				{
-					currentObject.item.Size.Reverse();
+					currentObject.item.Grid.Reverse();
 				}
 
 				// if item is legal
@@ -387,9 +389,9 @@ public partial class PopulateGrid : Node2D
 			Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
 			// randomly select class and attempt to create
-			int randomIndex = randomGenerator.Next(ItemLibrary.Count);
-			string randomItemType = ItemLibrary.Keys.ElementAt(randomGenerator.Next(ItemLibrary.Count));
-			ObjectData currentObject = new ObjectData(ItemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+			int randomIndex = randomGenerator.Next(itemLibrary.Count);
+			string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
+			ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 			// rotate as needed
@@ -407,14 +409,14 @@ public partial class PopulateGrid : Node2D
 			// flip grid if needed
 			if (currentObject.isXFlipped)
 			{
-				for (int currRow = 0; currRow < currentObject.item.Size.Count; currRow++)
+				for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
 				{
-					currentObject.item.Size[currRow].Reverse();
+					currentObject.item.Grid[currRow].Reverse();
 				}
 			}
 			if (currentObject.isYFlipped)
 			{
-				currentObject.item.Size.Reverse();
+				currentObject.item.Grid.Reverse();
 			}
 
 			// if item is illegal

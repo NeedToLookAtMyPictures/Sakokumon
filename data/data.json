@@ -122,14 +122,14 @@
     ]
   },
   "items": {
-    "goldBar":
-      {
+    "goldBar": {
         "Name": "Gold Bar",
         "Id": 101,
         "Textures": [
           "res://Sprites/goldBar.png"
         ],
-            "Size": [
+        "type": "goldBar",
+        "Grid": [
           [true],
           [true]
         ],
@@ -137,7 +137,7 @@
         "exitYear": 1868,
         "legalStartYear": 1603,
         "legalEndYear": 1800
-      },
+    },
     "copperCoin":
       {
         "Name": "Copper Coin",
@@ -145,7 +145,8 @@
         "Textures": [
           "res://Sprites/copperCoin.png"
         ],
-        "Size": [
+        "type": "copperCoin",
+        "Grid": [
           [true]
         ],
         "introYear": 1580,
@@ -160,7 +161,8 @@
         "Textures": [
           "res://Sprites/cross.png"
         ],
-        "Size": [
+        "type": "cross",
+        "Grid": [
           [false, true, false],
           [true,  true, true],
           [false, true, false],
@@ -168,8 +170,8 @@
         ],
         "introYear": 1543,
         "exitYear": 1868,
-        "legalStartYear": 0,
-        "legalEndYear": 2000
+        "legalStartYear": 1543,
+        "legalEndYear": 1597
       }
-    }
+  }
 }

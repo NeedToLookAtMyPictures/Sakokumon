@@ -39,7 +39,7 @@ namespace Data
 			}
 		}
 		
-        public List<List<bool>> Size
+        public List<List<bool>> Grid
         {
             get => size; 
 			set

@@ -28,7 +28,7 @@ public partial class draggableObject : Area2D
 			{
 				// so long as placement is within grid size (it shouldn't not be, but just in case)
 				
-				if (!currentObject.item.Size[j][i]) // if slot at current index within item hitbox is empty, skip checking
+				if (!currentObject.item.Grid[j][i]) // if slot at current index within item hitbox is empty, skip checking
 				{
 					continue;
 				}
@@ -130,7 +130,7 @@ public partial class draggableObject : Area2D
 					// for row in current item height
 					for (int j = 0; j < parentData.item.Length; j++)
 					{
-						if (parentData.item.Size[j][i]) // if slot in hitbox is taken by item, mark false
+						if (parentData.item.Grid[j][i]) // if slot in hitbox is taken by item, mark false
 						{
 							// at placement row + j (object height) - at placement column + i (object width)
 							// mark empty
@@ -261,7 +261,7 @@ public partial class draggableObject : Area2D
 						// for row in current item height
 						for (int j = 0; j < parentData.item.Length; j++)
 						{
-							if (parentData.item.Size[j][i]) // if slot in hitbox is taken by item, mark true
+							if (parentData.item.Grid[j][i]) // if slot in hitbox is taken by item, mark true
 							{
 								// at placement row + j (object height) - at placement column + i (object width)
 								// mark filled

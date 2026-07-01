@@ -17,6 +17,6 @@ public partial class Continue : Button
 	public void OnPressedContinue()
 	{
 		var global = GetNode<Global>("/root/Global");
-		global.GoToScene("res://scenes/item_inspection.tscn");
+		global.GoToScene("res://scenes/common/item_inspection.tscn");
 	}
 }

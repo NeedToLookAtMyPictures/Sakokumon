@@ -39,7 +39,7 @@ public partial class LoadMenu : Control
 
 		var returnBtn = new Button();
 		returnBtn.Text = "Return to Main Menu";
-		backBtn.Pressed += OnReturnPressed;
+		returnBtn.Pressed += OnReturnPressed;
 		btnBar.AddChild(returnBtn);
 
 		var spacer = new Control();

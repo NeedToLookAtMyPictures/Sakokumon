@@ -151,8 +151,8 @@
         ],
         "introYear": 1580,
         "exitYear": 1868,
-        "legalStartYear": 2000,
-        "legalEndYear": 3000
+        "legalStartYear": 0,
+        "legalEndYear": 9999
       },
     "cross":
       {
@@ -170,8 +170,8 @@
         ],
         "introYear": 1543,
         "exitYear": 1868,
-        "legalStartYear": 1543,
-        "legalEndYear": 1597
+        "legalStartYear": 0,
+        "legalEndYear": 9999
       }
   }
 }

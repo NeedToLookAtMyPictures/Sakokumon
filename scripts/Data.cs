@@ -76,6 +76,21 @@ namespace Data
 		// END DO NOT DEFINE IN JSON
 		public List<int> corners;
 		// 0 = clockwise, 1 = counterclockwise
+
+		public Item Copy()
+		{
+			return new Item
+			{
+				Name = this.Name,
+				Id = this.Id,
+				Textures = this.Textures.ToList(),
+				Grid = this.Grid.ToList(),
+				introYear = this.introYear,
+				exitYear = this.exitYear,
+				legalStartYear = this.legalStartYear,
+				legalEndYear = this.legalEndYear
+			};
+		}
 	}
 
 

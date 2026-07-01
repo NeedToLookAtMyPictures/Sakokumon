@@ -11,33 +11,49 @@ public partial class ObjectData : RefCounted
 	/// There should be a constructor that when called is given a tuple of data for the item type, using that as a way to have 'different types'
 	/// </summary>
 
+
+	// public string itemType;
+	// public string pngFilePath;
+	// public int illegalStartYear;
+	// public int illegalEndYear;
+	// public int firstAvailableYear;
+	// public int lastAvailableYear;
+
+	// public int itemWidth;
+	// public int item.Length;
+	// public List<List<bool>> itemGrid = [[false]];
+
 	public Item item;
 	public int rotationValue;
 	public bool isXFlipped;
 	public bool isYFlipped;
 	public Vector2 positionVector = Vector2.Zero;
 
-	public ObjectData (Item new_item, int thisRotationValue, bool isThisXFlipped, bool isThisYFlipped, Vector2 thisPositionVector)
+	public ObjectData(
+		Item newitem,
+		int thisRotationValue,
+		bool isThisXFlipped,
+		bool isThisYFlipped,
+		Vector2 thisPositionVector
+	)
 	{
-		this.item = new_item;
+		item = newitem;
 		rotationValue = thisRotationValue;
 		isXFlipped = isThisXFlipped;
 		isYFlipped = isThisYFlipped;
 		positionVector = thisPositionVector;
 	}
 
-	// public void swapWidthAndHeight() redundant, pending review
+	// public void swapWidthAndHeight()
 	// {
 	// 	int tempVar = itemWidth;
-	// 	itemWidth = itemHeight;
-	// 	itemHeight = tempVar;
+	// 	itemWidth = item.Length;
+	// 	item.Length = tempVar;
 	// }
-
-	// we define the width as the X direction and the length as the Y direction.
 	public void rotateClockwise()
 	{
 		List<List<bool>> newItemGrid = [];
-		for (int i = 0; i < this.item.Width; i++)
+		for (int i = 0; i < item.Width; i++)
 		{
 			// invert rows/columns because rotating clockwise
 			// each new row should be the same indexed column but read bottom up

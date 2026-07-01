@@ -10,7 +10,7 @@ public partial class PopulateGrid : Node2D
 {
 
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
-	bool isSmuggler = true;
+	bool isSmuggler = false;
 	int currentYear = 1695;
 	int difficulty = 10;
 	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
@@ -80,10 +80,12 @@ public partial class PopulateGrid : Node2D
 		var objectArea = new draggableObject();
 		CollisionShape2D objectCollisionShape = new CollisionShape2D();
 
-		// create and configure item shape
-		RectangleShape2D itemShape = new RectangleShape2D();
-		itemShape.Size = new Vector2(gridSizeMultiplier * currentObject.item.Width, gridSizeMultiplier * currentObject.item.Length);
-		objectCollisionShape.Shape = itemShape;
+        // create and configure item shape
+        RectangleShape2D itemShape = new RectangleShape2D
+        {
+            Size = new Vector2(gridSizeMultiplier * currentObject.item.Width, gridSizeMultiplier * currentObject.item.Length)
+        };
+        objectCollisionShape.Shape = itemShape;
 
 		// set hierarchy
 		objectArea.AddChild(objectCollisionShape);
@@ -102,7 +104,6 @@ public partial class PopulateGrid : Node2D
 
 		// rotate item	(Location is based off of object size/position, which is calculated before this function, so no problem there)
 		rootNode.RotationDegrees = currentObject.rotationValue * 90;
-
 		// flip sprite if needed
 		if (currentObject.isXFlipped)
 		{
@@ -215,7 +216,7 @@ public partial class PopulateGrid : Node2D
 				}
 			}
 		}
-		if (validLocations.Count() != 0)
+		if (validLocations.Count() > 0)
 		{
 					GD.Print("TRYING TO PLACE THINGS (validLocations exist)");
 
@@ -247,8 +248,6 @@ public partial class PopulateGrid : Node2D
 	{
 		itemLibrary = GetNode<Global>("/root/Global").Database.items;
 		GD.Print("TRYING TO PLACE THINGS");
-		GD.Print(JsonSerializer.Serialize(itemLibrary["goldBar"]));
-
 		Node2D itemGridNode = this;
 
 
@@ -267,7 +266,7 @@ public partial class PopulateGrid : Node2D
 		Random randomGenerator = new Random();
 
 		// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
-		int attemptCount = 10;
+		int attemptCount = 104;
 		
 		// if current person is a smuggler
 		if (isSmuggler)
@@ -287,7 +286,7 @@ public partial class PopulateGrid : Node2D
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
 				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 				// rotate as needed
@@ -340,7 +339,7 @@ public partial class PopulateGrid : Node2D
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
 				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 				// rotate as needed
@@ -391,7 +390,7 @@ public partial class PopulateGrid : Node2D
 			// randomly select class and attempt to create
 			int randomIndex = randomGenerator.Next(itemLibrary.Count);
 			string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-			ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+			ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 			// rotate as needed

@@ -6,7 +6,7 @@ using System.Text.Json;
 
 
 namespace Data
-{  
+{
 	public class Asset
 	{
 		public string Name {get; set;}
@@ -17,7 +17,7 @@ namespace Data
 		public int Width {get; set;}
 		public int Height {get; set;}
 		public string Type {get; set;}
-		
+
 		public double Rotation {get; set;} // radians
 
 	}
@@ -47,7 +47,7 @@ namespace Data
 		public Asset torso {get; set;}
 		// possibly a weapon Asset?
 		// Asset weapon {get; set;}
-		
+
 		// we'll see...
 		// public string[] dialogue {get; set;}
         public Person() {}
@@ -60,9 +60,9 @@ namespace Data
             eyes = db.cassets["eyes"].OrderBy(_ => Random.Shared.Next()).First();
             torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First();
             face = db.cassets["face"].OrderBy(_ => Random.Shared.Next()).First();
-			
+
 		}
-		
+
 	}
 
 	public class Encounter
@@ -113,7 +113,16 @@ namespace Data
 		public Stats gameStats {get; set;}
 	}
 
-	
+	public class SaveSlot
+	{
+		public string SlotName { get; set; }
+		public GameData[] Saves { get; set; }
+		public DateTime LastUpdated => Saves != null && Saves.Length > 0
+			? Saves.Max(s => s.lastUpdated)
+			: DateTime.MinValue;
+	}
+
+
 	public class Database
 	{
 		private static readonly Random rand = new Random();
@@ -129,6 +138,7 @@ namespace Data
 		public Dictionary<string, Asset[]> cassets; // exclusively for characters
         private Dictionary<int, Encounter> cencounters;
 		public GameData data {get; set;}
+		public string CurrentSlotName { get; private set; }
 		private readonly string asset_path;
 		private string data_path;
 
@@ -155,19 +165,39 @@ namespace Data
             cencounters = gameData.custom_encounters;
 		}
 
+		// Parses a slot file's JSON, supporting both old single-object and new array formats.
+		private static GameData[] ParseSlotJson(string json)
+		{
+			string trimmed = json.TrimStart();
+			if (trimmed.StartsWith('['))
+				return JsonSerializer.Deserialize<GameData[]>(trimmed) ?? [];
+			var single = JsonSerializer.Deserialize<GameData>(trimmed);
+			return single != null ? [single] : [];
+		}
+
+		public SaveSlot[] ListSlots()
+		{
+			if (!DirAccess.DirExistsAbsolute("user://saves"))
+			{
+				DirAccess.MakeDirAbsolute("user://saves");
+				return [];
+			}
+			return DirAccess.GetFilesAt("user://saves/")
+				.Where(f => f.EndsWith(".save"))
+				.Select(filename =>
+				{
+					string slotName = filename.TrimSuffix(".save");
+					string json = Godot.FileAccess.GetFileAsString($"user://saves/{filename}");
+					return new SaveSlot { SlotName = slotName, Saves = ParseSlotJson(json) };
+				})
+				.ToArray();
+		}
+
         public GameData[] ListSaves()
         {
-            if (!DirAccess.DirExistsAbsolute("user://saves"))
-            {
-                DirAccess.MakeDirAbsolute("user://saves");
-                return [];
-            }
-            return DirAccess.GetFilesAt("user://saves/") // list save files
-                                  .Select(x => Godot.FileAccess.GetFileAsString($"user://saves/{x}")) // open each save file
-                                  .Select(x => JsonSerializer.Deserialize<GameData>(x)) // convert to gamedata type
-                                  .ToArray();
-            
+            return ListSlots().SelectMany(slot => slot.Saves).ToArray();
         }
+
         public void LoadSave(GameData save)
         {
 			if (save.encounters.Values.Count == 0)
@@ -176,9 +206,20 @@ namespace Data
 			}
             data = save;
         }
-		
+
+		public void LoadSaveFromSlot(string slotName, string saveName)
+		{
+			string json = Godot.FileAccess.GetFileAsString($"user://saves/{slotName}.save");
+			GameData[] saves = ParseSlotJson(json);
+			var save = saves.FirstOrDefault(s => s.name == saveName)
+				?? throw new Exception($"Save '{saveName}' not found in slot '{slotName}'");
+			CurrentSlotName = slotName;
+			data = save;
+		}
+
         public void CreateSave(string name)
         {
+			CurrentSlotName = name;
             data = new GameData
             {
 				name = name,
@@ -187,11 +228,30 @@ namespace Data
             this.encounterGenerate();
             this.save();
         }
-		public void save() // saves the current game as stored in the Data attr of database
+
+		public void save()
 		{
 			data.lastUpdated = DateTime.Now;
 			if (!DirAccess.DirExistsAbsolute("user://saves")) DirAccess.MakeDirAbsolute("user://saves");
-			using var file = Godot.FileAccess.Open($"user://saves/{data.name}.save",Godot.FileAccess.ModeFlags.Write);
+
+			string slotName = CurrentSlotName ?? data.name;
+			string path = $"user://saves/{slotName}.save";
+
+			// Read existing saves in this slot (supports old single-object format)
+			GameData[] existing = [];
+			if (Godot.FileAccess.FileExists(path))
+			{
+				string existingJson = Godot.FileAccess.GetFileAsString(path);
+				existing = ParseSlotJson(existingJson);
+			}
+
+			// Replace the matching entry by name, or append as a new save
+			var list = existing.ToList();
+			int idx = list.FindIndex(s => s.name == data.name);
+			if (idx >= 0) list[idx] = data;
+			else list.Add(data);
+
+			using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Write);
 			GD.Print($"Debug: File Saved to {ProjectSettings.GlobalizePath(file.GetPath())}");
 			if (file == null)
 			{
@@ -199,12 +259,12 @@ namespace Data
 				GD.Print($"error: {err}");
 				return;
 			}
-            file.StoreString(JsonSerializer.Serialize(data));
+            file.StoreString(JsonSerializer.Serialize(list));
             GD.Print("Saved!");
 		}
 
 		/**
-            * Generates up to max (40) unique encounters with 5-10 persons per encounter, 
+            * Generates up to max (40) unique encounters with 5-10 persons per encounter,
             * less any existing/custom encounters, and stores them in GameData.
 		*/
 		public void encounterGenerate()
@@ -236,13 +296,13 @@ namespace Data
 					arr[^1] = new Person(this, arr.Count() - 1, true);
 					arr = arr.OrderBy(_ => Random.Shared.Next()).ToArray(); // well..
 				};
-				
+
 				encounters[step] = new Encounter {people = arr};
 
 			}
             data.encounters = encounters;
 			GD.Print("Generated all encounters!");
-			
+
 		}
 
 	}

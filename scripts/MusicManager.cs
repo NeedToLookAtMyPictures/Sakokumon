@@ -1,18 +1,21 @@
 using Godot;
-using System.Threading; // CancellationTokenSource
-using System.Threading.Tasks; // Task
+using System.Collections.Generic;
 
 public partial class MusicManager : Node
 {
-	private CancellationTokenSource _cts;
-
 	private AudioStreamPlayer _musicPlayer;
 	private AudioStreamPlayer _sfxPlayer;
 
 	private readonly AudioStream _buttonClickSfx = GD.Load<AudioStream>("res://assets/audio/kenney_ui_audio/click1.wav");
+	private readonly AudioStream _mainMenuSong = GD.Load<AudioStream>("res://assets/audio/music/hitslab-japan-japanese-music-502006.mp3");
 
-	private float _musicVolume { get; set; } = 1.0f;
-	private float _sfxVolume { get; set; } = 1.0f;
+	private float _musicVolume = 1.0f;
+	private float _sfxVolume = 1.0f;
+
+	private readonly List<AudioStream> _playlist = [];
+	private readonly Queue<AudioStream> _queue = [];
+	private AudioStream _lastPlayed;
+	private readonly RandomNumberGenerator _rng = new();
 
 	public float MusicVolume
 	{
@@ -41,53 +44,75 @@ public partial class MusicManager : Node
 		_musicPlayer = new AudioStreamPlayer();
 		_musicPlayer.Bus = "Music";
 		AddChild(_musicPlayer);
+		_musicPlayer.Finished += OnMusicFinished;
 
 		_sfxPlayer = new AudioStreamPlayer();
 		_sfxPlayer.Bus = "SFX";
 		AddChild(_sfxPlayer);
+
+		LoadMusicFromDirectory("res://assets/audio/music");
+
+		// Initial queue: main menu song first, then a shuffle that won't start with it
+		_queue.Enqueue(_mainMenuSong);
+		EnqueueShuffledPlaylist(avoidFirst: _mainMenuSong);
+
+		PlayFromQueue();
 	}
 
-	public override void _Process(double delta) { }
-
-	public void Play(AudioStream stream, bool stopCurrentTrack = true)
+	private void OnMusicFinished()
 	{
-		if (stopCurrentTrack)
+		_lastPlayed = _musicPlayer.Stream;
+		PlayFromQueue();
+	}
+
+	private void PlayFromQueue()
+	{
+		if (_queue.Count == 0)
+			EnqueueShuffledPlaylist(avoidFirst: _lastPlayed);
+
+		if (_queue.Count == 0)
 		{
-			// used to force PlayAndWait to stop
-			_cts?.Cancel();
-			_cts = new CancellationTokenSource();
+			GD.PushWarning("MusicManager: no tracks available to play");
+			return;
 		}
 
-		// ignore repeated stream
+		var stream = _queue.Dequeue();
+		_musicPlayer.Stream = stream;
+		_musicPlayer.Play();
+	}
+
+	private void EnqueueShuffledPlaylist(AudioStream avoidFirst = null)
+	{
+		var shuffled = new List<AudioStream>(_playlist);
+
+		// Fisher-Yates shuffle
+		for (int i = shuffled.Count - 1; i > 0; i--)
+		{
+			int j = _rng.RandiRange(0, i);
+			(shuffled[i], shuffled[j]) = (shuffled[j], shuffled[i]);
+		}
+
+		// If the first track would immediately repeat the last played song, swap it elsewhere
+		if (avoidFirst != null && shuffled.Count > 1 && shuffled[0] == avoidFirst)
+		{
+			int swapIdx = _rng.RandiRange(1, shuffled.Count - 1);
+			(shuffled[0], shuffled[swapIdx]) = (shuffled[swapIdx], shuffled[0]);
+		}
+
+		foreach (var song in shuffled)
+			_queue.Enqueue(song);
+	}
+
+	// Clears the queue and immediately plays a specific track; the shuffled queue resumes when it ends
+	public void Play(AudioStream stream)
+	{
+		_queue.Clear();
+
 		if (_musicPlayer.Stream == stream && _musicPlayer.Playing)
 			return;
 
 		_musicPlayer.Stream = stream;
 		_musicPlayer.Play();
-	}
-
-	public async Task<int> PlayAndWait(AudioStream stream)
-	{
-		_cts?.Cancel();
-		_cts = new CancellationTokenSource();
-		var token = _cts.Token;
-
-		_musicPlayer.Stream = stream;
-		_musicPlayer.Play();
-		try
-		{
-			while (_musicPlayer.Playing)
-			{
-				await Task.Delay(100, token);
-			}
-			GD.Print("PlayAndWait completed naturally");
-			return 0;
-		}
-		catch 
-		{
-			GD.Print("NOTICE: PlayAndWait was stopped by another track");
-			return 1;
-		}
 	}
 
 	public void PlayButtonSfx()
@@ -104,5 +129,32 @@ public partial class MusicManager : Node
 	public bool IsPlaying()
 	{
 		return _musicPlayer.Playing;
+	}
+
+	private void LoadMusicFromDirectory(string path)
+	{
+		var directory = DirAccess.Open(path);
+		if (directory == null)
+		{
+			GD.PushWarning("ERROR: /assets/audio/music does not exist");
+			return;
+		}
+
+		directory.ListDirBegin();
+		string fileName = directory.GetNext();
+		while (fileName != "")
+		{
+			if (!directory.CurrentIsDir() && fileName.EndsWith(".mp3"))
+			{
+				var stream = GD.Load<AudioStream>(path + "/" + fileName);
+				if (stream != null)
+				{
+					_playlist.Add(stream);
+					GD.Print($"Loaded: {fileName}");
+				}
+			}
+			fileName = directory.GetNext();
+		}
+		directory.ListDirEnd();
 	}
 }

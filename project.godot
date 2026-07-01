@@ -38,3 +38,7 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="Sakokumon"
+
+[editor]
+
+version_control/autoload_on_startup=true

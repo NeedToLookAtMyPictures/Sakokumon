@@ -4,59 +4,26 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using Data;
+using System.Text.Json;
 
 public partial class PopulateGrid : Node2D
 {
 
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
-	bool isSmuggler = true;
+	bool isSmuggler = false;
 	int currentYear = 1695;
 	int difficulty = 10;
 	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
 	// (1/difficulty) is the chance for smugglers to keep any illegal items beyond the first guaranteed item
 
 
-	public Dictionary<String, (string typeName,
-		string pngFilePath,
-		int illegalStartYear,
-		int illegalEndYear,
-		int firstAvailableYear,
-		int lastAvailableYear,
-		int itemWidth,
-		int itemHeight,
-		List<List<bool>> itemGrid)> itemLibrary = new()
-	{
-		{ "goldBar", ("goldBar",
-		"Sprites/goldBar.png",
-		1700, 9999, // 1700 - 9999
-		0, 9999,
-		1, 2,
-		[[true], [true]]) },
-		{ "copperCoin", ("copperCoin",
-		"Sprites/copperCoin.png",
-		1875, 9999, // 1875 - 9999
-		0, 9999,
-		1, 1,
-		[[true]]) },
-		{ "cross", ("cross",
-		"Sprites/cross.png",
-		1690, 9999, // 0 - 9999
-		0, 9999,
-		3, 4,
-		[[false, true, false],
-		[true, true, true],
-		[false, true, false],
-		[false, true, false]]) }
-	};
+	public Dictionary<string, Item> itemLibrary;
 	
 
 	
 
 
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
-
-
-
 
 
 	public static bool isIllegal(ObjectData currentObject, int currentYear)
@@ -68,7 +35,7 @@ public partial class PopulateGrid : Node2D
 		//		return true (illegal)
 		//	else
 		//		return false (legal)
-		if (currentObject.illegalStartYear <= currentYear && currentYear < currentObject.illegalEndYear)
+		if (currentObject.item.legalStartYear >= currentYear || currentYear >= currentObject.item.legalEndYear)
 		{
 			isIllegalNow = true;
 		}
@@ -95,7 +62,8 @@ public partial class PopulateGrid : Node2D
 		var currentObjectSprite = new Sprite2D();
 		
 		// load texture from file
-		Texture2D textureFile = GD.Load<Texture2D>(currentObject.pngFilePath);
+		var texture = currentObject.item.Textures.OrderBy(_ => Random.Shared.Next()).First();
+		Texture2D textureFile = GD.Load<Texture2D>(texture);
 		currentObjectSprite.Texture = textureFile;
 
 		// add sprite as child of root node
@@ -112,10 +80,12 @@ public partial class PopulateGrid : Node2D
 		var objectArea = new draggableObject();
 		CollisionShape2D objectCollisionShape = new CollisionShape2D();
 
-		// create and configure item shape
-		RectangleShape2D itemShape = new RectangleShape2D();
-		itemShape.Size = new Vector2(gridSizeMultiplier * currentObject.itemWidth, gridSizeMultiplier * currentObject.itemHeight);
-		objectCollisionShape.Shape = itemShape;
+        // create and configure item shape
+        RectangleShape2D itemShape = new RectangleShape2D
+        {
+            Size = new Vector2(gridSizeMultiplier * currentObject.item.Width, gridSizeMultiplier * currentObject.item.Length)
+        };
+        objectCollisionShape.Shape = itemShape;
 
 		// set hierarchy
 		objectArea.AddChild(objectCollisionShape);
@@ -124,8 +94,8 @@ public partial class PopulateGrid : Node2D
 
 
 		// calculate location of center of item
-		float yLocation = screenTopOffset + (currentObject.positionVector.Y * gridSizeMultiplier) + ((currentObject.itemHeight * gridSizeMultiplier) / 2.0f);
-		float xLocation = screenLeftOffset + (currentObject.positionVector.X * gridSizeMultiplier) + ((currentObject.itemWidth * gridSizeMultiplier) / 2.0f);
+		float yLocation = screenTopOffset + (currentObject.positionVector.Y * gridSizeMultiplier) + ((currentObject.item.Length * gridSizeMultiplier) / 2.0f);
+		float xLocation = screenLeftOffset + (currentObject.positionVector.X * gridSizeMultiplier) + ((currentObject.item.Width * gridSizeMultiplier) / 2.0f);
 		
 		
 		// set location of center of item
@@ -134,7 +104,6 @@ public partial class PopulateGrid : Node2D
 
 		// rotate item	(Location is based off of object size/position, which is calculated before this function, so no problem there)
 		rootNode.RotationDegrees = currentObject.rotationValue * 90;
-
 		// flip sprite if needed
 		if (currentObject.isXFlipped)
 		{
@@ -159,10 +128,10 @@ public partial class PopulateGrid : Node2D
 
 
 		// for column in current item width
-		for (int i = 0; i < currentObject.itemWidth; i++)
+		for (int i = 0; i < currentObject.item.Width; i++)
 		{
 			// for row in current item height
-			for (int j = 0; j < currentObject.itemHeight; j++)
+			for (int j = 0; j < currentObject.item.Length; j++)
 			{
 				// if attempting to fill already filled slot, write error message
 				if (itemGrid[(int)(j + currentObject.positionVector.Y)][(int)(i + currentObject.positionVector.X)] == true)
@@ -173,7 +142,7 @@ public partial class PopulateGrid : Node2D
 				}
 
 
-				if (currentObject.itemGrid[j][i]) // if slot in hitbox is taken by item, mark true
+				if (currentObject.item.Grid[j][i]) // if slot in hitbox is taken by item, mark true
 						{
 							// at placement row + j (object height) - at placement column + i (object width)
 							// mark filled
@@ -193,12 +162,12 @@ public partial class PopulateGrid : Node2D
 
 		bool isValid = true;
 		// for column in current item width
-		for (int i = 0; i < currentObject.itemWidth; i++)
+		for (int i = 0; i < currentObject.item.Width; i++)
 		{
 			// for row in current item height
-			for (int j = 0; j < currentObject.itemHeight; j++)
+			for (int j = 0; j < currentObject.item.Length; j++)
 			{
-				if (!currentObject.itemGrid[j][i]) // if slot at current index within item hitbox is empty, skip checking
+				if (!currentObject.item.Grid[j][i]) // if slot at current index within item hitbox is empty, skip checking
 				{
 					continue;
 				}
@@ -228,14 +197,14 @@ public partial class PopulateGrid : Node2D
 		int validLocationMaxCount = 4;
 
 		// for row in grid (where object can fit vertically (starting top left corner of item))
-		for (int j = 0; j <= itemGrid.Count() - currentObject.itemHeight; j++)
+		for (int j = 0; j <= itemGrid.Count() - currentObject.item.Length; j++)
 		{
 			if (validLocations.Count() > validLocationCheckCount)
 			{
 				break;
 			}
 			// for column in grid (where object can fit horizontally (starting top left corner of item))
-			for (int i = 0; i <= itemGrid[0].Count() - currentObject.itemWidth; i++)
+			for (int i = 0; i <= itemGrid[0].Count() - currentObject.item.Width; i++)
 			{
 				// if valid location
 				if (checkPlacement(currentObject, itemGrid, new Godot.Vector2(i, j)))
@@ -247,7 +216,7 @@ public partial class PopulateGrid : Node2D
 				}
 			}
 		}
-		if (validLocations.Count() != 0)
+		if (validLocations.Count() > 0)
 		{
 					GD.Print("TRYING TO PLACE THINGS (validLocations exist)");
 
@@ -277,8 +246,8 @@ public partial class PopulateGrid : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		itemLibrary = GetNode<Global>("/root/Global").Database.items;
 		GD.Print("TRYING TO PLACE THINGS");
-
 		Node2D itemGridNode = this;
 
 
@@ -297,7 +266,7 @@ public partial class PopulateGrid : Node2D
 		Random randomGenerator = new Random();
 
 		// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
-		int attemptCount = 101;
+		int attemptCount = 104;
 		
 		// if current person is a smuggler
 		if (isSmuggler)
@@ -317,7 +286,7 @@ public partial class PopulateGrid : Node2D
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
 				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 				// rotate as needed
@@ -335,14 +304,14 @@ public partial class PopulateGrid : Node2D
 				// flip grid if needed
 				if (currentObject.isXFlipped)
 				{
-					for (int currRow = 0; currRow < currentObject.itemGrid.Count; currRow++)
+					for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
 					{
-						currentObject.itemGrid[currRow].Reverse();
+						currentObject.item.Grid[currRow].Reverse();
 					}
 				}
 				if (currentObject.isYFlipped)
 				{
-					currentObject.itemGrid.Reverse();
+					currentObject.item.Grid.Reverse();
 				}
 
 				// if item is illegal, attempt placement
@@ -370,7 +339,7 @@ public partial class PopulateGrid : Node2D
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
 				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 				// rotate as needed
@@ -388,14 +357,14 @@ public partial class PopulateGrid : Node2D
 				// flip grid if needed
 				if (currentObject.isXFlipped)
 				{
-					for (int currRow = 0; currRow < currentObject.itemGrid.Count; currRow++)
+					for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
 					{
-						currentObject.itemGrid[currRow].Reverse();
+						currentObject.item.Grid[currRow].Reverse();
 					}
 				}
 				if (currentObject.isYFlipped)
 				{
-					currentObject.itemGrid.Reverse();
+					currentObject.item.Grid.Reverse();
 				}
 
 				// if item is legal
@@ -421,7 +390,7 @@ public partial class PopulateGrid : Node2D
 			// randomly select class and attempt to create
 			int randomIndex = randomGenerator.Next(itemLibrary.Count);
 			string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-			ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+			ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 			// rotate as needed
@@ -439,14 +408,14 @@ public partial class PopulateGrid : Node2D
 			// flip grid if needed
 			if (currentObject.isXFlipped)
 			{
-				for (int currRow = 0; currRow < currentObject.itemGrid.Count; currRow++)
+				for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
 				{
-					currentObject.itemGrid[currRow].Reverse();
+					currentObject.item.Grid[currRow].Reverse();
 				}
 			}
 			if (currentObject.isYFlipped)
 			{
-				currentObject.itemGrid.Reverse();
+				currentObject.item.Grid.Reverse();
 			}
 
 			// if item is illegal

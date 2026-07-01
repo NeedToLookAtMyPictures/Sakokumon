@@ -39,7 +39,7 @@ public partial class LoadMenu : Control
 
 		var returnBtn = new Button();
 		returnBtn.Text = "Return to Main Menu";
-		backBtn.Pressed += OnReturnPressed;
+		returnBtn.Pressed += OnReturnPressed;
 		btnBar.AddChild(returnBtn);
 
 		var spacer = new Control();
@@ -154,7 +154,7 @@ public partial class LoadMenu : Control
 		if (_selectedSlot == null || _selectedSave == null) return;
 		var global = GetNode<Global>("/root/Global");
 		global.Database.LoadSaveFromSlot(_selectedSlot, _selectedSave);
-		global.GoToScene("res://scenes/item_inspection.tscn");
+		global.GoToScene("res://scenes/common/item_inspection.tscn");
 	}
 
 	private void OnBackPressed()
@@ -170,6 +170,6 @@ public partial class LoadMenu : Control
 	{
 		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		var global = GetNode<Global>("/root/Global");
-		global.GoToScene("res://scenes/main_menu.tscn");
+		global.GoToScene("res://scenes/interface/main_menu.tscn");
 	}
 }

@@ -18,11 +18,10 @@ public partial class MainMenuOptions : Button
 		if (ID == "new"){
 			GD.Print("New Game is under construction");
 			// global.GoToScene("res://scenes/common/save-access/newgame.tscn");
-			global.GoToScene("res://scenes/item_inspection.tscn");
+			global.GoToScene("res://scenes/common/item_inspection.tscn");
 		}
 		else if (ID == "load"){
-			GD.Print("Load Game is under construction");
-			// global.GoToScene("res://scenes/common/save-access/loadgame.tscn");
+			global.GoToScene("res://scenes/interface/load_menu.tscn");
 		}
 		else if (ID == "settings"){
 			global.GoToScene("res://scenes/interface/settings.tscn");

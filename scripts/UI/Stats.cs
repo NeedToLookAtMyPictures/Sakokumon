@@ -24,7 +24,7 @@ public partial class Stats : RichTextLabel
 		else
 		{
 			_saveSelect.Hide();
-			DisplayStats(global.Database.data.gameStats);
+			DisplayStats(global.Database.Data.gameStats);
 		}
 	}
 
@@ -47,7 +47,7 @@ public partial class Stats : RichTextLabel
 			return;
 		}
 		var total = new Data.Stats();
-		foreach (var save in _saves) total += save.gameStats;
+		foreach (var save in _saves) total = total + save.gameStats;
 		DisplayStats(total);
 	}
 

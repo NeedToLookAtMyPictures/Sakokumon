@@ -49,7 +49,14 @@ public partial class ObjectData : RefCounted
 		lastAvailableYear = itemTypeData.lastAvailableYear;
 		itemWidth = itemTypeData.itemWidth;
 		itemHeight = itemTypeData.itemHeight;
-		itemGrid = itemTypeData.itemGrid;
+
+		// duplicate item grid
+		itemGrid = new List<List<bool>>(itemTypeData.itemGrid);
+		for (int currRow = 0; currRow < itemHeight; currRow++)
+		{
+			itemGrid[currRow] = new List<bool>(itemTypeData.itemGrid[currRow]);
+		}
+		
 		rotationValue = thisRotationValue;
 		isXFlipped = isThisXFlipped;
 		isYFlipped = isThisYFlipped;

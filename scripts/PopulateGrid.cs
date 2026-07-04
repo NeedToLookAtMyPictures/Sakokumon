@@ -11,7 +11,7 @@ public partial class PopulateGrid : Node2D
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
 	bool isSmuggler = true;
 	int currentYear = 1695;
-	int difficulty = 10;
+	int difficulty = 5;
 	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
 	// (1/difficulty) is the chance for smugglers to keep any illegal items beyond the first guaranteed item
 
@@ -31,7 +31,8 @@ public partial class PopulateGrid : Node2D
 		1700, 9999, // 1700 - 9999
 		0, 9999,
 		1, 2,
-		[[true], [true]]) },
+		[[true], 
+		[true]]) },
 		{ "copperCoin", ("copperCoin",
 		"Sprites/copperCoin.png",
 		1875, 9999, // 1875 - 9999
@@ -75,7 +76,7 @@ public partial class PopulateGrid : Node2D
 		return isIllegalNow;
 	}
 
-	public static void createNode(ObjectData currentObject, Node itemGridNode)
+	public void createNode(ObjectData currentObject, Node itemGridNode)
 	{
 				GD.Print("TRYING TO createNode");
 
@@ -89,6 +90,7 @@ public partial class PopulateGrid : Node2D
 
 		// add data to root node
 		rootNode.SetMeta("itemObject", currentObject);
+		rootNode.SetMeta("hoverCount", 0);
 
 
 		// create new sprite object
@@ -105,21 +107,67 @@ public partial class PopulateGrid : Node2D
 		/// I CAN DEFINE A SET OF VERTICES FOR THE COLLISION SHAPE IN THE DATABASE THEN USE THAT TO GENERATE A CollisionPolygon2D
 		/// That can be used instead of a CollisionShape2D for non rectangular/square shapes, but we will have to manually define them per shape
 
+		/// define base variables for hitbox creation
+		float xOffset;
+		float yOffset;
+
+		
+
+		// because the collision shapes will be moved & flipped with the root node the original grid is used
+		// In order to not change the one on the item, we copy it then adjust the copy instead
+		List<List<bool>> originalList = itemLibrary[currentObject.itemType].itemGrid;
+		int originalHeight = itemLibrary[currentObject.itemType].itemHeight;
+		int originalWidth = itemLibrary[currentObject.itemType].itemWidth;
 
 
+		List<List<bool>> tempItemGrid = new List<List<bool>>();
+		for (int currRow = 0; currRow < originalList.Count; currRow++)
+		{
+			tempItemGrid.Add(new List<bool>());
+			for (int currCol = 0; currCol < originalList[currRow].Count; currCol++)
+			{
+				tempItemGrid[currRow].Add(originalList[currRow][currCol]);
+			}
+		}
 
-		// generate area2d node
-		var objectArea = new draggableObject();
-		CollisionShape2D objectCollisionShape = new CollisionShape2D();
 
-		// create and configure item shape
-		RectangleShape2D itemShape = new RectangleShape2D();
-		itemShape.Size = new Vector2(gridSizeMultiplier * currentObject.itemWidth, gridSizeMultiplier * currentObject.itemHeight);
-		objectCollisionShape.Shape = itemShape;
+		// generate area2d nodes
+		for (int currRow = 0; currRow < originalList.Count; currRow++)
+		{
+			for (int currCol = 0; currCol < originalList[currRow].Count; currCol++)
+			{
+				if (tempItemGrid[currRow][currCol])
+				{
+					var objectArea = new draggableObject();
+					CollisionShape2D objectCollisionShape = new CollisionShape2D();
 
-		// set hierarchy
-		objectArea.AddChild(objectCollisionShape);
-		rootNode.AddChild(objectArea);
+					// create and configure item shape
+					RectangleShape2D itemShape = new RectangleShape2D();
+					itemShape.Size = new Vector2(gridSizeMultiplier * 1, gridSizeMultiplier * 1);
+					objectCollisionShape.Shape = itemShape;
+
+
+					// swap axis in location math if rotated 90 or 270 degrees
+					if (currentObject.rotationValue % 2 == 1)
+					{
+						yOffset = (currRow * gridSizeMultiplier) - (((originalHeight - 1) * gridSizeMultiplier) / 2.0f);
+						xOffset = (currCol * gridSizeMultiplier) - (((originalWidth - 1) * gridSizeMultiplier) / 2.0f);
+					}
+					else
+					{
+						yOffset = (currRow * gridSizeMultiplier) - (((currentObject.itemHeight - 1) * gridSizeMultiplier) / 2.0f);
+						xOffset = (currCol * gridSizeMultiplier) - (((currentObject.itemWidth - 1) * gridSizeMultiplier) / 2.0f);
+					}
+
+					objectArea.Position = new Vector2(xOffset, yOffset);
+
+					// set hierarchy
+					objectArea.AddChild(objectCollisionShape);
+					rootNode.AddChild(objectArea);
+				}
+			}
+		}
+
 
 
 
@@ -146,14 +194,12 @@ public partial class PopulateGrid : Node2D
 			// if y flipped invert y scale of object as a whole (this flips the hitbox & sprite at the same time)
 			rootNode.ApplyScale(new Vector2 (1,-1));
 		}
-
-
 				GD.Print("TRYING TO addChild");
 
 		itemGridNode.AddChild(rootNode);
 	}
 
-	public static void placeObject(ObjectData currentObject, List<List<bool>> itemGrid, Node itemGridNode)
+	public void placeObject(ObjectData currentObject, List<List<bool>> itemGrid, Node itemGridNode)
 	{
 		GD.Print("TRYING TO placeObject");
 
@@ -215,7 +261,7 @@ public partial class PopulateGrid : Node2D
 		return isValid;
 	}
 
-	public static bool attemptPlacement(ObjectData currentObject, List<List<bool>> itemGrid, ref int attemptCount, Node itemGridNode)
+	public bool attemptPlacement(ObjectData currentObject, List<List<bool>> itemGrid, ref int attemptCount, Node itemGridNode)
 	{
 				GD.Print("TRYING TO attemptPlacement");
 
@@ -268,7 +314,7 @@ public partial class PopulateGrid : Node2D
 			successfullyPlacedObject = true;
 		}
 		// increment placement attempt counter
-		GD.Print($"ItemsPlaced: {10 - attemptCount}");
+		GD.Print($"ItemsPlaced: {101 - attemptCount}");
 		attemptCount--;
 
 		return successfullyPlacedObject;
@@ -285,7 +331,7 @@ public partial class PopulateGrid : Node2D
 		// Reference data from the autoloader for the library of possible objects and the object subclasses
 		GD.Print("TRYING TO PLACE THINGS");
 		
-		// Make 12x12 grid of booleans (true if slot filled, false if empty) to represent item grid
+		// Make 10x10 grid of booleans (true if slot filled, false if empty) to represent item grid
 		List<List<bool>> itemGrid = new List<List<bool>>(10);
 
 		for (int i = 0; i < 10; i++)
@@ -307,7 +353,7 @@ public partial class PopulateGrid : Node2D
 			while (!successBool)
 			{
 				// generate random rotation, and whether the sprite will be x and/or y flipped
-				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees
+				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
 				bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
 				bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
 
@@ -315,22 +361,8 @@ public partial class PopulateGrid : Node2D
 				Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
 				// randomly select class and attempt to create
-				int randomIndex = randomGenerator.Next(itemLibrary.Count);
 				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
 				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
-
-
-				// rotate as needed
-				if (currentObject.rotationValue != 0)
-				{
-					// rotate clockwise until done
-					int currentRotation = 0;
-					while (currentRotation != currentObject.rotationValue)
-					{
-						currentObject.rotateClockwise();
-						currentRotation++;
-					}
-				}
 
 				// flip grid if needed
 				if (currentObject.isXFlipped)
@@ -344,6 +376,19 @@ public partial class PopulateGrid : Node2D
 				{
 					currentObject.itemGrid.Reverse();
 				}
+
+				// rotate as needed
+				if (currentObject.rotationValue != 0)
+				{
+					// rotate clockwise until done
+					int currentRotation = 0;
+					while (currentRotation != currentObject.rotationValue)
+					{
+						currentObject.rotateClockwise();
+						currentRotation++;
+					}
+				}
+
 
 				// if item is illegal, attempt placement
 				if (isIllegal(currentObject, currentYear))
@@ -360,7 +405,7 @@ public partial class PopulateGrid : Node2D
 			while (!successBool)
 			{
 				// generate random rotation, and whether the sprite will be x and/or y flipped
-				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees
+				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
 				bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
 				bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
 
@@ -368,22 +413,8 @@ public partial class PopulateGrid : Node2D
 				Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
 				// randomly select class and attempt to create
-				int randomIndex = randomGenerator.Next(itemLibrary.Count);
 				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
 				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
-
-
-				// rotate as needed
-				if (currentObject.rotationValue != 0)
-				{
-					// rotate clockwise until done
-					int currentRotation = 0;
-					while (currentRotation != currentObject.rotationValue)
-					{
-						currentObject.rotateClockwise();
-						currentRotation++;
-					}
-				}
 
 				// flip grid if needed
 				if (currentObject.isXFlipped)
@@ -398,6 +429,19 @@ public partial class PopulateGrid : Node2D
 					currentObject.itemGrid.Reverse();
 				}
 
+				// rotate as needed
+				if (currentObject.rotationValue != 0)
+				{
+					// rotate clockwise until done
+					int currentRotation = 0;
+					while (currentRotation != currentObject.rotationValue)
+					{
+						currentObject.rotateClockwise();
+						currentRotation++;
+					}
+				}
+
+
 				// if item is legal
 				if (!isIllegal(currentObject, currentYear))
 				{
@@ -411,7 +455,7 @@ public partial class PopulateGrid : Node2D
 		while (attemptCount > 0)
 		{
 			// generate random rotation, and whether the sprite will be x and/or y flipped
-			int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees
+			int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
 			bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
 			bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
 
@@ -419,22 +463,8 @@ public partial class PopulateGrid : Node2D
 			Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
 			// randomly select class and attempt to create
-			int randomIndex = randomGenerator.Next(itemLibrary.Count);
 			string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
 			ObjectData currentObject = new ObjectData(itemLibrary[randomItemType], randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
-
-
-			// rotate as needed
-			if (currentObject.rotationValue != 0)
-			{
-				// rotate clockwise until done
-				int currentRotation = 0;
-				while (currentRotation != currentObject.rotationValue)
-				{
-					currentObject.rotateClockwise();
-					currentRotation++;
-				}
-			}
 
 			// flip grid if needed
 			if (currentObject.isXFlipped)
@@ -448,6 +478,19 @@ public partial class PopulateGrid : Node2D
 			{
 				currentObject.itemGrid.Reverse();
 			}
+
+			// rotate as needed
+			if (currentObject.rotationValue != 0)
+			{
+				// rotate clockwise until done
+				int currentRotation = 0;
+				while (currentRotation != currentObject.rotationValue)
+				{
+					currentObject.rotateClockwise();
+					currentRotation++;
+				}
+			}
+
 
 			// if item is illegal
 			if (isIllegal(currentObject, currentYear))

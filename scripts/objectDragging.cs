@@ -7,6 +7,9 @@ public partial class draggableObject : Area2D
 {
 	private static draggableObject currentDraggedNode = null;
 	List<List<bool>> itemGrid;
+	
+	[Export] private Color glowColor = new Color(1.5f, 1.5f, 5.0f, 1.0f); // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+	private Color originalColor = new Color(1, 1, 1, 1); // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 	public static bool checkPlacement(ObjectData currentObject, int itemWidth, int itemHeight, List<List<bool>> itemGrid, Godot.Vector2 checkedLocation)
 	{
 		GD.Print("TRYING TO checkPlacement");
@@ -36,12 +39,19 @@ public partial class draggableObject : Area2D
 				// at placement row + j (object height)    &    at placement column + i (object width)
 				// if node is filled (boolean set to true)
 				// set function return value to false
-				if ((int)(j + checkedLocation.Y) < itemGrid.Capacity && (int)(i + checkedLocation.X) < itemGrid[0].Capacity)
+				if ((int)(j + checkedLocation.Y) < itemGrid.Capacity
+				&& (int)(i + checkedLocation.X) < itemGrid[0].Capacity
+				&& (int)(j + checkedLocation.Y) >= 0
+				&& (int)(i + checkedLocation.X) >= 0)
 				{
 					if (itemGrid[(int)(j + checkedLocation.Y)][(int)(i + checkedLocation.X)] == true)
 					{
 						isValid = false;
 					}
+				}
+				else // if outside of grid boundaries, set position as invalid
+				{
+					isValid = false;
 				}
 			}
 		}
@@ -55,20 +65,55 @@ public partial class draggableObject : Area2D
 		// for each item:
 		//	currentPos =- stackBuffer -> then place sprite at currentPos =- ((itemHeight * 64) / 2) -> then currentPos =- (((itemHeight * 64) / 2) + storageBuffer)
 		int currentHeightInStorage = 550;
-		for (int i = 0; i < Global.Instance.itemsInHolding.Count; i++)
+		for (int i = 0; i < Global.Instance.itemsInStorage.Count; i++)
 		{
-			var parent = Global.Instance.itemsInHolding[i].GetParent<Node2D>();
+			var currItem = Global.Instance.itemsInStorage[i];
 			currentHeightInStorage -= storageBuffer;
-			ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
+			ObjectData parentData = (ObjectData)currItem.GetMeta("itemObject");
 			int itemHeight = parentData.itemHeight * gridSnapSize;
-			parent.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
+			currItem.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
 			currentHeightInStorage -= itemHeight;
 			currentHeightInStorage -= storageBuffer;
 		}
 
 		
-		// when adding new thing to storage, add to list of items in holding, set position vector to (-1, -1), and update storage
-		// when removing from storage, remove that instance from  items in holding, set position vector, and update storage
+		// when adding new thing to storage, add to list of items in storage, set position vector to (-1, -1), and update storage
+		// when removing from storage, remove that instance from items in storage, set position vector, and update storage
+	}
+
+	private void OnMouseEntered() // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+	{        
+		GetParent().SetMeta("hoverCount", (int)GetParent().GetMeta("hoverCount") + 1);
+		Sprite2D mySprite = null;
+		foreach (Node child in GetParent().GetChildren())
+		{
+			if (child is Sprite2D spriteNode)
+			{
+				 mySprite = spriteNode;
+				break; // Stop loop once the first sprite is found
+			}
+		}
+		GD.Print("trying to make it glow");
+		mySprite.Modulate = glowColor;
+	}
+
+	private void OnMouseExited() // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+	{
+		GetParent().SetMeta("hoverCount", (int)GetParent().GetMeta("hoverCount") - 1);
+		if ((int)GetParent().GetMeta("hoverCount") <= 0)
+		{
+			Sprite2D mySprite = null;
+			foreach (Node child in GetParent().GetChildren())
+			{
+				if (child is Sprite2D spriteNode)
+				{
+					mySprite = spriteNode;
+					break; // Stop loop once the first sprite is found
+				}
+			}
+			GD.Print("trying to make it normal");
+			mySprite.Modulate = originalColor;
+		}
 	}
 
 
@@ -77,6 +122,11 @@ public partial class draggableObject : Area2D
 	public override void _Ready()
 	{
 		itemGrid = Global.Instance.itemGrid;
+
+
+		// Connect signals in code
+		MouseEntered += OnMouseEntered; // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+		MouseExited += OnMouseExited; // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 
 		SetProcessInput(true);
 	}
@@ -123,6 +173,22 @@ public partial class draggableObject : Area2D
 			// if not in storage, then empty grid locations
 			ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
 
+			
+
+			// debug info printing
+			GD.Print($"Current Rotation: position {parentData.rotationValue}");
+			GD.Print($"Current Rotation: {parent.RotationDegrees} degrees");
+			GD.Print($"Is xFlipped {parentData.isXFlipped}");
+			GD.Print($"Is yFlipped {parentData.isYFlipped}");
+			GD.Print($"current item grid:");
+			for (int currRow = 0; currRow < parentData.itemHeight; currRow++)
+			{
+				GD.Print($"{string.Join(", ", parentData.itemGrid[currRow])}");
+			}
+
+
+			
+
 			if (parentData.positionVector != new Vector2(-1, -1))
 			{
 				for (int i = 0; i < parentData.itemWidth; i++)
@@ -164,20 +230,19 @@ public partial class draggableObject : Area2D
 
 
 			// if far enough over to go into storage
-			if (GlobalPosition.X >= storageStart)
+			if (parent.GlobalPosition.X >= storageStart)
 			{
-				// move into storage
-	
 				ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
 
-				// if already in stack
+				// if already in storage
 				if (parentData.positionVector == new Vector2(-1.0f, -1.0f))
 				{
 					updateStorage(); // update positions in storage
 				}
 				else
-				{ // update locations of items in holding, also set position vector to (-1,-1) to indicate that it is in storage/holding
-					Global.Instance.itemsInHolding.Add(this);
+				{ // update locations of items in storage, also set position vector to (-1,-1) to indicate that it is in storage
+					parentData.positionVector = new Vector2(-1,-1);
+					Global.Instance.itemsInStorage.Add(parent);
 					updateStorage();
 				}
 
@@ -234,19 +299,6 @@ public partial class draggableObject : Area2D
 					// exit loop if checked location was valid
 					if (foundValidLocation)
 					{
-						
-						GD.Print("I found a location!\nCurrent grid:\n");
-						GD.Print($"{Convert.ToInt32(itemGrid[0][0])}, {Convert.ToInt32(itemGrid[0][1])}, {Convert.ToInt32(itemGrid[0][2])}, {Convert.ToInt32(itemGrid[0][3])}, {Convert.ToInt32(itemGrid[0][4])}, {Convert.ToInt32(itemGrid[0][5])}, {Convert.ToInt32(itemGrid[0][6])}, {Convert.ToInt32(itemGrid[0][7])}, {Convert.ToInt32(itemGrid[0][8])}, {Convert.ToInt32(itemGrid[0][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[1][0])}, {Convert.ToInt32(itemGrid[1][1])}, {Convert.ToInt32(itemGrid[1][2])}, {Convert.ToInt32(itemGrid[1][3])}, {Convert.ToInt32(itemGrid[1][4])}, {Convert.ToInt32(itemGrid[1][5])}, {Convert.ToInt32(itemGrid[1][6])}, {Convert.ToInt32(itemGrid[1][7])}, {Convert.ToInt32(itemGrid[1][8])}, {Convert.ToInt32(itemGrid[1][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[2][0])}, {Convert.ToInt32(itemGrid[2][1])}, {Convert.ToInt32(itemGrid[2][2])}, {Convert.ToInt32(itemGrid[2][3])}, {Convert.ToInt32(itemGrid[2][4])}, {Convert.ToInt32(itemGrid[2][5])}, {Convert.ToInt32(itemGrid[2][6])}, {Convert.ToInt32(itemGrid[2][7])}, {Convert.ToInt32(itemGrid[2][8])}, {Convert.ToInt32(itemGrid[2][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[3][0])}, {Convert.ToInt32(itemGrid[3][1])}, {Convert.ToInt32(itemGrid[3][2])}, {Convert.ToInt32(itemGrid[3][3])}, {Convert.ToInt32(itemGrid[3][4])}, {Convert.ToInt32(itemGrid[3][5])}, {Convert.ToInt32(itemGrid[3][6])}, {Convert.ToInt32(itemGrid[3][7])}, {Convert.ToInt32(itemGrid[3][8])}, {Convert.ToInt32(itemGrid[3][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[4][0])}, {Convert.ToInt32(itemGrid[4][1])}, {Convert.ToInt32(itemGrid[4][2])}, {Convert.ToInt32(itemGrid[4][3])}, {Convert.ToInt32(itemGrid[4][4])}, {Convert.ToInt32(itemGrid[4][5])}, {Convert.ToInt32(itemGrid[4][6])}, {Convert.ToInt32(itemGrid[4][7])}, {Convert.ToInt32(itemGrid[4][8])}, {Convert.ToInt32(itemGrid[4][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[5][0])}, {Convert.ToInt32(itemGrid[5][1])}, {Convert.ToInt32(itemGrid[5][2])}, {Convert.ToInt32(itemGrid[5][3])}, {Convert.ToInt32(itemGrid[5][4])}, {Convert.ToInt32(itemGrid[5][5])}, {Convert.ToInt32(itemGrid[5][6])}, {Convert.ToInt32(itemGrid[5][7])}, {Convert.ToInt32(itemGrid[5][8])}, {Convert.ToInt32(itemGrid[5][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[6][0])}, {Convert.ToInt32(itemGrid[6][1])}, {Convert.ToInt32(itemGrid[6][2])}, {Convert.ToInt32(itemGrid[6][3])}, {Convert.ToInt32(itemGrid[6][4])}, {Convert.ToInt32(itemGrid[6][5])}, {Convert.ToInt32(itemGrid[6][6])}, {Convert.ToInt32(itemGrid[6][7])}, {Convert.ToInt32(itemGrid[6][8])}, {Convert.ToInt32(itemGrid[6][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[7][0])}, {Convert.ToInt32(itemGrid[7][1])}, {Convert.ToInt32(itemGrid[7][2])}, {Convert.ToInt32(itemGrid[7][3])}, {Convert.ToInt32(itemGrid[7][4])}, {Convert.ToInt32(itemGrid[7][5])}, {Convert.ToInt32(itemGrid[7][6])}, {Convert.ToInt32(itemGrid[7][7])}, {Convert.ToInt32(itemGrid[7][8])}, {Convert.ToInt32(itemGrid[7][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[8][0])}, {Convert.ToInt32(itemGrid[8][1])}, {Convert.ToInt32(itemGrid[8][2])}, {Convert.ToInt32(itemGrid[8][3])}, {Convert.ToInt32(itemGrid[8][4])}, {Convert.ToInt32(itemGrid[8][5])}, {Convert.ToInt32(itemGrid[8][6])}, {Convert.ToInt32(itemGrid[8][7])}, {Convert.ToInt32(itemGrid[8][8])}, {Convert.ToInt32(itemGrid[8][9])}");
-						GD.Print($"{Convert.ToInt32(itemGrid[9][0])}, {Convert.ToInt32(itemGrid[9][1])}, {Convert.ToInt32(itemGrid[9][2])}, {Convert.ToInt32(itemGrid[9][3])}, {Convert.ToInt32(itemGrid[9][4])}, {Convert.ToInt32(itemGrid[9][5])}, {Convert.ToInt32(itemGrid[9][6])}, {Convert.ToInt32(itemGrid[9][7])}, {Convert.ToInt32(itemGrid[9][8])}, {Convert.ToInt32(itemGrid[9][9])}");
-						
 						break;
 					}
 					currentPositionCheck++; // increment to check next location
@@ -275,7 +327,7 @@ public partial class draggableObject : Area2D
 					// remove from list of items in storage if it was in storage
 					if (parentData.positionVector == new Vector2(-1, -1))
 					{
-						Global.Instance.itemsInHolding.Remove(this);
+						GD.Print($"Removed item from storage: {Global.Instance.itemsInStorage.Remove(parent)}");
 						updateStorage();
 					}
 
@@ -289,13 +341,25 @@ public partial class draggableObject : Area2D
 
 					// update itemgrid
 					Global.Instance.itemGrid = itemGrid;
+
+					GD.Print("I found a location!\nCurrent grid:\n");
+					GD.Print($"{Convert.ToInt32(itemGrid[0][0])}, {Convert.ToInt32(itemGrid[0][1])}, {Convert.ToInt32(itemGrid[0][2])}, {Convert.ToInt32(itemGrid[0][3])}, {Convert.ToInt32(itemGrid[0][4])}, {Convert.ToInt32(itemGrid[0][5])}, {Convert.ToInt32(itemGrid[0][6])}, {Convert.ToInt32(itemGrid[0][7])}, {Convert.ToInt32(itemGrid[0][8])}, {Convert.ToInt32(itemGrid[0][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[1][0])}, {Convert.ToInt32(itemGrid[1][1])}, {Convert.ToInt32(itemGrid[1][2])}, {Convert.ToInt32(itemGrid[1][3])}, {Convert.ToInt32(itemGrid[1][4])}, {Convert.ToInt32(itemGrid[1][5])}, {Convert.ToInt32(itemGrid[1][6])}, {Convert.ToInt32(itemGrid[1][7])}, {Convert.ToInt32(itemGrid[1][8])}, {Convert.ToInt32(itemGrid[1][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[2][0])}, {Convert.ToInt32(itemGrid[2][1])}, {Convert.ToInt32(itemGrid[2][2])}, {Convert.ToInt32(itemGrid[2][3])}, {Convert.ToInt32(itemGrid[2][4])}, {Convert.ToInt32(itemGrid[2][5])}, {Convert.ToInt32(itemGrid[2][6])}, {Convert.ToInt32(itemGrid[2][7])}, {Convert.ToInt32(itemGrid[2][8])}, {Convert.ToInt32(itemGrid[2][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[3][0])}, {Convert.ToInt32(itemGrid[3][1])}, {Convert.ToInt32(itemGrid[3][2])}, {Convert.ToInt32(itemGrid[3][3])}, {Convert.ToInt32(itemGrid[3][4])}, {Convert.ToInt32(itemGrid[3][5])}, {Convert.ToInt32(itemGrid[3][6])}, {Convert.ToInt32(itemGrid[3][7])}, {Convert.ToInt32(itemGrid[3][8])}, {Convert.ToInt32(itemGrid[3][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[4][0])}, {Convert.ToInt32(itemGrid[4][1])}, {Convert.ToInt32(itemGrid[4][2])}, {Convert.ToInt32(itemGrid[4][3])}, {Convert.ToInt32(itemGrid[4][4])}, {Convert.ToInt32(itemGrid[4][5])}, {Convert.ToInt32(itemGrid[4][6])}, {Convert.ToInt32(itemGrid[4][7])}, {Convert.ToInt32(itemGrid[4][8])}, {Convert.ToInt32(itemGrid[4][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[5][0])}, {Convert.ToInt32(itemGrid[5][1])}, {Convert.ToInt32(itemGrid[5][2])}, {Convert.ToInt32(itemGrid[5][3])}, {Convert.ToInt32(itemGrid[5][4])}, {Convert.ToInt32(itemGrid[5][5])}, {Convert.ToInt32(itemGrid[5][6])}, {Convert.ToInt32(itemGrid[5][7])}, {Convert.ToInt32(itemGrid[5][8])}, {Convert.ToInt32(itemGrid[5][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[6][0])}, {Convert.ToInt32(itemGrid[6][1])}, {Convert.ToInt32(itemGrid[6][2])}, {Convert.ToInt32(itemGrid[6][3])}, {Convert.ToInt32(itemGrid[6][4])}, {Convert.ToInt32(itemGrid[6][5])}, {Convert.ToInt32(itemGrid[6][6])}, {Convert.ToInt32(itemGrid[6][7])}, {Convert.ToInt32(itemGrid[6][8])}, {Convert.ToInt32(itemGrid[6][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[7][0])}, {Convert.ToInt32(itemGrid[7][1])}, {Convert.ToInt32(itemGrid[7][2])}, {Convert.ToInt32(itemGrid[7][3])}, {Convert.ToInt32(itemGrid[7][4])}, {Convert.ToInt32(itemGrid[7][5])}, {Convert.ToInt32(itemGrid[7][6])}, {Convert.ToInt32(itemGrid[7][7])}, {Convert.ToInt32(itemGrid[7][8])}, {Convert.ToInt32(itemGrid[7][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[8][0])}, {Convert.ToInt32(itemGrid[8][1])}, {Convert.ToInt32(itemGrid[8][2])}, {Convert.ToInt32(itemGrid[8][3])}, {Convert.ToInt32(itemGrid[8][4])}, {Convert.ToInt32(itemGrid[8][5])}, {Convert.ToInt32(itemGrid[8][6])}, {Convert.ToInt32(itemGrid[8][7])}, {Convert.ToInt32(itemGrid[8][8])}, {Convert.ToInt32(itemGrid[8][9])}");
+					GD.Print($"{Convert.ToInt32(itemGrid[9][0])}, {Convert.ToInt32(itemGrid[9][1])}, {Convert.ToInt32(itemGrid[9][2])}, {Convert.ToInt32(itemGrid[9][3])}, {Convert.ToInt32(itemGrid[9][4])}, {Convert.ToInt32(itemGrid[9][5])}, {Convert.ToInt32(itemGrid[9][6])}, {Convert.ToInt32(itemGrid[9][7])}, {Convert.ToInt32(itemGrid[9][8])}, {Convert.ToInt32(itemGrid[9][9])}");
 				}
 				else // move to storage
 				{ 
 					if (parentData.positionVector != new Vector2(-1, -1))
 					{ // if not already in storage: update position vector and add to storage items
 						parentData.positionVector = new Vector2(-1, -1);
-						Global.Instance.itemsInHolding.Add(this);
+						Global.Instance.itemsInStorage.Add(parent);
 					}
 					updateStorage(); // update storage item positions
 				}
@@ -304,16 +368,37 @@ public partial class draggableObject : Area2D
 		}
 	}
 	float rotateTimer = 1.0f;
+	float debugPrintDelay = 3.0f;
 
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		var parent =  GetParent<Node2D>();
+		ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
+
+		
+		if (debugPrintDelay >= 3 && parentData.positionVector != new Vector2(-1,-1))
+		{
+			// GD.Print($"Current Rotation: position {parentData.rotationValue}");
+			// GD.Print($"Current Rotation: {parent.RotationDegrees} degrees");
+			// GD.Print($"Is xFlipped {parentData.isXFlipped}");
+			// GD.Print($"Is yFlipped {parentData.isYFlipped}");
+			// GD.Print($"current item grid:");
+			// for (int currRow = 0; currRow < parentData.itemHeight; currRow++)
+			// {
+			// 	GD.Print($"{string.Join(", ", parentData.itemGrid[currRow])}");
+			// }
+			debugPrintDelay = 0;
+		}
+		else
+		{
+			debugPrintDelay += (float)delta;
+		}
+		
 		if (isDragging)
 		{
-			var parent =  GetParent<Node2D>();
 			parent.GlobalPosition = parent.GetGlobalMousePosition() - draggingMouseOffset;
-
 			float rotateDelay = 0.25f;
 
 			if (currentDraggedNode == this)
@@ -323,9 +408,7 @@ public partial class draggableObject : Area2D
 				if (Input.IsKeyPressed(Key.Q))
 				{
 					if (rotateTimer >= rotateDelay)
-					{
-						ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
-						
+					{						
 						// rotate -90 degrees
 						parent.RotationDegrees = parent.RotationDegrees - 90;
 
@@ -340,9 +423,6 @@ public partial class draggableObject : Area2D
 				{
 					if (rotateTimer >= rotateDelay)
 					{
-						ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
-
-
 						// rotate 90 degrees
 						parent.RotationDegrees = parent.RotationDegrees + 90;
 

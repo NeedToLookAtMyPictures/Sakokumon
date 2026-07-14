@@ -17,7 +17,7 @@ public partial class MainMenuOptions : Button
 		var global = GetNode<Global>("/root/Global");
 		if (ID == "new"){
 			GD.Print("New Game is under construction");
-			// global.GoToScene("res://scenes/common/save-access/newgame.tscn");
+			// global.GoToScene("res://scenes/common/save-access/new_game.tscn");
 			global.GoToScene("res://scenes/common/item_inspection.tscn");
 		}
 		else if (ID == "load"){

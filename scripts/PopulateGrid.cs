@@ -80,12 +80,12 @@ public partial class PopulateGrid : Node2D
 		var objectArea = new draggableObject();
 		CollisionShape2D objectCollisionShape = new CollisionShape2D();
 
-        // create and configure item shape
-        RectangleShape2D itemShape = new RectangleShape2D
-        {
-            Size = new Vector2(gridSizeMultiplier * currentObject.item.Width, gridSizeMultiplier * currentObject.item.Length)
-        };
-        objectCollisionShape.Shape = itemShape;
+		// create and configure item shape
+		RectangleShape2D itemShape = new RectangleShape2D
+		{
+			Size = new Vector2(gridSizeMultiplier * currentObject.item.Width, gridSizeMultiplier * currentObject.item.Length)
+		};
+		objectCollisionShape.Shape = itemShape;
 
 		// set hierarchy
 		objectArea.AddChild(objectCollisionShape);

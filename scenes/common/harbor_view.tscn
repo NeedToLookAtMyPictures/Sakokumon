@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://dfdf3px8tp5aa"]
+
+[ext_resource type="PackedScene" uid="uid://ce7io7fbvgiba" path="res://scenes/common/game_background.tscn" id="1_bgscn"]
+[ext_resource type="Script" uid="uid://harborview01s" path="res://scripts/HarborView.cs" id="2_hv"]
+[ext_resource type="Script" uid="uid://dbgscenenav01" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
+
+[node name="HarborView" type="Node2D" unique_id=300000001]
+script = ExtResource("2_hv")
+
+[node name="GameBackground" parent="." instance=ExtResource("1_bgscn")]
+
+[node name="NPCLayer" type="Node2D" parent="." unique_id=300000002]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=300000003]
+
+[node name="SceneLabel" type="Label" parent="UI" unique_id=300000007]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 380.0
+offset_bottom = 40.0
+text = "[ SCENE: Harbor View ]"
+modulate = Color(1, 1, 0, 1)
+
+[node name="NotificationPanel" type="Panel" parent="UI" unique_id=300000004]
+visible = false
+offset_left = 760.0
+offset_top = 20.0
+offset_right = 1160.0
+offset_bottom = 80.0
+
+[node name="NotificationLabel" type="Label" parent="UI/NotificationPanel" unique_id=300000005]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 380.0
+offset_bottom = 50.0
+text = "NPC awaiting inspection at guardpost"
+
+[node name="EnterGuardpostButton" type="Button" parent="UI" unique_id=300000006]
+visible = false
+offset_left = 760.0
+offset_top = 90.0
+offset_right = 1160.0
+offset_bottom = 150.0
+text = "Enter Guardpost"
+
+[node name="DebugPanel" type="Panel" parent="UI" unique_id=300000008]
+offset_left = 10.0
+offset_top = 900.0
+offset_right = 260.0
+offset_bottom = 1070.0
+
+[node name="DebugLabel" type="Label" parent="UI/DebugPanel" unique_id=300000009]
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 240.0
+offset_bottom = 22.0
+text = "DEBUG NAV"
+
+[node name="NavNewGame" type="Button" parent="UI/DebugPanel" unique_id=300000010]
+offset_left = 5.0
+offset_top = 26.0
+offset_right = 245.0
+offset_bottom = 56.0
+text = "-> New Game"
+script = ExtResource("3_dbg")
+
+[node name="NavNpcInteraction" type="Button" parent="UI/DebugPanel" unique_id=300000011]
+offset_left = 5.0
+offset_top = 61.0
+offset_right = 245.0
+offset_bottom = 91.0
+text = "-> NPC Interaction"
+script = ExtResource("3_dbg")
+
+[node name="NavItemInspection" type="Button" parent="UI/DebugPanel" unique_id=300000012]
+offset_left = 5.0
+offset_top = 96.0
+offset_right = 245.0
+offset_bottom = 126.0
+text = "-> Item Inspection"
+script = ExtResource("3_dbg")
+
+[node name="NavMainMenu" type="Button" parent="UI/DebugPanel" unique_id=300000013]
+offset_left = 5.0
+offset_top = 131.0
+offset_right = 245.0
+offset_bottom = 161.0
+text = "-> Main Menu"
+script = ExtResource("3_dbg")
+
+[connection signal="pressed" from="UI/EnterGuardpostButton" to="." method="OnPressedEnterGuardpost"]
+[connection signal="pressed" from="UI/DebugPanel/NavNewGame" to="UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
+[connection signal="pressed" from="UI/DebugPanel/NavNpcInteraction" to="UI/DebugPanel/NavNpcInteraction" method="OnPressedDebugNav" binds= ["res://scenes/common/npc_interaction.tscn"]]
+[connection signal="pressed" from="UI/DebugPanel/NavItemInspection" to="UI/DebugPanel/NavItemInspection" method="OnPressedDebugNav" binds= ["res://scenes/common/item_inspection.tscn"]]
+[connection signal="pressed" from="UI/DebugPanel/NavMainMenu" to="UI/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]

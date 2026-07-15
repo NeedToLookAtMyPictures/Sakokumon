@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmcoamekcci6"
-path="res://.godot/imported/cross.png-762e7b05531f86ac242a9813105c0562.ctex"
+uid="uid://7utxjs2npan7"
+path="res://.godot/imported/[PH] sideBanner.png-3ebec0e7f070a1c58566c99a0da11c53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/cross.png"
-dest_files=["res://.godot/imported/cross.png-762e7b05531f86ac242a9813105c0562.ctex"]
+source_file="res://assets/icons/main-menu/[PH] sideBanner.png"
+dest_files=["res://.godot/imported/[PH] sideBanner.png-3ebec0e7f070a1c58566c99a0da11c53.ctex"]
 
 [params]
 

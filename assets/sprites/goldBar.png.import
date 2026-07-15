@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://57ech2diknss"
-path="res://.godot/imported/copperCoin.png-0c8b1a6a3444f856aef4f01d9c5f7834.ctex"
+uid="uid://ddmbqiwwwc1r7"
+path="res://.godot/imported/goldBar.png-51648cdd8755ea1fbd73509e672a21d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/copperCoin.png"
-dest_files=["res://.godot/imported/copperCoin.png-0c8b1a6a3444f856aef4f01d9c5f7834.ctex"]
+source_file="res://assets/sprites/goldBar.png"
+dest_files=["res://.godot/imported/goldBar.png-51648cdd8755ea1fbd73509e672a21d2.ctex"]
 
 [params]
 

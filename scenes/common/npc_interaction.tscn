@@ -1,14 +1,18 @@
 [gd_scene format=3 uid="uid://b33vvnm0kp7qq"]
 
-[ext_resource type="Script" uid="uid://npcinteract1s" path="res://scripts/NpcInteraction.cs" id="1_npcroot"]
-[ext_resource type="Script" uid="uid://npcoptsbtn001" path="res://scripts/NpcInteractionOptions.cs" id="2_npcbtn"]
+[ext_resource type="Script" uid="uid://dwqlpk84pr0aa" path="res://scripts/NpcInteraction.cs" id="1_npcroot"]
+[ext_resource type="Script" uid="uid://cbktrgnm8y40u" path="res://scripts/NpcInteractionOptions.cs" id="2_npcbtn"]
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="3_ret"]
-[ext_resource type="Script" uid="uid://dbgscenenav01" path="res://scripts/DebugSceneNav.cs" id="4_dbg"]
+[ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="4_dbg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mountains"]
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bay"]
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_boardwalk"]
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_npc"]
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_frame"]
 
 [node name="NpcInteraction" type="Node2D" unique_id=400000001]
@@ -44,12 +48,12 @@ texture = SubResource("PlaceholderTexture2D_frame")
 [node name="UI" type="CanvasLayer" parent="." unique_id=400000008]
 
 [node name="SceneLabel" type="Label" parent="UI" unique_id=400000019]
+modulate = Color(1, 1, 0, 1)
 offset_left = 230.0
 offset_top = 25.0
 offset_right = 650.0
 offset_bottom = 55.0
 text = "[ SCENE: NPC Interaction ]"
-modulate = Color(1, 1, 0, 1)
 
 [node name="ReturnButton" type="Button" parent="UI" unique_id=400000009]
 offset_left = 20.0
@@ -60,12 +64,13 @@ text = "Return to Harbor"
 script = ExtResource("3_ret")
 
 [node name="ActionPanel" type="Panel" parent="UI" unique_id=400000010]
-offset_left = 1320.0
-offset_top = 200.0
-offset_right = 1900.0
-offset_bottom = 880.0
+offset_left = 447.0
+offset_top = 72.0
+offset_right = 1027.0
+offset_bottom = 752.0
 
 [node name="Buttons" type="VBoxContainer" parent="UI/ActionPanel" unique_id=400000011]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 560.0
@@ -73,21 +78,25 @@ offset_bottom = 660.0
 
 [node name="IllegalItemListButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000012]
 custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
 text = "See Illegal Item List"
 script = ExtResource("2_npcbtn")
 
 [node name="AllowPassageButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000013]
 custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
 text = "Allow Passage"
 script = ExtResource("2_npcbtn")
 
 [node name="DetainButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000014]
 custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
 text = "Detain Subject"
 script = ExtResource("2_npcbtn")
 
 [node name="InspectItemsButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000015]
 custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
 text = "Inspect Items"
 script = ExtResource("2_npcbtn")
 
@@ -99,6 +108,7 @@ offset_right = 1300.0
 offset_bottom = 1010.0
 
 [node name="DialogueText" type="Label" parent="UI/DialogueBox" unique_id=400000017]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 1080.0
@@ -106,6 +116,7 @@ offset_bottom = 130.0
 autowrap_mode = 3
 
 [node name="DismissButton" type="Button" parent="UI/DialogueBox" unique_id=400000018]
+layout_mode = 0
 offset_left = 1010.0
 offset_top = 130.0
 offset_right = 1180.0
@@ -119,6 +130,7 @@ offset_right = 270.0
 offset_bottom = 240.0
 
 [node name="DebugLabel" type="Label" parent="UI/DebugPanel" unique_id=400000021]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 2.0
 offset_right = 240.0
@@ -126,6 +138,7 @@ offset_bottom = 22.0
 text = "DEBUG NAV"
 
 [node name="NavHarborDirect" type="Button" parent="UI/DebugPanel" unique_id=400000022]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 26.0
 offset_right = 245.0
@@ -134,6 +147,7 @@ text = "-> Harbor View"
 script = ExtResource("4_dbg")
 
 [node name="NavNewGame" type="Button" parent="UI/DebugPanel" unique_id=400000023]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 61.0
 offset_right = 245.0
@@ -142,6 +156,7 @@ text = "-> New Game"
 script = ExtResource("4_dbg")
 
 [node name="NavMainMenu" type="Button" parent="UI/DebugPanel" unique_id=400000024]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 96.0
 offset_right = 245.0

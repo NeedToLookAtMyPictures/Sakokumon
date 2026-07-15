@@ -21,66 +21,100 @@ script = ExtResource("1_npcroot")
 [node name="Background" type="Node2D" parent="." unique_id=400000002]
 
 [node name="Mountains" type="Sprite2D" parent="Background" unique_id=400000003]
-position = Vector2(660, 180)
+position = Vector2(1952, 645.00006)
 scale = Vector2(1320, 240)
 texture = SubResource("PlaceholderTexture2D_mountains")
 
 [node name="BayWater" type="Sprite2D" parent="Background" unique_id=400000004]
-position = Vector2(660, 430)
+position = Vector2(1842.0001, 138)
 scale = Vector2(1320, 260)
 texture = SubResource("PlaceholderTexture2D_bay")
 
 [node name="Boardwalk" type="Sprite2D" parent="Background" unique_id=400000005]
-position = Vector2(660, 680)
+position = Vector2(785, 1030)
 scale = Vector2(1320, 180)
 texture = SubResource("PlaceholderTexture2D_boardwalk")
 
 [node name="NpcSprite" type="Sprite2D" parent="." unique_id=400000006]
-position = Vector2(660, 500)
-scale = Vector2(160, 340)
+position = Vector2(420.00003, 261)
+scale = Vector2(163.00003, 261)
 texture = SubResource("PlaceholderTexture2D_npc")
 
 [node name="GuardpostFrame" type="Sprite2D" parent="." unique_id=400000007]
-position = Vector2(660, 540)
-scale = Vector2(1320, 1080)
+position = Vector2(119, 215.5)
+scale = Vector2(238.00002, 431)
+texture = SubResource("PlaceholderTexture2D_frame")
+
+[node name="GuardpostFrame2" type="Sprite2D" parent="." unique_id=1732012190]
+position = Vector2(734.5, 219.50002)
+scale = Vector2(252.99998, 432.99997)
+texture = SubResource("PlaceholderTexture2D_frame")
+
+[node name="GuardpostDesk" type="Sprite2D" parent="." unique_id=1101725597]
+position = Vector2(433.875, 538.625)
+scale = Vector2(859.75006, 209.24998)
+texture = SubResource("PlaceholderTexture2D_frame")
+
+[node name="GuardpostTopBar" type="Sprite2D" parent="." unique_id=1588327702]
+position = Vector2(421.5, 41.093758)
+scale = Vector2(370.99997, 75.81249)
 texture = SubResource("PlaceholderTexture2D_frame")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=400000008]
 
 [node name="SceneLabel" type="Label" parent="UI" unique_id=400000019]
 modulate = Color(1, 1, 0, 1)
-offset_left = 230.0
-offset_top = 25.0
-offset_right = 650.0
-offset_bottom = 55.0
+offset_left = 17.0
+offset_top = 18.0
+offset_right = 437.0
+offset_bottom = 48.0
 text = "[ SCENE: NPC Interaction ]"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="UI" unique_id=1963211396]
+offset_left = 47.0
+offset_top = 92.0
+offset_right = 184.0
+offset_bottom = 166.0
+text = "CALENDAR"
+
 [node name="ReturnButton" type="Button" parent="UI" unique_id=400000009]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 220.0
-offset_bottom = 60.0
+offset_left = 318.0
+offset_top = 22.0
+offset_right = 518.0
+offset_bottom = 62.0
 text = "Return to Harbor"
 script = ExtResource("3_ret")
 
+[node name="IllegalItemListButton" type="Button" parent="UI" unique_id=400000012]
+custom_minimum_size = Vector2(0, 80)
+offset_left = 35.0
+offset_top = 292.0
+offset_right = 192.0
+offset_bottom = 372.0
+text = "See Illegal Item List"
+script = ExtResource("2_npcbtn")
+
+[node name="InspectItemsButton" type="Button" parent="UI" unique_id=400000015]
+custom_minimum_size = Vector2(0, 80)
+offset_left = 288.0
+offset_top = 471.0
+offset_right = 585.0
+offset_bottom = 551.0
+text = "Inspect Items"
+script = ExtResource("2_npcbtn")
+
 [node name="ActionPanel" type="Panel" parent="UI" unique_id=400000010]
-offset_left = 447.0
-offset_top = 72.0
-offset_right = 1027.0
-offset_bottom = 752.0
+offset_left = 634.0
+offset_top = 110.0
+offset_right = 847.0
+offset_bottom = 310.0
 
 [node name="Buttons" type="VBoxContainer" parent="UI/ActionPanel" unique_id=400000011]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 560.0
-offset_bottom = 660.0
-
-[node name="IllegalItemListButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000012]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-text = "See Illegal Item List"
-script = ExtResource("2_npcbtn")
+offset_right = 198.0
+offset_bottom = 233.0
 
 [node name="AllowPassageButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000013]
 custom_minimum_size = Vector2(0, 80)
@@ -92,12 +126,6 @@ script = ExtResource("2_npcbtn")
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Detain Subject"
-script = ExtResource("2_npcbtn")
-
-[node name="InspectItemsButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000015]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-text = "Inspect Items"
 script = ExtResource("2_npcbtn")
 
 [node name="DialogueBox" type="Panel" parent="UI" unique_id=400000016]
@@ -124,10 +152,10 @@ offset_bottom = 165.0
 text = "Ignore"
 
 [node name="DebugPanel" type="Panel" parent="UI" unique_id=400000020]
-offset_left = 20.0
-offset_top = 70.0
-offset_right = 270.0
-offset_bottom = 240.0
+offset_left = 7.0
+offset_top = 443.0
+offset_right = 257.0
+offset_bottom = 613.0
 
 [node name="DebugLabel" type="Label" parent="UI/DebugPanel" unique_id=400000021]
 layout_mode = 0
@@ -165,10 +193,10 @@ text = "-> Main Menu"
 script = ExtResource("4_dbg")
 
 [connection signal="pressed" from="UI/ReturnButton" to="UI/ReturnButton" method="OnPressedReturn"]
-[connection signal="pressed" from="UI/ActionPanel/Buttons/IllegalItemListButton" to="UI/ActionPanel/Buttons/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
+[connection signal="pressed" from="UI/IllegalItemListButton" to="UI/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
+[connection signal="pressed" from="UI/InspectItemsButton" to="UI/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
 [connection signal="pressed" from="UI/ActionPanel/Buttons/AllowPassageButton" to="UI/ActionPanel/Buttons/AllowPassageButton" method="OnPressedNpcOption" binds= ["allow"]]
 [connection signal="pressed" from="UI/ActionPanel/Buttons/DetainButton" to="UI/ActionPanel/Buttons/DetainButton" method="OnPressedNpcOption" binds= ["detain"]]
-[connection signal="pressed" from="UI/ActionPanel/Buttons/InspectItemsButton" to="UI/ActionPanel/Buttons/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
 [connection signal="pressed" from="UI/DialogueBox/DismissButton" to="." method="OnPressedDismissDialogue"]
 [connection signal="pressed" from="UI/DebugPanel/NavHarborDirect" to="UI/DebugPanel/NavHarborDirect" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
 [connection signal="pressed" from="UI/DebugPanel/NavNewGame" to="UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]

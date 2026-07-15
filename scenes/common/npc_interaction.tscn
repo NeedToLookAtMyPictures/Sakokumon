@@ -21,22 +21,22 @@ script = ExtResource("1_npcroot")
 [node name="Background" type="Node2D" parent="." unique_id=400000002]
 
 [node name="Mountains" type="Sprite2D" parent="Background" unique_id=400000003]
-position = Vector2(1952, 645.00006)
-scale = Vector2(1320, 240)
+position = Vector2(1371.0001, 250)
+scale = Vector2(357.99997, 120.99992)
 texture = SubResource("PlaceholderTexture2D_mountains")
 
 [node name="BayWater" type="Sprite2D" parent="Background" unique_id=400000004]
-position = Vector2(1842.0001, 138)
-scale = Vector2(1320, 260)
+position = Vector2(1397, 59.499992)
+scale = Vector2(429.9999, 103)
 texture = SubResource("PlaceholderTexture2D_bay")
 
 [node name="Boardwalk" type="Sprite2D" parent="Background" unique_id=400000005]
-position = Vector2(785, 1030)
-scale = Vector2(1320, 180)
+position = Vector2(1373, 477.00006)
+scale = Vector2(358, 202.99997)
 texture = SubResource("PlaceholderTexture2D_boardwalk")
 
 [node name="NpcSprite" type="Sprite2D" parent="." unique_id=400000006]
-position = Vector2(420.00003, 261)
+position = Vector2(423, 278)
 scale = Vector2(163.00003, 261)
 texture = SubResource("PlaceholderTexture2D_npc")
 
@@ -191,6 +191,20 @@ offset_right = 245.0
 offset_bottom = 126.0
 text = "-> Main Menu"
 script = ExtResource("4_dbg")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="UI" unique_id=241831368]
+offset_left = 238.0
+offset_top = 81.0
+offset_right = 608.0
+offset_bottom = 136.0
+text = "Dialogue Bar"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=69247541]
+offset_left = 635.0
+offset_top = 468.0
+offset_right = 814.0
+offset_bottom = 600.0
+text = "Dialogue Responses"
 
 [connection signal="pressed" from="UI/ReturnButton" to="UI/ReturnButton" method="OnPressedReturn"]
 [connection signal="pressed" from="UI/IllegalItemListButton" to="UI/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]

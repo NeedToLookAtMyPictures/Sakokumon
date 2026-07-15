@@ -95,3 +95,7 @@ text = "-> Main Menu"
 script = ExtResource("3_dbg")
 
 [connection signal="pressed" from="UI/EnterGuardpostButton" to="." method="OnPressedEnterGuardpost"]
+[connection signal="pressed" from="UI/DebugPanel/NavNewGame" to="UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
+[connection signal="pressed" from="UI/DebugPanel/NavNpcInteraction" to="UI/DebugPanel/NavNpcInteraction" method="OnPressedDebugNav" binds= ["res://scenes/common/npc_interaction.tscn"]]
+[connection signal="pressed" from="UI/DebugPanel/NavItemInspection" to="UI/DebugPanel/NavItemInspection" method="OnPressedDebugNav" binds= ["res://scenes/common/item_inspection.tscn"]]
+[connection signal="pressed" from="UI/DebugPanel/NavMainMenu" to="UI/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]

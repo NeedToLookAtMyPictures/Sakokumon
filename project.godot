@@ -31,7 +31,6 @@ settings/stdout/verbose_stdout=true
 [display]
 
 window/size/viewport_width=864
-window/size/viewport_height=648
 window/stretch/mode="canvas_items"
 
 [dotnet]

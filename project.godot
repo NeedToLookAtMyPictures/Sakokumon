@@ -15,9 +15,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Sakokumon"
-run/main_scene="uid://cmxgswmbesmh5"
+run/main_scene="uid://dl0kwutftyqat"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
-; credits: https://freesvg.org/torii-shinto-gate-vector-image [no license necessary]
 config/icon="res://appIcon.svg"
 
 [autoload]
@@ -31,8 +30,7 @@ settings/stdout/verbose_stdout=true
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=864
 window/stretch/mode="canvas_items"
 
 [dotnet]

@@ -16,9 +16,7 @@ public partial class MainMenuOptions : Button
 		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		var global = GetNode<Global>("/root/Global");
 		if (ID == "new"){
-			GD.Print("New Game is under construction");
-			// global.GoToScene("res://scenes/common/save-access/newgame.tscn");
-			global.GoToScene("res://scenes/common/item_inspection.tscn");
+			global.GoToScene("res://scenes/common/save-access/new_game.tscn");
 		}
 		else if (ID == "load"){
 			global.GoToScene("res://scenes/interface/load_menu.tscn");

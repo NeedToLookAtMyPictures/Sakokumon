@@ -4,7 +4,7 @@
       {
         "Name": "Topknot",
         "Id": 1001,
-        "Path": "res://Sprites/Character/Hair/topknot.png",
+        "Path": "res://assets/sprites/Character/Hair/topknot.png",
         "Width": 2,
         "Height": 2,
         "Type": "hair",
@@ -13,7 +13,7 @@
       {
         "Name": "Ronin Loose",
         "Id": 1002,
-        "Path": "res://Sprites/Character/Hair/ronin_loose.png",
+        "Path": "res://assets/sprites/Character/Hair/ronin_loose.png",
         "Width": 2,
         "Height": 3,
         "Type": "hair",
@@ -24,7 +24,7 @@
       {
         "Name": "Narrow",
         "Id": 2001,
-        "Path": "res://Sprites/Character/Eyes/narrow.png",
+        "Path": "res://assets/sprites/Character/Eyes/narrow.png",
         "Width": 2,
         "Height": 1,
         "Type": "eyes",
@@ -33,7 +33,7 @@
       {
         "Name": "Wide",
         "Id": 2002,
-        "Path": "res://Sprites/Character/Eyes/wide.png",
+        "Path": "res://assets/sprites/Character/Eyes/wide.png",
         "Width": 2,
         "Height": 1,
         "Type": "eyes",
@@ -44,7 +44,7 @@
       {
         "Name": "Flat",
         "Id": 3001,
-        "Path": "res://Sprites/Character/Nose/flat.png",
+        "Path": "res://assets/sprites/Character/Nose/flat.png",
         "Width": 1,
         "Height": 1,
         "Type": "nose",
@@ -53,7 +53,7 @@
       {
         "Name": "Hooked",
         "Id": 3002,
-        "Path": "res://Sprites/Character/Nose/hooked.png",
+        "Path": "res://assets/sprites/Character/Nose/hooked.png",
         "Width": 1,
         "Height": 1,
         "Type": "nose",
@@ -64,7 +64,7 @@
       {
         "Name": "Round",
         "Id": 4001,
-        "Path": "res://Sprites/Character/Face/round.png",
+        "Path": "res://assets/sprites/Character/Face/round.png",
         "Width": 3,
         "Height": 4,
         "Type": "face",
@@ -73,7 +73,7 @@
       {
         "Name": "Angular",
         "Id": 4002,
-        "Path": "res://Sprites/Character/Face/angular.png",
+        "Path": "res://assets/sprites/Character/Face/angular.png",
         "Width": 3,
         "Height": 4,
         "Type": "face",
@@ -84,7 +84,7 @@
       {
         "Name": "Kimono Base",
         "Id": 5001,
-        "Path": "res://Sprites/Character/Torso/kimono_base.png",
+        "Path": "res://assets/sprites/Character/Torso/kimono_base.png",
         "Width": 3,
         "Height": 4,
         "Type": "torso",
@@ -93,7 +93,7 @@
       {
         "Name": "Merchant Coat",
         "Id": 5002,
-        "Path": "res://Sprites/Character/Torso/merchant_coat.png",
+        "Path": "res://assets/sprites/Character/Torso/merchant_coat.png",
         "Width": 3,
         "Height": 4,
         "Type": "torso",
@@ -104,7 +104,7 @@
       {
         "Name": "Katana",
         "Id": 6001,
-        "Path": "res://Sprites/Character/Weapon/katana.png",
+        "Path": "res://assets/sprites/Character/Weapon/katana.png",
         "Width": 1,
         "Height": 4,
         "Type": "weapon",
@@ -113,7 +113,7 @@
       {
         "Name": "Tanto",
         "Id": 6002,
-        "Path": "res://Sprites/Character/Weapon/tanto.png",
+        "Path": "res://assets/sprites/Character/Weapon/tanto.png",
         "Width": 1,
         "Height": 2,
         "Type": "weapon",
@@ -126,7 +126,7 @@
         "Name": "Gold Bar",
         "Id": 101,
         "Textures": [
-          "res://Sprites/goldBar.png"
+          "res://assets/sprites/goldBar.png"
         ],
         "type": "goldBar",
         "Grid": [
@@ -143,7 +143,7 @@
         "Name": "Copper Coin",
         "Id": 102,
         "Textures": [
-          "res://Sprites/copperCoin.png"
+          "res://assets/sprites/copperCoin.png"
         ],
         "type": "copperCoin",
         "Grid": [
@@ -159,7 +159,7 @@
         "Name": "Christian Cross",
         "Id": 103,
         "Textures": [
-          "res://Sprites/cross.png"
+          "res://assets/sprites/cross.png"
         ],
         "type": "cross",
         "Grid": [

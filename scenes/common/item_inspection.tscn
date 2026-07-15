@@ -2,21 +2,22 @@
 
 [ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="2_8vciv"]
-[ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://Sprites/boxBackground.png" id="2_j35y3"]
+[ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://assets/sprites/boxBackground.png" id="2_j35y3"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lkbh4"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_q8wnc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j35y3"]
+size = Vector2(15.277779, 20)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_j35y3"]
 
 [node name="ItemInspection" type="Node2D" unique_id=1346857749]
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=1753863181]
-position = Vector2(432, 324)
-scale = Vector2(864, 648)
+position = Vector2(322, 324)
+scale = Vector2(644, 648)
 texture = SubResource("PlaceholderTexture2D_lkbh4")
 flip_h = true
 flip_v = true
@@ -34,15 +35,15 @@ texture = ExtResource("2_j35y3")
 position = Vector2(864, 0)
 
 [node name="InspectedGoodsBackground" type="Sprite2D" parent="InspectedGoods" unique_id=300521072]
-position = Vector2(144, 275)
-scale = Vector2(288, 550)
+position = Vector2(-110.499985, 276)
+scale = Vector2(217.00003, 550)
 texture = SubResource("PlaceholderTexture2D_q8wnc")
 flip_h = true
 
 [node name="InspectedGoodsArea" type="Area2D" parent="InspectedGoods" unique_id=1344813508]
 
 [node name="InspectedGoodsCollision" type="CollisionShape2D" parent="InspectedGoods/InspectedGoodsArea" unique_id=1641745947]
-position = Vector2(144, 275)
+position = Vector2(-111, 277.00003)
 scale = Vector2(14.4, 27.5)
 shape = SubResource("RectangleShape2D_j35y3")
 
@@ -50,15 +51,17 @@ shape = SubResource("RectangleShape2D_j35y3")
 position = Vector2(864, 550)
 
 [node name="Sprite2D" type="Sprite2D" parent="FlagIllegalItemButton" unique_id=953431619]
-position = Vector2(144, 50)
-scale = Vector2(288, 100)
+position = Vector2(-110.00001, 51)
+scale = Vector2(219.99998, 100)
 texture = SubResource("PlaceholderTexture2D_j35y3")
 flip_h = true
 flip_v = true
 
 [node name="Return" type="Button" parent="FlagIllegalItemButton" unique_id=2090313018]
-offset_right = 288.0
-offset_bottom = 100.0
+offset_left = -222.0
+offset_top = 1.0
+offset_right = -2.0
+offset_bottom = 101.0
 text = "Return"
 script = ExtResource("2_8vciv")
 

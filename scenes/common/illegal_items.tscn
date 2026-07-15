@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://d0emkr1twl300"]
+
+[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="1_wptga"]
+
+[node name="Node2D" type="Node2D" unique_id=1246734651]
+
+[node name="Return" type="Button" parent="." unique_id=912691762]
+offset_left = 705.0
+offset_top = 580.0
+offset_right = 822.0
+offset_bottom = 623.0
+text = "Return"
+script = ExtResource("1_wptga")
+
+[connection signal="pressed" from="Return" to="Return" method="OnPressedReturn"]

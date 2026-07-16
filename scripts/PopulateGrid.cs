@@ -325,6 +325,9 @@ public partial class PopulateGrid : Node2D
 				// 	attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 				// 	successBool = true;
 				// }
+				// Commenting out the block above removed the only place successBool was set to true,
+				// causing an infinite loop. Replacing with a direct placement call.
+				successBool = attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 			}
 		} else
 		{
@@ -342,7 +345,7 @@ public partial class PopulateGrid : Node2D
 
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
-				Item randomItem = db.IllegalItems(currentYear).OrderBy(_ => Random.Shared.Next()).First(); 
+				Item randomItem = db.LegalItems(currentYear).OrderBy(_ => Random.Shared.Next()).First(); // was db.IllegalItems (typo)
 				ObjectData currentObject = new ObjectData(randomItem.Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
@@ -378,6 +381,9 @@ public partial class PopulateGrid : Node2D
 				// 	attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 				// 	successBool = true;
 				// }
+				// Same infinite loop fix as the smuggler branch: the commented block above was the
+				// only place successBool was ever set to true.
+				successBool = attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 			}
 		}
 

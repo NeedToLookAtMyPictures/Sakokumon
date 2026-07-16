@@ -17,66 +17,62 @@ grow_vertical = 2
 script = ExtResource("1_bvgs0")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1656313475]
-position = Vector2(990, 540)
+position = Vector2(599, 450)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_b5nk6")
 
 [node name="New Game" type="Button" parent="." unique_id=1625591059]
 layout_mode = 0
-offset_left = 473.0
-offset_top = 240.0
-offset_right = 904.0
-offset_bottom = 443.0
+offset_left = 82.0
+offset_top = 150.0
+offset_right = 513.0
+offset_bottom = 353.0
 text = "New Game"
 script = ExtResource("2_b5nk6")
-metadata/_edit_use_anchors_ = true
 
 [node name="Load Game" type="Button" parent="." unique_id=1985514870]
 layout_mode = 0
-offset_left = 1044.0
-offset_top = 240.0
-offset_right = 1475.0
-offset_bottom = 443.0
+offset_left = 653.00006
+offset_top = 150.0
+offset_right = 1084.0
+offset_bottom = 353.0
 text = "Load Game
 "
 script = ExtResource("2_b5nk6")
-metadata/_edit_use_anchors_ = true
 
 [node name="Settings" type="Button" parent="." unique_id=981319319]
 layout_mode = 0
-offset_left = 435.0
-offset_top = 602.0
-offset_right = 911.0
-offset_bottom = 797.0
+offset_left = 44.0
+offset_top = 512.0
+offset_right = 520.0
+offset_bottom = 707.0
 text = "Settings"
 script = ExtResource("2_b5nk6")
-metadata/_edit_use_anchors_ = true
 
 [node name="Statistics" type="Button" parent="." unique_id=680231055]
 layout_mode = 0
-offset_left = 1046.0
-offset_top = 601.0
-offset_right = 1477.0
-offset_bottom = 804.0
+offset_left = 655.00006
+offset_top = 511.0
+offset_right = 1086.0
+offset_bottom = 714.0
 text = "Statistics"
 script = ExtResource("2_b5nk6")
-metadata/_edit_use_anchors_ = true
 
 [node name="Generate Save" type="Button" parent="." unique_id=682904246]
 layout_mode = 0
-offset_left = 1286.0
-offset_top = 817.0
-offset_right = 1477.0
-offset_bottom = 890.0
+offset_left = 895.00006
+offset_top = 727.0
+offset_right = 1086.0
+offset_bottom = 800.0
 text = "Debug: Generate Save"
 script = ExtResource("4_ylig1")
 
 [node name="Quit" type="Button" parent="." unique_id=1497351047]
 layout_mode = 0
-offset_left = 650.0
-offset_top = 886.0
-offset_right = 1232.0
-offset_bottom = 971.0
+offset_left = 259.0
+offset_top = 796.0
+offset_right = 841.0
+offset_bottom = 881.0
 text = "Quit"
 script = ExtResource("2_b5nk6")
 metadata/_edit_use_anchors_ = true

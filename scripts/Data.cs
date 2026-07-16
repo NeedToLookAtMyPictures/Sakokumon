@@ -40,6 +40,8 @@ namespace Data
 				textures = value;
 			}
 		}
+
+		public string type {get; set;}
 		
         public List<List<bool>> Grid
         {
@@ -86,6 +88,7 @@ namespace Data
 				Name = this.Name,
 				Id = this.Id,
 				Textures = this.Textures.ToList(),
+				type = this.type,
 				Grid = this.Grid.ToList(),
 				introYear = this.introYear,
 				exitYear = this.exitYear,

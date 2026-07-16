@@ -9,7 +9,9 @@ public partial class Global : Node
 	public Node CurrentScene{ get; set; }
 	public static Global Instance { get; set; }
 	public List<List<bool>> itemGrid { get; set; }
-	public List<Node2D> itemsInStorage { get; set; }
+	public List<Item> itemsInGrid { get; set; }
+	public List<Item> itemsInStorage { get; set; }
+	public List<Node2D> nodesInStorage { get; set; }
 	public Database Database { get; set; }
 
 	// volume multipliers
@@ -27,7 +29,9 @@ public partial class Global : Node
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
 		Instance = this;
-		itemsInStorage = new List<Node2D>();
+		itemsInGrid = new List<Item>();
+		itemsInStorage = new List<Item>();
+		nodesInStorage = new List<Node2D>();
 		if (!FileAccess.FileExists("res://data/data.json"))
 		{
 			GetTree().Quit(1); // crash the game if no data.json is present

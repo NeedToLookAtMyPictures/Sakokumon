@@ -71,20 +71,15 @@ public partial class PopulateGrid : Node2D
 		rootNode.AddChild(currentObjectSprite);
 
 
-		/// I CAN DEFINE A SET OF VERTICES FOR THE COLLISION SHAPE IN THE DATABASE THEN USE THAT TO GENERATE A CollisionPolygon2D
-		/// That can be used instead of a CollisionShape2D for non rectangular/square shapes, but we will have to manually define them per shape
-
 		/// define base variables for hitbox creation
 		float xOffset;
-		float yOffset;
-
-		
+		float yOffset;		
 
 		// because the collision shapes will be moved & flipped with the root node the original grid is used
 		// In order to not change the one on the item, we copy it then adjust the copy instead
-		List<List<bool>> originalList = itemLibrary[currentObject.itemType].itemGrid;
-		int originalHeight = itemLibrary[currentObject.itemType].itemHeight;
-		int originalWidth = itemLibrary[currentObject.itemType].itemWidth;
+		List<List<bool>> originalList = itemLibrary[currentObject.item.type].Copy().Grid;
+		int originalHeight = itemLibrary[currentObject.item.type].Copy().Length;
+		int originalWidth = itemLibrary[currentObject.item.type].Copy().Width;
 
 
 		List<List<bool>> tempItemGrid = new List<List<bool>>();
@@ -122,8 +117,8 @@ public partial class PopulateGrid : Node2D
 					}
 					else
 					{
-						yOffset = (currRow * gridSizeMultiplier) - (((currentObject.itemHeight - 1) * gridSizeMultiplier) / 2.0f);
-						xOffset = (currCol * gridSizeMultiplier) - (((currentObject.itemWidth - 1) * gridSizeMultiplier) / 2.0f);
+						yOffset = (currRow * gridSizeMultiplier) - (((currentObject.item.Length - 1) * gridSizeMultiplier) / 2.0f);
+						xOffset = (currCol * gridSizeMultiplier) - (((currentObject.item.Width - 1) * gridSizeMultiplier) / 2.0f);
 					}
 
 					objectArea.Position = new Vector2(xOffset, yOffset);

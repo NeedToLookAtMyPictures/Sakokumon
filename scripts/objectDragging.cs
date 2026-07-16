@@ -65,13 +65,13 @@ public partial class draggableObject : Area2D
 		// for each item:
 		//	currentPos =- stackBuffer -> then place sprite at currentPos =- ((itemHeight * 64) / 2) -> then currentPos =- (((itemHeight * 64) / 2) + storageBuffer)
 		int currentHeightInStorage = 550;
-		for (int i = 0; i < Global.Instance.itemsInStorage.Count; i++)
+		for (int i = 0; i < Global.Instance.nodesInStorage.Count; i++)
 		{
-			var currItem = Global.Instance.itemsInStorage[i];
+			var currItem = Global.Instance.nodesInStorage[i];
 			currentHeightInStorage -= storageBuffer;
-			ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
+			ObjectData parentData = (ObjectData)currItem.GetMeta("itemObject");
 			int itemHeight = parentData.item.Length * gridSnapSize;
-			parent.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
+			currItem.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
 			currentHeightInStorage -= itemHeight;
 			currentHeightInStorage -= storageBuffer;
 		}
@@ -141,8 +141,8 @@ public partial class draggableObject : Area2D
 	int gridSize = 10;
 	
 	int storageBuffer = 16;
-	int storageStart = 650;
-	int storageCenterX = 1008;
+	int storageStart = 648;
+	int storageCenterX = 756;
 
 
 	public override void _InputEvent(Viewport viewport, InputEvent @event, int shapeIdx)
@@ -181,9 +181,9 @@ public partial class draggableObject : Area2D
 			GD.Print($"Is xFlipped {parentData.isXFlipped}");
 			GD.Print($"Is yFlipped {parentData.isYFlipped}");
 			GD.Print($"current item grid:");
-			for (int currRow = 0; currRow < parentData.itemHeight; currRow++)
+			for (int currRow = 0; currRow < parentData.item.Length; currRow++)
 			{
-				GD.Print($"{string.Join(", ", parentData.itemGrid[currRow])}");
+				GD.Print($"{string.Join(", ", parentData.item.Grid[currRow])}");
 			}
 
 
@@ -234,6 +234,12 @@ public partial class draggableObject : Area2D
 			{
 				ObjectData parentData = (ObjectData)parent.GetMeta("itemObject");
 
+				if (parentData.item.Width > 3) // if wider than 3 (won't fit in storage horizontally)
+				{
+					parent.RotationDegrees = parent.RotationDegrees + 90;
+					parentData.rotateClockwise(); // rotate
+				}
+				
 				// if already in storage
 				if (parentData.positionVector == new Vector2(-1.0f, -1.0f))
 				{
@@ -242,7 +248,7 @@ public partial class draggableObject : Area2D
 				else
 				{ // update locations of items in storage, also set position vector to (-1,-1) to indicate that it is in storage
 					parentData.positionVector = new Vector2(-1,-1);
-					Global.Instance.itemsInStorage.Add(parent);
+					Global.Instance.nodesInStorage.Add(parent);
 					updateStorage();
 				}
 
@@ -327,7 +333,7 @@ public partial class draggableObject : Area2D
 					// remove from list of items in storage if it was in storage
 					if (parentData.positionVector == new Vector2(-1, -1))
 					{
-						GD.Print($"Removed item from storage: {Global.Instance.itemsInStorage.Remove(parent)}");
+						GD.Print($"Removed item from storage: {Global.Instance.nodesInStorage.Remove(parent)}");
 						updateStorage();
 					}
 
@@ -358,8 +364,13 @@ public partial class draggableObject : Area2D
 				{ 
 					if (parentData.positionVector != new Vector2(-1, -1))
 					{ // if not already in storage: update position vector and add to storage items
+						if (parentData.item.Width > 3) // if wider than 3 (won't fit in storage horizontally)
+						{
+							parent.RotationDegrees = parent.RotationDegrees + 90;
+							parentData.rotateClockwise(); // rotate
+						}
 						parentData.positionVector = new Vector2(-1, -1);
-						Global.Instance.itemsInStorage.Add(parent);
+						Global.Instance.nodesInStorage.Add(parent);
 					}
 					updateStorage(); // update storage item positions
 				}

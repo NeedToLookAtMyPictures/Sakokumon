@@ -68,11 +68,12 @@ public partial class IllegalItems : Control
         ClearContainer(_leftItems);
         ClearContainer(_rightItems);
 
+        bool isIllegal = _currentItems == _illegalItems;
         int start = _currentSpread * ItemsPerSpread;
         for (int i = start; i < start + ItemsPerPage && i < _currentItems.Length; i++)
-            _leftItems.AddChild(CreateItemCard(_currentItems[i]));
+            _leftItems.AddChild(CreateItemCard(_currentItems[i], isIllegal));
         for (int i = start + ItemsPerPage; i < start + ItemsPerSpread && i < _currentItems.Length; i++)
-            _rightItems.AddChild(CreateItemCard(_currentItems[i]));
+            _rightItems.AddChild(CreateItemCard(_currentItems[i], isIllegal));
 
         if (_currentItems.Length == 0)
         {
@@ -95,7 +96,7 @@ public partial class IllegalItems : Control
             child.QueueFree();
     }
 
-    private static PanelContainer CreateItemCard(Item item)
+    private static PanelContainer CreateItemCard(Item item, bool isIllegal)
     {
         var card = new PanelContainer();
         card.SizeFlagsVertical = SizeFlags.ExpandFill;
@@ -103,8 +104,29 @@ public partial class IllegalItems : Control
         var vbox = new VBoxContainer();
         card.AddChild(vbox);
 
+        // Header row: name left, status right
+        var headerMargin = new MarginContainer();
+        headerMargin.AddThemeConstantOverride("margin_left", 6);
+        headerMargin.AddThemeConstantOverride("margin_right", 6);
+        vbox.AddChild(headerMargin);
+
         var header = new HBoxContainer();
-        vbox.AddChild(header);
+        header.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        headerMargin.AddChild(header);
+
+        header.AddChild(new Label
+        {
+            Text = item.Name,
+            AutowrapMode = TextServer.AutowrapMode.Word,
+            SizeFlagsHorizontal = SizeFlags.ExpandFill
+        });
+
+        header.AddChild(new Label { Text = isIllegal ? "Status: Illegal" : "Status: Legal" });
+
+        // Middle row: texture left, description right and vertically centered
+        var hbox = new HBoxContainer();
+        hbox.SizeFlagsVertical = SizeFlags.ExpandFill;
+        vbox.AddChild(hbox);
 
         var texRect = new TextureRect();
         texRect.CustomMinimumSize = new Vector2(64, 64);
@@ -114,36 +136,18 @@ public partial class IllegalItems : Control
             var texture = GD.Load<Texture2D>(item.Textures[0]);
             if (texture != null) texRect.Texture = texture;
         }
-        header.AddChild(texRect);
+        hbox.AddChild(texRect);
 
-        var nameLabel = new Label
+        hbox.AddChild(new Label
         {
-            Text = item.Name,
+            Text = $"Description: {item.Description ?? ""}",
             AutowrapMode = TextServer.AutowrapMode.Word,
+            HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Center,
-            SizeFlagsHorizontal = SizeFlags.ExpandFill
-        };
-        header.AddChild(nameLabel);
+            SizeFlagsHorizontal = SizeFlags.ExpandFill,
+            SizeFlagsVertical = SizeFlags.ExpandFill
+        });
 
-        var info = new RichTextLabel
-        {
-            BbcodeEnabled = true,
-            FitContent = true,
-            ScrollActive = false
-        };
-
-        string legalStr;
-        if (item.legalStartYear >= 9999)
-            legalStr = "[color=red]Never legal[/color]";
-        else if (item.legalStartYear <= 0 && item.legalEndYear >= 9999)
-            legalStr = "[color=green]Always legal[/color]";
-        else
-            legalStr = $"Legal {item.legalStartYear}–{item.legalEndYear}";
-
-        info.AppendText($"[color=gray]ID:[/color] {item.Id}   [color=gray]Type:[/color] {item.type ?? "—"}\n");
-        info.AppendText($"[color=gray]In use:[/color] {item.introYear}–{item.exitYear}   {legalStr}");
-
-        vbox.AddChild(info);
         return card;
     }
 }

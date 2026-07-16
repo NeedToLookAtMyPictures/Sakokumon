@@ -61,6 +61,7 @@ namespace Data
 		public int legalStartYear {get; set;} // -1 = never legal
 		public int legalEndYear {get; set;}
 		public string type;
+		public string Description { get; set; }
 
 		// DO NOT DEFINE IN JSON
 		private List<string> textures;
@@ -91,7 +92,8 @@ namespace Data
 				introYear = this.introYear,
 				exitYear = this.exitYear,
 				legalStartYear = this.legalStartYear,
-				legalEndYear = this.legalEndYear
+				legalEndYear = this.legalEndYear,
+				Description = this.Description
 			};
 		}
 	}

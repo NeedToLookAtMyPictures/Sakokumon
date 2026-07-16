@@ -395,7 +395,7 @@ namespace Data
 
 		public Item[] LegalItems(int currentYear)
 		{
-			return items.Values.Where(x => currentYear > x.introYear && currentYear < x.exitYear  && (currentYear > x.legalStartYear || currentYear < x.legalEndYear)).ToArray();
+			return items.Values.Where(x => currentYear > x.introYear && currentYear < x.exitYear && (currentYear >= x.legalStartYear && currentYear <= x.legalEndYear)).ToArray();
 		}
 
 		public Item[] IllegalItems(int currentYear)

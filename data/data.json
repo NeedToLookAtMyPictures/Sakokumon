@@ -170,7 +170,7 @@
         ],
         "introYear": 1543,
         "exitYear": 1868,
-        "legalStartYear": 0,
+        "legalStartYear": 9999,
         "legalEndYear": 9999
       }
   }

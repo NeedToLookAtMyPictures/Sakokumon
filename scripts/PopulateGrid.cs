@@ -10,7 +10,7 @@ public partial class PopulateGrid : Node2D
 {
 
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
-	bool isSmuggler = false;
+	bool isSmuggler = true;
 	int currentYear = 1695;
 	int difficulty = 10;
 	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
@@ -18,6 +18,8 @@ public partial class PopulateGrid : Node2D
 
 
 	public Dictionary<string, Item> itemLibrary;
+
+	public Database db;
 	
 
 	
@@ -246,7 +248,8 @@ public partial class PopulateGrid : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		itemLibrary = GetNode<Global>("/root/Global").Database.items;
+		db = GetNode<Global>("/root/Global").Database;
+		itemLibrary = db.items;
 		GD.Print("TRYING TO PLACE THINGS");
 		Node2D itemGridNode = this;
 
@@ -285,8 +288,8 @@ public partial class PopulateGrid : Node2D
 
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
-				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				Item randomItem = db.IllegalItems(currentYear).OrderBy(_ => Random.Shared.Next()).First(); 
+				ObjectData currentObject = new ObjectData(randomItem.Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 				// rotate as needed
@@ -314,13 +317,14 @@ public partial class PopulateGrid : Node2D
 					currentObject.item.Grid.Reverse();
 				}
 
-				// if item is illegal, attempt placement
-				if (isIllegal(currentObject, currentYear))
-				{
-					// attempt placement and set success boolean to true
-					attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-					successBool = true;
-				}
+				// edit by Jossaya: obsolete
+				// // if item is illegal, attempt placement
+				// if (isIllegal(currentObject, currentYear))
+				// {
+				// 	// attempt placement and set success boolean to true
+				// 	attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+				// 	successBool = true;
+				// }
 			}
 		} else
 		{
@@ -338,8 +342,8 @@ public partial class PopulateGrid : Node2D
 
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
-				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				Item randomItem = db.IllegalItems(currentYear).OrderBy(_ => Random.Shared.Next()).First(); 
+				ObjectData currentObject = new ObjectData(randomItem.Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 
 				// rotate as needed
@@ -366,14 +370,14 @@ public partial class PopulateGrid : Node2D
 				{
 					currentObject.item.Grid.Reverse();
 				}
-
-				// if item is legal
-				if (!isIllegal(currentObject, currentYear))
-				{
-					// attempt placement and set success boolean to true
-					attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-					successBool = true;
-				}
+				// obsolete
+				// // if item is legal
+				// if (!isIllegal(currentObject, currentYear))
+				// {
+				// 	// attempt placement and set success boolean to true
+				// 	attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+				// 	successBool = true;
+				// }
 			}
 		}
 

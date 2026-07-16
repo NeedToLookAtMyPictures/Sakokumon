@@ -1,15 +1,75 @@
 [gd_scene format=3 uid="uid://d0emkr1twl300"]
 
-[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="1_wptga"]
+[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="1_return"]
+[ext_resource type="Script" uid="uid://dicu0866sted8" path="res://scripts/UI/IllegalItems.cs" id="2_illegals"]
 
-[node name="Node2D" type="Node2D" unique_id=1246734651]
+[node name="IllegalItems" type="Control" unique_id=490082148]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_illegals")
 
-[node name="Return" type="Button" parent="." unique_id=912691762]
-offset_left = 705.0
-offset_top = 580.0
-offset_right = 822.0
-offset_bottom = 623.0
+[node name="VBox" type="VBoxContainer" parent="." unique_id=392541548]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Tabs" type="TabBar" parent="VBox" unique_id=1835826656]
+layout_mode = 2
+
+[node name="HSep" type="HSeparator" parent="VBox" unique_id=2036192330]
+layout_mode = 2
+
+[node name="BookSpread" type="HBoxContainer" parent="VBox" unique_id=1484972190]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftPage" type="PanelContainer" parent="VBox/BookSpread" unique_id=1281469637]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftItems" type="VBoxContainer" parent="VBox/BookSpread/LeftPage" unique_id=947766874]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSep" type="VSeparator" parent="VBox/BookSpread" unique_id=1030280212]
+layout_mode = 2
+
+[node name="RightPage" type="PanelContainer" parent="VBox/BookSpread" unique_id=741154261]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RightItems" type="VBoxContainer" parent="VBox/BookSpread/RightPage" unique_id=194984788]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Navigation" type="HBoxContainer" parent="VBox" unique_id=735816108]
+layout_mode = 2
+
+[node name="PrevButton" type="Button" parent="VBox/Navigation" unique_id=1205832302]
+layout_mode = 2
+text = "< Prev"
+
+[node name="PageLabel" type="Label" parent="VBox/Navigation" unique_id=1492074306]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="NextButton" type="Button" parent="VBox/Navigation" unique_id=2048643479]
+layout_mode = 2
+text = "Next >"
+
+[node name="Return" type="Button" parent="VBox/Navigation" unique_id=1077283806]
+layout_mode = 2
 text = "Return"
-script = ExtResource("1_wptga")
+script = ExtResource("1_return")
 
-[connection signal="pressed" from="Return" to="Return" method="OnPressedReturn"]
+[connection signal="pressed" from="VBox/Navigation/Return" to="VBox/Navigation/Return" method="OnPressedReturn"]

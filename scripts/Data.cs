@@ -61,6 +61,7 @@ namespace Data
 		public int legalStartYear {get; set;} // -1 = never legal
 		public int legalEndYear {get; set;}
 		public string type;
+		public string Description { get; set; }
 
 		// DO NOT DEFINE IN JSON
 		private List<string> textures;
@@ -91,7 +92,8 @@ namespace Data
 				introYear = this.introYear,
 				exitYear = this.exitYear,
 				legalStartYear = this.legalStartYear,
-				legalEndYear = this.legalEndYear
+				legalEndYear = this.legalEndYear,
+				Description = this.Description
 			};
 		}
 	}
@@ -130,11 +132,46 @@ namespace Data
 
 	}
 
-	public struct Level
+	public class Level
 	{
 		public Person[] people {get; set;}
-		public Stats stats {get; set;}
+
+		public Stats stats;
         public bool custom {get; set;}
+
+		private Item[] cig; // for retaining items
+		private Item[] cis; // for existing items being reviewed
+
+		public Item[] currentItemGrid
+		{
+			get
+			{
+				if (cig == null) return [];
+				return cig;
+			}
+			set
+			{
+				if (value == null) return;
+				cig = value;
+			}
+		}
+		public Item[] currentItemStorage
+		{
+			get
+			{
+				if (cis == null) return [];
+				return cis;
+			}
+			set
+			{
+				if (value == null) return;
+				cis = value;
+			}
+		}
+
+		public Level() {}
+
+
 	}
 
 	public struct Stats
@@ -357,6 +394,17 @@ namespace Data
             this.save();
 
         }
+
+		public Item[] LegalItems(int currentYear)
+		{
+			return items.Values.Where(x => currentYear > x.introYear && currentYear < x.exitYear && (currentYear >= x.legalStartYear && currentYear <= x.legalEndYear)).ToArray();
+		}
+
+		public Item[] IllegalItems(int currentYear)
+		{
+			return items.Values.Where(x => currentYear > x.introYear && currentYear < x.exitYear  && (currentYear < x.legalStartYear || currentYear > x.legalEndYear)).ToArray();
+		}
+
 
 		public void save()
 		{

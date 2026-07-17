@@ -129,6 +129,7 @@
           "res://assets/sprites/goldBar.png"
         ],
         "type": "goldBar",
+        "Description": "A refined gold ingot used in sanctioned trade during the Edo period.",
         "Grid": [
           [true],
           [true]
@@ -146,6 +147,7 @@
           "res://assets/sprites/copperCoin.png"
         ],
         "type": "copperCoin",
+        "Description": "Standard Edo-period currency minted for everyday transactions.",
         "Grid": [
           [true]
         ],
@@ -162,6 +164,7 @@
           "res://assets/sprites/cross.png"
         ],
         "type": "cross",
+        "Description": "A symbol of the banned Christian faith, strictly prohibited under the Sakoku edicts.",
         "Grid": [
           [false, true, false],
           [true,  true, true],
@@ -170,7 +173,7 @@
         ],
         "introYear": 1543,
         "exitYear": 1868,
-        "legalStartYear": 0,
+        "legalStartYear": 9999,
         "legalEndYear": 9999
       }
   }

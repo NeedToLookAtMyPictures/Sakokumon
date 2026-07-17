@@ -88,7 +88,10 @@ namespace Data
 				Name = this.Name,
 				Id = this.Id,
 				Textures = this.Textures.ToList(),
-				Grid = this.Grid.ToList(),
+				// changed from this.Grid.ToList(), this new logic will ensure
+				// This makes Copy() deep-copy each row so flips and rotations 
+				// on a copy are fully isolated
+				Grid = this.Grid.Select(row => row.ToList()).ToList(),
 				introYear = this.introYear,
 				exitYear = this.exitYear,
 				legalStartYear = this.legalStartYear,

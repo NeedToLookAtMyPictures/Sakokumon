@@ -70,24 +70,36 @@ public partial class IllegalItems : Control
 
         bool isIllegal = _currentItems == _illegalItems;
         int start = _currentSpread * ItemsPerSpread;
-        for (int i = start; i < start + ItemsPerPage && i < _currentItems.Length; i++)
-            _leftItems.AddChild(CreateItemCard(_currentItems[i], isIllegal));
-        for (int i = start + ItemsPerPage; i < start + ItemsPerSpread && i < _currentItems.Length; i++)
-            _rightItems.AddChild(CreateItemCard(_currentItems[i], isIllegal));
 
         if (_currentItems.Length == 0)
         {
-            var empty = new Label
+            _leftItems.AddChild(new Label
             {
                 Text = "No items to display.",
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
-            _leftItems.AddChild(empty);
+                HorizontalAlignment = HorizontalAlignment.Center,
+                SizeFlagsVertical = SizeFlags.ExpandFill
+            });
+            for (int i = 1; i < ItemsPerPage; i++) _leftItems.AddChild(CreateEmptySlot());
+            for (int i = 0; i < ItemsPerPage; i++) _rightItems.AddChild(CreateEmptySlot());
+        }
+        else
+        {
+            for (int i = start; i < start + ItemsPerPage; i++)
+                _leftItems.AddChild(i < _currentItems.Length ? CreateItemCard(_currentItems[i], isIllegal) : CreateEmptySlot());
+            for (int i = start + ItemsPerPage; i < start + ItemsPerSpread; i++)
+                _rightItems.AddChild(i < _currentItems.Length ? CreateItemCard(_currentItems[i], isIllegal) : CreateEmptySlot());
         }
 
         _prevButton.Disabled = _currentSpread == 0;
         _nextButton.Disabled = _currentSpread >= TotalSpreads() - 1;
         _pageLabel.Text = $"Pages {_currentSpread * 2 + 1}–{_currentSpread * 2 + 2} of {TotalSpreads() * 2}";
+    }
+
+    private static Control CreateEmptySlot()
+    {
+        var slot = new PanelContainer();
+        slot.SizeFlagsVertical = SizeFlags.ExpandFill;
+        return slot;
     }
 
     private static void ClearContainer(Node container)
@@ -129,7 +141,10 @@ public partial class IllegalItems : Control
         vbox.AddChild(hbox);
 
         var texRect = new TextureRect();
-        texRect.CustomMinimumSize = new Vector2(64, 64);
+        texRect.CustomMinimumSize = new Vector2(128, 128);
+        texRect.SizeFlagsHorizontal = SizeFlags.ShrinkBegin;
+        texRect.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        texRect.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
         texRect.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
         if (item.Textures?.Count > 0)
         {

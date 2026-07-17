@@ -10,15 +10,13 @@ public partial class NpcInteractionOptions : Button
 		switch (id)
 		{
 			case "illegal_list":
-				GD.Print("TODO: Show illegal item list overlay");
+				global.GoToScene("res://scenes/common/illegal_items.tscn");
 				break;
 			case "allow":
 				GD.Print("TODO: Allow NPC passage and update game state");
-				global.ReturnToPreviousScene();
 				break;
 			case "detain":
 				GD.Print("TODO: Detain subject and update game state");
-				global.ReturnToPreviousScene();
 				break;
 			case "inspect":
 				global.GoToScene("res://scenes/common/item_inspection.tscn");

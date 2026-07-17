@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://57ech2diknss"
-path="res://.godot/imported/copperCoin.png-9ce0527eb4a94e6a83307c9c1b6dda70.ctex"
+uid="uid://cqhfdfklix2r4"
+path="res://.godot/imported/silkRoll_3.png-2ded57035c563da09826d1669259e311.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/copperCoin.png"
-dest_files=["res://.godot/imported/copperCoin.png-9ce0527eb4a94e6a83307c9c1b6dda70.ctex"]
+source_file="res://assets/sprites/Items/silkRoll_3.png"
+dest_files=["res://.godot/imported/silkRoll_3.png-2ded57035c563da09826d1669259e311.ctex"]
 
 [params]
 

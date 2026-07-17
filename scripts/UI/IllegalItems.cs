@@ -129,7 +129,10 @@ public partial class IllegalItems : Control
         vbox.AddChild(hbox);
 
         var texRect = new TextureRect();
-        texRect.CustomMinimumSize = new Vector2(64, 64);
+        texRect.CustomMinimumSize = new Vector2(128, 128);
+        texRect.SizeFlagsHorizontal = SizeFlags.ShrinkBegin;
+        texRect.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        texRect.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
         texRect.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
         if (item.Textures?.Count > 0)
         {

@@ -514,6 +514,7 @@ public partial class PopulateGrid : Node2D
 						localRow >= 0 && localRow < data.item.Length &&
 						data.item.Grid[localRow][localCol])
 					{
+						GD.Print(data.item.Name);
 						child.GetChildren().OfType<draggableObject>().First().StartDrag();
 						handled = true;
 						break;
@@ -535,6 +536,7 @@ public partial class PopulateGrid : Node2D
 						globalMouse.Y >= parent.GlobalPosition.Y - halfH &&
 						globalMouse.Y <= parent.GlobalPosition.Y + halfH)
 					{
+						GD.Print(data.item.Name);
 						draggable.StartDrag();
 						handled = true;
 						break;

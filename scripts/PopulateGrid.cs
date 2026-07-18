@@ -42,7 +42,7 @@ public partial class PopulateGrid : Node2D
 		return isIllegalNow;
 	}
 
-	public void createNode(ObjectData currentObject, Node itemGridNode)
+	public Node2D createNode(ObjectData currentObject, Node itemGridNode)
 	{
 				GD.Print("TRYING TO createNode");
 
@@ -57,6 +57,9 @@ public partial class PopulateGrid : Node2D
 		// add data to root node
 		rootNode.SetMeta("itemObject", currentObject);
 		rootNode.SetMeta("hoverCount", 0);
+
+		// place item into global list of items in grid
+		Global.Instance.itemsInGrid.Add(currentObject);
 
 
 		// create new sprite object
@@ -158,6 +161,7 @@ public partial class PopulateGrid : Node2D
 				GD.Print("TRYING TO addChild");
 
 		itemGridNode.AddChild(rootNode);
+		return rootNode;
 	}
 
 	public void placeObject(ObjectData currentObject, List<List<bool>> itemGrid, Node itemGridNode)
@@ -289,8 +293,6 @@ public partial class PopulateGrid : Node2D
 		Node2D itemGridNode = this;
 
 
-		// Reference data from the autoloader for the library of possible objects and the object subclasses
-		GD.Print("TRYING TO PLACE THINGS");
 		
 		// Make 10x10 grid of booleans (true if slot filled, false if empty) to represent item grid
 		List<List<bool>> itemGrid = new List<List<bool>>(10);
@@ -300,18 +302,136 @@ public partial class PopulateGrid : Node2D
 			itemGrid.Add(Enumerable.Repeat(false, 10).ToList());
 		}
 
-		// seed random function
-		Random randomGenerator = new Random();
-
-		// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
-		int attemptCount = 104;
-		
-		// if current person is a smuggler
-		if (isSmuggler)
+		// if a list of items from a previous game has been loaded, load that instead of generating new, otherwise generate new
+		if (Global.Instance.itemsInGrid.Count != 0 || Global.Instance.itemsInStorage.Count != 0)
 		{
-			// place illegal item in grid
-			bool successBool = false;
-			while (!successBool)
+			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInGrid.Count; currItemIndex++)
+			{
+				placeObject(Global.Instance.itemsInGrid[currItemIndex], itemGrid, itemGridNode);
+			}
+			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInGrid.Count; currItemIndex++)
+			{
+				Node2D itemNode = createNode(Global.Instance.itemsInStorage[currItemIndex], itemGridNode);
+				Global.Instance.nodesInStorage.Add(itemNode);
+				Global.Instance.updateStorage();
+			}
+		}
+		else
+		{
+			// seed random function
+			Random randomGenerator = new Random();
+
+			// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
+			int attemptCount = 104;
+			
+			// if current person is a smuggler
+			if (isSmuggler)
+			{
+				// place illegal item in grid
+				bool successBool = false;
+				while (!successBool)
+				{
+					// generate random rotation, and whether the sprite will be x and/or y flipped
+					int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
+					bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
+					bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
+
+					// make default position vector
+					Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
+
+					// randomly select class and attempt to create
+					string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
+					ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+
+					// flip grid if needed
+					if (currentObject.isXFlipped)
+					{
+						for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
+						{
+							currentObject.item.Grid[currRow].Reverse();
+						}
+					}
+					if (currentObject.isYFlipped)
+					{
+						currentObject.item.Grid.Reverse();
+					}
+
+					// rotate as needed
+					if (currentObject.rotationValue != 0)
+					{
+						// rotate clockwise until done
+						int currentRotation = 0;
+						while (currentRotation != currentObject.rotationValue)
+						{
+							currentObject.rotateClockwise();
+							currentRotation++;
+						}
+					}
+
+
+					// if item is illegal, attempt placement
+					if (isIllegal(currentObject, currentYear))
+					{
+						// attempt placement and set success boolean to true
+						attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+						successBool = true;
+					}
+				}
+			} else
+			{
+				// place legal item in grid
+				bool successBool = false;
+				while (!successBool)
+				{
+					// generate random rotation, and whether the sprite will be x and/or y flipped
+					int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
+					bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
+					bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
+
+					// make default position vector
+					Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
+
+					// randomly select class and attempt to create
+					string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
+					ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+
+					// flip grid if needed
+					if (currentObject.isXFlipped)
+					{
+						for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
+						{
+							currentObject.item.Grid[currRow].Reverse();
+						}
+					}
+					if (currentObject.isYFlipped)
+					{
+						currentObject.item.Grid.Reverse();
+					}
+
+					// rotate as needed
+					if (currentObject.rotationValue != 0)
+					{
+						// rotate clockwise until done
+						int currentRotation = 0;
+						while (currentRotation != currentObject.rotationValue)
+						{
+							currentObject.rotateClockwise();
+							currentRotation++;
+						}
+					}
+
+
+					// if item is legal
+					if (!isIllegal(currentObject, currentYear))
+					{
+						// attempt placement and set success boolean to true
+						attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+						successBool = true;
+					}
+				}
+			}
+
+			while (attemptCount > 0)
 			{
 				// generate random rotation, and whether the sprite will be x and/or y flipped
 				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
@@ -351,131 +471,29 @@ public partial class PopulateGrid : Node2D
 				}
 
 
-				// if item is illegal, attempt placement
+				// if item is illegal
 				if (isIllegal(currentObject, currentYear))
 				{
-					// attempt placement and set success boolean to true
-					attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-					successBool = true;
-				}
-			}
-		} else
-		{
-			// place legal item in grid
-			bool successBool = false;
-			while (!successBool)
-			{
-				// generate random rotation, and whether the sprite will be x and/or y flipped
-				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
-				bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
-				bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
-
-				// make default position vector
-				Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
-
-				// randomly select class and attempt to create
-				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
-
-				// flip grid if needed
-				if (currentObject.isXFlipped)
-				{
-					for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
-					{
-						currentObject.item.Grid[currRow].Reverse();
-					}
-				}
-				if (currentObject.isYFlipped)
-				{
-					currentObject.item.Grid.Reverse();
-				}
-
-				// rotate as needed
-				if (currentObject.rotationValue != 0)
-				{
-					// rotate clockwise until done
-					int currentRotation = 0;
-					while (currentRotation != currentObject.rotationValue)
-					{
-						currentObject.rotateClockwise();
-						currentRotation++;
-					}
-				}
-
-
-				// if item is legal
-				if (!isIllegal(currentObject, currentYear))
-				{
-					// attempt placement and set success boolean to true
-					attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-					successBool = true;
-				}
-			}
-		}
-
-		while (attemptCount > 0)
-		{
-			// generate random rotation, and whether the sprite will be x and/or y flipped
-			int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
-			bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
-			bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
-
-			// make default position vector
-			Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
-
-			// randomly select class and attempt to create
-			string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-			ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
-
-			// flip grid if needed
-			if (currentObject.isXFlipped)
-			{
-				for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
-				{
-					currentObject.item.Grid[currRow].Reverse();
-				}
-			}
-			if (currentObject.isYFlipped)
-			{
-				currentObject.item.Grid.Reverse();
-			}
-
-			// rotate as needed
-			if (currentObject.rotationValue != 0)
-			{
-				// rotate clockwise until done
-				int currentRotation = 0;
-				while (currentRotation != currentObject.rotationValue)
-				{
-					currentObject.rotateClockwise();
-					currentRotation++;
-				}
-			}
-
-
-			// if item is illegal
-			if (isIllegal(currentObject, currentYear))
-			{
-				// if not smuggler
-				if (!isSmuggler)
-				{
-					continue;
-				} else
-				{ // if smuggler
-					// generate number 0-difficulty
-					// if not 0 (1/difficulty chance), skip illegal item
-					// this is done to reduce the amount of illegal items (1 guaranteed above) so it isn't super obvious every time
-					if (randomGenerator.Next(0,difficulty) != 0)
+					// if not smuggler
+					if (!isSmuggler)
 					{
 						continue;
+					} else
+					{ // if smuggler
+						// generate number 0-difficulty
+						// if not 0 (1/difficulty chance), skip illegal item
+						// this is done to reduce the amount of illegal items (1 guaranteed above) so it isn't super obvious every time
+						if (randomGenerator.Next(0,difficulty) != 0)
+						{
+							continue;
+						}
 					}
 				}
+				// attempt placement of item
+				attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+				Global.Instance.itemGrid = itemGrid;
 			}
-			// attempt placement of item
-			attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-			Global.Instance.itemGrid = itemGrid;
 		}
-
 		/*	--------------------------------  LOGIC WRITTEN OUT  --------------------------------
 		If current inventory is a smuggler
 			Load and place an illegal item first to ensure smuggler status

@@ -59,27 +59,7 @@ public partial class draggableObject : Area2D
 		return isValid;
 	}
 
-	public void updateStorage()
-	{
-		// stack starts at y = 550 (going up)
-		// for each item:
-		//	currentPos =- stackBuffer -> then place sprite at currentPos =- ((itemHeight * 64) / 2) -> then currentPos =- (((itemHeight * 64) / 2) + storageBuffer)
-		int currentHeightInStorage = 550;
-		for (int i = 0; i < Global.Instance.nodesInStorage.Count; i++)
-		{
-			var currItem = Global.Instance.nodesInStorage[i];
-			currentHeightInStorage -= storageBuffer;
-			ObjectData parentData = (ObjectData)currItem.GetMeta("itemObject");
-			int itemHeight = parentData.item.Length * gridSnapSize;
-			currItem.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
-			currentHeightInStorage -= itemHeight;
-			currentHeightInStorage -= storageBuffer;
-		}
-
-		
-		// when adding new thing to storage, add to list of items in storage, set position vector to (-1, -1), and update storage
-		// when removing from storage, remove that instance from items in storage, set position vector, and update storage
-	}
+	
 
 	private void OnMouseEntered() // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 	{        
@@ -140,9 +120,7 @@ public partial class draggableObject : Area2D
 	int leftOffset = 4;
 	int gridSize = 10;
 	
-	int storageBuffer = 16;
 	int storageStart = 648;
-	int storageCenterX = 756;
 
 
 	public override void _InputEvent(Viewport viewport, InputEvent @event, int shapeIdx)
@@ -243,13 +221,16 @@ public partial class draggableObject : Area2D
 				// if already in storage
 				if (parentData.positionVector == new Vector2(-1.0f, -1.0f))
 				{
-					updateStorage(); // update positions in storage
+					Global.Instance.updateStorage(); // update positions in storage
 				}
 				else
 				{ // update locations of items in storage, also set position vector to (-1,-1) to indicate that it is in storage
 					parentData.positionVector = new Vector2(-1,-1);
 					Global.Instance.nodesInStorage.Add(parent);
-					updateStorage();
+					Global.Instance.updateStorage();
+
+					// place item into global list of items in storage, and remove from grid
+					Global.Instance.itemsInStorage.Add(parentData);
 				}
 
 			}
@@ -333,8 +314,11 @@ public partial class draggableObject : Area2D
 					// remove from list of items in storage if it was in storage
 					if (parentData.positionVector == new Vector2(-1, -1))
 					{
-						GD.Print($"Removed item from storage: {Global.Instance.nodesInStorage.Remove(parent)}");
-						updateStorage();
+						GD.Print($"Removed node from storage: {Global.Instance.nodesInStorage.Remove(parent)}");
+						GD.Print($"Removed item from storage: {Global.Instance.itemsInStorage.Remove(parentData)}");
+						Global.Instance.itemsInGrid.Add(parentData);
+
+						Global.Instance.updateStorage();
 					}
 
 					// calculate location of center of item
@@ -371,8 +355,11 @@ public partial class draggableObject : Area2D
 						}
 						parentData.positionVector = new Vector2(-1, -1);
 						Global.Instance.nodesInStorage.Add(parent);
+
+						// place item into global list of items in storage, and remove from grid
+						Global.Instance.itemsInStorage.Add(parentData);
 					}
-					updateStorage(); // update storage item positions
+					Global.Instance.updateStorage(); // update storage item positions
 				}
 				GetViewport().SetInputAsHandled();
 			}

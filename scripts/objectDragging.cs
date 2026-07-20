@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public partial class draggableObject : Area2D
 {
-	private static draggableObject currentDraggedNode = null;
+	public static draggableObject currentDraggedNode = null;
 	List<List<bool>> itemGrid;
 	
 	[Export] private Color glowColor = new Color(1.5f, 1.5f, 5.0f, 1.0f); // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
@@ -247,11 +247,11 @@ public partial class draggableObject : Area2D
 				Vector2 positionVectorToSpriteCenterOffset = new Vector2((parentData.item.Width - 1) * 32, (parentData.item.Length - 1) * 32);
 				Vector2 positionVector = ((parent.GlobalPosition - positionVectorToSpriteCenterOffset) / 64.0f).Floor();
 
-				int currentPositionCheck = 1;
-				bool foundValidLocation = false;
-				while (true)
-				{
-					Vector2 directionChange = Vector2.Zero;
+			int currentPositionCheck = 1;
+			bool foundValidLocation = false;
+			while (true)
+			{
+				Vector2 directionChange = Vector2.Zero;
 
 					// if next check should be the slot to the right of the current location
 					if (currentPositionCheck == 1 || currentPositionCheck == 7 || currentPositionCheck == 8)

@@ -41,6 +41,7 @@ public partial class MusicManager : Node
 
 	public override void _Ready()
 	{
+		var prefs = GetNode<Global>("/root/Global").Preferences;		
 		_musicPlayer = new AudioStreamPlayer();
 		_musicPlayer.Bus = "Music";
 		AddChild(_musicPlayer);
@@ -55,7 +56,9 @@ public partial class MusicManager : Node
 		// Initial queue: main menu song first, then a shuffle that won't start with it
 		_queue.Enqueue(_mainMenuSong);
 		EnqueueShuffledPlaylist(avoidFirst: _mainMenuSong);
-
+		
+		MusicVolume = prefs.musicVolume * prefs.masterVolume;
+		SfxVolume = prefs.sfxVolume * prefs.masterVolume;
 		PlayFromQueue();
 	}
 

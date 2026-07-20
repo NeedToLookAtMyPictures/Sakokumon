@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ce7io7fbvgiba"]
+
+[node name="GameBackground" type="Node2D" unique_id=100000001]
+
+[node name="DejimaAnimated" type="AnimatedSprite2D" parent="." unique_id=100000002]
+position = Vector2(960, 540)

@@ -7,18 +7,18 @@
 [node name="StatsMenu" type="Node2D" unique_id=2038880874]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=670453206]
-position = Vector2(990, 540)
+position = Vector2(441, 319)
 scale = Vector2(0.40442657, 0.4189815)
 texture = ExtResource("1_qkx3n")
 
 [node name="Node2D" parent="." unique_id=465052785 instance=ExtResource("2_74t8q")]
-position = Vector2(744, 304)
+position = Vector2(190, 88)
 
 [node name="Return" type="Button" parent="." unique_id=1189588254]
-offset_left = 731.0
-offset_top = 767.0
-offset_right = 848.0
-offset_bottom = 810.0
+offset_left = 601.0
+offset_top = 547.0
+offset_right = 718.0
+offset_bottom = 590.0
 text = "Return"
 script = ExtResource("3_emq7m")
 

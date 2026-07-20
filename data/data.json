@@ -4,7 +4,7 @@
       {
         "Name": "Topknot",
         "Id": 1001,
-        "Path": "res://Sprites/Character/Hair/topknot.png",
+        "Path": "res://assets/sprites/Character/Hair/topknot.png",
         "Width": 2,
         "Height": 2,
         "Type": "hair",
@@ -13,7 +13,7 @@
       {
         "Name": "Ronin Loose",
         "Id": 1002,
-        "Path": "res://Sprites/Character/Hair/ronin_loose.png",
+        "Path": "res://assets/sprites/Character/Hair/ronin_loose.png",
         "Width": 2,
         "Height": 3,
         "Type": "hair",
@@ -24,7 +24,7 @@
       {
         "Name": "Narrow",
         "Id": 2001,
-        "Path": "res://Sprites/Character/Eyes/narrow.png",
+        "Path": "res://assets/sprites/Character/Eyes/narrow.png",
         "Width": 2,
         "Height": 1,
         "Type": "eyes",
@@ -33,7 +33,7 @@
       {
         "Name": "Wide",
         "Id": 2002,
-        "Path": "res://Sprites/Character/Eyes/wide.png",
+        "Path": "res://assets/sprites/Character/Eyes/wide.png",
         "Width": 2,
         "Height": 1,
         "Type": "eyes",
@@ -44,7 +44,7 @@
       {
         "Name": "Flat",
         "Id": 3001,
-        "Path": "res://Sprites/Character/Nose/flat.png",
+        "Path": "res://assets/sprites/Character/Nose/flat.png",
         "Width": 1,
         "Height": 1,
         "Type": "nose",
@@ -53,7 +53,7 @@
       {
         "Name": "Hooked",
         "Id": 3002,
-        "Path": "res://Sprites/Character/Nose/hooked.png",
+        "Path": "res://assets/sprites/Character/Nose/hooked.png",
         "Width": 1,
         "Height": 1,
         "Type": "nose",
@@ -64,7 +64,7 @@
       {
         "Name": "Round",
         "Id": 4001,
-        "Path": "res://Sprites/Character/Face/round.png",
+        "Path": "res://assets/sprites/Character/Face/round.png",
         "Width": 3,
         "Height": 4,
         "Type": "face",
@@ -73,7 +73,7 @@
       {
         "Name": "Angular",
         "Id": 4002,
-        "Path": "res://Sprites/Character/Face/angular.png",
+        "Path": "res://assets/sprites/Character/Face/angular.png",
         "Width": 3,
         "Height": 4,
         "Type": "face",
@@ -84,7 +84,7 @@
       {
         "Name": "Kimono Base",
         "Id": 5001,
-        "Path": "res://Sprites/Character/Torso/kimono_base.png",
+        "Path": "res://assets/sprites/Character/Torso/kimono_base.png",
         "Width": 3,
         "Height": 4,
         "Type": "torso",
@@ -93,7 +93,7 @@
       {
         "Name": "Merchant Coat",
         "Id": 5002,
-        "Path": "res://Sprites/Character/Torso/merchant_coat.png",
+        "Path": "res://assets/sprites/Character/Torso/merchant_coat.png",
         "Width": 3,
         "Height": 4,
         "Type": "torso",
@@ -104,7 +104,7 @@
       {
         "Name": "Katana",
         "Id": 6001,
-        "Path": "res://Sprites/Character/Weapon/katana.png",
+        "Path": "res://assets/sprites/Character/Weapon/katana.png",
         "Width": 1,
         "Height": 4,
         "Type": "weapon",
@@ -113,7 +113,7 @@
       {
         "Name": "Tanto",
         "Id": 6002,
-        "Path": "res://Sprites/Character/Weapon/tanto.png",
+        "Path": "res://assets/sprites/Character/Weapon/tanto.png",
         "Width": 1,
         "Height": 2,
         "Type": "weapon",
@@ -123,55 +123,337 @@
   },
   "items": {
     "goldBar": {
-        "Name": "Gold Bar",
-        "Id": 101,
-        "Textures": [
-          "res://Sprites/goldBar.png"
-        ],
-        "type": "goldBar",
-        "Grid": [
-          [true],
-          [true]
-        ],
-        "introYear": 1600,
-        "exitYear": 1868,
-        "legalStartYear": 1603,
-        "legalEndYear": 1800
+      "Name": "Gold",
+      "Id": 101,
+      "Textures": [
+        "res://assets/sprites/Items/goldBar.png"
+      ],
+      "type": "goldBar",
+      "Description": "Gold discs and bars traded through Dejima, banned from export in 1763.",
+      "Grid": [
+        [true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 1762
     },
-    "copperCoin":
-      {
-        "Name": "Copper Coin",
-        "Id": 102,
-        "Textures": [
-          "res://Sprites/copperCoin.png"
-        ],
-        "type": "copperCoin",
-        "Grid": [
-          [true]
-        ],
-        "introYear": 1580,
-        "exitYear": 1868,
-        "legalStartYear": 0,
-        "legalEndYear": 9999
-      },
-    "cross":
-      {
-        "Name": "Christian Cross",
-        "Id": 103,
-        "Textures": [
-          "res://Sprites/cross.png"
-        ],
-        "type": "cross",
-        "Grid": [
-          [false, true, false],
-          [true,  true, true],
-          [false, true, false],
-          [false, true, false]
-        ],
-        "introYear": 1543,
-        "exitYear": 1868,
-        "legalStartYear": 0,
-        "legalEndYear": 9999
-      }
+    "copperCoin": {
+      "Name": "Copper Coin",
+      "Id": 102,
+      "Textures": [
+        "res://assets/sprites/Items/copperCoin.png"
+      ],
+      "type": "copperCoin",
+      "Description": "Standard domestic currency. Export of ordinary copper coinage was strictly forbidden at all times.",
+      "Grid": [
+        [true]
+      ],
+      "introYear": 1580,
+      "exitYear": 1868,
+      "legalStartYear": 9999,
+      "legalEndYear": 9999
+    },
+    "cross": {
+      "Name": "Christian Cross",
+      "Id": 103,
+      "Textures": [
+        "res://assets/sprites/Items/cross.png"
+      ],
+      "type": "cross",
+      "Description": "A symbol of the banned Christian faith, strictly prohibited under the Sakoku edicts.",
+      "Grid": [
+        [false, true, false],
+        [true,  true, true],
+        [false, true, false],
+        [false, true, false]
+      ],
+      "introYear": 1543,
+      "exitYear": 1868,
+      "legalStartYear": 9999,
+      "legalEndYear": 9999
+    },
+    "rawSilk": {
+      "Name": "Raw Silk",
+      "Id": 104,
+      "Textures": [
+        "res://assets/sprites/Items/rawSilk.png"
+      ],
+      "type": "rawSilk",
+      "Description": "Unprocessed silk bundled for export, a staple of Dejima trade throughout the period.",
+      "Grid": [
+        [true, true],
+        [true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "silkRoll": {
+      "Name": "Silk Roll",
+      "Id": 105,
+      "Textures": [
+        "res://assets/sprites/Items/silkRoll_1.png",
+        "res://assets/sprites/Items/silkRoll_2.png",
+        "res://assets/sprites/Items/silkRoll_3.png"
+      ],
+      "type": "silkRoll",
+      "Description": "A bolt of finished, dyed silk. Rolls come in several colors and patterns.",
+      "Grid": [
+        [true, true, true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "silver": {
+      "Name": "Silver",
+      "Id": 106,
+      "Textures": [
+        "res://assets/sprites/Items/silver.png"
+      ],
+      "type": "silver",
+      "Description": "Silver discs and bars, the primary medium of Dejima trade until the export ban of 1668.",
+      "Grid": [
+        [true, true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 1667
+    },
+    "copperBar_s": {
+      "Name": "Copper Bar (Small)",
+      "Id": 107,
+      "Textures": [
+        "res://assets/sprites/Items/copperBar_s.png"
+      ],
+      "type": "copperBar",
+      "Description": "A small refined copper bar, a legal and common export from Japan throughout the Edo period.",
+      "Grid": [
+        [true],
+        [true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "copperBar_m": {
+      "Name": "Copper Bar (Medium)",
+      "Id": 108,
+      "Textures": [
+        "res://assets/sprites/Items/copperBar_m.png"
+      ],
+      "type": "copperBar",
+      "Description": "A medium refined copper bar, a legal and common export from Japan throughout the Edo period.",
+      "Grid": [
+        [true],
+        [true],
+        [true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "copperBar_l": {
+      "Name": "Copper Bar (Large)",
+      "Id": 109,
+      "Textures": [
+        "res://assets/sprites/Items/copperBar_l.png"
+      ],
+      "type": "copperBar",
+      "Description": "A large refined copper bar, a legal and common export from Japan throughout the Edo period.",
+      "Grid": [
+        [true],
+        [true],
+        [true],
+        [true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "nagasakiTradeCoin": {
+      "Name": "Nagasaki Trade Coin",
+      "Id": 110,
+      "Textures": [
+        "res://assets/sprites/Items/nagasakiTradeCoin.png"
+      ],
+      "type": "copperCoin",
+      "Description": "A specially minted copper coin authorized for foreign trade at Dejima. Produced only from 1659 to 1685.",
+      "Grid": [
+        [true]
+      ],
+      "introYear": 1659,
+      "exitYear": 1686,
+      "legalStartYear": 1659,
+      "legalEndYear": 1685
+    },
+    "silverware": {
+      "Name": "Silverware",
+      "Id": 111,
+      "Textures": [
+        "res://assets/sprites/Items/silverware.png"
+      ],
+      "type": "silverware",
+      "Description": "Silver tableware exploited as a loophole after the 1668 silver export ban. Outlawed once authorities took notice.",
+      "Grid": [
+        [true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 1680
+    },
+    "goodsSack": {
+      "Name": "Goods Sack",
+      "Id": 112,
+      "Textures": [
+        "res://assets/sprites/Items/goodsSack_pepper.png",
+        "res://assets/sprites/Items/goodsSack_sugar.png"
+      ],
+      "type": "goodsSack",
+      "Description": "A large burlap sack of pepper or sugar, identified by kanji markings. A staple of legal Dejima commerce.",
+      "Grid": [
+        [true, true, true],
+        [true, true, true],
+        [true, true, true],
+        [true, true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "camphorWood": {
+      "Name": "Camphor Wood",
+      "Id": 113,
+      "Textures": [
+        "res://assets/sprites/Items/camphorWood.png"
+      ],
+      "type": "camphorWood",
+      "Description": "Planks and blocks of aromatic camphor wood, valued in craftsmanship and medicine.",
+      "Grid": [
+        [true, true],
+        [true, true],
+        [true, true],
+        [true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "ceramicBowl": {
+      "Name": "Ceramic Bowl",
+      "Id": 114,
+      "Textures": [
+        "res://assets/sprites/Items/ceramicBowl.png"
+      ],
+      "type": "ceramicBowl",
+      "Description": "Fine ceramic bowls, a prized export of Japanese craftsmanship sought by Dutch traders.",
+      "Grid": [
+        [true, true],
+        [true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "lacquerwareBowl": {
+      "Name": "Lacquerware Bowl",
+      "Id": 115,
+      "Textures": [
+        "res://assets/sprites/Items/lacquerwareBowl.png"
+      ],
+      "type": "lacquerwareBowl",
+      "Description": "Bowls finished in traditional urushi lacquer, highly sought after by European traders.",
+      "Grid": [
+        [true, true],
+        [true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 9999
+    },
+    "christianBook": {
+      "Name": "Christian Text",
+      "Id": 116,
+      "Textures": [
+        "res://assets/sprites/Items/christianBook.png"
+      ],
+      "type": "christianBook",
+      "Description": "A prohibited Christian religious text, identifiable by the cross embossed on its cover. Banned at all times.",
+      "Grid": [
+        [true, true, true],
+        [true, true, true],
+        [true, true, true],
+        [true, true, true]
+      ],
+      "introYear": 1543,
+      "exitYear": 1868,
+      "legalStartYear": 9999,
+      "legalEndYear": 9999
+    },
+    "scienceBook": {
+      "Name": "Scientific Text",
+      "Id": 117,
+      "Textures": [
+        "res://assets/sprites/Items/scienceBook.png"
+      ],
+      "type": "scienceBook",
+      "Description": "A European text on natural philosophy or science. Banned from 1685 to 1720 before restrictions were lifted.",
+      "Grid": [
+        [true, true, true],
+        [true, true, true],
+        [true, true, true],
+        [true, true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 1720,
+      "legalEndYear": 9999
+    },
+    "opiumSmall": {
+      "Name": "Opium (Medical)",
+      "Id": 118,
+      "Textures": [
+        "res://assets/sprites/Items/opiumSmall.png"
+      ],
+      "type": "opium",
+      "Description": "A small tray of four cloth opium balls, tolerated in limited quantities for medicinal use before the 1857 ban.",
+      "Grid": [
+        [true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 0,
+      "legalEndYear": 1856
+    },
+    "opiumLarge": {
+      "Name": "Opium (Bulk)",
+      "Id": 119,
+      "Textures": [
+        "res://assets/sprites/Items/opiumLarge.png"
+      ],
+      "type": "opium",
+      "Description": "A wooden tray packed with rows of cloth opium balls. The quantity unambiguously indicates smuggling.",
+      "Grid": [
+        [true, true],
+        [true, true],
+        [true, true]
+      ],
+      "introYear": 1600,
+      "exitYear": 1868,
+      "legalStartYear": 9999,
+      "legalEndYear": 9999
+    }
   }
 }

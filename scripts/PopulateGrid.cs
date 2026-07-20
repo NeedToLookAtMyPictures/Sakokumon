@@ -10,7 +10,7 @@ public partial class PopulateGrid : Node2D
 {
 
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
-	bool isSmuggler = false;
+	bool isSmuggler = true;
 	int currentYear = 1695;
 	int difficulty = 5;
 	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
@@ -18,6 +18,8 @@ public partial class PopulateGrid : Node2D
 
 
 	public Dictionary<string, Item> itemLibrary;
+
+	public Database db;
 	
 
 	
@@ -288,7 +290,8 @@ public partial class PopulateGrid : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		itemLibrary = GetNode<Global>("/root/Global").Database.items;
+		db = GetNode<Global>("/root/Global").Database;
+		itemLibrary = db.items;
 		GD.Print("TRYING TO PLACE THINGS");
 		Node2D itemGridNode = this;
 
@@ -339,9 +342,10 @@ public partial class PopulateGrid : Node2D
 					// make default position vector
 					Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
-					// randomly select class and attempt to create
-					string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-					ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				// randomly select class and attempt to create
+				int randomIndex = randomGenerator.Next(itemLibrary.Count);
+				Item randomItem = db.IllegalItems(currentYear).OrderBy(_ => Random.Shared.Next()).First(); 
+				ObjectData currentObject = new ObjectData(randomItem.Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 					// flip grid if needed
 					if (currentObject.isXFlipped)
@@ -369,31 +373,36 @@ public partial class PopulateGrid : Node2D
 					}
 
 
-					// if item is illegal, attempt placement
-					if (isIllegal(currentObject, currentYear))
-					{
-						// attempt placement and set success boolean to true
-						attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-						successBool = true;
-					}
-				}
-			} else
+				// edit by Jossaya: obsolete
+				// // if item is illegal, attempt placement
+				// if (isIllegal(currentObject, currentYear))
+				// {
+				// 	// attempt placement and set success boolean to true
+				// 	attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+				// 	successBool = true;
+				// }
+				// Commenting out the block above removed the only place successBool was set to true,
+				// causing an infinite loop. Replacing with a direct placement call.
+				successBool = attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+			}
+		} else
+		{
+			// place legal item in grid
+			bool successBool = false;
+			while (!successBool)
 			{
-				// place legal item in grid
-				bool successBool = false;
-				while (!successBool)
-				{
-					// generate random rotation, and whether the sprite will be x and/or y flipped
-					int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
-					bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
-					bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
+				// generate random rotation, and whether the sprite will be x and/or y flipped
+				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees
+				bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
+				bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
 
 					// make default position vector
 					Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
-					// randomly select class and attempt to create
-					string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-					ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+				// randomly select class and attempt to create
+				int randomIndex = randomGenerator.Next(itemLibrary.Count);
+				Item randomItem = db.LegalItems(currentYear).OrderBy(_ => Random.Shared.Next()).First(); // was db.IllegalItems (typo)
+				ObjectData currentObject = new ObjectData(randomItem.Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 					// flip grid if needed
 					if (currentObject.isXFlipped)
@@ -420,14 +429,17 @@ public partial class PopulateGrid : Node2D
 						}
 					}
 
-
-					// if item is legal
-					if (!isIllegal(currentObject, currentYear))
-					{
-						// attempt placement and set success boolean to true
-						attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-						successBool = true;
-					}
+				// obsolete
+					// // if item is legal
+					// if (!isIllegal(currentObject, currentYear))
+					// {
+					// 	// attempt placement and set success boolean to true
+					// 	attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+					// 	successBool = true;
+					// }
+				// Same infinite loop fix as the smuggler branch: the commented block above was the
+				// only place successBool was ever set to true.
+				successBool = attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 				}
 			}
 
@@ -531,6 +543,69 @@ public partial class PopulateGrid : Node2D
 				Increment attempted object counter
 
 		*/
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event is not InputEventMouseButton { ButtonIndex: MouseButton.Left } mouseEvent) return;
+
+		if (mouseEvent.Pressed && draggableObject.currentDraggedNode == null)
+		{
+			bool handled = false;
+			Vector2 localMouse = GetLocalMousePosition();
+			int col = (int)((localMouse.X - draggableObject.leftOffset) / draggableObject.gridSnapSize);
+			int row = (int)((localMouse.Y - draggableObject.topOffset) / draggableObject.gridSnapSize);
+			var grid = Global.Instance.itemGrid;
+
+			if (grid != null && col >= 0 && col < grid[0].Count && row >= 0 && row < grid.Count && grid[row][col])
+			{
+				foreach (Node2D child in GetChildren().OfType<Node2D>())
+				{
+					ObjectData data = (ObjectData)child.GetMeta("itemObject");
+					if (data.positionVector == new Vector2(-1, -1)) continue;
+					int localCol = col - (int)data.positionVector.X;
+					int localRow = row - (int)data.positionVector.Y;
+					if (localCol >= 0 && localCol < data.item.Width &&
+						localRow >= 0 && localRow < data.item.Length &&
+						data.item.Grid[localRow][localCol])
+					{
+						GD.Print(data.item.Name);
+						child.GetChildren().OfType<draggableObject>().First().StartDrag();
+						handled = true;
+						break;
+					}
+				}
+			}
+
+			if (!handled)
+			{
+				Vector2 globalMouse = GetGlobalMousePosition();
+				foreach (draggableObject draggable in Global.Instance.itemsInHolding)
+				{
+					Node2D parent = draggable.GetParent<Node2D>();
+					ObjectData data = (ObjectData)parent.GetMeta("itemObject");
+					float halfW = data.item.Width * draggableObject.gridSnapSize / 2.0f;
+					float halfH = data.item.Length * draggableObject.gridSnapSize / 2.0f;
+					if (globalMouse.X >= parent.GlobalPosition.X - halfW &&
+						globalMouse.X <= parent.GlobalPosition.X + halfW &&
+						globalMouse.Y >= parent.GlobalPosition.Y - halfH &&
+						globalMouse.Y <= parent.GlobalPosition.Y + halfH)
+					{
+						GD.Print(data.item.Name);
+						draggable.StartDrag();
+						handled = true;
+						break;
+					}
+				}
+			}
+
+			if (handled) GetViewport().SetInputAsHandled();
+		}
+		else if (!mouseEvent.Pressed && draggableObject.currentDraggedNode != null)
+		{
+			draggableObject.currentDraggedNode.StopDrag();
+			GetViewport().SetInputAsHandled();
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

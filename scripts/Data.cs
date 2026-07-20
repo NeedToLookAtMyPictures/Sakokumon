@@ -62,6 +62,8 @@ namespace Data
 		public int exitYear {get; set;} // when will the item leave the game?
 		public int legalStartYear {get; set;} // -1 = never legal
 		public int legalEndYear {get; set;}
+		public string type;
+		public string Description { get; set; }
 
 		// DO NOT DEFINE IN JSON
 		private List<string> textures;
@@ -89,11 +91,15 @@ namespace Data
 				Id = this.Id,
 				Textures = this.Textures.ToList(),
 				type = this.type,
-				Grid = this.Grid.ToList(),
+				// changed from this.Grid.ToList(), this new logic will ensure
+				// This makes Copy() deep-copy each row so flips and rotations 
+				// on a copy are fully isolated
+				Grid = this.Grid.Select(row => row.ToList()).ToList(),
 				introYear = this.introYear,
 				exitYear = this.exitYear,
 				legalStartYear = this.legalStartYear,
-				legalEndYear = this.legalEndYear
+				legalEndYear = this.legalEndYear,
+				Description = this.Description
 			};
 		}
 	}
@@ -132,11 +138,46 @@ namespace Data
 
 	}
 
-	public struct Level
+	public class Level
 	{
 		public Person[] people {get; set;}
-		public Stats stats {get; set;}
+
+		public Stats stats;
         public bool custom {get; set;}
+
+		private Item[] cig; // for retaining items
+		private Item[] cis; // for existing items being reviewed
+
+		public Item[] currentItemGrid
+		{
+			get
+			{
+				if (cig == null) return [];
+				return cig;
+			}
+			set
+			{
+				if (value == null) return;
+				cig = value;
+			}
+		}
+		public Item[] currentItemStorage
+		{
+			get
+			{
+				if (cis == null) return [];
+				return cis;
+			}
+			set
+			{
+				if (value == null) return;
+				cis = value;
+			}
+		}
+
+		public Level() {}
+
+
 	}
 
 	public struct Stats
@@ -195,7 +236,65 @@ namespace Data
 			: DateTime.MinValue;
 	}
 
+	public class Preferences
+	{
+		private float _sfxVolume;
+		private float _musicVolume;
+		private float _masterVolume;
 
+		public float sfxVolume
+		{
+			get => _sfxVolume;
+			set
+			{
+				_sfxVolume = value;
+			}
+		}
+		public float musicVolume
+		{
+			get => _musicVolume;
+			set
+			{
+				GD.Print($"volume set: {value}");
+				_musicVolume = value;
+			}
+		}
+		public float masterVolume
+		{
+			get => _masterVolume;
+			set
+			{
+				_masterVolume = value;
+			}
+		}
+
+		public ConfigFile config;
+		public Preferences()
+		{
+			
+			config = new ConfigFile();
+			Error err = config.Load("user://prefs.cfg");
+			if (err != Error.Ok || config.GetSections().Length == 0)
+			{
+				GD.Print("No existing preferences, creating new prefs");
+				save();
+
+			}
+			GD.Print("Setting preferences");
+			var prefs = config.GetSections()[0];
+			sfxVolume = (float)config.GetValue(prefs,"sfx");
+			musicVolume = (float)config.GetValue(prefs,"music");
+			masterVolume = (float)config.GetValue(prefs,"mastervol"); 
+		}
+		public void save()
+		{
+			GD.Print("Saving");
+			config.SetValue("player","sfx",sfxVolume);
+			config.SetValue("player","music",musicVolume);
+			config.SetValue("player","mastervol",masterVolume);
+			config.Save("user://prefs.cfg");
+		}
+	}
 	public class Database
 	{
 		private JsonSerializerOptions options = new JsonSerializerOptions { IncludeFields = true };
@@ -301,6 +400,17 @@ namespace Data
             this.save();
 
         }
+
+		public Item[] LegalItems(int currentYear)
+		{
+			return items.Values.Where(x => currentYear > x.introYear && currentYear < x.exitYear && (currentYear >= x.legalStartYear && currentYear <= x.legalEndYear)).ToArray();
+		}
+
+		public Item[] IllegalItems(int currentYear)
+		{
+			return items.Values.Where(x => currentYear > x.introYear && currentYear < x.exitYear  && (currentYear < x.legalStartYear || currentYear > x.legalEndYear)).ToArray();
+		}
+
 
 		public void save()
 		{

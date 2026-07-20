@@ -62,7 +62,6 @@ namespace Data
 		public int exitYear {get; set;} // when will the item leave the game?
 		public int legalStartYear {get; set;} // -1 = never legal
 		public int legalEndYear {get; set;}
-		public string type;
 		public string Description { get; set; }
 
 		// DO NOT DEFINE IN JSON

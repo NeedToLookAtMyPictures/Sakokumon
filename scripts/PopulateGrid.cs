@@ -544,69 +544,7 @@ public partial class PopulateGrid : Node2D
 
 		*/
 	}
-
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (@event is not InputEventMouseButton { ButtonIndex: MouseButton.Left } mouseEvent) return;
-
-		if (mouseEvent.Pressed && draggableObject.currentDraggedNode == null)
-		{
-			bool handled = false;
-			Vector2 localMouse = GetLocalMousePosition();
-			int col = (int)((localMouse.X - draggableObject.leftOffset) / draggableObject.gridSnapSize);
-			int row = (int)((localMouse.Y - draggableObject.topOffset) / draggableObject.gridSnapSize);
-			var grid = Global.Instance.itemGrid;
-
-			if (grid != null && col >= 0 && col < grid[0].Count && row >= 0 && row < grid.Count && grid[row][col])
-			{
-				foreach (Node2D child in GetChildren().OfType<Node2D>())
-				{
-					ObjectData data = (ObjectData)child.GetMeta("itemObject");
-					if (data.positionVector == new Vector2(-1, -1)) continue;
-					int localCol = col - (int)data.positionVector.X;
-					int localRow = row - (int)data.positionVector.Y;
-					if (localCol >= 0 && localCol < data.item.Width &&
-						localRow >= 0 && localRow < data.item.Length &&
-						data.item.Grid[localRow][localCol])
-					{
-						GD.Print(data.item.Name);
-						child.GetChildren().OfType<draggableObject>().First().StartDrag();
-						handled = true;
-						break;
-					}
-				}
-			}
-
-			if (!handled)
-			{
-				Vector2 globalMouse = GetGlobalMousePosition();
-				foreach (draggableObject draggable in Global.Instance.itemsInHolding)
-				{
-					Node2D parent = draggable.GetParent<Node2D>();
-					ObjectData data = (ObjectData)parent.GetMeta("itemObject");
-					float halfW = data.item.Width * draggableObject.gridSnapSize / 2.0f;
-					float halfH = data.item.Length * draggableObject.gridSnapSize / 2.0f;
-					if (globalMouse.X >= parent.GlobalPosition.X - halfW &&
-						globalMouse.X <= parent.GlobalPosition.X + halfW &&
-						globalMouse.Y >= parent.GlobalPosition.Y - halfH &&
-						globalMouse.Y <= parent.GlobalPosition.Y + halfH)
-					{
-						GD.Print(data.item.Name);
-						draggable.StartDrag();
-						handled = true;
-						break;
-					}
-				}
-			}
-
-			if (handled) GetViewport().SetInputAsHandled();
-		}
-		else if (!mouseEvent.Pressed && draggableObject.currentDraggedNode != null)
-		{
-			draggableObject.currentDraggedNode.StopDrag();
-			GetViewport().SetInputAsHandled();
-		}
-	}
+//
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

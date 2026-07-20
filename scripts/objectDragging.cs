@@ -115,9 +115,9 @@ public partial class draggableObject : Area2D
 	bool isDragging = false;
 	Vector2 draggingMouseOffset = Vector2.Zero;
 	
-	int gridSnapSize = 64;
-	int topOffset = 4;
-	int leftOffset = 4;
+	public int gridSnapSize = 64;
+	public int topOffset = 4;
+	public int leftOffset = 4;
 	int gridSize = 10;
 	
 	int storageStart = 648;

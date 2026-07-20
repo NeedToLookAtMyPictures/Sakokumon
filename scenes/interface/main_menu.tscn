@@ -34,7 +34,6 @@ offset_right = 46.81598
 offset_bottom = 15.639984
 text = "New Game"
 script = ExtResource("2_b5nk6")
-metadata/_edit_use_anchors_ = true
 
 [node name="Load Game" type="Button" parent="." unique_id=1985514870]
 layout_mode = 1
@@ -50,7 +49,6 @@ offset_bottom = 15.4079895
 text = "Load Game
 "
 script = ExtResource("2_b5nk6")
-metadata/_edit_use_anchors_ = true
 
 [node name="Settings" type="Button" parent="." unique_id=981319319]
 layout_mode = 1
@@ -65,7 +63,6 @@ offset_right = 34.81598
 offset_bottom = 15.824005
 text = "Settings"
 script = ExtResource("2_b5nk6")
-metadata/_edit_use_anchors_ = true
 
 [node name="Statistics" type="Button" parent="." unique_id=680231055]
 layout_mode = 1
@@ -80,7 +77,6 @@ offset_right = 38.951965
 offset_bottom = 10.0
 text = "Statistics"
 script = ExtResource("2_b5nk6")
-metadata/_edit_use_anchors_ = true
 
 [node name="Generate Save" type="Button" parent="." unique_id=682904246]
 layout_mode = 1

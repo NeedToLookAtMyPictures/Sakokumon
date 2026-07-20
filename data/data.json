@@ -230,7 +230,7 @@
       "Textures": [
         "res://assets/sprites/Items/copperBar_s.png"
       ],
-      "type": "copperBar",
+      "type": "copperBar_s",
       "Description": "A small refined copper bar, a legal and common export from Japan throughout the Edo period.",
       "Grid": [
         [true],
@@ -247,7 +247,7 @@
       "Textures": [
         "res://assets/sprites/Items/copperBar_m.png"
       ],
-      "type": "copperBar",
+      "type": "copperBar_m",
       "Description": "A medium refined copper bar, a legal and common export from Japan throughout the Edo period.",
       "Grid": [
         [true],
@@ -265,7 +265,7 @@
       "Textures": [
         "res://assets/sprites/Items/copperBar_l.png"
       ],
-      "type": "copperBar",
+      "type": "copperBar_1",
       "Description": "A large refined copper bar, a legal and common export from Japan throughout the Edo period.",
       "Grid": [
         [true],
@@ -284,7 +284,7 @@
       "Textures": [
         "res://assets/sprites/Items/nagasakiTradeCoin.png"
       ],
-      "type": "copperCoin",
+      "type": "nagasakiTradeCoin",
       "Description": "A specially minted copper coin authorized for foreign trade at Dejima. Produced only from 1659 to 1685.",
       "Grid": [
         [true]
@@ -427,7 +427,7 @@
       "Textures": [
         "res://assets/sprites/Items/opiumSmall.png"
       ],
-      "type": "opium",
+      "type": "opiumSmall",
       "Description": "A small tray of four cloth opium balls, tolerated in limited quantities for medicinal use before the 1857 ban.",
       "Grid": [
         [true]
@@ -443,7 +443,7 @@
       "Textures": [
         "res://assets/sprites/Items/opiumLarge.png"
       ],
-      "type": "opium",
+      "type": "opiumLarge",
       "Description": "A wooden tray packed with rows of cloth opium balls. The quantity unambiguously indicates smuggling.",
       "Grid": [
         [true, true],

@@ -12,7 +12,7 @@ public partial class PopulateGrid : Node2D
 	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
 	bool isSmuggler = true;
 	int currentYear = 1695;
-	int difficulty = 10;
+	int difficulty = 5;
 	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
 	// (1/difficulty) is the chance for smugglers to keep any illegal items beyond the first guaranteed item
 
@@ -44,7 +44,7 @@ public partial class PopulateGrid : Node2D
 		return isIllegalNow;
 	}
 
-	public static void createNode(ObjectData currentObject, Node itemGridNode)
+	public Node2D createNode(ObjectData currentObject, Node itemGridNode)
 	{
 				GD.Print("TRYING TO createNode");
 
@@ -58,6 +58,10 @@ public partial class PopulateGrid : Node2D
 
 		// add data to root node
 		rootNode.SetMeta("itemObject", currentObject);
+		rootNode.SetMeta("hoverCount", 0);
+
+		// place item into global list of items in grid
+		Global.Instance.itemsInGrid.Add(currentObject);
 
 
 		// create new sprite object
@@ -72,26 +76,65 @@ public partial class PopulateGrid : Node2D
 		rootNode.AddChild(currentObjectSprite);
 
 
-		/// I CAN DEFINE A SET OF VERTICES FOR THE COLLISION SHAPE IN THE DATABASE THEN USE THAT TO GENERATE A CollisionPolygon2D
-		/// That can be used instead of a CollisionShape2D for non rectangular/square shapes, but we will have to manually define them per shape
+		/// define base variables for hitbox creation
+		float xOffset;
+		float yOffset;		
+
+		// because the collision shapes will be moved & flipped with the root node the original grid is used
+		// In order to not change the one on the item, we copy it then adjust the copy instead
+		List<List<bool>> originalList = itemLibrary[currentObject.item.type].Copy().Grid;
+		int originalHeight = itemLibrary[currentObject.item.type].Copy().Length;
+		int originalWidth = itemLibrary[currentObject.item.type].Copy().Width;
 
 
-
-
-		// generate area2d node
-		var objectArea = new draggableObject();
-		CollisionShape2D objectCollisionShape = new CollisionShape2D();
-
-		// create and configure item shape
-		RectangleShape2D itemShape = new RectangleShape2D
+		List<List<bool>> tempItemGrid = new List<List<bool>>();
+		for (int currRow = 0; currRow < originalList.Count; currRow++)
 		{
-			Size = new Vector2(gridSizeMultiplier * currentObject.item.Width, gridSizeMultiplier * currentObject.item.Length)
-		};
-		objectCollisionShape.Shape = itemShape;
+			tempItemGrid.Add(new List<bool>());
+			for (int currCol = 0; currCol < originalList[currRow].Count; currCol++)
+			{
+				tempItemGrid[currRow].Add(originalList[currRow][currCol]);
+			}
+		}
 
-		// set hierarchy
-		objectArea.AddChild(objectCollisionShape);
-		rootNode.AddChild(objectArea);
+
+		// generate area2d nodes
+		for (int currRow = 0; currRow < originalList.Count; currRow++)
+		{
+			for (int currCol = 0; currCol < originalList[currRow].Count; currCol++)
+			{
+				if (tempItemGrid[currRow][currCol])
+				{
+					var objectArea = new draggableObject();
+					CollisionShape2D objectCollisionShape = new CollisionShape2D();
+
+					// create and configure item shape
+					RectangleShape2D itemShape = new RectangleShape2D();
+					itemShape.Size = new Vector2(gridSizeMultiplier * 1, gridSizeMultiplier * 1);
+					objectCollisionShape.Shape = itemShape;
+
+
+					// swap axis in location math if rotated 90 or 270 degrees
+					if (currentObject.rotationValue % 2 == 1)
+					{
+						yOffset = (currRow * gridSizeMultiplier) - (((originalHeight - 1) * gridSizeMultiplier) / 2.0f);
+						xOffset = (currCol * gridSizeMultiplier) - (((originalWidth - 1) * gridSizeMultiplier) / 2.0f);
+					}
+					else
+					{
+						yOffset = (currRow * gridSizeMultiplier) - (((currentObject.item.Length - 1) * gridSizeMultiplier) / 2.0f);
+						xOffset = (currCol * gridSizeMultiplier) - (((currentObject.item.Width - 1) * gridSizeMultiplier) / 2.0f);
+					}
+
+					objectArea.Position = new Vector2(xOffset, yOffset);
+
+					// set hierarchy
+					objectArea.AddChild(objectCollisionShape);
+					rootNode.AddChild(objectArea);
+				}
+			}
+		}
+
 
 
 
@@ -117,14 +160,13 @@ public partial class PopulateGrid : Node2D
 			// if y flipped invert y scale of object as a whole (this flips the hitbox & sprite at the same time)
 			rootNode.ApplyScale(new Vector2 (1,-1));
 		}
-
-
 				GD.Print("TRYING TO addChild");
 
 		itemGridNode.AddChild(rootNode);
+		return rootNode;
 	}
 
-	public static void placeObject(ObjectData currentObject, List<List<bool>> itemGrid, Node itemGridNode)
+	public void placeObject(ObjectData currentObject, List<List<bool>> itemGrid, Node itemGridNode)
 	{
 		GD.Print("TRYING TO placeObject");
 
@@ -186,7 +228,7 @@ public partial class PopulateGrid : Node2D
 		return isValid;
 	}
 
-	public static bool attemptPlacement(ObjectData currentObject, List<List<bool>> itemGrid, ref int attemptCount, Node itemGridNode)
+	public bool attemptPlacement(ObjectData currentObject, List<List<bool>> itemGrid, ref int attemptCount, Node itemGridNode)
 	{
 				GD.Print("TRYING TO attemptPlacement");
 
@@ -239,7 +281,7 @@ public partial class PopulateGrid : Node2D
 			successfullyPlacedObject = true;
 		}
 		// increment placement attempt counter
-		GD.Print($"ItemsPlaced: {10 - attemptCount}");
+		GD.Print($"ItemsPlaced: {101 - attemptCount}");
 		attemptCount--;
 
 		return successfullyPlacedObject;
@@ -254,10 +296,8 @@ public partial class PopulateGrid : Node2D
 		Node2D itemGridNode = this;
 
 
-		// Reference data from the autoloader for the library of possible objects and the object subclasses
-		GD.Print("TRYING TO PLACE THINGS");
 		
-		// Make 12x12 grid of booleans (true if slot filled, false if empty) to represent item grid
+		// Make 10x10 grid of booleans (true if slot filled, false if empty) to represent item grid
 		List<List<bool>> itemGrid = new List<List<bool>>(10);
 
 		for (int i = 0; i < 10; i++)
@@ -265,57 +305,73 @@ public partial class PopulateGrid : Node2D
 			itemGrid.Add(Enumerable.Repeat(false, 10).ToList());
 		}
 
-		// seed random function
-		Random randomGenerator = new Random();
-
-		// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
-		int attemptCount = 104;
-		
-		// if current person is a smuggler
-		if (isSmuggler)
+		// if a list of items from a previous game has been loaded, load that instead of generating new, otherwise generate new
+		if (Global.Instance.itemsInGrid.Count != 0 || Global.Instance.itemsInStorage.Count != 0)
 		{
-			// place illegal item in grid
-			bool successBool = false;
-			while (!successBool)
+			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInGrid.Count; currItemIndex++)
 			{
-				// generate random rotation, and whether the sprite will be x and/or y flipped
-				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees
-				bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
-				bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
+				placeObject(Global.Instance.itemsInGrid[currItemIndex], itemGrid, itemGridNode);
+			}
+			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInGrid.Count; currItemIndex++)
+			{
+				Node2D itemNode = createNode(Global.Instance.itemsInStorage[currItemIndex], itemGridNode);
+				Global.Instance.nodesInStorage.Add(itemNode);
+				Global.Instance.updateStorage();
+			}
+		}
+		else
+		{
+			// seed random function
+			Random randomGenerator = new Random();
 
-				// make default position vector
-				Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
+			// choose how many items are attempted to be placed (add 1 more for initial item for smuggler/innocents)
+			int attemptCount = 104;
+			
+			// if current person is a smuggler
+			if (isSmuggler)
+			{
+				// place illegal item in grid
+				bool successBool = false;
+				while (!successBool)
+				{
+					// generate random rotation, and whether the sprite will be x and/or y flipped
+					int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
+					bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
+					bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
+
+					// make default position vector
+					Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
 				Item randomItem = db.IllegalItems(currentYear).OrderBy(_ => Random.Shared.Next()).First(); 
 				ObjectData currentObject = new ObjectData(randomItem.Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
-
-				// rotate as needed
-				if (currentObject.rotationValue != 0)
-				{
-					// rotate clockwise until done
-					int currentRotation = 0;
-					while (currentRotation != currentObject.rotationValue)
+					// flip grid if needed
+					if (currentObject.isXFlipped)
 					{
-						currentObject.rotateClockwise();
-						currentRotation++;
+						for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
+						{
+							currentObject.item.Grid[currRow].Reverse();
+						}
 					}
-				}
-
-				// flip grid if needed
-				if (currentObject.isXFlipped)
-				{
-					for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
+					if (currentObject.isYFlipped)
 					{
-						currentObject.item.Grid[currRow].Reverse();
+						currentObject.item.Grid.Reverse();
 					}
-				}
-				if (currentObject.isYFlipped)
-				{
-					currentObject.item.Grid.Reverse();
-				}
+
+					// rotate as needed
+					if (currentObject.rotationValue != 0)
+					{
+						// rotate clockwise until done
+						int currentRotation = 0;
+						while (currentRotation != currentObject.rotationValue)
+						{
+							currentObject.rotateClockwise();
+							currentRotation++;
+						}
+					}
+
 
 				// edit by Jossaya: obsolete
 				// // if item is illegal, attempt placement
@@ -340,26 +396,66 @@ public partial class PopulateGrid : Node2D
 				bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
 				bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
 
-				// make default position vector
-				Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
+					// make default position vector
+					Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
 
 				// randomly select class and attempt to create
 				int randomIndex = randomGenerator.Next(itemLibrary.Count);
 				Item randomItem = db.LegalItems(currentYear).OrderBy(_ => Random.Shared.Next()).First(); // was db.IllegalItems (typo)
 				ObjectData currentObject = new ObjectData(randomItem.Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
-
-				// rotate as needed
-				if (currentObject.rotationValue != 0)
-				{
-					// rotate clockwise until done
-					int currentRotation = 0;
-					while (currentRotation != currentObject.rotationValue)
+					// flip grid if needed
+					if (currentObject.isXFlipped)
 					{
-						currentObject.rotateClockwise();
-						currentRotation++;
+						for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
+						{
+							currentObject.item.Grid[currRow].Reverse();
+						}
 					}
+					if (currentObject.isYFlipped)
+					{
+						currentObject.item.Grid.Reverse();
+					}
+
+					// rotate as needed
+					if (currentObject.rotationValue != 0)
+					{
+						// rotate clockwise until done
+						int currentRotation = 0;
+						while (currentRotation != currentObject.rotationValue)
+						{
+							currentObject.rotateClockwise();
+							currentRotation++;
+						}
+					}
+
+				// obsolete
+					// // if item is legal
+					// if (!isIllegal(currentObject, currentYear))
+					// {
+					// 	// attempt placement and set success boolean to true
+					// 	attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+					// 	successBool = true;
+					// }
+				// Same infinite loop fix as the smuggler branch: the commented block above was the
+				// only place successBool was ever set to true.
+				successBool = attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
 				}
+			}
+
+			while (attemptCount > 0)
+			{
+				// generate random rotation, and whether the sprite will be x and/or y flipped
+				int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees 
+				bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
+				bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
+
+				// make default position vector
+				Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
+
+				// randomly select class and attempt to create
+				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
+				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
 
 				// flip grid if needed
 				if (currentObject.isXFlipped)
@@ -373,84 +469,43 @@ public partial class PopulateGrid : Node2D
 				{
 					currentObject.item.Grid.Reverse();
 				}
-				// obsolete
-				// // if item is legal
-				// if (!isIllegal(currentObject, currentYear))
-				// {
-				// 	// attempt placement and set success boolean to true
-				// 	attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-				// 	successBool = true;
-				// }
-				// Same infinite loop fix as the smuggler branch: the commented block above was the
-				// only place successBool was ever set to true.
-				successBool = attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-			}
-		}
 
-		while (attemptCount > 0)
-		{
-			// generate random rotation, and whether the sprite will be x and/or y flipped
-			int randomRotation = randomGenerator.Next(0,4);				// RNG chooses value 0-3, rotation is that value * 90 degrees
-			bool horizontallyFlipped = randomGenerator.Next(0,2) == 0; 	// if RNG generates 0, then true
-			bool verticallyFlipped = randomGenerator.Next(0,2) == 0;	// if RNG generates 0, then true
-
-			// make default position vector
-			Godot.Vector2 positionVector = new Godot.Vector2 (0f,0f);
-
-			// randomly select class and attempt to create
-			int randomIndex = randomGenerator.Next(itemLibrary.Count);
-			string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
-			ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
-
-
-			// rotate as needed
-			if (currentObject.rotationValue != 0)
-			{
-				// rotate clockwise until done
-				int currentRotation = 0;
-				while (currentRotation != currentObject.rotationValue)
+				// rotate as needed
+				if (currentObject.rotationValue != 0)
 				{
-					currentObject.rotateClockwise();
-					currentRotation++;
-				}
-			}
-
-			// flip grid if needed
-			if (currentObject.isXFlipped)
-			{
-				for (int currRow = 0; currRow < currentObject.item.Grid.Count; currRow++)
-				{
-					currentObject.item.Grid[currRow].Reverse();
-				}
-			}
-			if (currentObject.isYFlipped)
-			{
-				currentObject.item.Grid.Reverse();
-			}
-
-			// if item is illegal
-			if (isIllegal(currentObject, currentYear))
-			{
-				// if not smuggler
-				if (!isSmuggler)
-				{
-					continue;
-				} else
-				{ // if smuggler
-					// generate number 0-difficulty
-					// if not 0 (1/difficulty chance), skip illegal item
-					// this is done to reduce the amount of illegal items (1 guaranteed above) so it isn't super obvious every time
-					if (randomGenerator.Next(0,difficulty) != 0)
+					// rotate clockwise until done
+					int currentRotation = 0;
+					while (currentRotation != currentObject.rotationValue)
 					{
-						continue;
+						currentObject.rotateClockwise();
+						currentRotation++;
 					}
 				}
-			}
-			// attempt placement of item
-			attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
-			Global.Instance.itemGrid = itemGrid;
-		}
 
+
+				// if item is illegal
+				if (isIllegal(currentObject, currentYear))
+				{
+					// if not smuggler
+					if (!isSmuggler)
+					{
+						continue;
+					} else
+					{ // if smuggler
+						// generate number 0-difficulty
+						// if not 0 (1/difficulty chance), skip illegal item
+						// this is done to reduce the amount of illegal items (1 guaranteed above) so it isn't super obvious every time
+						if (randomGenerator.Next(0,difficulty) != 0)
+						{
+							continue;
+						}
+					}
+				}
+				// attempt placement of item
+				attemptPlacement(currentObject, itemGrid, ref attemptCount, itemGridNode);
+				Global.Instance.itemGrid = itemGrid;
+			}
+		}
 		/*	--------------------------------  LOGIC WRITTEN OUT  --------------------------------
 		If current inventory is a smuggler
 			Load and place an illegal item first to ensure smuggler status
@@ -489,69 +544,7 @@ public partial class PopulateGrid : Node2D
 
 		*/
 	}
-
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (@event is not InputEventMouseButton { ButtonIndex: MouseButton.Left } mouseEvent) return;
-
-		if (mouseEvent.Pressed && draggableObject.currentDraggedNode == null)
-		{
-			bool handled = false;
-			Vector2 localMouse = GetLocalMousePosition();
-			int col = (int)((localMouse.X - draggableObject.leftOffset) / draggableObject.gridSnapSize);
-			int row = (int)((localMouse.Y - draggableObject.topOffset) / draggableObject.gridSnapSize);
-			var grid = Global.Instance.itemGrid;
-
-			if (grid != null && col >= 0 && col < grid[0].Count && row >= 0 && row < grid.Count && grid[row][col])
-			{
-				foreach (Node2D child in GetChildren().OfType<Node2D>())
-				{
-					ObjectData data = (ObjectData)child.GetMeta("itemObject");
-					if (data.positionVector == new Vector2(-1, -1)) continue;
-					int localCol = col - (int)data.positionVector.X;
-					int localRow = row - (int)data.positionVector.Y;
-					if (localCol >= 0 && localCol < data.item.Width &&
-						localRow >= 0 && localRow < data.item.Length &&
-						data.item.Grid[localRow][localCol])
-					{
-						GD.Print(data.item.Name);
-						child.GetChildren().OfType<draggableObject>().First().StartDrag();
-						handled = true;
-						break;
-					}
-				}
-			}
-
-			if (!handled)
-			{
-				Vector2 globalMouse = GetGlobalMousePosition();
-				foreach (draggableObject draggable in Global.Instance.itemsInHolding)
-				{
-					Node2D parent = draggable.GetParent<Node2D>();
-					ObjectData data = (ObjectData)parent.GetMeta("itemObject");
-					float halfW = data.item.Width * draggableObject.gridSnapSize / 2.0f;
-					float halfH = data.item.Length * draggableObject.gridSnapSize / 2.0f;
-					if (globalMouse.X >= parent.GlobalPosition.X - halfW &&
-						globalMouse.X <= parent.GlobalPosition.X + halfW &&
-						globalMouse.Y >= parent.GlobalPosition.Y - halfH &&
-						globalMouse.Y <= parent.GlobalPosition.Y + halfH)
-					{
-						GD.Print(data.item.Name);
-						draggable.StartDrag();
-						handled = true;
-						break;
-					}
-				}
-			}
-
-			if (handled) GetViewport().SetInputAsHandled();
-		}
-		else if (!mouseEvent.Pressed && draggableObject.currentDraggedNode != null)
-		{
-			draggableObject.currentDraggedNode.StopDrag();
-			GetViewport().SetInputAsHandled();
-		}
-	}
+//
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

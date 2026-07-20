@@ -10,7 +10,9 @@ public partial class Global : Node
 	public Node CurrentScene{ get; set; }
 	public static Global Instance { get; set; }
 	public List<List<bool>> itemGrid { get; set; }
-	public List<draggableObject> itemsInHolding { get; set; }
+	public List<ObjectData> itemsInGrid { get; set; }
+	public List<ObjectData> itemsInStorage { get; set; }
+	public List<Node2D> nodesInStorage { get; set; }
 	public Database Database { get; set; }
 	private Preferences prefs;
 	public Preferences Preferences
@@ -39,8 +41,9 @@ public partial class Global : Node
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
 		Instance = this;
-		itemsInHolding = new List<draggableObject>();
-		
+		itemsInGrid = new List<ObjectData>();
+		itemsInStorage = new List<ObjectData>();
+		nodesInStorage = new List<Node2D>();
 		if (!FileAccess.FileExists("res://data/data.json"))
 		{
 			GetTree().Quit(1); // crash the game if no data.json is present
@@ -126,5 +129,30 @@ public partial class Global : Node
 		Preferences.save();
 		musicPlayer.MusicVolume = Preferences.masterVolume * Preferences.musicVolume;
 		musicPlayer.SfxVolume = Preferences.masterVolume * Preferences.sfxVolume;
+	}
+
+	int gridSnapSize = 64;
+	int storageBuffer = 16;
+	int storageCenterX = 756;
+	public void updateStorage()
+	{
+		// stack starts at y = 550 (going up)
+		// for each item:
+		//	currentPos =- stackBuffer -> then place sprite at currentPos =- ((itemHeight * 64) / 2) -> then currentPos =- (((itemHeight * 64) / 2) + storageBuffer)
+		int currentHeightInStorage = 550;
+		for (int i = 0; i < nodesInStorage.Count; i++)
+		{
+			var currItem = nodesInStorage[i];
+			currentHeightInStorage -= storageBuffer;
+			ObjectData parentData = (ObjectData)currItem.GetMeta("itemObject");
+			int itemHeight = parentData.item.Length * gridSnapSize;
+			currItem.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
+			currentHeightInStorage -= itemHeight;
+			currentHeightInStorage -= storageBuffer;
+		}
+
+		
+		// when adding new thing to storage, add to list of items in storage, set position vector to (-1, -1), and update storage
+		// when removing from storage, remove that instance from items in storage, set position vector, and update storage
 	}
 }

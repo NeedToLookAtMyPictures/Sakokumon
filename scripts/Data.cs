@@ -40,6 +40,8 @@ namespace Data
 				textures = value;
 			}
 		}
+
+		public string type {get; set;}
 		
         public List<List<bool>> Grid
         {
@@ -60,7 +62,6 @@ namespace Data
 		public int exitYear {get; set;} // when will the item leave the game?
 		public int legalStartYear {get; set;} // -1 = never legal
 		public int legalEndYear {get; set;}
-		public string type;
 		public string Description { get; set; }
 
 		// DO NOT DEFINE IN JSON
@@ -88,6 +89,7 @@ namespace Data
 				Name = this.Name,
 				Id = this.Id,
 				Textures = this.Textures.ToList(),
+				type = this.type,
 				// changed from this.Grid.ToList(), this new logic will ensure
 				// This makes Copy() deep-copy each row so flips and rotations 
 				// on a copy are fully isolated

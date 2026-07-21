@@ -1,23 +1,24 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
-
-public partial class Splash : Node2D
+public partial class SplashTextControl : Control
 {
-	AnimatedSprite2D Background;
+
 	RichTextLabel SplashText;
+	RichTextLabel TitleText;
 	Tween TextTween;
 	Global global;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Background = (AnimatedSprite2D)GetNode("Background");
-		SplashText = GetNode<RichTextLabel>("SplashText");
-		Background.Play("default");
 		global = GetNode<Global>("/root/Global");
+		SplashText = GetNode<RichTextLabel>("SplashText");
+		TitleText = GetNode<RichTextLabel>("TitleText");
 		SplashText.Modulate = new Color(1, 1, 1, 1);
+		TitleText.Modulate = new Color(1, 1, 1, 1);
 
-        TextTween = CreateTween();
+		TextTween = CreateTween();
         TextTween.SetLoops(); // infinite loop
 
         // fade out
@@ -33,19 +34,20 @@ public partial class Splash : Node2D
              .SetEase(Tween.EaseType.InOut);
 
         TextTween.TweenInterval(0.5f); 
+
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _Input(InputEvent ev)
 	{
-		if (Input.IsAnythingPressed())
+		if (ev.IsPressed() && !ev.IsEcho())
 		{
-			Background.Stop();
 			TextTween.Kill();
 			Transition();
+			GetViewport().SetInputAsHandled(); // optional, stops it propagating further
 		}
 	}
-
 	public async Task Transition()
 	{
 		Modulate = new Color(1,1,1,1);
@@ -54,6 +56,7 @@ public partial class Splash : Node2D
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.Out);
 		await ToSignal(tween,Tween.SignalName.Finished);
+		GD.Print("im going!");
 		global.GoToScene("res://scenes/interface/main_menu.tscn");
 	}
 }

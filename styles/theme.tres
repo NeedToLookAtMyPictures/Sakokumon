@@ -1,12 +1,7 @@
-[gd_scene format=3 uid="uid://dl0kwutftyqat"]
+[gd_resource type="Theme" format=3 uid="uid://c8rgd01568qvd"]
 
-[ext_resource type="Script" path="res://scripts/UI/Splash.cs" id="1_yp7du"]
-[ext_resource type="Script" uid="uid://chc5btb0h3b0h" path="res://scripts/UI/SplashTextControl.cs" id="3_8teny"]
-[ext_resource type="Texture2D" uid="uid://dhgo1yqxx3w3a" path="res://assets/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png" id="121_ryewm"]
-[ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="122_abj02"]
-[ext_resource type="FontFile" uid="uid://cc68i4as6d4a4" path="res://styles/fonts/PixelOperator-Bold.ttf" id="122_yp7du"]
-
-[sub_resource type="Theme" id="Theme_ryewm"]
+[ext_resource type="FontFile" uid="uid://cc68i4as6d4a4" path="res://styles/fonts/PixelOperator-Bold.ttf" id="1_2r7j6"]
+[ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="1_molii"]
 
 [sub_resource type="Image" id="Image_molii"]
 data = {
@@ -47,8 +42,8 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 
-[sub_resource type="Theme" id="Theme_abj02"]
-default_font = ExtResource("122_abj02")
+[resource]
+default_font = ExtResource("1_molii")
 default_font_size = 21
 RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
@@ -70,50 +65,8 @@ RichTextLabel/constants/table_v_separation = 3
 RichTextLabel/constants/text_highlight_h_padding = 3
 RichTextLabel/constants/text_highlight_v_padding = 3
 RichTextLabel/constants/underline_alpha = 50
-RichTextLabel/font_sizes/normal_font_size = 40
-RichTextLabel/fonts/bold_font = ExtResource("122_yp7du")
-RichTextLabel/fonts/normal_font = ExtResource("122_abj02")
+RichTextLabel/font_sizes/bold_font_size = 65
+RichTextLabel/fonts/bold_font = ExtResource("1_2r7j6")
 RichTextLabel/icons/horizontal_rule = SubResource("ImageTexture_2r7j6")
 RichTextLabel/styles/focus = SubResource("StyleBoxFlat_dejc1")
 RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_5llwy")
-
-[node name="Node2D" type="Node2D" unique_id=1979320281]
-script = ExtResource("1_yp7du")
-
-[node name="Control" type="Control" parent="." unique_id=467889223]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme = SubResource("Theme_ryewm")
-
-[node name="Background" type="Sprite2D" parent="Control" unique_id=62919915]
-position = Vector2(447, 324)
-scale = Vector2(3.6920178, 3.588889)
-texture = ExtResource("121_ryewm")
-
-[node name="SplashTextControl" type="Control" parent="Control" unique_id=1756671832]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("3_8teny")
-
-[node name="TitleText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1511004730]
-layout_mode = 0
-offset_left = 163.0
-offset_top = 276.0
-offset_right = 636.0
-offset_bottom = 356.0
-theme = SubResource("Theme_abj02")
-bbcode_enabled = true
-text = "[font_size=80][center][b]SAKOKUMON[/b][/center][/font_size]"
-
-[node name="SplashText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1720372774]
-layout_mode = 0
-offset_left = 169.0
-offset_top = 360.0
-offset_right = 642.0
-offset_bottom = 425.0
-theme = SubResource("Theme_abj02")
-bbcode_enabled = true
-text = "[center]PRESS ANY KEY TO PLAY[/center]"

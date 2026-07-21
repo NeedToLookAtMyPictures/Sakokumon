@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://brr21xurgr8d6" path="res://scripts/UI/MainMenu.cs" id="1_bvgs0"]
 [ext_resource type="Script" uid="uid://cwrn421d6vohb" path="res://scripts/UI/MainMenuOptions.cs" id="2_b5nk6"]
+[ext_resource type="Texture2D" uid="uid://dhgo1yqxx3w3a" path="res://assets/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png" id="2_g0ice"]
 [ext_resource type="Script" uid="uid://k6o6buhkuubh" path="res://scripts/UI/SaveGeneration.cs" id="4_ylig1"]
 [ext_resource type="Texture2D" uid="uid://7utxjs2npan7" path="res://assets/icons/main-menu/[PH] sideBanner.png" id="5_g0ice"]
 
@@ -15,6 +16,11 @@ offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bvgs0")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=178036028]
+position = Vector2(447, 324)
+scale = Vector2(3.6920178, 3.588889)
+texture = ExtResource("2_g0ice")
 
 [node name="[ph]SideBanner" type="Sprite2D" parent="." unique_id=1947283536]
 position = Vector2(760, 291)

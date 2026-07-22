@@ -1,72 +1,27 @@
 [gd_resource type="Theme" format=3 uid="uid://c8rgd01568qvd"]
 
 [ext_resource type="FontFile" uid="uid://cc68i4as6d4a4" path="res://styles/fonts/PixelOperator-Bold.ttf" id="1_2r7j6"]
-[ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="1_molii"]
+[ext_resource type="Texture2D" uid="uid://bcxrc5o7ydo7a" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/hover.png" id="2_5llwy"]
+[ext_resource type="Texture2D" uid="uid://kspokxv8r7yo" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_4.png" id="3_rf8rj"]
+[ext_resource type="Texture2D" uid="uid://kxqk4cxxjngr" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/clicked.png" id="4_p0xk6"]
 
-[sub_resource type="Image" id="Image_molii"]
-data = {
-"data": PackedByteArray(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255),
-"format": "RGBA8",
-"height": 2,
-"mipmaps": false,
-"width": 2
-}
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h8vjg"]
+texture = ExtResource("2_5llwy")
 
-[sub_resource type="ImageTexture" id="ImageTexture_2r7j6"]
-image = SubResource("Image_molii")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4bsd4"]
+texture = ExtResource("3_rf8rj")
+expand_margin_left = 11.0
+expand_margin_right = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dejc1"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5llwy"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tf28x"]
+texture = ExtResource("4_p0xk6")
 
 [resource]
-default_font = ExtResource("1_molii")
-default_font_size = 21
-RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
-RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
-RichTextLabel/colors/font_selected_color = Color(0, 0, 0, 0)
-RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0)
-RichTextLabel/colors/selection_color = Color(0.1, 0.1, 1, 0.8)
-RichTextLabel/colors/table_border = Color(0, 0, 0, 0)
-RichTextLabel/colors/table_even_row_bg = Color(0, 0, 0, 0)
-RichTextLabel/colors/table_odd_row_bg = Color(0, 0, 0, 0)
-RichTextLabel/constants/line_separation = 0
-RichTextLabel/constants/outline_size = 0
-RichTextLabel/constants/paragraph_separation = 0
-RichTextLabel/constants/shadow_offset_x = 1
-RichTextLabel/constants/shadow_offset_y = 1
-RichTextLabel/constants/shadow_outline_size = 1
-RichTextLabel/constants/strikethrough_alpha = 50
-RichTextLabel/constants/table_h_separation = 3
-RichTextLabel/constants/table_v_separation = 3
-RichTextLabel/constants/text_highlight_h_padding = 3
-RichTextLabel/constants/text_highlight_v_padding = 3
-RichTextLabel/constants/underline_alpha = 50
-RichTextLabel/font_sizes/bold_font_size = 65
-RichTextLabel/fonts/bold_font = ExtResource("1_2r7j6")
-RichTextLabel/icons/horizontal_rule = SubResource("ImageTexture_2r7j6")
-RichTextLabel/styles/focus = SubResource("StyleBoxFlat_dejc1")
-RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_5llwy")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_2r7j6")
+Button/styles/focus = null
+Button/styles/hover = SubResource("StyleBoxTexture_h8vjg")
+Button/styles/normal = SubResource("StyleBoxTexture_4bsd4")
+Button/styles/pressed = SubResource("StyleBoxTexture_tf28x")

@@ -2,24 +2,34 @@
 
 [ext_resource type="Script" uid="uid://brr21xurgr8d6" path="res://scripts/UI/MainMenu.cs" id="1_bvgs0"]
 [ext_resource type="FontFile" uid="uid://cc68i4as6d4a4" path="res://styles/fonts/PixelOperator-Bold.ttf" id="1_dfwog"]
+[ext_resource type="Texture2D" uid="uid://bcxrc5o7ydo7a" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/hover.png" id="2_4bsd4"]
 [ext_resource type="Script" uid="uid://cwrn421d6vohb" path="res://scripts/UI/MainMenuOptions.cs" id="2_b5nk6"]
 [ext_resource type="Texture2D" uid="uid://kspokxv8r7yo" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_4.png" id="2_dysqo"]
 [ext_resource type="Texture2D" uid="uid://dhgo1yqxx3w3a" path="res://assets/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png" id="2_g0ice"]
+[ext_resource type="Texture2D" uid="uid://kxqk4cxxjngr" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/clicked.png" id="4_4a6mn"]
 [ext_resource type="Script" uid="uid://k6o6buhkuubh" path="res://scripts/UI/SaveGeneration.cs" id="4_ylig1"]
 [ext_resource type="Texture2D" uid="uid://didl6qv5pq8y4" path="res://assets/sprites/scroll.png" id="6_0t3l1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h8vjg"]
+texture = ExtResource("2_4bsd4")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4bsd4"]
 texture = ExtResource("2_dysqo")
 expand_margin_left = 11.0
 expand_margin_right = 5.0
-region_rect = Rect2(0.18148041, 0.55174255, 85.28931, 24.713455)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tf28x"]
+texture = ExtResource("4_4a6mn")
 
 [sub_resource type="Theme" id="Theme_4a6mn"]
 Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/font_sizes/font_size = 16
 Button/fonts/font = ExtResource("1_dfwog")
 Button/styles/focus = null
+Button/styles/hover = SubResource("StyleBoxTexture_h8vjg")
 Button/styles/normal = SubResource("StyleBoxTexture_4bsd4")
+Button/styles/pressed = SubResource("StyleBoxTexture_tf28x")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfwog"]
 atlas = ExtResource("6_0t3l1")
@@ -89,18 +99,6 @@ region = Rect2(0, 561, 82, 187)
 atlas = ExtResource("6_0t3l1")
 region = Rect2(82, 561, 82, 187)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uajlb"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(164, 561, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kad51"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(246, 561, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mo3x4"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(328, 561, 82, 187)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_g0ice"]
 animations = [{
 "frames": [{
@@ -154,19 +152,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0ay63")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uajlb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kad51")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mo3x4")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
-"speed": 10.0
+"speed": 7.0
 }]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]
@@ -191,14 +180,14 @@ position = Vector2(735, 318)
 scale = Vector2(2.9984756, 2.975063)
 sprite_frames = SubResource("SpriteFrames_g0ice")
 frame = 16
-frame_progress = 0.55511075
+frame_progress = 1.0
 
-[node name="Control" type="Control" parent="." unique_id=759487245]
+[node name="ButtonControl" type="Control" parent="." unique_id=759487245]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="New Game" type="Button" parent="Control" unique_id=1625591059]
+[node name="New Game" type="Button" parent="ButtonControl" unique_id=1625591059]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.88100004
@@ -212,7 +201,7 @@ offset_bottom = 212.2
 text = "New Game"
 script = ExtResource("2_b5nk6")
 
-[node name="Load Game" type="Button" parent="Control" unique_id=1985514870]
+[node name="Load Game" type="Button" parent="ButtonControl" unique_id=1985514870]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.88000005
@@ -227,7 +216,7 @@ text = "Load Game
 "
 script = ExtResource("2_b5nk6")
 
-[node name="Settings" type="Button" parent="Control" unique_id=981319319]
+[node name="Settings" type="Button" parent="ButtonControl" unique_id=981319319]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.88100004
@@ -241,7 +230,7 @@ offset_bottom = 286.52
 text = "Settings"
 script = ExtResource("2_b5nk6")
 
-[node name="Statistics" type="Button" parent="Control" unique_id=680231055]
+[node name="Statistics" type="Button" parent="ButtonControl" unique_id=680231055]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.882
@@ -255,7 +244,7 @@ offset_bottom = 317.0
 text = "Statistics"
 script = ExtResource("2_b5nk6")
 
-[node name="Generate Save" type="Button" parent="Control" unique_id=682904246]
+[node name="Generate Save" type="Button" parent="ButtonControl" unique_id=682904246]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.87700003
@@ -269,7 +258,7 @@ offset_bottom = 487.8
 text = "Debug: Generate Save"
 script = ExtResource("4_ylig1")
 
-[node name="Quit" type="Button" parent="Control" unique_id=1497351047]
+[node name="Quit" type="Button" parent="ButtonControl" unique_id=1497351047]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.53263855
@@ -284,9 +273,10 @@ text = "Quit"
 script = ExtResource("2_b5nk6")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Control/New Game" to="Control/New Game" method="OnPressedMainMenuOptions" binds= ["new"]]
-[connection signal="pressed" from="Control/Load Game" to="Control/Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]
-[connection signal="pressed" from="Control/Settings" to="Control/Settings" method="OnPressedMainMenuOptions" binds= ["settings"]]
-[connection signal="pressed" from="Control/Statistics" to="Control/Statistics" method="OnPressedMainMenuOptions" binds= ["statistics"]]
-[connection signal="pressed" from="Control/Generate Save" to="Control/Generate Save" method="DebugSave"]
-[connection signal="pressed" from="Control/Quit" to="Control/Quit" method="OnPressedMainMenuOptions" binds= ["quit"]]
+[connection signal="animation_finished" from="SideBanner" to="." method="_Animate"]
+[connection signal="pressed" from="ButtonControl/New Game" to="ButtonControl/New Game" method="OnPressedMainMenuOptions" binds= ["new"]]
+[connection signal="pressed" from="ButtonControl/Load Game" to="ButtonControl/Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]
+[connection signal="pressed" from="ButtonControl/Settings" to="ButtonControl/Settings" method="OnPressedMainMenuOptions" binds= ["settings"]]
+[connection signal="pressed" from="ButtonControl/Statistics" to="ButtonControl/Statistics" method="OnPressedMainMenuOptions" binds= ["statistics"]]
+[connection signal="pressed" from="ButtonControl/Generate Save" to="ButtonControl/Generate Save" method="DebugSave"]
+[connection signal="pressed" from="ButtonControl/Quit" to="ButtonControl/Quit" method="OnPressedMainMenuOptions" binds= ["quit"]]

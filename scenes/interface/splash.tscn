@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://dl0kwutftyqat"]
 
-[ext_resource type="Script" path="res://scripts/UI/Splash.cs" id="1_yp7du"]
 [ext_resource type="Script" uid="uid://chc5btb0h3b0h" path="res://scripts/UI/SplashTextControl.cs" id="3_8teny"]
+[ext_resource type="Texture2D" uid="uid://kxqk4cxxjngr" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/clicked.png" id="3_d2ahf"]
 [ext_resource type="Texture2D" uid="uid://dhgo1yqxx3w3a" path="res://assets/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png" id="121_ryewm"]
 [ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="122_abj02"]
 [ext_resource type="FontFile" uid="uid://cc68i4as6d4a4" path="res://styles/fonts/PixelOperator-Bold.ttf" id="122_yp7du"]
 
 [sub_resource type="Theme" id="Theme_ryewm"]
 
-[sub_resource type="Image" id="Image_molii"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eipqs"]
+texture = ExtResource("3_d2ahf")
+
+[sub_resource type="Image" id="Image_f3ktg"]
 data = {
 "data": PackedByteArray(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255),
 "format": "RGBA8",
@@ -18,7 +21,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_2r7j6"]
-image = SubResource("Image_molii")
+image = SubResource("Image_f3ktg")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dejc1"]
 content_margin_left = 4.0
@@ -50,6 +53,7 @@ content_margin_bottom = 0.0
 [sub_resource type="Theme" id="Theme_abj02"]
 default_font = ExtResource("122_abj02")
 default_font_size = 21
+Button/styles/pressed = SubResource("StyleBoxTexture_eipqs")
 RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
 RichTextLabel/colors/font_selected_color = Color(0, 0, 0, 0)
@@ -78,7 +82,6 @@ RichTextLabel/styles/focus = SubResource("StyleBoxFlat_dejc1")
 RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_5llwy")
 
 [node name="Node2D" type="Node2D" unique_id=1979320281]
-script = ExtResource("1_yp7du")
 
 [node name="Control" type="Control" parent="." unique_id=467889223]
 layout_mode = 3

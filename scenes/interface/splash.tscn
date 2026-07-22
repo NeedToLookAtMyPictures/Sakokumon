@@ -100,20 +100,20 @@ script = ExtResource("3_8teny")
 
 [node name="TitleText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1511004730]
 layout_mode = 0
-offset_left = 163.0
-offset_top = 276.0
-offset_right = 636.0
-offset_bottom = 356.0
+offset_left = 198.0
+offset_top = 275.0
+offset_right = 671.0
+offset_bottom = 355.0
 theme = SubResource("Theme_abj02")
 bbcode_enabled = true
 text = "[font_size=80][center][b]SAKOKUMON[/b][/center][/font_size]"
 
 [node name="SplashText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1720372774]
 layout_mode = 0
-offset_left = 169.0
-offset_top = 360.0
-offset_right = 642.0
-offset_bottom = 425.0
+offset_left = 193.0
+offset_top = 357.0
+offset_right = 666.0
+offset_bottom = 422.0
 theme = SubResource("Theme_abj02")
 bbcode_enabled = true
 text = "[center]PRESS ANY KEY TO PLAY[/center]"

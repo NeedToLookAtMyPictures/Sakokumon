@@ -1,10 +1,173 @@
 [gd_scene format=3 uid="uid://cmxgswmbesmh5"]
 
 [ext_resource type="Script" uid="uid://brr21xurgr8d6" path="res://scripts/UI/MainMenu.cs" id="1_bvgs0"]
+[ext_resource type="FontFile" uid="uid://cc68i4as6d4a4" path="res://styles/fonts/PixelOperator-Bold.ttf" id="1_dfwog"]
 [ext_resource type="Script" uid="uid://cwrn421d6vohb" path="res://scripts/UI/MainMenuOptions.cs" id="2_b5nk6"]
+[ext_resource type="Texture2D" uid="uid://kspokxv8r7yo" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_4.png" id="2_dysqo"]
 [ext_resource type="Texture2D" uid="uid://dhgo1yqxx3w3a" path="res://assets/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png" id="2_g0ice"]
 [ext_resource type="Script" uid="uid://k6o6buhkuubh" path="res://scripts/UI/SaveGeneration.cs" id="4_ylig1"]
-[ext_resource type="Texture2D" uid="uid://7utxjs2npan7" path="res://assets/icons/main-menu/[PH] sideBanner.png" id="5_g0ice"]
+[ext_resource type="Texture2D" uid="uid://didl6qv5pq8y4" path="res://assets/sprites/scroll.png" id="6_0t3l1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4bsd4"]
+texture = ExtResource("2_dysqo")
+expand_margin_left = 11.0
+expand_margin_right = 5.0
+region_rect = Rect2(0.18148041, 0.55174255, 85.28931, 24.713455)
+
+[sub_resource type="Theme" id="Theme_4a6mn"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_dfwog")
+Button/styles/focus = null
+Button/styles/normal = SubResource("StyleBoxTexture_4bsd4")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfwog"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(0, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dysqo"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(82, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bsd4"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(164, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a6mn"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(246, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8vjg"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(328, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf28x"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(0, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjmv1"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(82, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikdv5"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(164, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an0al"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(246, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm7g0"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(328, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2q0c"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(0, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqvw5"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(82, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_574a2"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(164, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5fjc"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(246, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wimp"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(328, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_av4dy"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(0, 561, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ay63"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(82, 561, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uajlb"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(164, 561, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kad51"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(246, 561, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo3x4"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(328, 561, 82, 187)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g0ice"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfwog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dysqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bsd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a6mn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8vjg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tf28x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjmv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikdv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an0al")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm7g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2q0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqvw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_574a2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5fjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wimp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_av4dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ay63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uajlb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kad51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo3x4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]
 layout_mode = 3
@@ -15,6 +178,7 @@ offset_left = 1.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_4a6mn")
 script = ExtResource("1_bvgs0")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=178036028]
@@ -22,100 +186,107 @@ position = Vector2(447, 324)
 scale = Vector2(3.6920178, 3.588889)
 texture = ExtResource("2_g0ice")
 
-[node name="[ph]SideBanner" type="Sprite2D" parent="." unique_id=1947283536]
-position = Vector2(760, 291)
-scale = Vector2(1.695122, 1.852)
-texture = ExtResource("5_g0ice")
+[node name="SideBanner" type="AnimatedSprite2D" parent="." unique_id=1659358783]
+position = Vector2(735, 318)
+scale = Vector2(2.9984756, 2.975063)
+sprite_frames = SubResource("SpriteFrames_g0ice")
+frame = 16
+frame_progress = 0.55511075
 
-[node name="New Game" type="Button" parent="." unique_id=1625591059]
+[node name="Control" type="Control" parent="." unique_id=759487245]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="New Game" type="Button" parent="Control" unique_id=1625591059]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.88100004
 anchor_top = 0.32000002
 anchor_right = 0.88100004
 anchor_bottom = 0.32000002
-offset_left = -46.18402
-offset_top = -15.360016
-offset_right = 46.81598
-offset_bottom = 15.639984
+offset_left = 651.76
+offset_top = 177.2
+offset_right = 748.76
+offset_bottom = 212.2
 text = "New Game"
 script = ExtResource("2_b5nk6")
 
-[node name="Load Game" type="Button" parent="." unique_id=1985514870]
+[node name="Load Game" type="Button" parent="Control" unique_id=1985514870]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.88000005
 anchor_top = 0.379
 anchor_right = 0.88000005
 anchor_bottom = 0.379
-offset_left = -48.32007
-offset_top = -15.5920105
-offset_right = 47.67993
-offset_bottom = 15.4079895
+offset_left = 651.8
+offset_top = 217.84
+offset_right = 750.8
+offset_bottom = 251.84
 text = "Load Game
 "
 script = ExtResource("2_b5nk6")
 
-[node name="Settings" type="Button" parent="." unique_id=981319319]
+[node name="Settings" type="Button" parent="Control" unique_id=981319319]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.88100004
 anchor_top = 0.437
 anchor_right = 0.88100004
 anchor_bottom = 0.437
-offset_left = -35.18402
-offset_top = -15.175995
-offset_right = 34.81598
-offset_bottom = 15.824005
+offset_left = 664.76
+offset_top = 252.52
+offset_right = 737.76
+offset_bottom = 286.52
 text = "Settings"
 script = ExtResource("2_b5nk6")
 
-[node name="Statistics" type="Button" parent="." unique_id=680231055]
+[node name="Statistics" type="Button" parent="Control" unique_id=680231055]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.882
 anchor_top = 0.5
 anchor_right = 0.882
 anchor_bottom = 0.5
-offset_left = -39.048035
-offset_top = -21.0
-offset_right = 38.951965
-offset_bottom = 10.0
+offset_left = 658.72
+offset_top = 286.0
+offset_right = 739.72
+offset_bottom = 317.0
 text = "Statistics"
 script = ExtResource("2_b5nk6")
 
-[node name="Generate Save" type="Button" parent="." unique_id=682904246]
+[node name="Generate Save" type="Button" parent="Control" unique_id=682904246]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.87700003
 anchor_top = 0.555
 anchor_right = 0.87700003
 anchor_bottom = 0.555
-offset_left = -89.72803
-offset_top = -15.640015
-offset_right = 89.27197
-offset_bottom = 15.359985
+offset_left = 616.92
+offset_top = 456.8
+offset_right = 795.92
+offset_bottom = 487.8
 text = "Debug: Generate Save"
 script = ExtResource("4_ylig1")
 
-[node name="Quit" type="Button" parent="." unique_id=1497351047]
+[node name="Quit" type="Button" parent="Control" unique_id=1497351047]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.874
-anchor_top = 0.646
-anchor_right = 0.874
-anchor_bottom = 0.646
-offset_left = -21.135986
-offset_top = -15.608063
-offset_right = 20.864014
-offset_bottom = 15.391968
+anchor_left = 0.53263855
+anchor_top = 0.6503212
+anchor_right = 0.53263855
+anchor_bottom = 0.6503212
+offset_left = 692.69446
+offset_top = 319.98715
+offset_right = 734.69446
+offset_bottom = 350.98718
 text = "Quit"
 script = ExtResource("2_b5nk6")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="New Game" to="New Game" method="OnPressedMainMenuOptions" binds= ["new"]]
-[connection signal="pressed" from="Load Game" to="Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]
-[connection signal="pressed" from="Settings" to="Settings" method="OnPressedMainMenuOptions" binds= ["settings"]]
-[connection signal="pressed" from="Statistics" to="Statistics" method="OnPressedMainMenuOptions" binds= ["statistics"]]
-[connection signal="pressed" from="Generate Save" to="Generate Save" method="DebugSave"]
-[connection signal="pressed" from="Quit" to="Quit" method="OnPressedMainMenuOptions" binds= ["quit"]]
+[connection signal="pressed" from="Control/New Game" to="Control/New Game" method="OnPressedMainMenuOptions" binds= ["new"]]
+[connection signal="pressed" from="Control/Load Game" to="Control/Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]
+[connection signal="pressed" from="Control/Settings" to="Control/Settings" method="OnPressedMainMenuOptions" binds= ["settings"]]
+[connection signal="pressed" from="Control/Statistics" to="Control/Statistics" method="OnPressedMainMenuOptions" binds= ["statistics"]]
+[connection signal="pressed" from="Control/Generate Save" to="Control/Generate Save" method="DebugSave"]
+[connection signal="pressed" from="Control/Quit" to="Control/Quit" method="OnPressedMainMenuOptions" binds= ["quit"]]

@@ -60,3 +60,4 @@ public partial class SplashTextControl : Control
 		global.GoToScene("res://scenes/interface/main_menu.tscn");
 	}
 }
+	

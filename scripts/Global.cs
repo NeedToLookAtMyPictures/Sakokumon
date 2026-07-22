@@ -14,6 +14,7 @@ public partial class Global : Node
 	public List<ObjectData> itemsInStorage { get; set; }
 	public List<Node2D> nodesInStorage { get; set; }
 	public Database Database { get; set; }
+	public bool npcPresent = false; 
 	private Preferences prefs;
 	public Preferences Preferences
 	{

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwqlpk84pr0aa" path="res://scripts/NpcInteraction.cs" id="1_npcroot"]
 [ext_resource type="Script" uid="uid://cbktrgnm8y40u" path="res://scripts/NpcInteractionOptions.cs" id="2_npcbtn"]
+[ext_resource type="Script" uid="uid://bpbf0otvy2ruy" path="res://scripts/NpcWindowSprite.cs" id="2_tt4yl"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="4_dbg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mountains"]
@@ -38,6 +39,7 @@ texture = SubResource("PlaceholderTexture2D_boardwalk")
 position = Vector2(423, 278)
 scale = Vector2(163.00003, 261)
 texture = SubResource("PlaceholderTexture2D_npc")
+script = ExtResource("2_tt4yl")
 
 [node name="GuardpostFrame" type="Sprite2D" parent="." unique_id=400000007]
 position = Vector2(119, 215.5)

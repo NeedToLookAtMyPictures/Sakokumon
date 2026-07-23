@@ -315,8 +315,6 @@ public partial class PopulateGrid : Node2D
 			Global.Instance.nodesInStorage = new List<Node2D>{};
 			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInStorage.Count; currItemIndex++)
 			{
-				// Something is wrong with items that get rotated being replaced, only on times that they are rotated 90* or 270* from their main
-
 				Node2D itemNode = createNode(Global.Instance.itemsInStorage[currItemIndex], itemGridNode);
 				Global.Instance.nodesInStorage.Add(itemNode);
 				Global.Instance.updateStorage();

@@ -215,6 +215,8 @@ public partial class draggableObject : Area2D
 				if (parentData.item.Width > 3) // if wider than 3 (won't fit in storage horizontally)
 				{
 					parent.RotationDegrees = parent.RotationDegrees + 90;
+					parentData.rotationValue = parentData.rotationValue + 1;
+					parentData.rotationValue = parentData.rotationValue % 4;
 					parentData.rotateClockwise(); // rotate
 				}
 				
@@ -352,6 +354,11 @@ public partial class draggableObject : Area2D
 						if (parentData.item.Width > 3) // if wider than 3 (won't fit in storage horizontally)
 						{
 							parent.RotationDegrees = parent.RotationDegrees + 90;
+
+							// save rotation amount to data
+							parentData.rotationValue = parentData.rotationValue + 1;
+							parentData.rotationValue = parentData.rotationValue % 4;
+
 							parentData.rotateClockwise(); // rotate
 						}
 						parentData.positionVector = new Vector2(-1, -1);
@@ -413,7 +420,11 @@ public partial class draggableObject : Area2D
 						parent.RotationDegrees = parent.RotationDegrees - 90;
 
 						// save rotation amount to data
-						parentData.rotationValue--;
+						parentData.rotationValue = parentData.rotationValue - 1;
+						if (parentData.rotationValue == -1)
+						{
+							parentData.rotationValue = 3;
+						}
 
 						// effect in data
 						parentData.rotateCounterClockwise();
@@ -430,7 +441,8 @@ public partial class draggableObject : Area2D
 						parent.RotationDegrees = parent.RotationDegrees + 90;
 
 						// save rotation amount to data
-						parentData.rotationValue++;
+						parentData.rotationValue = parentData.rotationValue + 1;
+						parentData.rotationValue = parentData.rotationValue % 4;
 
 						// effect in data
 						parentData.rotateClockwise();

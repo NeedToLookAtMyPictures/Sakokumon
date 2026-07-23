@@ -139,7 +139,7 @@ public partial class Global : Node
 		// stack starts at y = 550 (going up)
 		// for each item:
 		//	currentPos =- stackBuffer -> then place sprite at currentPos =- ((itemHeight * 64) / 2) -> then currentPos =- (((itemHeight * 64) / 2) + storageBuffer)
-		int currentHeightInStorage = 550;
+		int currentHeightInStorage = 548;
 		for (int i = 0; i < nodesInStorage.Count; i++)
 		{
 			var currItem = nodesInStorage[i];

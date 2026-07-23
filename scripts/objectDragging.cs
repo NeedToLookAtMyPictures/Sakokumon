@@ -231,6 +231,7 @@ public partial class draggableObject : Area2D
 
 					// place item into global list of items in storage, and remove from grid
 					Global.Instance.itemsInStorage.Add(parentData);
+					Global.Instance.itemsInGrid.Remove(parentData);
 				}
 
 			}
@@ -358,6 +359,7 @@ public partial class draggableObject : Area2D
 
 						// place item into global list of items in storage, and remove from grid
 						Global.Instance.itemsInStorage.Add(parentData);
+						Global.Instance.itemsInGrid.Remove(parentData);
 					}
 					Global.Instance.updateStorage(); // update storage item positions
 				}
@@ -410,6 +412,9 @@ public partial class draggableObject : Area2D
 						// rotate -90 degrees
 						parent.RotationDegrees = parent.RotationDegrees - 90;
 
+						// save rotation amount to data
+						parentData.rotationValue--;
+
 						// effect in data
 						parentData.rotateCounterClockwise();
 
@@ -423,6 +428,9 @@ public partial class draggableObject : Area2D
 					{
 						// rotate 90 degrees
 						parent.RotationDegrees = parent.RotationDegrees + 90;
+
+						// save rotation amount to data
+						parentData.rotationValue++;
 
 						// effect in data
 						parentData.rotateClockwise();

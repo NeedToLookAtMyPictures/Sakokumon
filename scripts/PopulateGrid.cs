@@ -60,10 +60,6 @@ public partial class PopulateGrid : Node2D
 		rootNode.SetMeta("itemObject", currentObject);
 		rootNode.SetMeta("hoverCount", 0);
 
-		// place item into global list of items in grid
-		Global.Instance.itemsInGrid.Add(currentObject);
-
-
 		// create new sprite object
 		var currentObjectSprite = new Sprite2D();
 		
@@ -278,6 +274,9 @@ public partial class PopulateGrid : Node2D
 			// place at chosen location
 			placeObject(currentObject, itemGrid, itemGridNode);
 
+			// place item into global list of items in grid
+			Global.Instance.itemsInGrid.Add(currentObject);
+
 			successfullyPlacedObject = true;
 		}
 		// increment placement attempt counter
@@ -312,8 +311,12 @@ public partial class PopulateGrid : Node2D
 			{
 				placeObject(Global.Instance.itemsInGrid[currItemIndex], itemGrid, itemGridNode);
 			}
-			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInGrid.Count; currItemIndex++)
+			// clear nodesInStorage
+			Global.Instance.nodesInStorage = new List<Node2D>{};
+			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInStorage.Count; currItemIndex++)
 			{
+				// Something is wrong with items that get rotated being replaced, only on times that they are rotated 90* or 270* from their main
+
 				Node2D itemNode = createNode(Global.Instance.itemsInStorage[currItemIndex], itemGridNode);
 				Global.Instance.nodesInStorage.Add(itemNode);
 				Global.Instance.updateStorage();

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhgo1yqxx3w3a"
-path="res://.godot/imported/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png-3b68e6bd1a42cb8e0fd075162490ea9c.ctex"
+uid="uid://d3hkivdko55v7"
+path="res://.godot/imported/splash.png-8aa957744d9f4b764dd4680b37c88571.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png"
-dest_files=["res://.godot/imported/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png-3b68e6bd1a42cb8e0fd075162490ea9c.ctex"]
+source_file="res://assets/splash.png"
+dest_files=["res://.godot/imported/splash.png-8aa957744d9f4b764dd4680b37c88571.ctex"]
 
 [params]
 

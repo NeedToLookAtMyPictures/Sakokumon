@@ -8,8 +8,8 @@ public partial class MainMenu : Control
 	public override void _Ready()
 	{
 
-		ButtonControl = GetNode<Control>("ButtonControl");
-		SideBanner = GetNode<AnimatedSprite2D>("SideBanner");
+		ButtonControl = GetNode<Control>("BannerControl/ButtonControl");
+		SideBanner = GetNode<AnimatedSprite2D>("BannerControl/SideBanner");
 		foreach (Button child in ButtonControl.GetChildren())
 		{
 			Color c = child.Modulate;

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dl0kwutftyqat"]
 
+[ext_resource type="Texture2D" uid="uid://d3hkivdko55v7" path="res://assets/splash.png" id="1_8teny"]
 [ext_resource type="Script" uid="uid://chc5btb0h3b0h" path="res://scripts/UI/SplashTextControl.cs" id="3_8teny"]
 [ext_resource type="Texture2D" uid="uid://kxqk4cxxjngr" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/clicked.png" id="3_d2ahf"]
-[ext_resource type="Texture2D" uid="uid://dhgo1yqxx3w3a" path="res://assets/pixellab-Seascape-with-no-ships-or-vess-1784603127855.png" id="121_ryewm"]
 [ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="122_abj02"]
 [ext_resource type="FontFile" uid="uid://cc68i4as6d4a4" path="res://styles/fonts/PixelOperator-Bold.ttf" id="122_yp7du"]
 
@@ -83,17 +83,17 @@ RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_5llwy")
 
 [node name="Node2D" type="Node2D" unique_id=1979320281]
 
+[node name="Background" type="Sprite2D" parent="." unique_id=231635327]
+position = Vector2(453.99997, 332)
+scale = Vector2(3.6920178, 3.588889)
+texture = ExtResource("1_8teny")
+
 [node name="Control" type="Control" parent="." unique_id=467889223]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme = SubResource("Theme_ryewm")
-
-[node name="Background" type="Sprite2D" parent="Control" unique_id=62919915]
-position = Vector2(447, 324)
-scale = Vector2(3.6920178, 3.588889)
-texture = ExtResource("121_ryewm")
 
 [node name="SplashTextControl" type="Control" parent="Control" unique_id=1756671832]
 anchors_preset = 0
@@ -103,20 +103,20 @@ script = ExtResource("3_8teny")
 
 [node name="TitleText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1511004730]
 layout_mode = 0
-offset_left = 198.0
-offset_top = 275.0
-offset_right = 671.0
-offset_bottom = 355.0
+offset_left = 234.0
+offset_top = 220.0
+offset_right = 707.0
+offset_bottom = 300.0
 theme = SubResource("Theme_abj02")
 bbcode_enabled = true
 text = "[font_size=80][center][b]SAKOKUMON[/b][/center][/font_size]"
 
 [node name="SplashText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1720372774]
 layout_mode = 0
-offset_left = 193.0
-offset_top = 357.0
-offset_right = 666.0
-offset_bottom = 422.0
+offset_left = 229.0
+offset_top = 302.0
+offset_right = 702.0
+offset_bottom = 367.0
 theme = SubResource("Theme_abj02")
 bbcode_enabled = true
 text = "[center]PRESS ANY KEY TO PLAY[/center]"

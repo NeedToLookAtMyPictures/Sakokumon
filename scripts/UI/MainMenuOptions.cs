@@ -2,9 +2,11 @@ using Godot;
 
 public partial class MainMenuOptions : Button
 {
+	Node2D StatsScreen;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		StatsScreen = GetNode<Node2D>("/root/MainMenu/StatsMenu/");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,10 +24,11 @@ public partial class MainMenuOptions : Button
 			global.GoToScene("res://scenes/interface/load_menu.tscn");
 		}
 		else if (ID == "settings"){
-			global.GoToScene("res://scenes/interface/settings.tscn");
+			var settings = (Control)GetNode("/root/MainMenu/Settings");
+			settings.Visible = true;
 		}
 		else if (ID == "statistics"){
-			global.GoToScene("res://scenes/interface/stats.tscn");
+			StatsScreen.Visible = true;
 		}
 		else if (ID == "quit"){
 			GetTree().Quit();

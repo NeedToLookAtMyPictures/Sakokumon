@@ -8,9 +8,8 @@ public partial class Stats : RichTextLabel
 	public override void _Ready()
 	{
 		var global = GetNode<Global>("/root/Global");
-		_saveSelect = GetParent().GetNode<OptionButton>("SaveSelect");
-
-		if (global.CurrentScene.Name == "StatsMenu")
+		_saveSelect = GetParent().GetNode<OptionButton>("SaveNode/SaveSelect");
+		if (Owner.Owner.Name == "MainMenu")
 		{
 			_saves = global.Database.ListSaves();
 

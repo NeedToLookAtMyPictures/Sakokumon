@@ -1,12 +1,20 @@
 [gd_scene format=3 uid="uid://bloadmenu1tsc"]
 
-[ext_resource type="Script" uid="uid://bloadmenuscs1" path="res://scripts/UI/LoadMenu.cs" id="1_lmenu"]
+[ext_resource type="Script" uid="uid://drm17ehj5po1g" path="res://scripts/UI/LoadMenu.cs" id="1_lmenu"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_p4x6s"]
+[ext_resource type="Texture2D" uid="uid://cihqbhmlrkbtv" path="res://assets/pixellab-A-flat--straight-on-lateral-el-1784792676742.png" id="3_7rlbi"]
 
-[node name="LoadMenu" type="Control"]
+[node name="LoadMenu" type="Control" unique_id=1936335488]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_p4x6s")
 script = ExtResource("1_lmenu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=654376734]
+position = Vector2(436, 324)
+scale = Vector2(1.3734177, 1.514151)
+texture = ExtResource("3_7rlbi")

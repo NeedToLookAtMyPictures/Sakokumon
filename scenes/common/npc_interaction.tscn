@@ -56,7 +56,7 @@ scale = Vector2(859.75006, 209.24998)
 texture = SubResource("PlaceholderTexture2D_frame")
 
 [node name="GuardpostTopBar" type="Sprite2D" parent="." unique_id=1588327702]
-position = Vector2(421.5, 41.093758)
+position = Vector2(544, -66.00001)
 scale = Vector2(370.99997, 75.81249)
 texture = SubResource("PlaceholderTexture2D_frame")
 
@@ -85,6 +85,7 @@ offset_bottom = 166.0
 text = "CALENDAR"
 
 [node name="ReturnToHarbor" type="Button" parent="Control" unique_id=400000009]
+visible = false
 layout_mode = 0
 offset_left = 318.0
 offset_top = 22.0
@@ -212,6 +213,8 @@ offset_top = 468.0
 offset_right = 814.0
 offset_bottom = 600.0
 text = "Dialogue Responses"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=603630461]
 
 [connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
 [connection signal="pressed" from="Control/IllegalItemListButton" to="Control/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]

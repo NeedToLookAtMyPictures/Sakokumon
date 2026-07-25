@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://bn2xn1peyu8im"]
+[gd_scene format=3 uid="uid://qiykl8ja4a76"]
 
+[ext_resource type="PackedScene" uid="uid://ce7io7fbvgiba" path="res://scenes/common/game_background.tscn" id="1_bgscn"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_y8irx"]
 [ext_resource type="Script" uid="uid://dn4erj4njfp8m" path="res://scripts/NewGameOptions.cs" id="2_ngopt"]
-[ext_resource type="Texture2D" uid="uid://cihqbhmlrkbtv" path="res://assets/pixellab-A-flat--straight-on-lateral-el-1784792676742.png" id="2_y8irx"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
 
 [node name="CurrentDay" type="Control" unique_id=200000001]
@@ -14,10 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_y8irx")
 
-[node name="BG" type="Sprite2D" parent="." unique_id=824669423]
-position = Vector2(949, 535)
-scale = Vector2(3, 2.518868)
-texture = ExtResource("2_y8irx")
+[node name="GameBackground" parent="." unique_id=1163722950 instance=ExtResource("1_bgscn")]
 
 [node name="TextCrawl" type="RichTextLabel" parent="." unique_id=200000002]
 layout_mode = 0
@@ -31,10 +28,10 @@ scroll_active = false
 
 [node name="BeginButton" type="Button" parent="." unique_id=200000003]
 layout_mode = 0
-offset_left = 737.0
-offset_top = 845.0
-offset_right = 1101.0
-offset_bottom = 996.0
+offset_left = 857.0
+offset_top = 861.0
+offset_right = 1205.0
+offset_bottom = 997.0
 theme_override_font_sizes/font_size = 25
 text = "Assume Your Post"
 script = ExtResource("2_ngopt")
@@ -46,14 +43,14 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 350.0
 offset_bottom = 40.0
-text = "[ SCENE: New Game ]"
+text = "[ SCENE: Current Day ]"
 
 [node name="DebugPanel" type="Panel" parent="." unique_id=200000005]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 840.0
-offset_right = 319.51913
-offset_bottom = 1039.0
+offset_left = 34.0
+offset_top = 829.0
+offset_right = 329.0
+offset_bottom = 993.0
 
 [node name="DebugLabel" type="Label" parent="DebugPanel" unique_id=200000006]
 layout_mode = 0
@@ -98,6 +95,26 @@ offset_right = 245.0
 offset_bottom = 161.0
 text = "-> Main Menu"
 script = ExtResource("3_dbg")
+
+[node name="YearInfo" type="Control" parent="." unique_id=1191549308]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="YearInfo" unique_id=973328664]
+layout_mode = 0
+offset_top = -13.0
+offset_right = 1902.0
+offset_bottom = 1073.0
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="YearInfo" unique_id=1048586884]
+layout_mode = 0
+offset_left = 659.0
+offset_top = 361.0
+offset_right = 1264.0
+offset_bottom = 655.0
+bbcode_enabled = true
 
 [connection signal="pressed" from="BeginButton" to="BeginButton" method="OnPressedBegin"]
 [connection signal="pressed" from="DebugPanel/NavHarbor" to="DebugPanel/NavHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]

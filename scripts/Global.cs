@@ -3,6 +3,8 @@ using Godot;
 using System.Collections.Generic;
 using System.Text.Json;
 
+
+
 public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
@@ -156,3 +158,5 @@ public partial class Global : Node
 		// when removing from storage, remove that instance from items in storage, set position vector, and update storage
 	}
 }
+
+

@@ -22,8 +22,8 @@ scale = Vector2(1.5362461, 2.106132)
 texture = ExtResource("3_eyujm")
 
 [node name="NpcSprite" type="Sprite2D" parent="." unique_id=400000006]
-position = Vector2(208.00005, 226)
-scale = Vector2(116.50001, 155.49998)
+position = Vector2(619, 467)
+scale = Vector2(200, 266.953)
 texture = SubResource("PlaceholderTexture2D_npc")
 
 [node name="GuardpostFrame3" type="Sprite2D" parent="." unique_id=276145714]
@@ -46,7 +46,7 @@ scale = Vector2(1.5304564, 1.994104)
 texture = ExtResource("4_g0iyq")
 
 [node name="Boardwalk" type="Sprite2D" parent="." unique_id=400000005]
-position = Vector2(1018.00006, 914)
+position = Vector2(1018, 912.00006)
 scale = Vector2(1.5699168, 0.7582547)
 texture = ExtResource("5_0dbxb")
 
@@ -207,6 +207,7 @@ offset_bottom = 853.0
 text = "Dialogue Responses"
 
 [node name="YearInfo" type="Control" parent="." unique_id=2123139396]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -16.0
@@ -225,10 +226,10 @@ color = Color(0, 0, 0, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="YearInfo" unique_id=410929547]
 layout_mode = 0
-offset_left = 378.0
-offset_top = 361.0
-offset_right = 1539.0
-offset_bottom = 782.0
+offset_left = 376.0
+offset_top = 357.0
+offset_right = 1537.0
+offset_bottom = 778.0
 theme = ExtResource("2_tt4yl")
 bbcode_enabled = true
 fit_content = true

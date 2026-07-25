@@ -8,6 +8,14 @@ using System.Text.Json.Serialization;
 
 namespace Data
 {
+    public enum GameState
+    {
+        NPCNotSeen,
+        NPCSeen,
+        NPCAllowed,
+        NPCDenied
+    }
+
     public class Asset
 	{
 		public string Name {get; set;}
@@ -106,8 +114,7 @@ namespace Data
 		public Item[] goods {get; set;}
 		public int id {get; set;}
         public bool smuggler {get; set;}
-		public Asset face {get; set;}
-		public Asset torso {get; set;}
+		public Asset sprite {get; set;}
 		// possibly a weapon Asset?
 		// Asset weapon {get; set;}
 
@@ -118,8 +125,7 @@ namespace Data
 		{
 			id = newId;
 			smuggler = forceSmuggler ? true : Random.Shared.Next(0,4) == 1;           
-            torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First();
-            face = db.cassets["face"].OrderBy(_ => Random.Shared.Next()).First();
+            sprite = db.cassets.OrderBy(_ => Random.Shared.Next()).First();
 			
 
 		}
@@ -227,7 +233,7 @@ namespace Data
         }
         public void NextYear()
         {
-            currentYear += 1; // idk how much we are gonna increment by yet
+            currentYear += 10;
         }
         public Level CurrentLevel
         {

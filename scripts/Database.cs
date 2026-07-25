@@ -18,12 +18,12 @@ namespace Data
 
 		private struct AssetJson
         {
-            public Dictionary<string, Asset[]> character_assets { get; set; }
+            public Asset[] character_assets { get; set; }
             public Dictionary<string, Item> items { get; set; }
             public Dictionary<int, Level> custom_levels {get; set;}
         }
 
-		public Dictionary<string, Asset[]> cassets; // exclusively for characters
+		public Asset[] cassets; // exclusively for characters
         private Dictionary<int, Level> clevels;
 		public GameData data;
 		public string CurrentSlotName { get; private set; }

@@ -53,10 +53,10 @@ offset_bottom = 30.0
 bbcode_enabled = true
 text = "[right][font_size=50][b]Game Statistics[/b][/font_size][/right]"
 
-[node name="Node2D" type="Node2D" parent="Control/Control" unique_id=1373531999]
+[node name="SaveNode" type="Node2D" parent="Control/Control" unique_id=1373531999]
 position = Vector2(-120, -156)
 
-[node name="SaveSelect" type="OptionButton" parent="Control/Control/Node2D" unique_id=322338009]
+[node name="SaveSelect" type="OptionButton" parent="Control/Control/SaveNode" unique_id=322338009]
 offset_left = 129.0
 offset_top = 131.0
 offset_right = 329.0

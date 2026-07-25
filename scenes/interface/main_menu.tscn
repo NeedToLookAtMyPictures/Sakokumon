@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://didl6qv5pq8y4" path="res://assets/sprites/scroll.png" id="6_0t3l1"]
 [ext_resource type="PackedScene" uid="uid://c0g5cvc12opif" path="res://scenes/interface/stats.tscn" id="7_dfwog"]
 [ext_resource type="PackedScene" uid="uid://dh2phnxt0n3qg" path="res://scenes/interface/settings.tscn" id="8_dysqo"]
+[ext_resource type="PackedScene" uid="uid://b8jndpauygl6a" path="res://scenes/common/create_save.tscn" id="9_4bsd4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfwog"]
 atlas = ExtResource("6_0t3l1")
@@ -149,7 +150,7 @@ theme = ExtResource("1_0t3l1")
 script = ExtResource("1_bvgs0")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=951571259]
-position = Vector2(959.79443, 541.5)
+position = Vector2(960.00006, 541.00006)
 scale = Vector2(5.4896865, 5.961111)
 texture = ExtResource("3_dfwog")
 
@@ -194,10 +195,10 @@ anchor_left = 0.88000005
 anchor_top = 0.379
 anchor_right = 0.88000005
 anchor_bottom = 0.379
-offset_left = -159.52
-offset_top = -68.349
-offset_right = 7.4211273
-offset_bottom = -11.015671
+offset_left = -163.52
+offset_top = -98.349
+offset_right = 3.4211273
+offset_bottom = -41.01567
 scale = Vector2(1.5, 1.5)
 text = "Load Game
 "
@@ -274,6 +275,10 @@ offset_left = 1.0
 offset_top = 7.0
 offset_right = 1.0
 offset_bottom = 7.0
+
+[node name="SaveCreate" parent="." unique_id=1880139977 instance=ExtResource("9_4bsd4")]
+visible = false
+layout_mode = 1
 
 [connection signal="animation_finished" from="BannerControl/SideBanner" to="." method="_Animate"]
 [connection signal="pressed" from="BannerControl/ButtonControl/New Game" to="BannerControl/ButtonControl/New Game" method="OnPressedMainMenuOptions" binds= ["new"]]

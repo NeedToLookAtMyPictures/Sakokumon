@@ -166,7 +166,7 @@ namespace Data
 		*/
 		public void encounterGenerate()
 		{
-			int max = 40;
+			int max = 1853;
 			int num = data.levels != null ? data.levels.Values.Count : 0;
 			if (num == max)
 			{
@@ -176,7 +176,7 @@ namespace Data
 			// defines each step(decade?) from 1600 to 2000
 
 			var encounters = new Dictionary<int, Level>();
-			foreach (int step in Enumerable.Range(0,max))
+			foreach (int step in Enumerable.Range(0,max).Select(i => 1639 + i * 10))
 			{
 
 				if (data.levels != null && data.levels.TryGetValue(step,out Level val))

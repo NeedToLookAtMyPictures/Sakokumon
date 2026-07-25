@@ -106,13 +106,9 @@ namespace Data
 		public Item[] goods {get; set;}
 		public int id {get; set;}
         public bool smuggler {get; set;}
-		public Asset hair {get; set;}
-		public Asset face {get; set;} // i assume primarily refers to head...
-		public Asset eyes {get; set;}
-		public Asset nose {get; set;}
+		public Asset face {get; set;}
 		public Asset torso {get; set;}
 		// possibly a weapon Asset?
-		Asset weapon {get; set;}
 		// Asset weapon {get; set;}
 
 		// we'll see...
@@ -121,13 +117,9 @@ namespace Data
 		public Person(Database db, int newId, bool forceSmuggler = false)
 		{
 			id = newId;
-			smuggler = forceSmuggler ? true : Random.Shared.Next(0,4) == 1;
-            hair = db.cassets["hair"].OrderBy(_ => Random.Shared.Next()).First();
-            nose = db.cassets["nose"].OrderBy(_ => Random.Shared.Next()).First();
-            eyes = db.cassets["eyes"].OrderBy(_ => Random.Shared.Next()).First();
+			smuggler = forceSmuggler ? true : Random.Shared.Next(0,4) == 1;           
             torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First();
             face = db.cassets["face"].OrderBy(_ => Random.Shared.Next()).First();
-			weapon = db.cassets["weapon"].OrderBy(_ => Random.Shared.Next()).First();
 			
 
 		}
@@ -140,8 +132,21 @@ namespace Data
 		public Stats stats;
         public bool custom {get; set;}
 
+        public int tracker;
+
+        public Person CurrentPerson
+        {
+            get => people[tracker];
+        }
+
+        public void NextPerson()
+        {
+            tracker += 1;
+        }
+
 		private Item[] cig; // for retaining items
 		private Item[] cis; // for existing items being reviewed
+
 
 		public Item[] currentItemGrid
 		{
@@ -213,8 +218,8 @@ namespace Data
 	}
 	public class GameData
 	{
-        public string name;
-		private int currentYear;
+        public string name = "Untitled Save";
+		private int currentYear = 1639;
 
         public int CurrentYear
         {
@@ -228,7 +233,8 @@ namespace Data
         {
             get => levels[currentYear];
         }
-		public Dictionary<int, Level> levels;
+
+        public Dictionary<int, Level> levels;
 		public Stats gameStats;
         public DateTime lastUpdated;
 		public GameData() {}

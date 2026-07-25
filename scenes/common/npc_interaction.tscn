@@ -11,48 +11,43 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_npc"]
 
+[sub_resource type="Theme" id="Theme_u4ami"]
+
 [node name="NpcInteraction" type="Node2D" unique_id=400000001]
 script = ExtResource("1_npcroot")
 
-[node name="GuardpostFrame3" type="Sprite2D" parent="." unique_id=276145714]
-position = Vector2(103.00001, 324.49994)
-scale = Vector2(0.77368003, 2.5273435)
-texture = ExtResource("2_u4ami")
-
 [node name="GuardPostBG" type="Sprite2D" parent="." unique_id=1821751888]
-position = Vector2(446.71936, 253.5)
-scale = Vector2(0.8205084, 1.2570755)
+position = Vector2(997.5593, 430.50003)
+scale = Vector2(1.5362461, 2.106132)
 texture = ExtResource("3_eyujm")
 
 [node name="NpcSprite" type="Sprite2D" parent="." unique_id=400000006]
-position = Vector2(417.00003, 235)
+position = Vector2(208.00005, 226)
 scale = Vector2(116.50001, 155.49998)
 texture = SubResource("PlaceholderTexture2D_npc")
+
+[node name="GuardpostFrame3" type="Sprite2D" parent="." unique_id=276145714]
+position = Vector2(264.9845, 535.99994)
+scale = Vector2(2.0391839, 4.1796875)
+texture = ExtResource("2_u4ami")
 
 [node name="GuardpostFrame" type="Sprite2D" parent="." unique_id=400000007]
 position = Vector2(100.499985, 215.5)
 scale = Vector2(201, 431)
 
 [node name="GuardpostFrame5" type="Sprite2D" parent="." unique_id=533192817]
-position = Vector2(747.48444, 322.83755)
-scale = Vector2(0.89465237, 2.5299807)
+position = Vector2(1703.7423, 537.5812)
+scale = Vector2(1.7129508, 4.1907716)
 texture = ExtResource("2_u4ami")
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=69247541]
-offset_left = 655.0
-offset_top = 476.0
-offset_right = 834.0
-offset_bottom = 608.0
-text = "Dialogue Responses"
-
 [node name="GuardFrame" type="Sprite2D" parent="." unique_id=706556035]
-position = Vector2(429.29813, 244.5)
-scale = Vector2(0.72057563, 1.158019)
+position = Vector2(1000.00006, 426)
+scale = Vector2(1.5304564, 1.994104)
 texture = ExtResource("4_g0iyq")
 
 [node name="Boardwalk" type="Sprite2D" parent="." unique_id=400000005]
-position = Vector2(418.25, 551)
-scale = Vector2(0.68275315, 0.45754716)
+position = Vector2(1018.00006, 914)
+scale = Vector2(1.5699168, 0.7582547)
 texture = ExtResource("5_0dbxb")
 
 [node name="Control" type="Control" parent="." unique_id=1603279943]
@@ -93,36 +88,37 @@ script = ExtResource("4_dbg")
 [node name="IllegalItemListButton" type="Button" parent="Control" unique_id=400000012]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 0
-offset_left = 30.0
-offset_top = 290.0
-offset_right = 187.0
-offset_bottom = 370.0
+offset_left = 58.0
+offset_top = 477.0
+offset_right = 451.97592
+offset_bottom = 677.0
+theme_override_font_sizes/font_size = 25
 text = "See Illegal Item List"
 script = ExtResource("2_npcbtn")
 
 [node name="InspectItemsButton" type="Button" parent="Control" unique_id=400000015]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 0
-offset_left = 325.0
-offset_top = 461.0
-offset_right = 528.0
-offset_bottom = 541.0
+offset_left = 854.0
+offset_top = 845.0
+offset_right = 1173.0
+offset_bottom = 979.0
 text = "Inspect Items"
 script = ExtResource("2_npcbtn")
 
 [node name="ActionPanel" type="Panel" parent="Control" unique_id=400000010]
 layout_mode = 0
-offset_left = 634.0
-offset_top = 110.0
-offset_right = 847.0
-offset_bottom = 310.0
+offset_left = 1560.0
+offset_top = 344.0
+offset_right = 1886.0
+offset_bottom = 569.0
 
 [node name="Buttons" type="VBoxContainer" parent="Control/ActionPanel" unique_id=400000011]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 198.0
-offset_bottom = 233.0
+offset_right = 297.0
+offset_bottom = 184.0
 
 [node name="AllowPassageButton" type="Button" parent="Control/ActionPanel/Buttons" unique_id=400000013]
 custom_minimum_size = Vector2(0, 80)
@@ -162,10 +158,10 @@ text = "Ignore"
 
 [node name="DebugPanel" type="Panel" parent="Control" unique_id=400000020]
 layout_mode = 0
-offset_left = 7.0
-offset_top = 443.0
-offset_right = 257.0
-offset_bottom = 613.0
+offset_left = 1.0
+offset_top = 873.0
+offset_right = 251.0
+offset_bottom = 1043.0
 
 [node name="DebugLabel" type="Label" parent="Control/DebugPanel" unique_id=400000021]
 layout_mode = 0
@@ -202,6 +198,40 @@ offset_bottom = -96.0
 text = "Dialogue Bar"
 
 [node name="UI" type="CanvasLayer" parent="Control" unique_id=400000008]
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=69247541]
+offset_left = 1568.0
+offset_top = 721.0
+offset_right = 1747.0
+offset_bottom = 853.0
+text = "Dialogue Responses"
+
+[node name="YearInfo" type="Control" parent="." unique_id=2123139396]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = 20.0
+offset_right = 1907.0
+offset_bottom = 1111.0
+theme = SubResource("Theme_u4ami")
+
+[node name="ColorRect" type="ColorRect" parent="YearInfo" unique_id=1054978311]
+layout_mode = 0
+offset_left = 24.0
+offset_top = -19.0
+offset_right = 1926.0
+offset_bottom = 1067.0
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="YearInfo" unique_id=410929547]
+layout_mode = 0
+offset_left = 378.0
+offset_top = 361.0
+offset_right = 1539.0
+offset_bottom = 782.0
+theme = ExtResource("2_tt4yl")
+bbcode_enabled = true
+fit_content = true
 
 [connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
 [connection signal="pressed" from="Control/IllegalItemListButton" to="Control/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]

@@ -31,10 +31,10 @@ scroll_active = false
 
 [node name="BeginButton" type="Button" parent="." unique_id=200000003]
 layout_mode = 0
-offset_left = 737.0
-offset_top = 845.0
-offset_right = 1101.0
-offset_bottom = 996.0
+offset_left = 774.0
+offset_top = 853.0
+offset_right = 1138.0
+offset_bottom = 1004.0
 theme_override_font_sizes/font_size = 25
 text = "Assume Your Post"
 script = ExtResource("2_ngopt")

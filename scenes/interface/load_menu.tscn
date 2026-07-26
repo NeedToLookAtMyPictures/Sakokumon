@@ -15,6 +15,6 @@ theme = ExtResource("1_p4x6s")
 script = ExtResource("1_lmenu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=654376734]
-position = Vector2(436, 324)
-scale = Vector2(1.3734177, 1.514151)
+position = Vector2(951.7975, 705.5)
+scale = Vector2(3.0056882, 3.3136792)
 texture = ExtResource("3_7rlbi")

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_yw62p"]
-[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="2_8vciv"]
 [ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://assets/sprites/boxBackground.png" id="2_j35y3"]
+[ext_resource type="Script" uid="uid://gnaani35yh6" path="res://scripts/UI/SceneReturn.cs" id="4_yw62p"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lkbh4"]
 
@@ -65,7 +65,7 @@ offset_top = 551.0
 offset_right = 862.0
 offset_bottom = 651.0
 text = "Return"
-script = ExtResource("2_8vciv")
+script = ExtResource("4_yw62p")
 metadata/_edit_use_anchors_ = true
 
 [node name="FlagIllegalItemButton" type="Node2D" parent="Control" unique_id=879858922]

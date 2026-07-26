@@ -11,7 +11,7 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eipqs"]
 texture = ExtResource("3_d2ahf")
 
-[sub_resource type="Image" id="Image_f3ktg"]
+[sub_resource type="Image" id="Image_8teny"]
 data = {
 "data": PackedByteArray(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255),
 "format": "RGBA8",
@@ -21,7 +21,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_2r7j6"]
-image = SubResource("Image_f3ktg")
+image = SubResource("Image_8teny")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dejc1"]
 content_margin_left = 4.0
@@ -84,8 +84,8 @@ RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_5llwy")
 [node name="Node2D" type="Node2D" unique_id=1979320281]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=231635327]
-position = Vector2(453.99997, 332)
-scale = Vector2(3.6920178, 3.588889)
+position = Vector2(955.29443, 545)
+scale = Vector2(5.4868135, 5.9333334)
 texture = ExtResource("1_8teny")
 
 [node name="Control" type="Control" parent="." unique_id=467889223]
@@ -94,29 +94,31 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme = SubResource("Theme_ryewm")
+metadata/_edit_use_anchors_ = true
 
 [node name="SplashTextControl" type="Control" parent="Control" unique_id=1756671832]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_8teny")
+metadata/_edit_use_anchors_ = true
 
 [node name="TitleText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1511004730]
 layout_mode = 0
-offset_left = 234.0
-offset_top = 220.0
-offset_right = 707.0
-offset_bottom = 300.0
+offset_left = 347.0
+offset_top = 429.0
+offset_right = 1568.0
+offset_bottom = 646.0
 theme = SubResource("Theme_abj02")
 bbcode_enabled = true
-text = "[font_size=80][center][b]SAKOKUMON[/b][/center][/font_size]"
+text = "[font_size=200][center][b]SAKOKUMON[/b][/center][/font_size]"
 
 [node name="SplashText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1720372774]
 layout_mode = 0
-offset_left = 229.0
-offset_top = 302.0
-offset_right = 702.0
-offset_bottom = 367.0
+offset_left = 695.0
+offset_top = 660.0
+offset_right = 1168.0
+offset_bottom = 725.0
 theme = SubResource("Theme_abj02")
 bbcode_enabled = true
-text = "[center]PRESS ANY KEY TO PLAY[/center]"
+text = "[font_size=50][center]PRESS ANY KEY TO PLAY[/center][/font_size]"

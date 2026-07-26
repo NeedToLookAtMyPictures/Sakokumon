@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://crrnjhbklqgsj"]
+
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_nou7a"]
+[ext_resource type="Texture2D" uid="uid://cihqbhmlrkbtv" path="res://assets/pixellab-A-flat--straight-on-lateral-el-1784792676742.png" id="1_rnise"]
+[ext_resource type="Script" uid="uid://cbthfylt5or8o" path="res://scripts/UI/EndOfDay.cs" id="2_ikpur"]
+[ext_resource type="Texture2D" uid="uid://b4dqq44pk5vfa" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_3.png" id="3_3sslr"]
+
+[node name="EndOfDay" type="Control" unique_id=935379371]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_nou7a")
+script = ExtResource("2_ikpur")
+
+[node name="BG" type="Sprite2D" parent="." unique_id=1859584381]
+position = Vector2(963.19806, 641.5)
+scale = Vector2(3.0259433, 3.0259433)
+texture = ExtResource("1_rnise")
+
+[node name="TitleText" type="RichTextLabel" parent="." unique_id=203507216]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 24.0
+offset_right = 1709.0
+offset_bottom = 372.65158
+bbcode_enabled = true
+text = "[center][font_size=100][color=#ffffff][b]End of Day[/b][/color][/font_size][/center]"
+
+[node name="EmbeddedStats" type="Control" parent="." unique_id=1211015281]
+anchors_preset = 0
+offset_left = 241.0
+offset_top = 24.0
+offset_right = 281.0
+offset_bottom = 64.0
+
+[node name="StatsControl" type="Control" parent="." unique_id=1030455739]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="StatsControl" unique_id=760386391]
+position = Vector2(418, 687)
+scale = Vector2(4.9486303, 4.9486303)
+texture = ExtResource("3_3sslr")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StatsControl" unique_id=1715994846]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 419.0
+offset_right = 636.0
+offset_bottom = 965.0
+bbcode_enabled = true
+text = "[center][b][font_size=50]Stats[/font_size][/b][/center]"
+
+[node name="Button" type="Button" parent="StatsControl" unique_id=1966217921]
+layout_mode = 0
+offset_left = 1132.0
+offset_top = 538.0
+offset_right = 1571.8999
+offset_bottom = 750.0
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[connection signal="pressed" from="StatsControl/Button" to="." method="Continue"]

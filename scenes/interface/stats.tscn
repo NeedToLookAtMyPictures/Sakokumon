@@ -2,7 +2,6 @@
 
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_5gdhc"]
 [ext_resource type="Texture2D" uid="uid://iboepicw3qu0" path="res://assets/full.png" id="1_emq7m"]
-[ext_resource type="PackedScene" uid="uid://bph0my2a0wgld" path="res://scenes/interface/stats_text.tscn" id="2_74t8q"]
 [ext_resource type="Script" uid="uid://dwbyejq23tt6k" path="res://scripts/UI/Stats.cs" id="3_cljcv"]
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="3_emq7m"]
 [ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="5_vncd3"]
@@ -54,13 +53,14 @@ offset_bottom = 30.0
 bbcode_enabled = true
 text = "[right][font_size=50][b]Game Statistics[/b][/font_size][/right]"
 
-[node name="SaveNode" parent="Control/Control" unique_id=465052785 instance=ExtResource("2_74t8q")]
+[node name="SaveNode" type="Node2D" parent="Control/Control" unique_id=1373531999]
+position = Vector2(-120, -156)
 
 [node name="SaveSelect" type="OptionButton" parent="Control/Control/SaveNode" unique_id=322338009]
-offset_left = 20.0
-offset_top = -31.0
-offset_right = 220.0
-offset_bottom = 4.0
+offset_left = 129.0
+offset_top = 131.0
+offset_right = 329.0
+offset_bottom = 166.0
 theme_override_fonts/font = ExtResource("5_vncd3")
 
 [node name="Return" type="Button" parent="Control" unique_id=1189588254]

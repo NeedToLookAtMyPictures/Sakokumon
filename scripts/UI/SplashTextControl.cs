@@ -56,7 +56,6 @@ public partial class SplashTextControl : Control
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.Out);
 		await ToSignal(tween,Tween.SignalName.Finished);
-		GD.Print("im going!");
 		global.GoToScene("res://scenes/interface/main_menu.tscn");
 	}
 }

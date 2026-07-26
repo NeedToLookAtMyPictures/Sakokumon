@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://didl6qv5pq8y4" path="res://assets/sprites/scroll.png" id="6_0t3l1"]
 [ext_resource type="PackedScene" uid="uid://c0g5cvc12opif" path="res://scenes/interface/stats.tscn" id="7_dfwog"]
 [ext_resource type="PackedScene" uid="uid://dh2phnxt0n3qg" path="res://scenes/interface/settings.tscn" id="8_dysqo"]
+[ext_resource type="PackedScene" uid="uid://b8jndpauygl6a" path="res://scenes/common/create_save.tscn" id="9_4bsd4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfwog"]
 atlas = ExtResource("6_0t3l1")
@@ -149,40 +150,40 @@ theme = ExtResource("1_0t3l1")
 script = ExtResource("1_bvgs0")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=951571259]
-position = Vector2(453.99997, 332)
-scale = Vector2(3.6920178, 3.588889)
+position = Vector2(960.00006, 541.00006)
+scale = Vector2(5.4896865, 5.961111)
 texture = ExtResource("3_dfwog")
 
 [node name="BannerControl" type="Control" parent="." unique_id=824856562]
 anchors_preset = 0
-offset_left = 496.0
-offset_top = -13.0
-offset_right = 1101.0
-offset_bottom = 686.0
+offset_left = 1080.0
+offset_top = 25.0
+offset_right = 1689.0
+offset_bottom = 728.62146
 
 [node name="SideBanner" type="AnimatedSprite2D" parent="BannerControl" unique_id=1659358783]
-position = Vector2(177.00003, 301.5)
-scale = Vector2(4.243902, 3.2673795)
+position = Vector2(540.00006, 467)
+scale = Vector2(7.4878044, 5.839572)
 sprite_frames = SubResource("SpriteFrames_g0ice")
 frame = 16
 frame_progress = 1.0
 
 [node name="ButtonControl" type="Control" parent="BannerControl" unique_id=759487245]
 anchors_preset = 0
-offset_left = 62.0
-offset_top = 83.0
-offset_right = 291.0
-offset_bottom = 514.0
+offset_left = 371.0
+offset_top = 193.0
+offset_right = 600.0
+offset_bottom = 624.0
 
 [node name="New Game" type="Button" parent="BannerControl/ButtonControl" unique_id=1625591059]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.023000002
 anchor_bottom = 0.023000002
-offset_left = 42.0
-offset_top = 1.0869989
-offset_right = 139.00002
-offset_bottom = 36.086998
+offset_left = 43.0
+offset_top = -89.913
+offset_right = 213.66669
+offset_bottom = -20.579674
 scale = Vector2(1.5, 1.5)
 text = "New Game"
 script = ExtResource("2_b5nk6")
@@ -194,10 +195,10 @@ anchor_left = 0.88000005
 anchor_top = 0.379
 anchor_right = 0.88000005
 anchor_bottom = 0.379
-offset_left = -158.52
-offset_top = -95.349
-offset_right = -59.52002
-offset_bottom = -61.349
+offset_left = -163.52
+offset_top = -98.349
+offset_right = 3.4211273
+offset_bottom = -41.01567
 scale = Vector2(1.5, 1.5)
 text = "Load Game
 "
@@ -211,9 +212,9 @@ anchor_top = 0.437
 anchor_right = 0.88100004
 anchor_bottom = 0.437
 offset_left = -156.74898
-offset_top = -67.347
-offset_right = -58.08235
-offset_bottom = -33.347
+offset_top = -17.347
+offset_right = 3.8260956
+offset_bottom = 37.98633
 scale = Vector2(1.5, 1.5)
 text = "Settings"
 script = ExtResource("2_b5nk6")
@@ -225,10 +226,10 @@ anchor_left = 0.882
 anchor_top = 0.5
 anchor_right = 0.882
 anchor_bottom = 0.5
-offset_left = -154.978
-offset_top = -37.5
-offset_right = -58.977997
-offset_bottom = -6.5
+offset_left = -153.978
+offset_top = 45.5
+offset_right = 0.86076355
+offset_bottom = 95.5
 scale = Vector2(1.5, 1.5)
 text = "Statistics"
 script = ExtResource("2_b5nk6")
@@ -240,24 +241,24 @@ anchor_left = 0.87700003
 anchor_top = 0.555
 anchor_right = 0.87700003
 anchor_bottom = 0.555
-offset_left = -173.833
-offset_top = 284.79498
-offset_right = 5.1670227
-offset_bottom = 328.79498
+offset_left = -191.833
+offset_top = 395.79498
+offset_right = -12.832977
+offset_bottom = 439.79498
 text = "Debug: Generate Save"
 script = ExtResource("4_ylig1")
 
 [node name="Quit" type="Button" parent="BannerControl/ButtonControl" unique_id=1497351047]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.3709433
-anchor_top = 0.87255687
-anchor_right = 0.3709433
-anchor_bottom = 0.87255687
-offset_left = 0.053993225
-offset_top = -23.072021
-offset_right = 42.053986
-offset_bottom = 7.928009
+anchor_left = 0.39714417
+anchor_top = 1.0581717
+anchor_right = 0.65943414
+anchor_bottom = 1.1007085
+offset_left = -17.946007
+offset_top = 87.92798
+offset_right = 24.053986
+offset_bottom = 118.92801
 scale = Vector2(1.5, 1.5)
 text = "Quit"
 script = ExtResource("2_b5nk6")
@@ -274,6 +275,10 @@ offset_left = 1.0
 offset_top = 7.0
 offset_right = 1.0
 offset_bottom = 7.0
+
+[node name="SaveCreate" parent="." unique_id=1880139977 instance=ExtResource("9_4bsd4")]
+visible = false
+layout_mode = 1
 
 [connection signal="animation_finished" from="BannerControl/SideBanner" to="." method="_Animate"]
 [connection signal="pressed" from="BannerControl/ButtonControl/New Game" to="BannerControl/ButtonControl/New Game" method="OnPressedMainMenuOptions" binds= ["new"]]

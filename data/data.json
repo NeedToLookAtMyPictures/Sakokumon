@@ -1,126 +1,33 @@
 {
-  "character_assets": {
-    "hair": [
+  "character_assets": [
       {
-        "Name": "Topknot",
-        "Id": 1001,
-        "Path": "res://assets/sprites/Character/Hair/topknot.png",
-        "Width": 2,
-        "Height": 2,
-        "Type": "hair",
-        "Rotation": 0.0
-      },
-      {
-        "Name": "Ronin Loose",
-        "Id": 1002,
-        "Path": "res://assets/sprites/Character/Hair/ronin_loose.png",
-        "Width": 2,
-        "Height": 3,
-        "Type": "hair",
-        "Rotation": 0.0
-      }
-    ],
-    "eyes": [
-      {
-        "Name": "Narrow",
-        "Id": 2001,
-        "Path": "res://assets/sprites/Character/Eyes/narrow.png",
-        "Width": 2,
-        "Height": 1,
-        "Type": "eyes",
-        "Rotation": 0.0
-      },
-      {
-        "Name": "Wide",
-        "Id": 2002,
-        "Path": "res://assets/sprites/Character/Eyes/wide.png",
-        "Width": 2,
-        "Height": 1,
-        "Type": "eyes",
-        "Rotation": 0.0
-      }
-    ],
-    "nose": [
-      {
-        "Name": "Flat",
-        "Id": 3001,
-        "Path": "res://assets/sprites/Character/Nose/flat.png",
-        "Width": 1,
-        "Height": 1,
-        "Type": "nose",
-        "Rotation": 0.0
-      },
-      {
-        "Name": "Hooked",
-        "Id": 3002,
-        "Path": "res://assets/sprites/Character/Nose/hooked.png",
-        "Width": 1,
-        "Height": 1,
-        "Type": "nose",
-        "Rotation": 0.0
-      }
-    ],
-    "face": [
-      {
-        "Name": "Round",
-        "Id": 4001,
-        "Path": "res://assets/sprites/Character/Face/round.png",
-        "Width": 3,
-        "Height": 4,
-        "Type": "face",
-        "Rotation": 0.0
-      },
-      {
-        "Name": "Angular",
-        "Id": 4002,
-        "Path": "res://assets/sprites/Character/Face/angular.png",
-        "Width": 3,
-        "Height": 4,
-        "Type": "face",
-        "Rotation": 0.0
-      }
-    ],
-    "torso": [
-      {
-        "Name": "Kimono Base",
+        "Name": "Character 1",
         "Id": 5001,
-        "Path": "res://assets/sprites/Character/Torso/kimono_base.png",
+        "Path": "res://assets/sprites/characters/character1.png",
         "Width": 3,
         "Height": 4,
-        "Type": "torso",
+        "Type": "portrait",
         "Rotation": 0.0
       },
       {
-        "Name": "Merchant Coat",
+        "Name": "Character 2",
         "Id": 5002,
-        "Path": "res://assets/sprites/Character/Torso/merchant_coat.png",
+        "Path": "res://assets/sprites/characters/character2.png",
         "Width": 3,
         "Height": 4,
-        "Type": "torso",
-        "Rotation": 0.0
-      }
-    ],
-    "weapon": [
-      {
-        "Name": "Katana",
-        "Id": 6001,
-        "Path": "res://assets/sprites/Character/Weapon/katana.png",
-        "Width": 1,
-        "Height": 4,
-        "Type": "weapon",
+        "Type": "portrait",
         "Rotation": 0.0
       },
       {
-        "Name": "Tanto",
-        "Id": 6002,
-        "Path": "res://assets/sprites/Character/Weapon/tanto.png",
-        "Width": 1,
-        "Height": 2,
-        "Type": "weapon",
+        "Name": "Character 3",
+        "Id": 5003,
+        "Path": "res://assets/sprites/characters/character3.png",
+        "Width": 3,
+        "Height": 4,
+        "Type": "portrait",
         "Rotation": 0.0
       }
-    ]
-  },
+  ],
   "items": {
     "goldBar": {
       "Name": "Gold",
@@ -265,7 +172,7 @@
       "Textures": [
         "res://assets/sprites/Items/copperBar_l.png"
       ],
-      "type": "copperBar_1",
+      "type": "copperBar_l",
       "Description": "A large refined copper bar, a legal and common export from Japan throughout the Edo period.",
       "Grid": [
         [true],

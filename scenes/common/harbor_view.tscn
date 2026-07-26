@@ -4,43 +4,44 @@
 [ext_resource type="Script" uid="uid://7rt3mousqrg0" path="res://scripts/HarborView.cs" id="2_hv"]
 [ext_resource type="Texture2D" uid="uid://dxc5rafb6yhd7" path="res://assets/sprites/scenery/harborView/guardhouse.png" id="3_621y4"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
+[ext_resource type="Texture2D" uid="uid://bryhojmhif1br" path="res://assets/sprites/people/person.png" id="4_npcTex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
 size = Vector2(256, 64)
 
 [sub_resource type="Curve2D" id="Curve2D_entryNorth"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 50, 389, -80, 0, -50, 0, 0, 389, 275)
+"points": PackedVector2Array(0, 0, 0, 50, 389, -80, 0, -50, 0, 0, 308, 272)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_entryEast"]
 _data = {
-"points": PackedVector2Array(0, 0, -200, 0, 1500, 200, 200, 0, -200, 50, 800, 200, 200, -50, 0, 0, 389, 275)
+"points": PackedVector2Array(0, 0, -200, 0, 1015, 228, 222.4, 11.45454, -222.4, -11.45454, 773, 230, 148.8, -71.6, -148.8, 71.6, 372, 268)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_entryWest"]
 _data = {
-"points": PackedVector2Array(0, 0, 200, 0, -200, 200, -200, 0, 200, 50, 100, 200, -200, -50, 0, 0, 389, 275)
+"points": PackedVector2Array(0, 0, 200, 0, -200, 200, -200, 0, 200, 50, 100, 200, -74.40001, -92.399994, 74.40001, 92.399994, 308, 275)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_exitSouth"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 50, 389, 275, 0, -50, 0, 0, 389, 850)
+"points": PackedVector2Array(-57.0987, -88.043076, 57.0987, 88.043076, 306, 342, 0, 0, 0, 0, 363.6771, 460.25574, 0, 0, 0, 0, 365.44272, 685.10815, 15.460897, -207.18579, -15.460897, 207.18579, 359.5573, 963.25903)
 }
-point_count = 2
+point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_exitEast"]
 _data = {
-"points": PackedVector2Array(0, 0, 200, 50, 389, 275, -200, -50, 200, 0, 700, 380, -200, 0, 0, 0, 1500, 420)
+"points": PackedVector2Array(0, 0, 200, 50, 310, 342, -139.82516, -12.449967, 139.82516, 12.449967, 707, 392, -200, 0, 0, 0, 975, 414)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_exitWest"]
 _data = {
-"points": PackedVector2Array(0, 0, -200, 50, 389, 275, 200, -50, -200, 0, 100, 380, 200, 0, 0, 0, -200, 420)
+"points": PackedVector2Array(151.31978, -87.752014, -151.31978, 87.752014, 305, 341, 200, -50, -200, 0, 101, 405, 200, 0, 0, 0, -200, 420)
 }
 point_count = 3
 
@@ -61,6 +62,9 @@ size = Vector2(257, 77)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_keepWallR"]
 size = Vector2(351, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npcTemplate"]
+size = Vector2(20, 36)
 
 [node name="HarborView" type="Node2D" unique_id=300000001]
 script = ExtResource("2_hv")
@@ -94,12 +98,15 @@ position = Vector2(307, 339)
 curve = SubResource("Curve2D_entryNorth")
 
 [node name="EntryEast" type="Path2D" parent="StreetPaths" unique_id=300000017]
+position = Vector2(-66, 6)
 curve = SubResource("Curve2D_entryEast")
 
 [node name="EntryWest" type="Path2D" parent="StreetPaths" unique_id=300000018]
 curve = SubResource("Curve2D_entryWest")
 
 [node name="ExitSouth" type="Path2D" parent="StreetPaths" unique_id=300000019]
+position = Vector2(-213.9292, 136.66536)
+scale = Vector2(1.699115, 0.6003937)
 curve = SubResource("Curve2D_exitSouth")
 
 [node name="ExitEast" type="Path2D" parent="StreetPaths" unique_id=300000020]
@@ -151,6 +158,16 @@ position = Vector2(520, 280)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/KeepWallRight" unique_id=300000036]
 position = Vector2(174.5, 26)
 shape = SubResource("RectangleShape2D_keepWallR")
+
+[node name="NpcTemplate" type="CharacterBody2D" parent="." unique_id=300000037]
+position = Vector2(686, -117)
+
+[node name="Sprite2D" type="Sprite2D" parent="NpcTemplate" unique_id=300000038]
+scale = Vector2(0.59375, 0.46875)
+texture = ExtResource("4_npcTex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NpcTemplate" unique_id=300000039]
+shape = SubResource("RectangleShape2D_npcTemplate")
 
 [node name="NPCLayer" type="Node2D" parent="." unique_id=300000002]
 

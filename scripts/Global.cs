@@ -14,7 +14,8 @@ public partial class Global : Node
 		public string PathName;
 		public float Progress;      // 0→1 along the assigned path
 		public float NoisePhase;    // per-NPC random phase for perpendicular sway
-		public int QueueIndex = -1; // position in wait queue, -1 if not queued
+		public int QueueIndex = -1;        // position in wait queue, -1 if not queued
+		public Vector2 QueuedPosition;    // world position while in Queued state
 	}
 
 	private static readonly string[] EntryPathNames = { "EntryNorth", "EntryEast", "EntryWest" };
@@ -38,7 +39,8 @@ public partial class Global : Node
 	public Dictionary<string, Curve2D> EntryPaths { get; } = new();
 	public Dictionary<string, Curve2D> ExitPaths  { get; } = new();
 	public Vector2 IngressPoint = new Vector2(389, 250); // default; overwritten by HarborView from IngressPoint marker
-	public Vector2 EgressPoint  = new Vector2(389, 300); // default; overwritten by HarborView from EgressPoint marker
+	public Vector2 EgressPoint     = new Vector2(389, 300); // default; overwritten by HarborView from EgressPoint marker
+	public Vector2 QueueDirection  = new Vector2(0f, -1f); // queue line grows in this direction from IngressPoint
 
 	private readonly Queue<NpcData> _waitQueue = new();
 	private ulong _noiseCounter; // rolling counter for per-NPC phase generation
@@ -106,6 +108,17 @@ public partial class Global : Node
 	// Returns the world-space position of an NPC including perpendicular sway noise.
 	public Vector2 GetNpcWorldPosition(NpcData npc)
 	{
+		float time = Time.GetTicksMsec() / 1000f;
+		float sway = Mathf.Sin(time * NoiseFrequency + npc.NoisePhase) * NoiseAmplitude * 0.7f
+				   + Mathf.Sin(time * NoiseFrequency * 1.7f + npc.NoisePhase * 1.3f) * NoiseAmplitude * 0.3f;
+
+		if (npc.CurrentState == NpcData.State.Queued)
+		{
+			// Sway perpendicular to the queue line direction
+			Vector2 perp = new Vector2(-QueueDirection.Y, QueueDirection.X);
+			return npc.QueuedPosition + perp * sway;
+		}
+
 		var paths = npc.CurrentState == NpcData.State.Departing ? ExitPaths : EntryPaths;
 		if (!paths.TryGetValue(npc.PathName, out var curve) || curve == null)
 			return Vector2.Zero;
@@ -115,10 +128,6 @@ public partial class Global : Node
 
 		float offset = Mathf.Clamp(npc.Progress * len, 0f, len);
 		Transform2D t = curve.SampleBakedWithRotation(offset);
-
-		float time = Time.GetTicksMsec() / 1000f;
-		float sway = Mathf.Sin(time * NoiseFrequency + npc.NoisePhase) * NoiseAmplitude * 0.7f
-				   + Mathf.Sin(time * NoiseFrequency * 1.7f + npc.NoisePhase * 1.3f) * NoiseAmplitude * 0.3f;
 
 		// t.Y is perpendicular to the path tangent (t.X)
 		return t.Origin + t.Y * sway;
@@ -177,21 +186,20 @@ public partial class Global : Node
 		}
 		else
 		{
-			npc.CurrentState = NpcData.State.Queued;
-			npc.QueueIndex   = _waitQueue.Count;
+			npc.CurrentState   = NpcData.State.Queued;
+			npc.QueueIndex     = _waitQueue.Count;
+			npc.QueuedPosition = IngressPoint; // start at gate, shuffle back to slot
 			_waitQueue.Enqueue(npc);
 		}
 	}
 
 	private void ProcessQueued(NpcData npc, float dt)
 	{
-		if (!EntryPaths.TryGetValue(npc.PathName, out var curve) || curve == null) return;
-		float len    = curve.GetBakedLength();
-		float target = Mathf.Max(0f, 1f - (npc.QueueIndex + 1) * QueueSpacing / len);
-		float step   = NpcQueueSpeed * dt / len;
-		npc.Progress = npc.Progress > target
-			? Mathf.Max(target, npc.Progress - step)
-			: Mathf.Min(target, npc.Progress + step);
+		Vector2 slot  = IngressPoint + QueueDirection * (npc.QueueIndex + 1) * QueueSpacing;
+		Vector2 delta = slot - npc.QueuedPosition;
+		float   dist  = delta.Length();
+		float   step  = NpcQueueSpeed * dt;
+		npc.QueuedPosition = dist <= step ? slot : npc.QueuedPosition + delta.Normalized() * step;
 	}
 
 	private void ProcessDeparting(NpcData npc, float dt, int index)

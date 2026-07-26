@@ -3,29 +3,28 @@ using System.Collections.Generic;
 
 public partial class HarborView : Node2D
 {
-	private const float NpcTexScaleX = 0.59375f;
-	private const float NpcTexScaleY = 0.46875f;
+	private Control         _notificationPanel;
+	private Button          _enterGuardpostButton;
+	private Node2D          _npcLayer;
+	private Global          _global;
+	private CharacterBody2D _npcTemplate;
 
-	private Control _notificationPanel;
-	private Button _enterGuardpostButton;
-	private Node2D _npcLayer;
-	private Global _global;
-	private Texture2D _npcTexture;
-	private readonly Dictionary<Global.NpcData, Sprite2D> _npcSprites = new();
+	// Bodies own a Sprite2D child and a CollisionShape2D child.
+	private readonly Dictionary<Global.NpcData, CharacterBody2D> _npcBodies = new();
 
 	public override void _Ready()
 	{
-		_notificationPanel  = GetNode<Control>("UI/NotificationPanel");
+		_notificationPanel    = GetNode<Control>("UI/NotificationPanel");
 		_enterGuardpostButton = GetNode<Button>("UI/EnterGuardpostButton");
-		_npcLayer           = GetNode<Node2D>("NPCLayer");
-		_global             = GetNode<Global>("/root/Global");
-		_npcTexture         = GD.Load<Texture2D>("res://assets/sprites/people/person.png");
+		_npcLayer             = GetNode<Node2D>("NPCLayer");
+		_global               = GetNode<Global>("/root/Global");
+		_npcTemplate          = GetNode<CharacterBody2D>("NpcTemplate");
 
 		RegisterPaths();
 		HideNpcNotification();
 
 		foreach (var npcData in _global.ActiveNpcs)
-			CreateSpriteFor(npcData);
+			CreateBodyFor(npcData);
 
 		if (_global.npcPresent)
 			ShowNpcNotification();
@@ -33,34 +32,48 @@ public partial class HarborView : Node2D
 
 	public override void _Process(double delta)
 	{
-		// Remove sprites for NPCs culled from Global
+		// Remove bodies for NPCs culled from Global
 		var toRemove = new List<Global.NpcData>();
-		foreach (var key in _npcSprites.Keys)
+		foreach (var key in _npcBodies.Keys)
 		{
 			if (!_global.ActiveNpcs.Contains(key))
 				toRemove.Add(key);
 		}
 		foreach (var key in toRemove)
 		{
-			_npcSprites[key].QueueFree();
-			_npcSprites.Remove(key);
+			_npcBodies[key].QueueFree();
+			_npcBodies.Remove(key);
 		}
 
-		// Add sprites for newly spawned NPCs
+		// Add bodies for newly spawned NPCs
 		foreach (var npcData in _global.ActiveNpcs)
 		{
-			if (!_npcSprites.ContainsKey(npcData))
-				CreateSpriteFor(npcData);
+			if (!_npcBodies.ContainsKey(npcData))
+				CreateBodyFor(npcData);
 		}
 
-		// Sync each sprite to its path-sampled world position
-		foreach (var kvp in _npcSprites)
+		// Move each body toward its path-sampled position via physics so colliders are respected
+		foreach (var kvp in _npcBodies)
 		{
-			bool visible = kvp.Key.CurrentState != Global.NpcData.State.AtGuardpost;
-			kvp.Value.Visible = visible;
-			if (visible)
-				kvp.Value.Position = _global.GetNpcWorldPosition(kvp.Key);
+			var npc  = kvp.Key;
+			var body = kvp.Value;
+
+			bool visible = npc.CurrentState != Global.NpcData.State.AtGuardpost;
+			body.Visible = visible;
+			if (!visible) continue;
+
+			Vector2 desired = _global.GetNpcWorldPosition(npc);
+			body.MoveAndCollide(desired - body.GlobalPosition);
 		}
+	}
+
+	private void CreateBodyFor(Global.NpcData data)
+	{
+		var body = (CharacterBody2D)_npcTemplate.Duplicate();
+		body.Position = _global.GetNpcWorldPosition(data);
+		body.Visible  = data.CurrentState != Global.NpcData.State.AtGuardpost;
+		_npcLayer.AddChild(body);
+		_npcBodies[data] = body;
 	}
 
 	private void RegisterPaths()
@@ -86,8 +99,7 @@ public partial class HarborView : Node2D
 			if (p?.Curve != null) _global.ExitPaths[name] = p.Curve;
 		}
 
-		// Snap path endpoints to the editor-placed ingress/egress markers so moving
-		// them in the inspector is the only thing needed to retune arrival/departure positions.
+		// Snap path endpoints to the editor-placed ingress/egress markers.
 		var ingress = GetNodeOrNull<Marker2D>("GameBackground/Guardpost/IngressPoint");
 		var egress  = GetNodeOrNull<Marker2D>("GameBackground/Guardpost/EgressPoint");
 
@@ -96,7 +108,21 @@ public partial class HarborView : Node2D
 			_global.IngressPoint = ingress.GlobalPosition;
 			foreach (var curve in _global.EntryPaths.Values)
 				curve.SetPointPosition(curve.PointCount - 1, ingress.GlobalPosition);
+
+			// Queue direction: the reverse of the last path segment approaching the gate.
+			// Default to Vector2.Up (northward) if EntryNorth isn't available.
+			if (_global.EntryPaths.TryGetValue("EntryNorth", out var northCurve) && northCurve.PointCount >= 2)
+			{
+				int last = northCurve.PointCount - 1;
+				Vector2 approach = (northCurve.GetPointPosition(last) - northCurve.GetPointPosition(last - 1)).Normalized();
+				_global.QueueDirection = -approach; // reverse = away from gate
+			}
+			else
+			{
+				_global.QueueDirection = Vector2.Up;
+			}
 		}
+
 		if (egress != null)
 		{
 			_global.EgressPoint = egress.GlobalPosition;
@@ -105,18 +131,7 @@ public partial class HarborView : Node2D
 		}
 	}
 
-	private void CreateSpriteFor(Global.NpcData data)
-	{
-		var sprite = new Sprite2D
-		{
-			Texture  = _npcTexture,
-			Scale    = new Vector2(NpcTexScaleX, NpcTexScaleY),
-			Position = _global.GetNpcWorldPosition(data),
-			Visible  = data.CurrentState != Global.NpcData.State.AtGuardpost
-		};
-		_npcLayer.AddChild(sprite);
-		_npcSprites[data] = sprite;
-	}
+	private void CreateSpriteFor(Global.NpcData data) => CreateBodyFor(data);
 
 	public void ShowNpcNotification()
 	{

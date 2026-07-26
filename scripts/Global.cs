@@ -9,19 +9,24 @@ public partial class Global : Node
 
 	public class NpcData
 	{
-		public enum State { Approaching, AtGuardpost, Departing }
+		public enum State { Approaching, Queued, AtGuardpost, Departing }
 		public State CurrentState = State.Approaching;
-		public float X;
-		public float Y;
+		public string PathName;
+		public float Progress;      // 0→1 along the assigned path
+		public float NoisePhase;    // per-NPC random phase for perpendicular sway
+		public int QueueIndex = -1; // position in wait queue, -1 if not queued
 	}
 
-	private const float NpcMoveSpeed = 80f;
-	public float NpcGuardpostY = 220f; // default; overwritten by HarborView from GuardpostDetector.GlobalPosition.Y
-	private const float NpcStartX = 371f;
-	private const float NpcStartY = -42f;
-	private const float NpcOffscreenY = 800f;
+	private static readonly string[] EntryPathNames = { "EntryNorth", "EntryEast", "EntryWest" };
+	private static readonly string[] ExitPathNames  = { "ExitSouth",  "ExitEast",  "ExitWest"  };
 
-	public Node CurrentScene{ get; set; }
+	private const float NpcMoveSpeed   = 80f;  // px/sec along path
+	private const float NpcQueueSpeed  = 30f;  // px/sec when shuffling in queue
+	private const float QueueSpacing   = 70f;  // px between queued NPCs (along path length)
+	private const float NoiseAmplitude = 12f;  // max perpendicular sway in px
+	private const float NoiseFrequency = 0.4f; // sway cycles per second
+
+	public Node CurrentScene { get; set; }
 	public static Global Instance { get; set; }
 	public List<List<bool>> itemGrid { get; set; }
 	public List<ObjectData> itemsInGrid { get; set; }
@@ -30,6 +35,11 @@ public partial class Global : Node
 	public Database Database { get; set; }
 	public bool npcPresent = false;
 	public List<NpcData> ActiveNpcs { get; private set; }
+	public Dictionary<string, Curve2D> EntryPaths { get; } = new();
+	public Dictionary<string, Curve2D> ExitPaths  { get; } = new();
+
+	private readonly Queue<NpcData> _waitQueue = new();
+	private ulong _noiseCounter; // rolling counter for per-NPC phase generation
 
 	private Preferences prefs;
 	public Preferences Preferences
@@ -48,7 +58,8 @@ public partial class Global : Node
 
 	private Stack<string> _previousScenePaths = new();
 
-	public override void _Ready(){
+	public override void _Ready()
+	{
 		Viewport root = GetTree().Root;
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
@@ -67,76 +78,166 @@ public partial class Global : Node
 
 	public override void _Process(double delta)
 	{
+		float dt = (float)delta;
 		for (int i = ActiveNpcs.Count - 1; i >= 0; i--)
 		{
 			var npc = ActiveNpcs[i];
-			if (npc.CurrentState == NpcData.State.Approaching)
+			switch (npc.CurrentState)
 			{
-				npc.Y += NpcMoveSpeed * (float)delta;
-				if (npc.Y >= NpcGuardpostY)
-				{
-					npc.CurrentState = NpcData.State.AtGuardpost;
-					npcPresent = true;
-					(GetTree().CurrentScene as HarborView)?.ShowNpcNotification();
-				}
-			}
-			else if (npc.CurrentState == NpcData.State.Departing)
-			{
-				npc.Y += NpcMoveSpeed * (float)delta;
-				if (npc.Y > NpcOffscreenY)
-					ActiveNpcs.RemoveAt(i);
+				case NpcData.State.Approaching: ProcessApproaching(npc, dt);    break;
+				case NpcData.State.Queued:      ProcessQueued(npc, dt);         break;
+				case NpcData.State.Departing:   ProcessDeparting(npc, dt, i);   break;
 			}
 		}
 	}
 
-	public void SpawnNpc() => ActiveNpcs.Add(new NpcData { X = NpcStartX, Y = NpcStartY });
+	public void SpawnNpc()
+	{
+		ActiveNpcs.Add(new NpcData
+		{
+			PathName   = EntryPathNames[GD.Randi() % (uint)EntryPathNames.Length],
+			Progress   = 0f,
+			NoisePhase = GD.Randf() * Mathf.Tau
+		});
+	}
 
-	public void DeferredGoToScene(string path){
-		// Store this new scene in our stack
+	// Returns the world-space position of an NPC including perpendicular sway noise.
+	public Vector2 GetNpcWorldPosition(NpcData npc)
+	{
+		var paths = npc.CurrentState == NpcData.State.Departing ? ExitPaths : EntryPaths;
+		if (!paths.TryGetValue(npc.PathName, out var curve) || curve == null)
+			return Vector2.Zero;
+
+		float len = curve.GetBakedLength();
+		if (len <= 0f) return Vector2.Zero;
+
+		float offset = Mathf.Clamp(npc.Progress * len, 0f, len);
+		Transform2D t = curve.SampleBakedWithRotation(offset);
+
+		float time = Time.GetTicksMsec() / 1000f;
+		float sway = Mathf.Sin(time * NoiseFrequency + npc.NoisePhase) * NoiseAmplitude * 0.7f
+		           + Mathf.Sin(time * NoiseFrequency * 1.7f + npc.NoisePhase * 1.3f) * NoiseAmplitude * 0.3f;
+
+		// t.Y is perpendicular to the path tangent (t.X)
+		return t.Origin + t.Y * sway;
+	}
+
+	// Called by NpcInteractionOptions: depart=true→allow passage, depart=false→detain.
+	public void ReleaseGuardpost(bool depart)
+	{
+		var atPost = ActiveNpcs.Find(n => n.CurrentState == NpcData.State.AtGuardpost);
+		if (atPost != null)
+		{
+			if (depart)
+			{
+				atPost.PathName  = ExitPathNames[GD.Randi() % (uint)ExitPathNames.Length];
+				atPost.Progress  = 0f;
+				atPost.CurrentState = NpcData.State.Departing;
+			}
+			else
+			{
+				ActiveNpcs.Remove(atPost); // detained — removed from flow
+			}
+		}
+
+		npcPresent = false;
+
+		if (_waitQueue.Count > 0)
+		{
+			var next = _waitQueue.Dequeue();
+			next.QueueIndex     = -1;
+			next.Progress       = 1f;
+			next.CurrentState   = NpcData.State.AtGuardpost;
+			npcPresent          = true;
+			(GetTree().CurrentScene as HarborView)?.ShowNpcNotification();
+
+			int idx = 0;
+			foreach (var q in _waitQueue)
+				q.QueueIndex = idx++;
+		}
+	}
+
+	// ── Private NPC step helpers ────────────────────────────────────────────
+
+	private void ProcessApproaching(NpcData npc, float dt)
+	{
+		if (!EntryPaths.TryGetValue(npc.PathName, out var curve) || curve == null) return;
+		float len = curve.GetBakedLength();
+		npc.Progress = Mathf.Min(1f, npc.Progress + NpcMoveSpeed * dt / len);
+
+		if (npc.Progress < 1f) return;
+
+		if (!npcPresent && _waitQueue.Count == 0)
+		{
+			npc.CurrentState = NpcData.State.AtGuardpost;
+			npcPresent = true;
+			(GetTree().CurrentScene as HarborView)?.ShowNpcNotification();
+		}
+		else
+		{
+			npc.CurrentState = NpcData.State.Queued;
+			npc.QueueIndex   = _waitQueue.Count;
+			_waitQueue.Enqueue(npc);
+		}
+	}
+
+	private void ProcessQueued(NpcData npc, float dt)
+	{
+		if (!EntryPaths.TryGetValue(npc.PathName, out var curve) || curve == null) return;
+		float len    = curve.GetBakedLength();
+		float target = Mathf.Max(0f, 1f - (npc.QueueIndex + 1) * QueueSpacing / len);
+		float step   = NpcQueueSpeed * dt / len;
+		npc.Progress = npc.Progress > target
+			? Mathf.Max(target, npc.Progress - step)
+			: Mathf.Min(target, npc.Progress + step);
+	}
+
+	private void ProcessDeparting(NpcData npc, float dt, int index)
+	{
+		if (!ExitPaths.TryGetValue(npc.PathName, out var curve) || curve == null) return;
+		float len = curve.GetBakedLength();
+		npc.Progress = Mathf.Min(1f, npc.Progress + NpcMoveSpeed * dt / len);
+		if (npc.Progress >= 1f)
+			ActiveNpcs.RemoveAt(index);
+	}
+
+	// ── Scene navigation ────────────────────────────────────────────────────
+
+	public void DeferredGoToScene(string path)
+	{
 		_previousScenePaths.Push(GetTree().CurrentScene.SceneFilePath);
 		GD.Print(GetTree().CurrentScene.SceneFilePath);
 		GD.Print($"Scene stored: {CurrentScene.Name}");
 
-		// It is now safe to remove the current scene.
 		CurrentScene.Free();
 
-		// Load a new scene.
 		var nextScene = GD.Load<PackedScene>(path);
-
-		// Instance the new scene.
 		CurrentScene = nextScene.Instantiate();
-
-		// Add it to the active scene, as child of root.
 		GetTree().Root.AddChild(CurrentScene);
-
-		// Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 		GetTree().CurrentScene = CurrentScene;
 	}
 
-	public void GoToScene(string path){
-		// This function will usually be called from a signal callback,
-		// or some other function from the current scene.
-		// Deleting the current scene at this point is
-		// a bad idea, because it may still be executing code.
-		// This will result in a crash or unexpected behavior.
-
-		// The solution is to defer the load to a later time, when
-		// we can be sure that no code from the current scene is running:
+	public void GoToScene(string path)
+	{
 		CallDeferred(MethodName.DeferredGoToScene, path);
 	}
 
-	public void ReturnToPreviousScene(){
-		if (_previousScenePaths.Count > 0){
+	public void ReturnToPreviousScene()
+	{
+		if (_previousScenePaths.Count > 0)
+		{
 			string path = _previousScenePaths.Pop();
 			GD.Print($"Popped from stack: {path}");
 			CallDeferred(MethodName.DeferredGoToScene, path);
 		}
-		else{
+		else
+		{
 			GD.PushWarning("No entries left in _previousScenePaths");
 		}
 	}
 
-	public float GetAudioFactor(string element){
+	public float GetAudioFactor(string element)
+	{
 		return element switch {
 			"master" => Preferences.masterVolume,
 			"music"  => Preferences.musicVolume,
@@ -145,33 +246,30 @@ public partial class Global : Node
 		};
 	}
 
-	public void ChangeAudioMember(string element, float factor){
+	public void ChangeAudioMember(string element, float factor)
+	{
 		var musicPlayer = GetNode<MusicManager>("/root/MusicManager");
-		if (element == "master"){
+		if (element == "master")
 			Preferences.masterVolume = factor;
-		}
-		else if (element == "music"){
+		else if (element == "music")
 			Preferences.musicVolume = factor;
-		}
-		else if (element == "sfx"){
+		else if (element == "sfx")
 			Preferences.sfxVolume = factor;
-		}
-		else{
+		else
 			GD.PushWarning("Invalid element ID in Global.ChangeAudioMember()");
-		}
+
 		Preferences.save();
 		musicPlayer.MusicVolume = Preferences.masterVolume * Preferences.musicVolume;
-		musicPlayer.SfxVolume = Preferences.masterVolume * Preferences.sfxVolume;
+		musicPlayer.SfxVolume   = Preferences.masterVolume * Preferences.sfxVolume;
 	}
+
+	// ── Storage ─────────────────────────────────────────────────────────────
 
 	int gridSnapSize = 64;
 	int storageBuffer = 16;
 	int storageCenterX = 756;
 	public void updateStorage()
 	{
-		// stack starts at y = 550 (going up)
-		// for each item:
-		//	currentPos =- stackBuffer -> then place sprite at currentPos =- ((itemHeight * 64) / 2) -> then currentPos =- (((itemHeight * 64) / 2) + storageBuffer)
 		int currentHeightInStorage = 550;
 		for (int i = 0; i < nodesInStorage.Count; i++)
 		{
@@ -179,13 +277,9 @@ public partial class Global : Node
 			currentHeightInStorage -= storageBuffer;
 			ObjectData parentData = (ObjectData)currItem.GetMeta("itemObject");
 			int itemHeight = parentData.item.Length * gridSnapSize;
-			currItem.GlobalPosition = new Godot.Vector2((storageCenterX), (currentHeightInStorage - (itemHeight / 2)));
+			currItem.GlobalPosition = new Godot.Vector2(storageCenterX, currentHeightInStorage - (itemHeight / 2));
 			currentHeightInStorage -= itemHeight;
 			currentHeightInStorage -= storageBuffer;
 		}
-
-
-		// when adding new thing to storage, add to list of items in storage, set position vector to (-1, -1), and update storage
-		// when removing from storage, remove that instance from items in storage, set position vector, and update storage
 	}
 }

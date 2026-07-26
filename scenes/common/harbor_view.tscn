@@ -8,6 +8,84 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
 size = Vector2(256, 64)
 
+[sub_resource type="Curve2D" id="Curve2D_entryNorth"]
+point_count = 2
+point_0/position = Vector2(389, -80)
+point_0/in = Vector2(0, 0)
+point_0/out = Vector2(0, 50)
+point_1/position = Vector2(389, 275)
+point_1/in = Vector2(0, -50)
+point_1/out = Vector2(0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_entryEast"]
+point_count = 3
+point_0/position = Vector2(1500, 200)
+point_0/in = Vector2(0, 0)
+point_0/out = Vector2(-200, 0)
+point_1/position = Vector2(800, 200)
+point_1/in = Vector2(200, 0)
+point_1/out = Vector2(-200, 50)
+point_2/position = Vector2(389, 275)
+point_2/in = Vector2(200, -50)
+point_2/out = Vector2(0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_entryWest"]
+point_count = 3
+point_0/position = Vector2(-200, 200)
+point_0/in = Vector2(0, 0)
+point_0/out = Vector2(200, 0)
+point_1/position = Vector2(100, 200)
+point_1/in = Vector2(-200, 0)
+point_1/out = Vector2(200, 50)
+point_2/position = Vector2(389, 275)
+point_2/in = Vector2(-200, -50)
+point_2/out = Vector2(0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_exitSouth"]
+point_count = 2
+point_0/position = Vector2(389, 275)
+point_0/in = Vector2(0, 0)
+point_0/out = Vector2(0, 50)
+point_1/position = Vector2(389, 850)
+point_1/in = Vector2(0, -50)
+point_1/out = Vector2(0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_exitEast"]
+point_count = 3
+point_0/position = Vector2(389, 275)
+point_0/in = Vector2(0, 0)
+point_0/out = Vector2(200, 50)
+point_1/position = Vector2(700, 380)
+point_1/in = Vector2(-200, -50)
+point_1/out = Vector2(200, 0)
+point_2/position = Vector2(1500, 420)
+point_2/in = Vector2(-200, 0)
+point_2/out = Vector2(0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_exitWest"]
+point_count = 3
+point_0/position = Vector2(389, 275)
+point_0/in = Vector2(0, 0)
+point_0/out = Vector2(-200, 50)
+point_1/position = Vector2(100, 380)
+point_1/in = Vector2(200, -50)
+point_1/out = Vector2(-200, 0)
+point_2/position = Vector2(-200, 420)
+point_2/in = Vector2(200, 0)
+point_2/out = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgNW"]
+size = Vector2(280, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgNE"]
+size = Vector2(280, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgSW"]
+size = Vector2(200, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgSE"]
+size = Vector2(200, 400)
+
 [node name="HarborView" type="Node2D" unique_id=300000001]
 script = ExtResource("2_hv")
 
@@ -27,6 +105,52 @@ position = Vector2(389, 275)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameBackground/Guardpost/GuardpostDetector" unique_id=1153289132]
 position = Vector2(1, 32)
 shape = SubResource("RectangleShape2D_guardpost")
+
+[node name="StreetPaths" type="Node2D" parent="." unique_id=300000015]
+
+[node name="EntryNorth" type="Path2D" parent="StreetPaths" unique_id=300000016]
+curve = SubResource("Curve2D_entryNorth")
+
+[node name="EntryEast" type="Path2D" parent="StreetPaths" unique_id=300000017]
+curve = SubResource("Curve2D_entryEast")
+
+[node name="EntryWest" type="Path2D" parent="StreetPaths" unique_id=300000018]
+curve = SubResource("Curve2D_entryWest")
+
+[node name="ExitSouth" type="Path2D" parent="StreetPaths" unique_id=300000019]
+curve = SubResource("Curve2D_exitSouth")
+
+[node name="ExitEast" type="Path2D" parent="StreetPaths" unique_id=300000020]
+curve = SubResource("Curve2D_exitEast")
+
+[node name="ExitWest" type="Path2D" parent="StreetPaths" unique_id=300000021]
+curve = SubResource("Curve2D_exitWest")
+
+[node name="Buildings" type="Node2D" parent="." unique_id=300000022]
+
+[node name="BuildingNW" type="StaticBody2D" parent="Buildings" unique_id=300000023]
+position = Vector2(140, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingNW" unique_id=300000024]
+shape = SubResource("RectangleShape2D_bldgNW")
+
+[node name="BuildingNE" type="StaticBody2D" parent="Buildings" unique_id=300000025]
+position = Vector2(650, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingNE" unique_id=300000026]
+shape = SubResource("RectangleShape2D_bldgNE")
+
+[node name="BuildingSW" type="StaticBody2D" parent="Buildings" unique_id=300000027]
+position = Vector2(100, 560)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingSW" unique_id=300000028]
+shape = SubResource("RectangleShape2D_bldgSW")
+
+[node name="BuildingSE" type="StaticBody2D" parent="Buildings" unique_id=300000029]
+position = Vector2(700, 560)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingSE" unique_id=300000030]
+shape = SubResource("RectangleShape2D_bldgSE")
 
 [node name="NPCLayer" type="Node2D" parent="." unique_id=300000002]
 

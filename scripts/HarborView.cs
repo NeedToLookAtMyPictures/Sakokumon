@@ -15,16 +15,14 @@ public partial class HarborView : Node2D
 
 	public override void _Ready()
 	{
-		_notificationPanel = GetNode<Control>("UI/NotificationPanel");
+		_notificationPanel  = GetNode<Control>("UI/NotificationPanel");
 		_enterGuardpostButton = GetNode<Button>("UI/EnterGuardpostButton");
-		_npcLayer = GetNode<Node2D>("NPCLayer");
-		_global = GetNode<Global>("/root/Global");
-		_npcTexture = GD.Load<Texture2D>("res://assets/sprites/people/person.png");
+		_npcLayer           = GetNode<Node2D>("NPCLayer");
+		_global             = GetNode<Global>("/root/Global");
+		_npcTexture         = GD.Load<Texture2D>("res://assets/sprites/people/person.png");
 
+		RegisterPaths();
 		HideNpcNotification();
-
-		var detector = GetNode<Area2D>("GameBackground/Guardpost/GuardpostDetector");
-		_global.NpcGuardpostY = detector.GlobalPosition.Y;
 
 		foreach (var npcData in _global.ActiveNpcs)
 			CreateSpriteFor(npcData);
@@ -55,11 +53,37 @@ public partial class HarborView : Node2D
 				CreateSpriteFor(npcData);
 		}
 
-		// Sync position and visibility with Global state
+		// Sync each sprite to its path-sampled world position
 		foreach (var kvp in _npcSprites)
 		{
-			kvp.Value.Position = new Vector2(kvp.Key.X, kvp.Key.Y);
-			kvp.Value.Visible = kvp.Key.CurrentState != Global.NpcData.State.AtGuardpost;
+			bool visible = kvp.Key.CurrentState != Global.NpcData.State.AtGuardpost;
+			kvp.Value.Visible = visible;
+			if (visible)
+				kvp.Value.Position = _global.GetNpcWorldPosition(kvp.Key);
+		}
+	}
+
+	private void RegisterPaths()
+	{
+		_global.EntryPaths.Clear();
+		_global.ExitPaths.Clear();
+
+		var streetPaths = GetNodeOrNull<Node2D>("StreetPaths");
+		if (streetPaths == null)
+		{
+			GD.PushWarning("HarborView: StreetPaths node not found — NPC paths will be empty.");
+			return;
+		}
+
+		foreach (string name in new[] { "EntryNorth", "EntryEast", "EntryWest" })
+		{
+			var p = streetPaths.GetNodeOrNull<Path2D>(name);
+			if (p?.Curve != null) _global.EntryPaths[name] = p.Curve;
+		}
+		foreach (string name in new[] { "ExitSouth", "ExitEast", "ExitWest" })
+		{
+			var p = streetPaths.GetNodeOrNull<Path2D>(name);
+			if (p?.Curve != null) _global.ExitPaths[name] = p.Curve;
 		}
 	}
 
@@ -67,10 +91,10 @@ public partial class HarborView : Node2D
 	{
 		var sprite = new Sprite2D
 		{
-			Texture = _npcTexture,
-			Scale = new Vector2(NpcTexScaleX, NpcTexScaleY),
-			Position = new Vector2(data.X, data.Y),
-			Visible = data.CurrentState != Global.NpcData.State.AtGuardpost
+			Texture  = _npcTexture,
+			Scale    = new Vector2(NpcTexScaleX, NpcTexScaleY),
+			Position = _global.GetNpcWorldPosition(data),
+			Visible  = data.CurrentState != Global.NpcData.State.AtGuardpost
 		};
 		_npcLayer.AddChild(sprite);
 		_npcSprites[data] = sprite;
@@ -78,13 +102,13 @@ public partial class HarborView : Node2D
 
 	public void ShowNpcNotification()
 	{
-		_notificationPanel.Visible = true;
+		_notificationPanel.Visible    = true;
 		_enterGuardpostButton.Visible = true;
 	}
 
 	public void HideNpcNotification()
 	{
-		_notificationPanel.Visible = false;
+		_notificationPanel.Visible    = false;
 		_enterGuardpostButton.Visible = false;
 	}
 

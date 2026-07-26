@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://7rt3mousqrg0" path="res://scripts/HarborView.cs" id="2_hv"]
 [ext_resource type="Texture2D" uid="uid://dxc5rafb6yhd7" path="res://assets/sprites/scenery/harborView/guardhouse.png" id="3_621y4"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
-[ext_resource type="Texture2D" uid="uid://bryhojmhif1br" path="res://assets/sprites/people/person.png" id="4_xsu5i"]
 
 [node name="HarborView" type="Node2D" unique_id=300000001]
 script = ExtResource("2_hv")
@@ -21,10 +20,6 @@ texture = ExtResource("3_621y4")
 
 [node name="NPCLayer" type="Node2D" parent="." unique_id=300000002]
 
-[node name="ApproachingNpc" type="Sprite2D" parent="NPCLayer" unique_id=133559950]
-position = Vector2(371, -42.000004)
-scale = Vector2(0.59375, 0.46875)
-texture = ExtResource("4_xsu5i")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=300000003]
 
@@ -61,7 +56,7 @@ text = "Enter Guardpost"
 offset_left = 11.0
 offset_top = 458.0
 offset_right = 261.0
-offset_bottom = 628.0
+offset_bottom = 668.0
 
 [node name="DebugLabel" type="Label" parent="UI/DebugPanel" unique_id=300000009]
 layout_mode = 0
@@ -107,8 +102,17 @@ offset_bottom = 161.0
 text = "-> Main Menu"
 script = ExtResource("3_dbg")
 
+[node name="SpawnNpcDebug" type="Button" parent="UI/DebugPanel" unique_id=300000014]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 166.0
+offset_right = 245.0
+offset_bottom = 196.0
+text = "Spawn NPC (Debug)"
+
 [connection signal="pressed" from="UI/EnterGuardpostButton" to="." method="OnPressedEnterGuardpost"]
 [connection signal="pressed" from="UI/DebugPanel/NavNewGame" to="UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
 [connection signal="pressed" from="UI/DebugPanel/NavNpcInteraction" to="UI/DebugPanel/NavNpcInteraction" method="OnPressedDebugNav" binds= ["res://scenes/common/npc_interaction.tscn"]]
 [connection signal="pressed" from="UI/DebugPanel/NavItemInspection" to="UI/DebugPanel/NavItemInspection" method="OnPressedDebugNav" binds= ["res://scenes/common/item_inspection.tscn"]]
 [connection signal="pressed" from="UI/DebugPanel/NavMainMenu" to="UI/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]
+[connection signal="pressed" from="UI/DebugPanel/SpawnNpcDebug" to="." method="OnPressedSpawnNpc"]

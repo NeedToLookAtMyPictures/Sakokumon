@@ -168,9 +168,7 @@ namespace Data
             stats.inspectedPersons += 1;
             if (CurrentPerson.smuggler) stats.smugglersCaught += 1;
             else stats.innocentsAccused += 1;
-            
-            stats.accuracy   = stats.inspectedPersons  > 0 ? 1.0 - ((double)stats.innocentsAccused + stats.smugglersMissed / stats.inspectedPersons) : 0;
-            stats.catchRate  = stats.totalSmugglers  > 0 ? (double)stats.smugglersCaught / stats.totalSmugglers : 0;
+       
 			tracker += 1;
 
         }
@@ -180,8 +178,6 @@ namespace Data
             if (CurrentPerson.smuggler) stats.smugglersMissed += 1;
             else stats.innocentsAllowed += 1;
 
-            stats.accuracy   = stats.inspectedPersons  > 0 ? 1.0 - ((double)stats.innocentsAccused + stats.smugglersMissed / stats.inspectedPersons) : 0;
-            stats.catchRate  = stats.totalSmugglers  > 0 ? (double)stats.smugglersCaught / stats.totalSmugglers : 0;
 			tracker += 1;
         }
 
@@ -231,8 +227,14 @@ namespace Data
 		public int smugglersCaught = 0;
 		public int smugglersMissed = 0;
 
-		public double accuracy = 0;
-		public double catchRate = 0;
+		public double accuracy
+		{
+			get => inspectedPersons > 0 ? ((double)(innocentsAllowed + smugglersCaught) / inspectedPersons) : 0;
+		}
+		public double catchRate
+		{
+			get => smugglersCaught > 0 ? ((double)(smugglersCaught) / (smugglersCaught + smugglersMissed)) : 0;
+		}
         public int totalInnocents 
         {
             get => innocentsAccused + innocentsAllowed;
@@ -243,6 +245,24 @@ namespace Data
         }
 
         public Stats() {}
+
+		public string DisplayStats()
+		{
+			string newtext = "";
+			var AppendText = (string a) =>
+			{
+				newtext += a;
+				return newtext;
+			};
+			AppendText($"\n\nInspected persons: {inspectedPersons}\n");
+			AppendText($"Inspected innocents: {totalInnocents}\n");
+			AppendText($"Innocents accused: {innocentsAccused}\n");
+			AppendText($"Smugglers caught: {smugglersCaught}\n");
+			AppendText($"Smugglers missed: {smugglersMissed}\n");
+			AppendText($"\nAccuracy: {accuracy}\n");
+			AppendText($"Catch rate: {catchRate}\n");
+			return newtext;
+		}
 
 		public static Stats operator +(Stats a, Stats b)
 		{
@@ -257,9 +277,6 @@ namespace Data
 
             // Recalculate derived stats from the combined raw counts
         
-			result.accuracy   = result.inspectedPersons  > 0 ? 1.0 - ((double)result.innocentsAccused + result.smugglersMissed / result.inspectedPersons) : 0;
-			result.catchRate  = result.inspectedPersons  > 0 ? (double)result.smugglersCaught / result.totalSmugglers : 0;
-
 			return result;
 		}
 		
@@ -280,7 +297,11 @@ namespace Data
         }
         public Level CurrentLevel
         {
-            get => levels[currentYear];
+            get
+			{
+				if (currentYear > levels.Keys.OrderDescending().First()) return null;
+				return levels[currentYear];
+			}
         }
 
         public Dictionary<int, Level> levels;

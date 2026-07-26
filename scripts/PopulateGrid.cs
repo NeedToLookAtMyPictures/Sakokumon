@@ -312,7 +312,8 @@ public partial class PopulateGrid : Node2D
 			{
 				placeObject(Global.Instance.itemsInGrid[currItemIndex], itemGrid, itemGridNode);
 			}
-			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInGrid.Count; currItemIndex++)
+			Global.Instance.nodesInStorage = new List<Node2D>();
+			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInStorage.Count; currItemIndex++)
 			{
 				Node2D itemNode = createNode(Global.Instance.itemsInStorage[currItemIndex], itemGridNode);
 				Global.Instance.nodesInStorage.Add(itemNode);

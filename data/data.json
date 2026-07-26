@@ -172,7 +172,7 @@
       "Textures": [
         "res://assets/sprites/Items/copperBar_l.png"
       ],
-      "type": "copperBar_1",
+      "type": "copperBar_l",
       "Description": "A large refined copper bar, a legal and common export from Japan throughout the Edo period.",
       "Grid": [
         [true],

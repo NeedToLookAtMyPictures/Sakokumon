@@ -2,6 +2,7 @@ using Godot;
 
 public partial class NpcInteractionOptions : Button
 {
+	
 	public void OnPressedNpcOption(string id)
 	{
 		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
@@ -12,6 +13,12 @@ public partial class NpcInteractionOptions : Button
 			case "illegal_list":
 				
 				global.GoToScene("res://scenes/common/illegal_items.tscn");
+				break;
+			case "allow":
+				GD.Print("TODO: Allow NPC passage and update game state");
+				break;
+			case "detain":
+				GD.Print("TODO: Detain subject and update game state");
 				break;
 			case "inspect":
 				global.State = Data.GameState.ItemsInspected;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
 using Godot;
@@ -117,7 +118,9 @@ public partial class NpcInteraction : Node2D
 			global.State = GameState.NPCSeen;
 			btnController.Visible = true;
 			((Control)btnController.GetNode("ActionPanel")).Visible = false;
-
+			Global.Instance.nodesInStorage = new List<Node2D>();
+			Global.Instance.itemsInStorage = new List<ObjectData>();
+			Global.Instance.itemsInGrid = new List<ObjectData>();
 		}
 
 	}
@@ -128,6 +131,8 @@ public partial class NpcInteraction : Node2D
 		tweenOut.TweenProperty(this,"modulate", new Color(0,0,0,1),1.5f);
 		await ToSignal(tweenOut,Tween.SignalName.Finished);
 		// TBD advance to new screen;
+		global.GoToScene("res://scenes/common/end_of_day.tscn");
+
 	}
 
 	public void ShowDialogue(string text)

@@ -46,8 +46,8 @@ scale = Vector2(1.5304564, 1.994104)
 texture = ExtResource("4_g0iyq")
 
 [node name="Boardwalk" type="Sprite2D" parent="." unique_id=400000005]
-position = Vector2(1018, 912.00006)
-scale = Vector2(1.5699168, 0.7582547)
+position = Vector2(1002.9531, 912.00006)
+scale = Vector2(1.5223001, 0.7582547)
 texture = ExtResource("5_0dbxb")
 
 [node name="Control" type="Control" parent="." unique_id=1603279943]
@@ -131,13 +131,11 @@ offset_bottom = 184.0
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Allow Passage"
-script = ExtResource("1_npcroot")
 
 [node name="DetainButton" type="Button" parent="Control/ActionControl/ActionPanel/Buttons" unique_id=400000014]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Detain Subject"
-script = ExtResource("1_npcroot")
 
 [node name="DialogueBox" type="Panel" parent="Control" unique_id=400000016]
 visible = false

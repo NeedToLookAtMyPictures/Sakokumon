@@ -23,7 +23,7 @@ public partial class Stats : RichTextLabel
 		else
 		{
 			_saveSelect.Hide();
-			DisplayStats(global.Database.Data.GameStats);
+			global.Database.Data.GameStats.DisplayStats();
 		}
 	}
 
@@ -31,34 +31,26 @@ public partial class Stats : RichTextLabel
 
 	private void OnSaveSelected(long index)
 	{
+		Clear();
 		if (index == 0)
-			DisplayAllStats();
+			Text = DisplayAllStats();
 		else
-			DisplayStats(_saves[index - 1].GameStats);
+
+			Text = _saves[index - 1].GameStats.DisplayStats();
 	}
 
-	private void DisplayAllStats()
+	private string DisplayAllStats()
 	{
 		if (_saves.Length == 0)
 		{
 			Clear();
-			AppendText("\n\nNo statistics available.");
-			return;
+			return "\n\nNo statistics available.";
 		}
 		var total = new Data.Stats();
 		foreach (var save in _saves) total = total + save.GameStats;
-		DisplayStats(total);
+		
+		return total.DisplayStats();
 	}
 
-	private void DisplayStats(Data.Stats stats)
-	{
-		Clear();
-		AppendText($"\n\nInspected persons: {stats.inspectedPersons}\n");
-		AppendText($"Inspected innocents: {stats.totalInnocents}\n");
-		AppendText($"Innocents accused: {stats.innocentsAccused}\n");
-		AppendText($"Smugglers caught: {stats.smugglersCaught}\n");
-		AppendText($"Smugglers missed: {stats.smugglersMissed}\n");
-		AppendText($"\nAccuracy: {stats.accuracy}\n");
-		AppendText($"Catch rate: {stats.catchRate}\n");
-	}
+	
 }

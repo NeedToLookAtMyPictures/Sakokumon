@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://dxc5rafb6yhd7" path="res://assets/sprites/scenery/harborView/guardhouse.png" id="3_621y4"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
+size = Vector2(256, 64)
+
 [node name="HarborView" type="Node2D" unique_id=300000001]
 script = ExtResource("2_hv")
 
@@ -18,8 +21,14 @@ rotation = 1.5707964
 scale = Vector2(0.5128207, 1.3321674)
 texture = ExtResource("3_621y4")
 
-[node name="NPCLayer" type="Node2D" parent="." unique_id=300000002]
+[node name="GuardpostDetector" type="Area2D" parent="GameBackground/Guardpost" unique_id=594737127]
+position = Vector2(389, 275)
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameBackground/Guardpost/GuardpostDetector" unique_id=1153289132]
+position = Vector2(1, 32)
+shape = SubResource("RectangleShape2D_guardpost")
+
+[node name="NPCLayer" type="Node2D" parent="." unique_id=300000002]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=300000003]
 

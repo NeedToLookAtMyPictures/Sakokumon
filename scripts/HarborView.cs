@@ -23,6 +23,9 @@ public partial class HarborView : Node2D
 
 		HideNpcNotification();
 
+		var detector = GetNode<Area2D>("GameBackground/Guardpost/GuardpostDetector");
+		_global.NpcGuardpostY = detector.GlobalPosition.Y;
+
 		foreach (var npcData in _global.ActiveNpcs)
 			CreateSpriteFor(npcData);
 

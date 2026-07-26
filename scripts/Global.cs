@@ -16,7 +16,7 @@ public partial class Global : Node
 	}
 
 	private const float NpcMoveSpeed = 80f;
-	private const float NpcGuardpostY = 220f;
+	public float NpcGuardpostY = 220f; // default; overwritten by HarborView from GuardpostDetector.GlobalPosition.Y
 	private const float NpcStartX = 371f;
 	private const float NpcStartY = -42f;
 	private const float NpcOffscreenY = 800f;

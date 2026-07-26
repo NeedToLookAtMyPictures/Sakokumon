@@ -13,12 +13,20 @@ public partial class NpcInteractionOptions : Button
 				global.GoToScene("res://scenes/common/illegal_items.tscn");
 				break;
 			case "allow":
-				global.npcPresent = false;
-				global.npcDeparting = true;
-				global.ReturnToPreviousScene();
+				{
+					var npc = global.ActiveNpcs.Find(n => n.CurrentState == Global.NpcData.State.AtGuardpost);
+					if (npc != null)
+						npc.CurrentState = Global.NpcData.State.Departing;
+					global.npcPresent = false;
+				}
 				break;
 			case "detain":
-				GD.Print("TODO: Detain subject and update game state");
+				{
+					var npc = global.ActiveNpcs.Find(n => n.CurrentState == Global.NpcData.State.AtGuardpost);
+					if (npc != null)
+						global.ActiveNpcs.Remove(npc);
+					global.npcPresent = false;
+				}
 				break;
 			case "inspect":
 				global.GoToScene("res://scenes/common/item_inspection.tscn");

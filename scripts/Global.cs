@@ -7,6 +7,20 @@ public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
 
+	public class NpcData
+	{
+		public enum State { Approaching, AtGuardpost, Departing }
+		public State CurrentState = State.Approaching;
+		public float X;
+		public float Y;
+	}
+
+	private const float NpcMoveSpeed = 80f;
+	private const float NpcGuardpostY = 220f;
+	private const float NpcStartX = 371f;
+	private const float NpcStartY = -42f;
+	private const float NpcOffscreenY = 800f;
+
 	public Node CurrentScene{ get; set; }
 	public static Global Instance { get; set; }
 	public List<List<bool>> itemGrid { get; set; }
@@ -15,7 +29,8 @@ public partial class Global : Node
 	public List<Node2D> nodesInStorage { get; set; }
 	public Database Database { get; set; }
 	public bool npcPresent = false;
-	public bool npcDeparting = false;
+	public List<NpcData> ActiveNpcs { get; private set; }
+
 	private Preferences prefs;
 	public Preferences Preferences
 	{
@@ -31,18 +46,14 @@ public partial class Global : Node
 		}
 	}
 
-	// volume multipliers
-
-	// scene return container
 	private Stack<string> _previousScenePaths = new();
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready(){
 		Viewport root = GetTree().Root;
-		// Using a negative index counts from the end, so this gets the last child node of `root`.
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
 		Instance = this;
+		ActiveNpcs = new List<NpcData>();
 		itemsInGrid = new List<ObjectData>();
 		itemsInStorage = new List<ObjectData>();
 		nodesInStorage = new List<Node2D>();
@@ -54,11 +65,31 @@ public partial class Global : Node
 		Database = new Database("res://data/data.json");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		for (int i = ActiveNpcs.Count - 1; i >= 0; i--)
+		{
+			var npc = ActiveNpcs[i];
+			if (npc.CurrentState == NpcData.State.Approaching)
+			{
+				npc.Y += NpcMoveSpeed * (float)delta;
+				if (npc.Y >= NpcGuardpostY)
+				{
+					npc.CurrentState = NpcData.State.AtGuardpost;
+					npcPresent = true;
+					(GetTree().CurrentScene as HarborView)?.ShowNpcNotification();
+				}
+			}
+			else if (npc.CurrentState == NpcData.State.Departing)
+			{
+				npc.Y += NpcMoveSpeed * (float)delta;
+				if (npc.Y > NpcOffscreenY)
+					ActiveNpcs.RemoveAt(i);
+			}
+		}
 	}
 
+	public void SpawnNpc() => ActiveNpcs.Add(new NpcData { X = NpcStartX, Y = NpcStartY });
 
 	public void DeferredGoToScene(string path){
 		// Store this new scene in our stack
@@ -153,7 +184,7 @@ public partial class Global : Node
 			currentHeightInStorage -= storageBuffer;
 		}
 
-		
+
 		// when adding new thing to storage, add to list of items in storage, set position vector to (-1, -1), and update storage
 		// when removing from storage, remove that instance from items in storage, set position vector, and update storage
 	}

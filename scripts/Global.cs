@@ -37,6 +37,8 @@ public partial class Global : Node
 	public List<NpcData> ActiveNpcs { get; private set; }
 	public Dictionary<string, Curve2D> EntryPaths { get; } = new();
 	public Dictionary<string, Curve2D> ExitPaths  { get; } = new();
+	public Vector2 IngressPoint = new Vector2(389, 250); // default; overwritten by HarborView from IngressPoint marker
+	public Vector2 EgressPoint  = new Vector2(389, 300); // default; overwritten by HarborView from EgressPoint marker
 
 	private readonly Queue<NpcData> _waitQueue = new();
 	private ulong _noiseCounter; // rolling counter for per-NPC phase generation
@@ -116,7 +118,7 @@ public partial class Global : Node
 
 		float time = Time.GetTicksMsec() / 1000f;
 		float sway = Mathf.Sin(time * NoiseFrequency + npc.NoisePhase) * NoiseAmplitude * 0.7f
-		           + Mathf.Sin(time * NoiseFrequency * 1.7f + npc.NoisePhase * 1.3f) * NoiseAmplitude * 0.3f;
+				   + Mathf.Sin(time * NoiseFrequency * 1.7f + npc.NoisePhase * 1.3f) * NoiseAmplitude * 0.3f;
 
 		// t.Y is perpendicular to the path tangent (t.X)
 		return t.Origin + t.Y * sway;

@@ -9,82 +9,58 @@
 size = Vector2(256, 64)
 
 [sub_resource type="Curve2D" id="Curve2D_entryNorth"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 50, 389, -80, 0, -50, 0, 0, 389, 275)
+}
 point_count = 2
-point_0/position = Vector2(389, -80)
-point_0/in = Vector2(0, 0)
-point_0/out = Vector2(0, 50)
-point_1/position = Vector2(389, 275)
-point_1/in = Vector2(0, -50)
-point_1/out = Vector2(0, 0)
 
 [sub_resource type="Curve2D" id="Curve2D_entryEast"]
+_data = {
+"points": PackedVector2Array(0, 0, -200, 0, 1500, 200, 200, 0, -200, 50, 800, 200, 200, -50, 0, 0, 389, 275)
+}
 point_count = 3
-point_0/position = Vector2(1500, 200)
-point_0/in = Vector2(0, 0)
-point_0/out = Vector2(-200, 0)
-point_1/position = Vector2(800, 200)
-point_1/in = Vector2(200, 0)
-point_1/out = Vector2(-200, 50)
-point_2/position = Vector2(389, 275)
-point_2/in = Vector2(200, -50)
-point_2/out = Vector2(0, 0)
 
 [sub_resource type="Curve2D" id="Curve2D_entryWest"]
+_data = {
+"points": PackedVector2Array(0, 0, 200, 0, -200, 200, -200, 0, 200, 50, 100, 200, -200, -50, 0, 0, 389, 275)
+}
 point_count = 3
-point_0/position = Vector2(-200, 200)
-point_0/in = Vector2(0, 0)
-point_0/out = Vector2(200, 0)
-point_1/position = Vector2(100, 200)
-point_1/in = Vector2(-200, 0)
-point_1/out = Vector2(200, 50)
-point_2/position = Vector2(389, 275)
-point_2/in = Vector2(-200, -50)
-point_2/out = Vector2(0, 0)
 
 [sub_resource type="Curve2D" id="Curve2D_exitSouth"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 50, 389, 275, 0, -50, 0, 0, 389, 850)
+}
 point_count = 2
-point_0/position = Vector2(389, 275)
-point_0/in = Vector2(0, 0)
-point_0/out = Vector2(0, 50)
-point_1/position = Vector2(389, 850)
-point_1/in = Vector2(0, -50)
-point_1/out = Vector2(0, 0)
 
 [sub_resource type="Curve2D" id="Curve2D_exitEast"]
+_data = {
+"points": PackedVector2Array(0, 0, 200, 50, 389, 275, -200, -50, 200, 0, 700, 380, -200, 0, 0, 0, 1500, 420)
+}
 point_count = 3
-point_0/position = Vector2(389, 275)
-point_0/in = Vector2(0, 0)
-point_0/out = Vector2(200, 50)
-point_1/position = Vector2(700, 380)
-point_1/in = Vector2(-200, -50)
-point_1/out = Vector2(200, 0)
-point_2/position = Vector2(1500, 420)
-point_2/in = Vector2(-200, 0)
-point_2/out = Vector2(0, 0)
 
 [sub_resource type="Curve2D" id="Curve2D_exitWest"]
+_data = {
+"points": PackedVector2Array(0, 0, -200, 50, 389, 275, 200, -50, -200, 0, 100, 380, 200, 0, 0, 0, -200, 420)
+}
 point_count = 3
-point_0/position = Vector2(389, 275)
-point_0/in = Vector2(0, 0)
-point_0/out = Vector2(-200, 50)
-point_1/position = Vector2(100, 380)
-point_1/in = Vector2(200, -50)
-point_1/out = Vector2(-200, 0)
-point_2/position = Vector2(-200, 420)
-point_2/in = Vector2(200, 0)
-point_2/out = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgNW"]
-size = Vector2(280, 500)
+size = Vector2(280, 169)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgNE"]
-size = Vector2(280, 500)
+size = Vector2(442, 178)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgSW"]
-size = Vector2(200, 400)
+size = Vector2(314, 212)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgSE"]
-size = Vector2(200, 400)
+size = Vector2(357, 209)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_keepWallL"]
+size = Vector2(257, 77)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_keepWallR"]
+size = Vector2(351, 74)
 
 [node name="HarborView" type="Node2D" unique_id=300000001]
 script = ExtResource("2_hv")
@@ -105,6 +81,12 @@ position = Vector2(389, 275)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameBackground/Guardpost/GuardpostDetector" unique_id=1153289132]
 position = Vector2(1, 32)
 shape = SubResource("RectangleShape2D_guardpost")
+
+[node name="IngressPoint" type="Marker2D" parent="GameBackground/Guardpost" unique_id=300000031]
+position = Vector2(307, 274)
+
+[node name="EgressPoint" type="Marker2D" parent="GameBackground/Guardpost" unique_id=300000032]
+position = Vector2(307, 339)
 
 [node name="StreetPaths" type="Node2D" parent="." unique_id=300000015]
 
@@ -132,25 +114,43 @@ curve = SubResource("Curve2D_exitWest")
 position = Vector2(140, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingNW" unique_id=300000024]
+position = Vector2(0, -11.5)
 shape = SubResource("RectangleShape2D_bldgNW")
 
 [node name="BuildingNE" type="StaticBody2D" parent="Buildings" unique_id=300000025]
 position = Vector2(650, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingNE" unique_id=300000026]
+position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_bldgNE")
 
 [node name="BuildingSW" type="StaticBody2D" parent="Buildings" unique_id=300000027]
 position = Vector2(100, 560)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingSW" unique_id=300000028]
+position = Vector2(57, -22)
 shape = SubResource("RectangleShape2D_bldgSW")
 
 [node name="BuildingSE" type="StaticBody2D" parent="Buildings" unique_id=300000029]
 position = Vector2(700, 560)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingSE" unique_id=300000030]
+position = Vector2(-18.5, -18.5)
 shape = SubResource("RectangleShape2D_bldgSE")
+
+[node name="KeepWallLeft" type="StaticBody2D" parent="Buildings" unique_id=300000033]
+position = Vector2(260, 280)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/KeepWallLeft" unique_id=300000034]
+position = Vector2(-129.5, 29)
+shape = SubResource("RectangleShape2D_keepWallL")
+
+[node name="KeepWallRight" type="StaticBody2D" parent="Buildings" unique_id=300000035]
+position = Vector2(520, 280)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/KeepWallRight" unique_id=300000036]
+position = Vector2(174.5, 26)
+shape = SubResource("RectangleShape2D_keepWallR")
 
 [node name="NPCLayer" type="Node2D" parent="." unique_id=300000002]
 

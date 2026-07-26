@@ -85,6 +85,24 @@ public partial class HarborView : Node2D
 			var p = streetPaths.GetNodeOrNull<Path2D>(name);
 			if (p?.Curve != null) _global.ExitPaths[name] = p.Curve;
 		}
+
+		// Snap path endpoints to the editor-placed ingress/egress markers so moving
+		// them in the inspector is the only thing needed to retune arrival/departure positions.
+		var ingress = GetNodeOrNull<Marker2D>("GameBackground/Guardpost/IngressPoint");
+		var egress  = GetNodeOrNull<Marker2D>("GameBackground/Guardpost/EgressPoint");
+
+		if (ingress != null)
+		{
+			_global.IngressPoint = ingress.GlobalPosition;
+			foreach (var curve in _global.EntryPaths.Values)
+				curve.SetPointPosition(curve.PointCount - 1, ingress.GlobalPosition);
+		}
+		if (egress != null)
+		{
+			_global.EgressPoint = egress.GlobalPosition;
+			foreach (var curve in _global.ExitPaths.Values)
+				curve.SetPointPosition(0, egress.GlobalPosition);
+		}
 	}
 
 	private void CreateSpriteFor(Global.NpcData data)

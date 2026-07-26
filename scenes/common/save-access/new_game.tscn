@@ -15,8 +15,8 @@ grow_vertical = 2
 theme = ExtResource("1_y8irx")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=824669423]
-position = Vector2(949, 535)
-scale = Vector2(3, 2.518868)
+position = Vector2(959.4999, 540.5)
+scale = Vector2(3.0395565, 2.5495281)
 texture = ExtResource("2_y8irx")
 
 [node name="TextCrawl" type="RichTextLabel" parent="." unique_id=200000002]

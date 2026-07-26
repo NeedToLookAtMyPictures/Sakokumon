@@ -11,32 +11,53 @@ public partial class NpcInteraction : Node2D
 	Sprite2D npcSprite;
 
 	Global global;
-	GameState currentState;
-	bool loaded;
+	Level currentLevel;
+	Person currentNPC;
+	Control btnController;
 	public override async void _Ready()
 	{
         global = GetNode<Global>("/root/Global");
 		YearInfo = GetNode<Control>("YearInfo");
 		label = GetNode<RichTextLabel>("YearInfo/RichTextLabel");
 		npcSprite = GetNode<Sprite2D>("NpcSprite");
-		currentState = GameState.NPCNotSeen;
+		currentLevel = global.Database.Data.CurrentLevel;
+		currentNPC = currentLevel.CurrentPerson;
+		btnController = GetNode<Control>("Control/ActionControl");
+		
+
+		if (global.State <= GameState.NPCNotSeen) // handles cases of the game still not having been started the game being started but the NPC hasnt been shown
+		{
+			await StartTransition();
+			await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
+			await DisplayNPC();
+			global.State = GameState.NPCSeen;
+			GD.Print("button controller is now visible!");
+			btnController.Visible = true;
+		}
+		else if (global.State >= GameState.NPCSeen && global.State < GameState.NPCAllowed)
+		{
+			FastDisplayNPC();
+			btnController.Visible = true;
+			GD.Print(global.State);
+			
+			if (global.State == GameState.ItemsInspected) ((Control)btnController.GetNode("ActionPanel")).Visible = true;
+		}
+
+		
+		
+		
+		// _dialogueBox = GetNode<Control>("UI/DialogueBox");
+		// _dialogueText = GetNode<Label>("UI/DialogueBox/DialogueText");
+		// _dialogueBox.Visible = false;
+	}
+
+	public async Task StartTransition() 
+	{
 		var color = label.Modulate;
 		color.A = 0;
 		label.Modulate = color;
 		label.Text = $"[center][color=#FFFFFF][font_size=60]Current Year[/font_size]\n[b][font_size=200]{global.Database.data.CurrentYear}[/font_size][/b][/color][/center]";
 		YearInfo.Visible = true;
-		await StartTransition();
-		// _dialogueBox = GetNode<Control>("UI/DialogueBox");
-		// _dialogueText = GetNode<Label>("UI/DialogueBox/DialogueText");
-		// _dialogueBox.Visible = false;
-		await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
-		DisplayNPC();
-
-	}
-
-	public async Task StartTransition() 
-	{
-		
 		var tween = CreateTween();
 		tween.TweenProperty(label, "modulate:a",1.0f,2.0f)
 			.SetTrans(Tween.TransitionType.Sine)
@@ -49,21 +70,23 @@ public partial class NpcInteraction : Node2D
 			.SetEase(Tween.EaseType.Out);
 		await ToSignal(tweenOut, Tween.SignalName.Finished);
 		YearInfo.Visible = false;
-		loaded = true;
 
+	}
+	public void FastDisplayNPC()
+	{
+		npcSprite.Texture = GD.Load<Texture2D>(currentNPC.sprite.Path);
+		npcSprite.Position = new Vector2(966.0f,435.0f);
+		npcSprite.Scale = new Vector2(2.0f,2.0f);
 	}
 	public async Task DisplayNPC()
 	{
-		var currentLevel = global.Database.Data.CurrentLevel;
-		var currentNPC = currentLevel.CurrentPerson;
+		
 		npcSprite.Texture = GD.Load<Texture2D>(currentNPC.sprite.Path);
 		npcSprite.Scale = new Vector2(1.0f,1.0f);
 		var tween = CreateTween();
 		tween.TweenProperty(npcSprite,"position",new Vector2(966.0f,435.0f),3.0f);
 		tween.TweenProperty(npcSprite,"scale",new Vector2(2.0f,2.0f),3.0f);
-		currentState = GameState.NPCSeen;
-
-
+		await ToSignal(tween,Tween.SignalName.Finished);
 	}
 
 	public void ShowDialogue(string text)

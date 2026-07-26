@@ -22,7 +22,7 @@ scale = Vector2(1.5362461, 2.106132)
 texture = ExtResource("3_eyujm")
 
 [node name="NpcSprite" type="Sprite2D" parent="." unique_id=400000006]
-position = Vector2(619, 467)
+position = Vector2(619, 435)
 scale = Vector2(200, 266.953)
 texture = SubResource("PlaceholderTexture2D_npc")
 
@@ -85,7 +85,13 @@ offset_bottom = 62.0
 text = "Return to Harbor"
 script = ExtResource("4_dbg")
 
-[node name="IllegalItemListButton" type="Button" parent="Control" unique_id=400000012]
+[node name="ActionControl" type="Control" parent="Control" unique_id=1954823347]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IllegalItemListButton" type="Button" parent="Control/ActionControl" unique_id=400000012]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 0
 offset_left = 58.0
@@ -96,7 +102,7 @@ theme_override_font_sizes/font_size = 25
 text = "See Illegal Item List"
 script = ExtResource("2_npcbtn")
 
-[node name="InspectItemsButton" type="Button" parent="Control" unique_id=400000015]
+[node name="InspectItemsButton" type="Button" parent="Control/ActionControl" unique_id=400000015]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 0
 offset_left = 854.0
@@ -106,27 +112,28 @@ offset_bottom = 979.0
 text = "Inspect Items"
 script = ExtResource("2_npcbtn")
 
-[node name="ActionPanel" type="Panel" parent="Control" unique_id=400000010]
+[node name="ActionPanel" type="Panel" parent="Control/ActionControl" unique_id=400000010]
+visible = false
 layout_mode = 0
 offset_left = 1560.0
 offset_top = 344.0
 offset_right = 1886.0
 offset_bottom = 569.0
 
-[node name="Buttons" type="VBoxContainer" parent="Control/ActionPanel" unique_id=400000011]
+[node name="Buttons" type="VBoxContainer" parent="Control/ActionControl/ActionPanel" unique_id=400000011]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 297.0
 offset_bottom = 184.0
 
-[node name="AllowPassageButton" type="Button" parent="Control/ActionPanel/Buttons" unique_id=400000013]
+[node name="AllowPassageButton" type="Button" parent="Control/ActionControl/ActionPanel/Buttons" unique_id=400000013]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Allow Passage"
 script = ExtResource("2_npcbtn")
 
-[node name="DetainButton" type="Button" parent="Control/ActionPanel/Buttons" unique_id=400000014]
+[node name="DetainButton" type="Button" parent="Control/ActionControl/ActionPanel/Buttons" unique_id=400000014]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Detain Subject"
@@ -235,10 +242,10 @@ bbcode_enabled = true
 fit_content = true
 
 [connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
-[connection signal="pressed" from="Control/IllegalItemListButton" to="Control/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
-[connection signal="pressed" from="Control/InspectItemsButton" to="Control/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
-[connection signal="pressed" from="Control/ActionPanel/Buttons/AllowPassageButton" to="Control/ActionPanel/Buttons/AllowPassageButton" method="OnPressedNpcOption" binds= ["allow"]]
-[connection signal="pressed" from="Control/ActionPanel/Buttons/DetainButton" to="Control/ActionPanel/Buttons/DetainButton" method="OnPressedNpcOption" binds= ["detain"]]
+[connection signal="pressed" from="Control/ActionControl/IllegalItemListButton" to="Control/ActionControl/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
+[connection signal="pressed" from="Control/ActionControl/InspectItemsButton" to="Control/ActionControl/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" to="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" method="OnPressedNpcOption" binds= ["allow"]]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/DetainButton" to="Control/ActionControl/ActionPanel/Buttons/DetainButton" method="OnPressedNpcOption" binds= ["detain"]]
 [connection signal="pressed" from="Control/DialogueBox/DismissButton" to="." method="OnPressedDismissDialogue"]
 [connection signal="pressed" from="Control/DebugPanel/NavNewGame" to="Control/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
 [connection signal="pressed" from="Control/DebugPanel/NavMainMenu" to="Control/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]

@@ -10,8 +10,10 @@ namespace Data
 {
     public enum GameState
     {
+        GameNotStarted,
         NPCNotSeen,
         NPCSeen,
+        ItemsInspected,
         NPCAllowed,
         NPCDenied
     }

@@ -10,6 +10,7 @@ public partial class NpcInteractionOptions : Button
 		switch (id)
 		{
 			case "illegal_list":
+				
 				global.GoToScene("res://scenes/common/illegal_items.tscn");
 				break;
 			case "allow":
@@ -19,6 +20,7 @@ public partial class NpcInteractionOptions : Button
 				GD.Print("TODO: Detain subject and update game state");
 				break;
 			case "inspect":
+				global.State = Data.GameState.ItemsInspected;
 				global.GoToScene("res://scenes/common/item_inspection.tscn");
 				break;
 			default:

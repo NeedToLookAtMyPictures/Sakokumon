@@ -17,6 +17,13 @@ public partial class Global : Node
 	public List<Node2D> nodesInStorage { get; set; }
 	public Database Database { get; set; }
 	private Preferences prefs;
+
+	private GameState state;
+	public GameState State
+	{
+		get => state;
+		set => state = value;
+	}
 	public Preferences Preferences
 	{
 		get

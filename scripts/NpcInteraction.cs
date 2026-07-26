@@ -25,7 +25,7 @@ public partial class NpcInteraction : Node2D
 		currentNPC = currentLevel.CurrentPerson;
 		btnController = GetNode<Control>("Control/ActionControl");
 		
-
+		if (global.State == GameState.EndDay) EndDay();
 		if (global.State <= GameState.NPCNotSeen) // handles cases of the game still not having been started the game being started but the NPC hasnt been shown
 		{
 			await StartTransition();
@@ -127,10 +127,12 @@ public partial class NpcInteraction : Node2D
 
 	public async void EndDay()
 	{
+		global.State = GameState.EndDay;
 		var tweenOut = CreateTween();
 		tweenOut.TweenProperty(this,"modulate", new Color(0,0,0,1),1.5f);
 		await ToSignal(tweenOut,Tween.SignalName.Finished);
 		// TBD advance to new screen;
+		
 		global.GoToScene("res://scenes/common/end_of_day.tscn");
 
 	}

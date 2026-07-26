@@ -150,8 +150,8 @@ theme = ExtResource("1_0t3l1")
 script = ExtResource("1_bvgs0")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=951571259]
-position = Vector2(960.00006, 541.00006)
-scale = Vector2(5.4896865, 5.961111)
+position = Vector2(961.5, 543.49994)
+scale = Vector2(5.571839, 6.0722213)
 texture = ExtResource("3_dfwog")
 
 [node name="BannerControl" type="Control" parent="." unique_id=824856562]

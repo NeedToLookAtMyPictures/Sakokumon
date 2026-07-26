@@ -11,18 +11,29 @@ public partial class Global : Node
 
 	public Node CurrentScene{ get; set; }
 	public static Global Instance { get; set; }
-	public List<List<bool>> itemGrid { get; set; }
-	public List<ObjectData> itemsInGrid { get; set; }
-	public List<ObjectData> itemsInStorage { get; set; }
+	public List<List<bool>> itemGrid
+	{ 
+		get => Database.Data.CurrentLevel.currentItemGrid;
+		set => Database.Data.CurrentLevel.currentItemGrid = value;
+	}
+	public List<ObjectData> itemsInGrid 
+	{ 
+		get => Database.Data.CurrentLevel.currentItems;
+		set => Database.Data.CurrentLevel.currentItems = value;
+	}
+	public List<ObjectData> itemsInStorage
+	{ 
+		get => Database.Data.CurrentLevel.currentItemStorage;
+		set => Database.Data.CurrentLevel.currentItemStorage = value;
+	}
 	public List<Node2D> nodesInStorage { get; set; }
 	public Database Database { get; set; }
 	private Preferences prefs;
 
-	private GameState state;
 	public GameState State
 	{
-		get => state;
-		set => state = value;
+		get => Database.Data != null ? Database.Data.state : GameState.GameNotStarted;
+		set => Database.Data.state = value;
 	}
 	public Preferences Preferences
 	{

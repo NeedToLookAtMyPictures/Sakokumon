@@ -12,10 +12,11 @@ namespace Data
     {
         GameNotStarted,
         NPCNotSeen,
-        NPCSeen,
+		NPCSeen,
         ItemsInspected,
         NPCAllowed,
-        NPCDenied
+        NPCDenied,
+		EndDay
     }
 
     public class GameStateManager
@@ -134,10 +135,11 @@ namespace Data
 		public Person(Database db, int newId, bool forceSmuggler = false)
 		{
 			id = newId;
-			smuggler = forceSmuggler ? true : Random.Shared.Next(0,4) == 1;           
+			var chance =  Random.Shared.Next(0,3);
+			if (forceSmuggler) smuggler = true;
+			else smuggler = chance == 1;           
             sprite = db.cassets.OrderBy(_ => Random.Shared.Next()).First();
 			
-
 		}
 
 	}
@@ -182,11 +184,12 @@ namespace Data
         }
 
 
-		private Item[] cig; // for retaining items
-		private Item[] cis; // for existing items being reviewed
+		private List<List<bool>> cig; // for retaining items
+		private List<ObjectData> ci; // for existing items being reviewed
+		private List<ObjectData> cis; // for existing items being reviewed
 
 
-		public Item[] currentItemGrid
+		public List<List<bool>> currentItemGrid
 		{
 			get
 			{
@@ -199,7 +202,20 @@ namespace Data
 				cig = value;
 			}
 		}
-		public Item[] currentItemStorage
+		public List<ObjectData> currentItems
+		{
+			get
+			{
+				if (ci == null) return [];
+				return ci;
+			}
+			set
+			{
+				if (value == null) return;
+				ci = value;
+			}
+		}
+		public List<ObjectData> currentItemStorage
 		{
 			get
 			{
@@ -285,7 +301,7 @@ namespace Data
 	public class GameData
 	{
         public string name = "Untitled Save";
-		private int currentYear = 1639;
+		private int currentYear = 1695;
 
         public int CurrentYear
         {
@@ -295,6 +311,7 @@ namespace Data
         {
             currentYear += 10;
         }
+		public GameState state = GameState.GameNotStarted;
         public Level CurrentLevel
         {
             get

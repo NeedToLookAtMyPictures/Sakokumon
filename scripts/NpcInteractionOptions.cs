@@ -13,12 +13,6 @@ public partial class NpcInteractionOptions : Button
 				
 				global.GoToScene("res://scenes/common/illegal_items.tscn");
 				break;
-			case "allow":
-				GD.Print("TODO: Allow NPC passage and update game state");
-				break;
-			case "detain":
-				GD.Print("TODO: Detain subject and update game state");
-				break;
 			case "inspect":
 				global.State = Data.GameState.ItemsInspected;
 				global.GoToScene("res://scenes/common/item_inspection.tscn");

@@ -131,13 +131,13 @@ offset_bottom = 184.0
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Allow Passage"
-script = ExtResource("2_npcbtn")
+script = ExtResource("1_npcroot")
 
 [node name="DetainButton" type="Button" parent="Control/ActionControl/ActionPanel/Buttons" unique_id=400000014]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Detain Subject"
-script = ExtResource("2_npcbtn")
+script = ExtResource("1_npcroot")
 
 [node name="DialogueBox" type="Panel" parent="Control" unique_id=400000016]
 visible = false
@@ -244,8 +244,8 @@ fit_content = true
 [connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
 [connection signal="pressed" from="Control/ActionControl/IllegalItemListButton" to="Control/ActionControl/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
 [connection signal="pressed" from="Control/ActionControl/InspectItemsButton" to="Control/ActionControl/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
-[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" to="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" method="OnPressedNpcOption" binds= ["allow"]]
-[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/DetainButton" to="Control/ActionControl/ActionPanel/Buttons/DetainButton" method="OnPressedNpcOption" binds= ["detain"]]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" to="." method="AllowNPC"]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/DetainButton" to="." method="RejectNPC"]
 [connection signal="pressed" from="Control/DialogueBox/DismissButton" to="." method="OnPressedDismissDialogue"]
 [connection signal="pressed" from="Control/DebugPanel/NavNewGame" to="Control/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
 [connection signal="pressed" from="Control/DebugPanel/NavMainMenu" to="Control/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]

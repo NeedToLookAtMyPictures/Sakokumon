@@ -18,6 +18,14 @@ namespace Data
         NPCDenied
     }
 
+    public class GameStateManager
+    {
+        public GameState state;
+        public Level currentLevel;
+        public GameData currentSave;
+        
+    }
+
     public class Asset
 	{
 		public string Name {get; set;}
@@ -137,20 +145,46 @@ namespace Data
 	{
 		public Person[] people {get; set;}
 
-		public Stats stats;
+		private Stats stats;
+
+        public Stats Stats
+        {
+          get => stats;
+        }
         public bool custom {get; set;}
 
         public int tracker;
 
         public Person CurrentPerson
         {
-            get => people[tracker];
+            get
+			{
+				if (tracker > people.Length - 1) return null;
+				return people[tracker];
+			}
+        }
+        public void RejectCurrentPerson()
+        {
+            stats.inspectedPersons += 1;
+            if (CurrentPerson.smuggler) stats.smugglersCaught += 1;
+            else stats.innocentsAccused += 1;
+            
+            stats.accuracy   = stats.inspectedPersons  > 0 ? 1.0 - ((double)stats.innocentsAccused + stats.smugglersMissed / stats.inspectedPersons) : 0;
+            stats.catchRate  = stats.totalSmugglers  > 0 ? (double)stats.smugglersCaught / stats.totalSmugglers : 0;
+			tracker += 1;
+
+        }
+        public void AcceptCurrentPerson()
+        {
+            stats.inspectedPersons += 1;
+            if (CurrentPerson.smuggler) stats.smugglersMissed += 1;
+            else stats.innocentsAllowed += 1;
+
+            stats.accuracy   = stats.inspectedPersons  > 0 ? 1.0 - ((double)stats.innocentsAccused + stats.smugglersMissed / stats.inspectedPersons) : 0;
+            stats.catchRate  = stats.totalSmugglers  > 0 ? (double)stats.smugglersCaught / stats.totalSmugglers : 0;
+			tracker += 1;
         }
 
-        public void NextPerson()
-        {
-            tracker += 1;
-        }
 
 		private Item[] cig; // for retaining items
 		private Item[] cis; // for existing items being reviewed
@@ -190,14 +224,23 @@ namespace Data
 
 	public struct Stats
 	{
-		public int inspectedGroups = 0;
-		public int inspectedInnocents = 0;
+		public int inspectedPersons = 0;
+        
+		public int innocentsAllowed = 0;
 		public int innocentsAccused = 0;
 		public int smugglersCaught = 0;
 		public int smugglersMissed = 0;
 
 		public double accuracy = 0;
 		public double catchRate = 0;
+        public int totalInnocents 
+        {
+            get => innocentsAccused + innocentsAllowed;
+        }
+        public int totalSmugglers
+        {
+            get => smugglersCaught + smugglersMissed;
+        }
 
         public Stats() {}
 
@@ -205,19 +248,17 @@ namespace Data
 		{
             Stats result = new Stats
             {
-                inspectedGroups = a.inspectedGroups + b.inspectedGroups,
-                inspectedInnocents = a.inspectedInnocents + b.inspectedInnocents,
+                inspectedPersons = a.inspectedPersons + b.inspectedPersons,
+                innocentsAllowed = a.innocentsAllowed + b.innocentsAllowed,
                 innocentsAccused = a.innocentsAccused + b.innocentsAccused,
                 smugglersCaught = a.smugglersCaught + b.smugglersCaught,
                 smugglersMissed = a.smugglersMissed + b.smugglersMissed
             };
 
             // Recalculate derived stats from the combined raw counts
-            int totalSmugglers = result.smugglersCaught + result.smugglersMissed;
-			int totalInspected = result.inspectedInnocents + result.innocentsAccused;
-
-			result.accuracy   = totalInspected  > 0 ? 1.0 - ((double)result.innocentsAccused / totalInspected) : 0;
-			result.catchRate  = totalSmugglers  > 0 ? (double)result.smugglersCaught / totalSmugglers : 0;
+        
+			result.accuracy   = result.inspectedPersons  > 0 ? 1.0 - ((double)result.innocentsAccused + result.smugglersMissed / result.inspectedPersons) : 0;
+			result.catchRate  = result.inspectedPersons  > 0 ? (double)result.smugglersCaught / result.totalSmugglers : 0;
 
 			return result;
 		}
@@ -243,7 +284,10 @@ namespace Data
         }
 
         public Dictionary<int, Level> levels;
-		public Stats gameStats;
+		public Stats GameStats
+        {
+            get => levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m);
+        }
         public DateTime lastUpdated;
 		public GameData() {}
 

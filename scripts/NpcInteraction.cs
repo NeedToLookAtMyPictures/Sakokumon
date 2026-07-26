@@ -31,7 +31,6 @@ public partial class NpcInteraction : Node2D
 			await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
 			await DisplayNPC();
 			global.State = GameState.NPCSeen;
-			GD.Print("button controller is now visible!");
 			btnController.Visible = true;
 		}
 		else if (global.State >= GameState.NPCSeen && global.State < GameState.NPCAllowed)
@@ -80,13 +79,55 @@ public partial class NpcInteraction : Node2D
 	}
 	public async Task DisplayNPC()
 	{
-		
+		npcSprite.Position = new Vector2(619.0f,435.0f);
 		npcSprite.Texture = GD.Load<Texture2D>(currentNPC.sprite.Path);
-		npcSprite.Scale = new Vector2(1.0f,1.0f);
+		npcSprite.Scale = new Vector2(2.0f,2.0f);
 		var tween = CreateTween();
-		tween.TweenProperty(npcSprite,"position",new Vector2(966.0f,435.0f),3.0f);
-		tween.TweenProperty(npcSprite,"scale",new Vector2(2.0f,2.0f),3.0f);
+		tween.TweenProperty(npcSprite,"position:x",966.0f,2.0f);
 		await ToSignal(tween,Tween.SignalName.Finished);
+	}
+
+	public async void AllowNPC()
+	{
+		currentLevel.AcceptCurrentPerson(); // accepts current person in db and moves onto next
+		btnController.Visible = false;
+		global.State = GameState.NPCAllowed;	
+		Advance();
+	}
+
+	public async void RejectNPC()
+	{
+		currentLevel.RejectCurrentPerson(); // accepts current person in db and moves onto next
+		btnController.Visible = false;
+		global.State = GameState.NPCDenied;	
+		Advance();
+	}
+
+	public async void Advance()
+	{
+		var tween = CreateTween();
+		tween.TweenProperty(npcSprite,"position:x",1394.0,2.0f);
+		await ToSignal(tween,Tween.SignalName.Finished);
+		if (currentLevel.CurrentPerson == null) EndDay();
+		else 
+		{
+			currentNPC = currentLevel.CurrentPerson;
+			global.State = GameState.NPCNotSeen;
+			await DisplayNPC();
+			global.State = GameState.NPCSeen;
+			btnController.Visible = true;
+			((Control)btnController.GetNode("ActionPanel")).Visible = false;
+
+		}
+
+	}
+
+	public async void EndDay()
+	{
+		var tweenOut = CreateTween();
+		tweenOut.TweenProperty(this,"modulate", new Color(0,0,0,1),1.5f);
+		await ToSignal(tweenOut,Tween.SignalName.Finished);
+		// TBD advance to new screen;
 	}
 
 	public void ShowDialogue(string text)

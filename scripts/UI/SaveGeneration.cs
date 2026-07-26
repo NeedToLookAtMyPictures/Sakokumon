@@ -9,16 +9,17 @@ public partial class SaveGeneration : Button
 		// testing: produces a test save with dummy stats
 		var db = global.Database;
 		db.CreateSave("newgame");
-		db.data.gameStats = new Data.Stats
-		{
-			inspectedGroups = 20,
-			inspectedInnocents = 10,
-			innocentsAccused = 9,
-			smugglersCaught = 5,
-			smugglersMissed = 5,
-			accuracy = (double) (1.0 + 5.0) / 20,
-			catchRate = 5.0 / 10.0
-		};
+		// db.data.GameStats = new Data.Stats
+		// {
+		// 	inspectedGroups = 20,
+		// 	inspectedInnocents = 10,
+		// 	innocentsAccused = 9,
+		// 	smugglersCaught = 5,
+		// 	smugglersMissed = 5,
+		// 	accuracy = (double) (1.0 + 5.0) / 20,
+		// 	catchRate = 5.0 / 10.0
+		// };
+		// NO LONGER POSSIBLE...WILL CREATE ALTERNATIVE METHOD.
 		db.save();
 	}
 	

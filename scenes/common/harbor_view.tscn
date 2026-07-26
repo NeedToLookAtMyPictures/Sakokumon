@@ -5,69 +5,75 @@
 [ext_resource type="Texture2D" uid="uid://dxc5rafb6yhd7" path="res://assets/sprites/scenery/harborView/guardhouse.png" id="3_621y4"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
 [ext_resource type="Texture2D" uid="uid://bryhojmhif1br" path="res://assets/sprites/people/person.png" id="4_npcTex"]
+[ext_resource type="Texture2D" uid="uid://c5cc752fyo8hf" path="res://assets/sprites/scenery/harborView/bldgNW.png" id="5_bldgNW"]
+[ext_resource type="Texture2D" uid="uid://b4sle7adg3a0s" path="res://assets/sprites/scenery/harborView/bldgNE.png" id="6_bldgNE"]
+[ext_resource type="Texture2D" uid="uid://gefo6wvilf0s" path="res://assets/sprites/scenery/harborView/bldgSW.png" id="7_bldgSW"]
+[ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
+[ext_resource type="Texture2D" uid="uid://bxurualrcp6n1" path="res://assets/sprites/scenery/harborView/keepWallL.png" id="9_keepL"]
+[ext_resource type="Texture2D" uid="uid://b6ee0dvdcqd82" path="res://assets/sprites/scenery/harborView/keepWallR.png" id="10_keepR"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
 size = Vector2(256, 64)
 
 [sub_resource type="Curve2D" id="Curve2D_entryNorth"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 50, 389, -80, 0, -50, 0, 0, 308, 272)
+"points": PackedVector2Array(0, 0, 0, 50, 340, 2, 0, -50, 0, 0, 308, 272)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_entryEast"]
 _data = {
-"points": PackedVector2Array(0, 0, -200, 0, 1015, 228, 222.4, 11.45454, -222.4, -11.45454, 773, 230, 148.8, -71.6, -148.8, 71.6, 372, 268)
+"points": PackedVector2Array(0, 0, -200, 0, 929, 224, 148.8, -71.6, -148.8, 71.6, 372, 268)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_entryWest"]
 _data = {
-"points": PackedVector2Array(0, 0, 200, 0, -200, 200, -200, 0, 200, 50, 100, 200, -74.40001, -92.399994, 74.40001, 92.399994, 308, 275)
+"points": PackedVector2Array(0, 0, 200, 0, -2, 200, -74.40001, -92.399994, 74.40001, 92.399994, 308, 275)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_exitSouth"]
 _data = {
-"points": PackedVector2Array(-57.0987, -88.043076, 57.0987, 88.043076, 306, 342, 0, 0, 0, 0, 363.6771, 460.25574, 0, 0, 0, 0, 365.44272, 685.10815, 15.460897, -207.18579, -15.460897, 207.18579, 359.5573, 963.25903)
+"points": PackedVector2Array(-57.0987, -88.043076, 57.0987, 88.043076, 306, 342, 0, 0, 0, 0, 363.6771, 460.25574, 15.460897, -207.18579, -15.460897, 207.18579, 363.08856, 846.6688)
 }
-point_count = 4
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_exitEast"]
 _data = {
-"points": PackedVector2Array(0, 0, 200, 50, 310, 342, -139.82516, -12.449967, 139.82516, 12.449967, 707, 392, -200, 0, 0, 0, 975, 414)
+"points": PackedVector2Array(0, 0, 200, 50, 310, 342, -200, 0, 0, 0, 866, 388)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_exitWest"]
 _data = {
-"points": PackedVector2Array(151.31978, -87.752014, -151.31978, 87.752014, 305, 341, 200, -50, -200, 0, 101, 405, 200, 0, 0, 0, -200, 420)
+"points": PackedVector2Array(151.31978, -87.752014, -151.31978, 87.752014, 305, 341, 200, 0, 0, 0, -1, 396)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgNW"]
-size = Vector2(280, 169)
+size = Vector2(248, 143)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgNE"]
-size = Vector2(442, 178)
+size = Vector2(363, 151)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgSW"]
-size = Vector2(314, 212)
+size = Vector2(288, 172)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgSE"]
-size = Vector2(357, 209)
+size = Vector2(333, 189)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_keepWallL"]
-size = Vector2(257, 77)
+size = Vector2(267, 77)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_keepWallR"]
 size = Vector2(351, 74)
 
 [sub_resource type="Curve2D" id="Curve2D_bgNorthToEast"]
 _data = {
-"points": PackedVector2Array(16.44278, -218.25632, -16.44278, 218.25632, 409, -72, -545.6408, 35.263306, 545.6408, -35.263306, 917, 151)
+"points": PackedVector2Array(16.44278, -218.25632, -16.44278, 218.25632, 409, -72, 0, 0, 0, 0, 424, 138, -545.6408, 35.263306, 545.6408, -35.263306, 917, 151)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_bgNorthToWest"]
 _data = {
@@ -83,15 +89,15 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_bgExitSouthToEast"]
 _data = {
-"points": PackedVector2Array(45.18405, 270.46616, -45.18405, -270.46616, 381, 942, -448.37396, 13.589258, 448.37396, -13.589258, 844, 683)
+"points": PackedVector2Array(45.18405, 270.46616, -45.18405, -270.46616, 381, 942, 0, 0, 0, 0, 381, 710, -448.37396, 13.589258, 448.37396, -13.589258, 844, 683)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_bgExitSouthToWest"]
 _data = {
-"points": PackedVector2Array(8.4424515, 167.03685, -8.4424515, -167.03685, 397, 644, 497.06772, -10.3713665, -497.06772, 10.3713665, 0, 389)
+"points": PackedVector2Array(8.4424515, 167.03685, -8.4424515, -167.03685, 397, 644, 0, 0, 0, 0, 365.05063, 431.66534, 277.98602, 11.060539, -277.98602, -11.060539, 0, 389)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_bgExitWestToEast"]
 _data = {
@@ -154,39 +160,64 @@ curve = SubResource("Curve2D_exitWest")
 [node name="Buildings" type="Node2D" parent="." unique_id=300000022]
 
 [node name="BuildingNW" type="StaticBody2D" parent="Buildings" unique_id=300000023]
-position = Vector2(140, 100)
+position = Vector2(119, 88)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingNW" unique_id=300000024]
-position = Vector2(0, -11.5)
+position = Vector2(-16, -24.5)
 shape = SubResource("RectangleShape2D_bldgNW")
 
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/BuildingNW" unique_id=300000047]
+position = Vector2(-16.500002, -25.499989)
+scale = Vector2(0.96484375, 0.7343748)
+texture = ExtResource("5_bldgNW")
+
 [node name="BuildingNE" type="StaticBody2D" parent="Buildings" unique_id=300000025]
-position = Vector2(650, 100)
+position = Vector2(662, 90)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingNE" unique_id=300000026]
-position = Vector2(0, -7)
+position = Vector2(31.5, -20.5)
 shape = SubResource("RectangleShape2D_bldgNE")
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/BuildingNE" unique_id=300000048]
+position = Vector2(33.000008, -21.500015)
+scale = Vector2(0.9375001, 0.7760418)
+texture = ExtResource("6_bldgNE")
 
 [node name="BuildingSW" type="StaticBody2D" parent="Buildings" unique_id=300000027]
 position = Vector2(100, 560)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingSW" unique_id=300000028]
-position = Vector2(57, -22)
+position = Vector2(35, 8)
 shape = SubResource("RectangleShape2D_bldgSW")
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/BuildingSW" unique_id=300000049]
+position = Vector2(36.000004, 10.0000305)
+scale = Vector2(0.88750005, 0.89583355)
+texture = ExtResource("7_bldgSW")
 
 [node name="BuildingSE" type="StaticBody2D" parent="Buildings" unique_id=300000029]
 position = Vector2(700, 560)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingSE" unique_id=300000030]
-position = Vector2(-18.5, -18.5)
+position = Vector2(7.5, -0.5)
 shape = SubResource("RectangleShape2D_bldgSE")
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/BuildingSE" unique_id=300000050]
+position = Vector2(6.5000196, -0.49995875)
+scale = Vector2(0.85677063, 0.9635419)
+texture = ExtResource("8_bldgSE")
 
 [node name="KeepWallLeft" type="StaticBody2D" parent="Buildings" unique_id=300000033]
 position = Vector2(260, 280)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/KeepWallLeft" unique_id=300000034]
-position = Vector2(-129.5, 29)
+position = Vector2(-134.5, 29)
 shape = SubResource("RectangleShape2D_keepWallL")
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/KeepWallLeft" unique_id=300000051]
+position = Vector2(-133.49998, 29)
+scale = Vector2(1.0351564, 1.203125)
+texture = ExtResource("9_keepL")
 
 [node name="KeepWallRight" type="StaticBody2D" parent="Buildings" unique_id=300000035]
 position = Vector2(520, 280)
@@ -194,6 +225,11 @@ position = Vector2(520, 280)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/KeepWallRight" unique_id=300000036]
 position = Vector2(174.5, 26)
 shape = SubResource("RectangleShape2D_keepWallR")
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/KeepWallRight" unique_id=300000052]
+position = Vector2(174.5, 26)
+scale = Vector2(0.914063, 1.15625)
+texture = ExtResource("10_keepR")
 
 [node name="BgPaths" type="Node2D" parent="." unique_id=300000040]
 
@@ -222,6 +258,7 @@ curve = SubResource("Curve2D_bgExitWestToEast")
 
 [node name="NpcTemplate" type="CharacterBody2D" parent="." unique_id=300000037]
 position = Vector2(686, -117)
+collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="NpcTemplate" unique_id=300000038]
 scale = Vector2(0.59375, 0.46875)

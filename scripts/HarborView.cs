@@ -9,17 +9,24 @@ public partial class HarborView : Node2D
 		public float   Progress;
 		public float   Speed;
 		public float   NoisePhase;
+		public float   NoiseScale;
+		public float   LaneOffset;
 		public bool    Reversed;
 		public CharacterBody2D Body;
 	}
 
-	private const float BgSpawnMin    = 4f;
-	private const float BgSpawnMax    = 10f;
-	private const int   BgMaxCount    = 5;
-	private const float BgSpeedMin    = 50f;
-	private const float BgSpeedMax    = 90f;
-	private const float BgNoiseAmp    = 10f;
-	private const float BgNoiseFreq   = 0.4f;
+	private const float BgSpawnMin         = 2f;
+	private const float BgSpawnMax         = 6f;
+	private const int   BgMaxCount         = 8;
+	private const float BgSpeedMin         = 45f;
+	private const float BgSpeedMax         = 95f;
+	private const float BgNoiseAmp         = 10f;
+	private const float BgNoiseFreq        = 0.4f;
+	private const float BgNoiseScaleMin    = 0.4f;
+	private const float BgNoiseScaleMax    = 1.6f;
+	private const float BgLaneOffsetMax    = 14f;
+	private const float SeparationRadius   = 28f;
+	private const float SeparationStrength = 1.5f;
 
 	private Control         _notificationPanel;
 	private Button          _enterGuardpostButton;
@@ -42,7 +49,7 @@ public partial class HarborView : Node2D
 
 		RegisterPaths();
 		HideNpcNotification();
-		_bgSpawnTimer = BgSpawnMin;
+		_bgSpawnTimer = GD.Randf() * BgSpawnMax;
 
 		foreach (var npcData in _global.ActiveNpcs)
 			CreateBodyFor(npcData);
@@ -53,6 +60,8 @@ public partial class HarborView : Node2D
 
 	public override void _Process(double delta)
 	{
+		float dt = (float)delta;
+
 		// Remove bodies for NPCs culled from Global
 		var toRemove = new List<Global.NpcData>();
 		foreach (var key in _npcBodies.Keys)
@@ -73,7 +82,14 @@ public partial class HarborView : Node2D
 				CreateBodyFor(npcData);
 		}
 
-		// Move each body toward its path-sampled position via physics so colliders are respected
+		// Snapshot all NPC positions for separation steering this frame
+		var allPositions = new List<Vector2>();
+		foreach (var body in _npcBodies.Values)
+			allPositions.Add(body.GlobalPosition);
+		foreach (var bg in _bgNpcs)
+			allPositions.Add(bg.Body.GlobalPosition);
+
+		// Move main NPC bodies
 		foreach (var kvp in _npcBodies)
 		{
 			var npc  = kvp.Key;
@@ -84,11 +100,11 @@ public partial class HarborView : Node2D
 			if (!visible) continue;
 
 			Vector2 desired = _global.GetNpcWorldPosition(npc);
-			body.MoveAndCollide(desired - body.GlobalPosition);
+			MoveWithSlide(body, desired - body.GlobalPosition + ComputeSeparation(body.GlobalPosition, allPositions));
 		}
 
 		// Background NPC spawning
-		_bgSpawnTimer -= (float)delta;
+		_bgSpawnTimer -= dt;
 		if (_bgSpawnTimer <= 0f)
 		{
 			if (_bgNpcs.Count < BgMaxCount)
@@ -101,14 +117,37 @@ public partial class HarborView : Node2D
 		{
 			var bg  = _bgNpcs[i];
 			float len = bg.Curve.GetBakedLength();
-			bg.Progress = Mathf.Min(1f, bg.Progress + bg.Speed * (float)delta / len);
-			bg.Body.MoveAndCollide(GetBgNpcPosition(bg) - bg.Body.GlobalPosition);
+			bg.Progress = Mathf.Min(1f, bg.Progress + bg.Speed * dt / len);
+			MoveWithSlide(bg.Body, GetBgNpcPosition(bg) - bg.Body.GlobalPosition + ComputeSeparation(bg.Body.GlobalPosition, allPositions));
 			if (bg.Progress >= 1f)
 			{
 				bg.Body.QueueFree();
 				_bgNpcs.RemoveAt(i);
 			}
 		}
+	}
+
+	private static void MoveWithSlide(CharacterBody2D body, Vector2 motion)
+	{
+		var collision = body.MoveAndCollide(motion);
+		if (collision != null)
+		{
+			Vector2 remaining = motion - collision.GetTravel();
+			body.MoveAndCollide(remaining.Slide(collision.GetNormal()));
+		}
+	}
+
+	private static Vector2 ComputeSeparation(Vector2 pos, List<Vector2> others)
+	{
+		var force = Vector2.Zero;
+		foreach (var other in others)
+		{
+			Vector2 diff = pos - other;
+			float dist = diff.Length();
+			if (dist > 0.5f && dist < SeparationRadius)
+				force += diff.Normalized() * (1f - dist / SeparationRadius) * SeparationStrength;
+		}
+		return force;
 	}
 
 	private void SpawnBackgroundNpc()
@@ -119,9 +158,11 @@ public partial class HarborView : Node2D
 		var bg = new BackgroundNpc
 		{
 			Curve      = curve,
-			Progress   = 0f,
+			Progress   = GD.Randf() * 0.07f,
 			Speed      = BgSpeedMin + GD.Randf() * (BgSpeedMax - BgSpeedMin),
 			NoisePhase = GD.Randf() * Mathf.Tau,
+			NoiseScale = BgNoiseScaleMin + GD.Randf() * (BgNoiseScaleMax - BgNoiseScaleMin),
+			LaneOffset = (GD.Randf() * 2f - 1f) * BgLaneOffsetMax,
 			Reversed   = GD.Randf() > 0.5f,
 			Body       = (CharacterBody2D)_npcTemplate.Duplicate()
 		};
@@ -139,9 +180,10 @@ public partial class HarborView : Node2D
 		float offset = Mathf.Clamp(tAlong * len, 0f, len);
 		Transform2D t = bg.Curve.SampleBakedWithRotation(offset);
 		float time = Time.GetTicksMsec() / 1000f;
-		float sway = Mathf.Sin(time * BgNoiseFreq + bg.NoisePhase) * BgNoiseAmp * 0.7f
-		           + Mathf.Sin(time * BgNoiseFreq * 1.7f + bg.NoisePhase * 1.3f) * BgNoiseAmp * 0.3f;
-		return t.Origin + t.Y * sway;
+		float sway = (Mathf.Sin(time * BgNoiseFreq + bg.NoisePhase) * 0.7f
+		           +  Mathf.Sin(time * BgNoiseFreq * 1.7f + bg.NoisePhase * 1.3f) * 0.3f)
+		           * BgNoiseAmp * bg.NoiseScale;
+		return t.Origin + t.Y * (sway + bg.LaneOffset);
 	}
 
 	private void CreateBodyFor(Global.NpcData data)

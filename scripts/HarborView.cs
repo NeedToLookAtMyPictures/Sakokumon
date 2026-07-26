@@ -3,14 +3,34 @@ using System.Collections.Generic;
 
 public partial class HarborView : Node2D
 {
+	private class BackgroundNpc
+	{
+		public Curve2D Curve;
+		public float   Progress;
+		public float   Speed;
+		public float   NoisePhase;
+		public bool    Reversed;
+		public CharacterBody2D Body;
+	}
+
+	private const float BgSpawnMin    = 4f;
+	private const float BgSpawnMax    = 10f;
+	private const int   BgMaxCount    = 5;
+	private const float BgSpeedMin    = 50f;
+	private const float BgSpeedMax    = 90f;
+	private const float BgNoiseAmp    = 10f;
+	private const float BgNoiseFreq   = 0.4f;
+
 	private Control         _notificationPanel;
 	private Button          _enterGuardpostButton;
 	private Node2D          _npcLayer;
 	private Global          _global;
 	private CharacterBody2D _npcTemplate;
 
-	// Bodies own a Sprite2D child and a CollisionShape2D child.
 	private readonly Dictionary<Global.NpcData, CharacterBody2D> _npcBodies = new();
+	private readonly List<BackgroundNpc> _bgNpcs = new();
+	private readonly List<Curve2D> _bgPaths = new();
+	private float _bgSpawnTimer;
 
 	public override void _Ready()
 	{
@@ -22,6 +42,7 @@ public partial class HarborView : Node2D
 
 		RegisterPaths();
 		HideNpcNotification();
+		_bgSpawnTimer = BgSpawnMin;
 
 		foreach (var npcData in _global.ActiveNpcs)
 			CreateBodyFor(npcData);
@@ -65,6 +86,62 @@ public partial class HarborView : Node2D
 			Vector2 desired = _global.GetNpcWorldPosition(npc);
 			body.MoveAndCollide(desired - body.GlobalPosition);
 		}
+
+		// Background NPC spawning
+		_bgSpawnTimer -= (float)delta;
+		if (_bgSpawnTimer <= 0f)
+		{
+			if (_bgNpcs.Count < BgMaxCount)
+				SpawnBackgroundNpc();
+			_bgSpawnTimer = BgSpawnMin + GD.Randf() * (BgSpawnMax - BgSpawnMin);
+		}
+
+		// Move background NPCs and despawn when they reach path end
+		for (int i = _bgNpcs.Count - 1; i >= 0; i--)
+		{
+			var bg  = _bgNpcs[i];
+			float len = bg.Curve.GetBakedLength();
+			bg.Progress = Mathf.Min(1f, bg.Progress + bg.Speed * (float)delta / len);
+			bg.Body.MoveAndCollide(GetBgNpcPosition(bg) - bg.Body.GlobalPosition);
+			if (bg.Progress >= 1f)
+			{
+				bg.Body.QueueFree();
+				_bgNpcs.RemoveAt(i);
+			}
+		}
+	}
+
+	private void SpawnBackgroundNpc()
+	{
+		if (_bgPaths.Count == 0) return;
+
+		var curve = _bgPaths[(int)(GD.Randi() % (uint)_bgPaths.Count)];
+		var bg = new BackgroundNpc
+		{
+			Curve      = curve,
+			Progress   = 0f,
+			Speed      = BgSpeedMin + GD.Randf() * (BgSpeedMax - BgSpeedMin),
+			NoisePhase = GD.Randf() * Mathf.Tau,
+			Reversed   = GD.Randf() > 0.5f,
+			Body       = (CharacterBody2D)_npcTemplate.Duplicate()
+		};
+		bg.Body.Position = GetBgNpcPosition(bg);
+		bg.Body.Visible  = true;
+		_npcLayer.AddChild(bg.Body);
+		_bgNpcs.Add(bg);
+	}
+
+	private Vector2 GetBgNpcPosition(BackgroundNpc bg)
+	{
+		float len = bg.Curve.GetBakedLength();
+		if (len <= 0f) return Vector2.Zero;
+		float tAlong = bg.Reversed ? 1f - bg.Progress : bg.Progress;
+		float offset = Mathf.Clamp(tAlong * len, 0f, len);
+		Transform2D t = bg.Curve.SampleBakedWithRotation(offset);
+		float time = Time.GetTicksMsec() / 1000f;
+		float sway = Mathf.Sin(time * BgNoiseFreq + bg.NoisePhase) * BgNoiseAmp * 0.7f
+		           + Mathf.Sin(time * BgNoiseFreq * 1.7f + bg.NoisePhase * 1.3f) * BgNoiseAmp * 0.3f;
+		return t.Origin + t.Y * sway;
 	}
 
 	private void CreateBodyFor(Global.NpcData data)
@@ -128,6 +205,17 @@ public partial class HarborView : Node2D
 			_global.EgressPoint = egress.GlobalPosition;
 			foreach (var curve in _global.ExitPaths.Values)
 				curve.SetPointPosition(0, egress.GlobalPosition);
+		}
+
+		_bgPaths.Clear();
+		var bgPaths = GetNodeOrNull<Node2D>("BgPaths");
+		if (bgPaths != null)
+		{
+			foreach (var child in bgPaths.GetChildren())
+			{
+				if (child is Path2D p && p.Curve != null)
+					_bgPaths.Add(p.Curve);
+			}
 		}
 	}
 

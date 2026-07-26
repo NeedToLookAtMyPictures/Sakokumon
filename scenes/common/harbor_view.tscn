@@ -63,6 +63,42 @@ size = Vector2(257, 77)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_keepWallR"]
 size = Vector2(351, 74)
 
+[sub_resource type="Curve2D" id="Curve2D_bgNorthToEast"]
+_data = {
+"points": PackedVector2Array(16.44278, -218.25632, -16.44278, 218.25632, 409, -72, -545.6408, 35.263306, 545.6408, -35.263306, 917, 151)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bgNorthToWest"]
+_data = {
+"points": PackedVector2Array(-9.356537, -218.25632, 9.356537, 218.25632, 158, -7, 316.04648, 6.918335, -316.04648, -6.918335, -200, 230)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bgEntryWestToEast"]
+_data = {
+"points": PackedVector2Array(-229.76222, 5.440613, 229.76222, -5.440613, -1, 216, -239.68297, 20.069855, 239.68297, -20.069855, 868, 223)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bgExitSouthToEast"]
+_data = {
+"points": PackedVector2Array(45.18405, 270.46616, -45.18405, -270.46616, 381, 942, -448.37396, 13.589258, 448.37396, -13.589258, 844, 683)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bgExitSouthToWest"]
+_data = {
+"points": PackedVector2Array(8.4424515, 167.03685, -8.4424515, -167.03685, 397, 644, 497.06772, -10.3713665, -497.06772, 10.3713665, 0, 389)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bgExitWestToEast"]
+_data = {
+"points": PackedVector2Array(-156.22145, -6.7387695, 156.22145, 6.7387695, 2, 387, -200, 0, 200, 0, 401, 396, -152.4382, 7.2541504, 152.4382, -7.2541504, 859, 387)
+}
+point_count = 3
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_npcTemplate"]
 size = Vector2(20, 36)
 
@@ -158,6 +194,31 @@ position = Vector2(520, 280)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/KeepWallRight" unique_id=300000036]
 position = Vector2(174.5, 26)
 shape = SubResource("RectangleShape2D_keepWallR")
+
+[node name="BgPaths" type="Node2D" parent="." unique_id=300000040]
+
+[node name="BgEntryNorthToEast" type="Path2D" parent="BgPaths" unique_id=300000041]
+position = Vector2(-55, 75)
+curve = SubResource("Curve2D_bgNorthToEast")
+
+[node name="BgEntryNorthToWest" type="Path2D" parent="BgPaths" unique_id=300000042]
+position = Vector2(203, 9)
+curve = SubResource("Curve2D_bgNorthToWest")
+
+[node name="BgEntryWestToEast" type="Path2D" parent="BgPaths" unique_id=300000043]
+curve = SubResource("Curve2D_bgEntryWestToEast")
+
+[node name="BgExitSouthToEast" type="Path2D" parent="BgPaths" unique_id=300000044]
+position = Vector2(17, -299)
+curve = SubResource("Curve2D_bgExitSouthToEast")
+
+[node name="BgExitSouthToWest" type="Path2D" parent="BgPaths" unique_id=300000045]
+position = Vector2(-3.9137573, -5.0509644)
+scale = Vector2(1.0078431, 1.0078431)
+curve = SubResource("Curve2D_bgExitSouthToWest")
+
+[node name="BgExitWestToEast" type="Path2D" parent="BgPaths" unique_id=300000046]
+curve = SubResource("Curve2D_bgExitWestToEast")
 
 [node name="NpcTemplate" type="CharacterBody2D" parent="." unique_id=300000037]
 position = Vector2(686, -117)

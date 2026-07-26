@@ -7,6 +7,13 @@ public partial class Global : Node
 {
 	// autoloader logic taken from: https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
 
+	public class DayRecord
+	{
+		public int Allowed  = 0;
+		public int Detained = 0;
+		public int Total    => Allowed + Detained;
+	}
+
 	public class NpcData
 	{
 		public enum State { Approaching, Queued, AtGuardpost, Departing }
@@ -41,6 +48,19 @@ public partial class Global : Node
 	public Vector2 IngressPoint = new Vector2(389, 250); // default; overwritten by HarborView from IngressPoint marker
 	public Vector2 EgressPoint     = new Vector2(389, 300); // default; overwritten by HarborView from EgressPoint marker
 	public Vector2 QueueDirection  = new Vector2(0f, -1f); // queue line grows in this direction from IngressPoint
+
+	public int       DayNumber        = 1;
+	public int       DayYear          = 1641;
+	public int       DayNpcQuota      = 0;
+	public int       DayNpcsInspected = 0;
+	public bool      DayComplete      = false;
+	public bool      DayReportViewed  = false;
+	public DayRecord CurrentDayRecord = new();
+
+	private const float   DayTargetLength = 180f;
+	private float         _dayTimer       = 0f;
+	private int           _daySpawnIndex  = 0;
+	private List<float>   _daySpawnTimes  = new();
 
 	private readonly Queue<NpcData> _waitQueue = new();
 	private ulong _noiseCounter; // rolling counter for per-NPC phase generation
@@ -93,6 +113,51 @@ public partial class Global : Node
 				case NpcData.State.Departing:   ProcessDeparting(npc, dt, i);   break;
 			}
 		}
+
+		if (!DayComplete && _daySpawnIndex < _daySpawnTimes.Count)
+		{
+			_dayTimer += dt;
+			while (_daySpawnIndex < _daySpawnTimes.Count && _dayTimer >= _daySpawnTimes[_daySpawnIndex])
+			{
+				SpawnNpc();
+				_daySpawnIndex++;
+			}
+		}
+	}
+
+	public void StartDay()
+	{
+		DayNpcQuota      = 5 + (int)(GD.Randi() % 6);
+		DayNpcsInspected = 0;
+		DayComplete      = false;
+		DayReportViewed  = false;
+		CurrentDayRecord = new DayRecord();
+		_dayTimer        = 0f;
+		_daySpawnIndex   = 0;
+		ActiveNpcs.Clear();
+		_waitQueue.Clear();
+		npcPresent = false;
+		GenerateDaySpawnTimes();
+	}
+
+	public void NextDay()
+	{
+		DayNumber++;
+		CheckYearAdvance();
+		DayNpcQuota = 0;
+	}
+
+	public void CheckYearAdvance()
+	{
+		// Future: advance DayYear on milestones (e.g. every N days)
+	}
+
+	private void GenerateDaySpawnTimes()
+	{
+		_daySpawnTimes.Clear();
+		float slotSize = DayTargetLength / DayNpcQuota;
+		for (int i = 0; i < DayNpcQuota; i++)
+			_daySpawnTimes.Add(i * slotSize + GD.Randf() * slotSize * 0.6f + 3f);
 	}
 
 	public void SpawnNpc()
@@ -141,14 +206,20 @@ public partial class Global : Node
 		{
 			if (depart)
 			{
-				atPost.PathName  = ExitPathNames[GD.Randi() % (uint)ExitPathNames.Length];
-				atPost.Progress  = 0f;
+				atPost.PathName     = ExitPathNames[GD.Randi() % (uint)ExitPathNames.Length];
+				atPost.Progress     = 0f;
 				atPost.CurrentState = NpcData.State.Departing;
+				CurrentDayRecord.Allowed++;
 			}
 			else
 			{
 				ActiveNpcs.Remove(atPost); // detained — removed from flow
+				CurrentDayRecord.Detained++;
 			}
+
+			DayNpcsInspected++;
+			if (DayNpcsInspected >= DayNpcQuota)
+				DayComplete = true;
 		}
 
 		npcPresent = false;

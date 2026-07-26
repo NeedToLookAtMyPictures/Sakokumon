@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://78ym7vuuk6el" path="res://assets/stats_bg.png" id="1_qkx3n"]
 [ext_resource type="PackedScene" uid="uid://bph0my2a0wgld" path="res://scenes/interface/stats_text.tscn" id="2_74t8q"]
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="3_emq7m"]
+[ext_resource type="Script" path="res://scripts/UI/ContinueDay.cs" id="4_contday"]
 
 [node name="StatsMenu" type="Node2D" unique_id=2038880874]
 
@@ -22,4 +23,13 @@ offset_bottom = 590.0
 text = "Return"
 script = ExtResource("3_emq7m")
 
+[node name="ContinueDay" type="Button" parent="." unique_id=300000060]
+offset_left = 340.0
+offset_top = 500.0
+offset_right = 600.0
+offset_bottom = 545.0
+text = "Continue to Next Day"
+script = ExtResource("4_contday")
+
 [connection signal="pressed" from="Return" to="Return" method="OnPressedReturn"]
+[connection signal="pressed" from="ContinueDay" to="ContinueDay" method="OnPressedContinue"]

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://5kcnaxw1cuwr"]
 
+[ext_resource type="Script" path="res://scripts/UI/ItemInspectionLoadSceneScript.cs" id="1_eiwmv"]
 [ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="2_8vciv"]
-[ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://Sprites/boxBackground.png" id="2_j35y3"]
+[ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://assets/sprites/boxBackground.png" id="2_j35y3"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lkbh4"]
 
@@ -13,6 +14,7 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_j35y3"]
 
 [node name="ItemInspection" type="Node2D" unique_id=1346857749]
+script = ExtResource("1_eiwmv")
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=1753863181]
 position = Vector2(324, 324)

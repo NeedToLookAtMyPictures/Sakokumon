@@ -30,7 +30,7 @@ public partial class PopulateGrid : Node2D
 
 	public static bool isIllegal(ObjectData currentObject, int currentYear)
 	{
-				GD.Print("TRYING TO isIllegal");
+		// GD.Print("TRYING TO isIllegal");
 
 		bool isIllegalNow = false;
 		//	if it is after item illegal start and before item illegal end
@@ -46,7 +46,7 @@ public partial class PopulateGrid : Node2D
 
 	public Node2D createNode(ObjectData currentObject, Node itemGridNode)
 	{
-				GD.Print("TRYING TO createNode");
+		// GD.Print("TRYING TO createNode");
 
 		// define some basic parameters here so they can be changed as a whole
 		int screenTopOffset = 4;	// These are separate so we can adjust them independently
@@ -59,10 +59,6 @@ public partial class PopulateGrid : Node2D
 		// add data to root node
 		rootNode.SetMeta("itemObject", currentObject);
 		rootNode.SetMeta("hoverCount", 0);
-
-		// place item into global list of items in grid
-		Global.Instance.itemsInGrid.Add(currentObject);
-
 
 		// create new sprite object
 		var currentObjectSprite = new Sprite2D();
@@ -160,7 +156,7 @@ public partial class PopulateGrid : Node2D
 			// if y flipped invert y scale of object as a whole (this flips the hitbox & sprite at the same time)
 			rootNode.ApplyScale(new Vector2 (1,-1));
 		}
-				GD.Print("TRYING TO addChild");
+				// GD.Print("TRYING TO addChild");
 
 		itemGridNode.AddChild(rootNode);
 		return rootNode;
@@ -168,7 +164,7 @@ public partial class PopulateGrid : Node2D
 
 	public void placeObject(ObjectData currentObject, List<List<bool>> itemGrid, Node itemGridNode)
 	{
-		GD.Print("TRYING TO placeObject");
+		// GD.Print("TRYING TO placeObject");
 
 
 		// for column in current item width
@@ -202,7 +198,7 @@ public partial class PopulateGrid : Node2D
 
 	public static bool checkPlacement(ObjectData currentObject, List<List<bool>> itemGrid, Godot.Vector2 checkedLocation)
 	{
-				GD.Print("TRYING TO checkPlacement");
+				// GD.Print("TRYING TO checkPlacement");
 
 		bool isValid = true;
 		// for column in current item width
@@ -230,7 +226,7 @@ public partial class PopulateGrid : Node2D
 
 	public bool attemptPlacement(ObjectData currentObject, List<List<bool>> itemGrid, ref int attemptCount, Node itemGridNode)
 	{
-				GD.Print("TRYING TO attemptPlacement");
+				// GD.Print("TRYING TO attemptPlacement");
 
 		bool successfullyPlacedObject = false;
 
@@ -253,7 +249,7 @@ public partial class PopulateGrid : Node2D
 				// if valid location
 				if (checkPlacement(currentObject, itemGrid, new Godot.Vector2(i, j)))
 				{
-							GD.Print("location was valid");
+							// GD.Print("location was valid");
 
 					// add to possible locations
 					validLocations.Add(new Godot.Vector2(i, j));
@@ -262,7 +258,7 @@ public partial class PopulateGrid : Node2D
 		}
 		if (validLocations.Count() > 0)
 		{
-					GD.Print("TRYING TO PLACE THINGS (validLocations exist)");
+					// GD.Print("TRYING TO PLACE THINGS (validLocations exist)");
 
 			// trim first found locations until max of 10 remain (this is done to reduce greedy algorithms bias towards top left corner)
 			while (validLocations.Count() > validLocationMaxCount)
@@ -278,10 +274,13 @@ public partial class PopulateGrid : Node2D
 			// place at chosen location
 			placeObject(currentObject, itemGrid, itemGridNode);
 
+			// place item into global list of items in grid
+			Global.Instance.itemsInGrid.Add(currentObject);
+
 			successfullyPlacedObject = true;
 		}
 		// increment placement attempt counter
-		GD.Print($"ItemsPlaced: {101 - attemptCount}");
+		// GD.Print($"ItemsPlaced: {101 - attemptCount}");
 		attemptCount--;
 
 		return successfullyPlacedObject;
@@ -292,7 +291,7 @@ public partial class PopulateGrid : Node2D
 	{
 		db = GetNode<Global>("/root/Global").Database;
 		itemLibrary = db.items;
-		GD.Print("TRYING TO PLACE THINGS");
+		// GD.Print("TRYING TO PLACE THINGS");
 		Node2D itemGridNode = this;
 
 
@@ -312,11 +311,19 @@ public partial class PopulateGrid : Node2D
 			{
 				placeObject(Global.Instance.itemsInGrid[currItemIndex], itemGrid, itemGridNode);
 			}
-			Global.Instance.nodesInStorage = new List<Node2D>();
+			// clear nodesInStorage
+			Global.Instance.nodesInStorage = new List<Node2D>{};
 			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInStorage.Count; currItemIndex++)
 			{
 				Node2D itemNode = createNode(Global.Instance.itemsInStorage[currItemIndex], itemGridNode);
 				Global.Instance.nodesInStorage.Add(itemNode);
+				// reparent
+				Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+				if (storageControlNode == null)
+				{
+					GD.PrintErr("couldn't find storageAreaControl");
+				}
+				itemNode.Reparent(storageControlNode);
 				Global.Instance.updateStorage();
 			}
 		}

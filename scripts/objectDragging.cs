@@ -12,7 +12,7 @@ public partial class draggableObject : Area2D
 	private Color originalColor = new Color(1, 1, 1, 1); // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 	public static bool checkPlacement(ObjectData currentObject, int itemWidth, int itemHeight, List<List<bool>> itemGrid, Godot.Vector2 checkedLocation)
 	{
-		GD.Print("TRYING TO checkPlacement");
+		// GD.Print("TRYING TO checkPlacement");
 
 		/// if each item has a list of lists of lists, with the first [] being the rotation then the next [][] being rows/columns
 		/// Filter this by automatically marking true if value at itemShapeGrid[rot][y][x] is false (that slot at this rotation in the item hitbox is empty)
@@ -73,7 +73,7 @@ public partial class draggableObject : Area2D
 				break; // Stop loop once the first sprite is found
 			}
 		}
-		GD.Print("trying to make it glow");
+		// GD.Print("trying to make it glow");
 		mySprite.Modulate = glowColor;
 	}
 
@@ -91,7 +91,7 @@ public partial class draggableObject : Area2D
 					break; // Stop loop once the first sprite is found
 				}
 			}
-			GD.Print("trying to make it normal");
+			// GD.Print("trying to make it normal");
 			mySprite.Modulate = originalColor;
 		}
 	}
@@ -102,6 +102,8 @@ public partial class draggableObject : Area2D
 	public override void _Ready()
 	{
 		itemGrid = Global.Instance.itemGrid;
+
+		Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
 
 
 		// Connect signals in code
@@ -154,15 +156,15 @@ public partial class draggableObject : Area2D
 			
 
 			// debug info printing
-			GD.Print($"Current Rotation: position {parentData.rotationValue}");
-			GD.Print($"Current Rotation: {parent.RotationDegrees} degrees");
-			GD.Print($"Is xFlipped {parentData.isXFlipped}");
-			GD.Print($"Is yFlipped {parentData.isYFlipped}");
-			GD.Print($"current item grid:");
-			for (int currRow = 0; currRow < parentData.item.Length; currRow++)
-			{
-				GD.Print($"{string.Join(", ", parentData.item.Grid[currRow])}");
-			}
+			// GD.Print($"Current Rotation: position {parentData.rotationValue}");
+			// GD.Print($"Current Rotation: {parent.RotationDegrees} degrees");
+			// GD.Print($"Is xFlipped {parentData.isXFlipped}");
+			// GD.Print($"Is yFlipped {parentData.isYFlipped}");
+			// GD.Print($"current item grid:");
+			// for (int currRow = 0; currRow < parentData.item.Length; currRow++)
+			// {
+			// 	GD.Print($"{string.Join(", ", parentData.item.Grid[currRow])}");
+			// }
 
 
 			
@@ -215,6 +217,8 @@ public partial class draggableObject : Area2D
 				if (parentData.item.Width > 3) // if wider than 3 (won't fit in storage horizontally)
 				{
 					parent.RotationDegrees = parent.RotationDegrees + 90;
+					parentData.rotationValue = parentData.rotationValue + 1;
+					parentData.rotationValue = parentData.rotationValue % 4;
 					parentData.rotateClockwise(); // rotate
 				}
 				
@@ -229,8 +233,17 @@ public partial class draggableObject : Area2D
 					Global.Instance.nodesInStorage.Add(parent);
 					Global.Instance.updateStorage();
 
+					// reparent
+					Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+					if (storageControlNode == null)
+					{
+						GD.PrintErr("couldn't find storageAreaControl");
+					}
+					parent.Reparent(storageControlNode);
+
 					// place item into global list of items in storage, and remove from grid
 					Global.Instance.itemsInStorage.Add(parentData);
+					Global.Instance.itemsInGrid.Remove(parentData);
 				}
 
 			}
@@ -314,9 +327,13 @@ public partial class draggableObject : Area2D
 					// remove from list of items in storage if it was in storage
 					if (parentData.positionVector == new Vector2(-1, -1))
 					{
-						GD.Print($"Removed node from storage: {Global.Instance.nodesInStorage.Remove(parent)}");
-						GD.Print($"Removed item from storage: {Global.Instance.itemsInStorage.Remove(parentData)}");
+						// GD.Print($"Removed node from storage: {Global.Instance.nodesInStorage.Remove(parent)}");
+						// GD.Print($"Removed item from storage: {Global.Instance.itemsInStorage.Remove(parentData)}");
 						Global.Instance.itemsInGrid.Add(parentData);
+
+						// reparent
+						parent.Reparent(GetNode<Node2D>("/root/ItemInspection/Control/InspectionBox/GoodsGrid"));
+
 
 						Global.Instance.updateStorage();
 					}
@@ -332,17 +349,17 @@ public partial class draggableObject : Area2D
 					// update itemgrid
 					Global.Instance.itemGrid = itemGrid;
 
-					GD.Print("I found a location!\nCurrent grid:\n");
-					GD.Print($"{Convert.ToInt32(itemGrid[0][0])}, {Convert.ToInt32(itemGrid[0][1])}, {Convert.ToInt32(itemGrid[0][2])}, {Convert.ToInt32(itemGrid[0][3])}, {Convert.ToInt32(itemGrid[0][4])}, {Convert.ToInt32(itemGrid[0][5])}, {Convert.ToInt32(itemGrid[0][6])}, {Convert.ToInt32(itemGrid[0][7])}, {Convert.ToInt32(itemGrid[0][8])}, {Convert.ToInt32(itemGrid[0][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[1][0])}, {Convert.ToInt32(itemGrid[1][1])}, {Convert.ToInt32(itemGrid[1][2])}, {Convert.ToInt32(itemGrid[1][3])}, {Convert.ToInt32(itemGrid[1][4])}, {Convert.ToInt32(itemGrid[1][5])}, {Convert.ToInt32(itemGrid[1][6])}, {Convert.ToInt32(itemGrid[1][7])}, {Convert.ToInt32(itemGrid[1][8])}, {Convert.ToInt32(itemGrid[1][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[2][0])}, {Convert.ToInt32(itemGrid[2][1])}, {Convert.ToInt32(itemGrid[2][2])}, {Convert.ToInt32(itemGrid[2][3])}, {Convert.ToInt32(itemGrid[2][4])}, {Convert.ToInt32(itemGrid[2][5])}, {Convert.ToInt32(itemGrid[2][6])}, {Convert.ToInt32(itemGrid[2][7])}, {Convert.ToInt32(itemGrid[2][8])}, {Convert.ToInt32(itemGrid[2][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[3][0])}, {Convert.ToInt32(itemGrid[3][1])}, {Convert.ToInt32(itemGrid[3][2])}, {Convert.ToInt32(itemGrid[3][3])}, {Convert.ToInt32(itemGrid[3][4])}, {Convert.ToInt32(itemGrid[3][5])}, {Convert.ToInt32(itemGrid[3][6])}, {Convert.ToInt32(itemGrid[3][7])}, {Convert.ToInt32(itemGrid[3][8])}, {Convert.ToInt32(itemGrid[3][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[4][0])}, {Convert.ToInt32(itemGrid[4][1])}, {Convert.ToInt32(itemGrid[4][2])}, {Convert.ToInt32(itemGrid[4][3])}, {Convert.ToInt32(itemGrid[4][4])}, {Convert.ToInt32(itemGrid[4][5])}, {Convert.ToInt32(itemGrid[4][6])}, {Convert.ToInt32(itemGrid[4][7])}, {Convert.ToInt32(itemGrid[4][8])}, {Convert.ToInt32(itemGrid[4][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[5][0])}, {Convert.ToInt32(itemGrid[5][1])}, {Convert.ToInt32(itemGrid[5][2])}, {Convert.ToInt32(itemGrid[5][3])}, {Convert.ToInt32(itemGrid[5][4])}, {Convert.ToInt32(itemGrid[5][5])}, {Convert.ToInt32(itemGrid[5][6])}, {Convert.ToInt32(itemGrid[5][7])}, {Convert.ToInt32(itemGrid[5][8])}, {Convert.ToInt32(itemGrid[5][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[6][0])}, {Convert.ToInt32(itemGrid[6][1])}, {Convert.ToInt32(itemGrid[6][2])}, {Convert.ToInt32(itemGrid[6][3])}, {Convert.ToInt32(itemGrid[6][4])}, {Convert.ToInt32(itemGrid[6][5])}, {Convert.ToInt32(itemGrid[6][6])}, {Convert.ToInt32(itemGrid[6][7])}, {Convert.ToInt32(itemGrid[6][8])}, {Convert.ToInt32(itemGrid[6][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[7][0])}, {Convert.ToInt32(itemGrid[7][1])}, {Convert.ToInt32(itemGrid[7][2])}, {Convert.ToInt32(itemGrid[7][3])}, {Convert.ToInt32(itemGrid[7][4])}, {Convert.ToInt32(itemGrid[7][5])}, {Convert.ToInt32(itemGrid[7][6])}, {Convert.ToInt32(itemGrid[7][7])}, {Convert.ToInt32(itemGrid[7][8])}, {Convert.ToInt32(itemGrid[7][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[8][0])}, {Convert.ToInt32(itemGrid[8][1])}, {Convert.ToInt32(itemGrid[8][2])}, {Convert.ToInt32(itemGrid[8][3])}, {Convert.ToInt32(itemGrid[8][4])}, {Convert.ToInt32(itemGrid[8][5])}, {Convert.ToInt32(itemGrid[8][6])}, {Convert.ToInt32(itemGrid[8][7])}, {Convert.ToInt32(itemGrid[8][8])}, {Convert.ToInt32(itemGrid[8][9])}");
-					GD.Print($"{Convert.ToInt32(itemGrid[9][0])}, {Convert.ToInt32(itemGrid[9][1])}, {Convert.ToInt32(itemGrid[9][2])}, {Convert.ToInt32(itemGrid[9][3])}, {Convert.ToInt32(itemGrid[9][4])}, {Convert.ToInt32(itemGrid[9][5])}, {Convert.ToInt32(itemGrid[9][6])}, {Convert.ToInt32(itemGrid[9][7])}, {Convert.ToInt32(itemGrid[9][8])}, {Convert.ToInt32(itemGrid[9][9])}");
+					// GD.Print("I found a location!\nCurrent grid:\n");
+					// GD.Print($"{Convert.ToInt32(itemGrid[0][0])}, {Convert.ToInt32(itemGrid[0][1])}, {Convert.ToInt32(itemGrid[0][2])}, {Convert.ToInt32(itemGrid[0][3])}, {Convert.ToInt32(itemGrid[0][4])}, {Convert.ToInt32(itemGrid[0][5])}, {Convert.ToInt32(itemGrid[0][6])}, {Convert.ToInt32(itemGrid[0][7])}, {Convert.ToInt32(itemGrid[0][8])}, {Convert.ToInt32(itemGrid[0][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[1][0])}, {Convert.ToInt32(itemGrid[1][1])}, {Convert.ToInt32(itemGrid[1][2])}, {Convert.ToInt32(itemGrid[1][3])}, {Convert.ToInt32(itemGrid[1][4])}, {Convert.ToInt32(itemGrid[1][5])}, {Convert.ToInt32(itemGrid[1][6])}, {Convert.ToInt32(itemGrid[1][7])}, {Convert.ToInt32(itemGrid[1][8])}, {Convert.ToInt32(itemGrid[1][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[2][0])}, {Convert.ToInt32(itemGrid[2][1])}, {Convert.ToInt32(itemGrid[2][2])}, {Convert.ToInt32(itemGrid[2][3])}, {Convert.ToInt32(itemGrid[2][4])}, {Convert.ToInt32(itemGrid[2][5])}, {Convert.ToInt32(itemGrid[2][6])}, {Convert.ToInt32(itemGrid[2][7])}, {Convert.ToInt32(itemGrid[2][8])}, {Convert.ToInt32(itemGrid[2][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[3][0])}, {Convert.ToInt32(itemGrid[3][1])}, {Convert.ToInt32(itemGrid[3][2])}, {Convert.ToInt32(itemGrid[3][3])}, {Convert.ToInt32(itemGrid[3][4])}, {Convert.ToInt32(itemGrid[3][5])}, {Convert.ToInt32(itemGrid[3][6])}, {Convert.ToInt32(itemGrid[3][7])}, {Convert.ToInt32(itemGrid[3][8])}, {Convert.ToInt32(itemGrid[3][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[4][0])}, {Convert.ToInt32(itemGrid[4][1])}, {Convert.ToInt32(itemGrid[4][2])}, {Convert.ToInt32(itemGrid[4][3])}, {Convert.ToInt32(itemGrid[4][4])}, {Convert.ToInt32(itemGrid[4][5])}, {Convert.ToInt32(itemGrid[4][6])}, {Convert.ToInt32(itemGrid[4][7])}, {Convert.ToInt32(itemGrid[4][8])}, {Convert.ToInt32(itemGrid[4][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[5][0])}, {Convert.ToInt32(itemGrid[5][1])}, {Convert.ToInt32(itemGrid[5][2])}, {Convert.ToInt32(itemGrid[5][3])}, {Convert.ToInt32(itemGrid[5][4])}, {Convert.ToInt32(itemGrid[5][5])}, {Convert.ToInt32(itemGrid[5][6])}, {Convert.ToInt32(itemGrid[5][7])}, {Convert.ToInt32(itemGrid[5][8])}, {Convert.ToInt32(itemGrid[5][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[6][0])}, {Convert.ToInt32(itemGrid[6][1])}, {Convert.ToInt32(itemGrid[6][2])}, {Convert.ToInt32(itemGrid[6][3])}, {Convert.ToInt32(itemGrid[6][4])}, {Convert.ToInt32(itemGrid[6][5])}, {Convert.ToInt32(itemGrid[6][6])}, {Convert.ToInt32(itemGrid[6][7])}, {Convert.ToInt32(itemGrid[6][8])}, {Convert.ToInt32(itemGrid[6][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[7][0])}, {Convert.ToInt32(itemGrid[7][1])}, {Convert.ToInt32(itemGrid[7][2])}, {Convert.ToInt32(itemGrid[7][3])}, {Convert.ToInt32(itemGrid[7][4])}, {Convert.ToInt32(itemGrid[7][5])}, {Convert.ToInt32(itemGrid[7][6])}, {Convert.ToInt32(itemGrid[7][7])}, {Convert.ToInt32(itemGrid[7][8])}, {Convert.ToInt32(itemGrid[7][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[8][0])}, {Convert.ToInt32(itemGrid[8][1])}, {Convert.ToInt32(itemGrid[8][2])}, {Convert.ToInt32(itemGrid[8][3])}, {Convert.ToInt32(itemGrid[8][4])}, {Convert.ToInt32(itemGrid[8][5])}, {Convert.ToInt32(itemGrid[8][6])}, {Convert.ToInt32(itemGrid[8][7])}, {Convert.ToInt32(itemGrid[8][8])}, {Convert.ToInt32(itemGrid[8][9])}");
+					// GD.Print($"{Convert.ToInt32(itemGrid[9][0])}, {Convert.ToInt32(itemGrid[9][1])}, {Convert.ToInt32(itemGrid[9][2])}, {Convert.ToInt32(itemGrid[9][3])}, {Convert.ToInt32(itemGrid[9][4])}, {Convert.ToInt32(itemGrid[9][5])}, {Convert.ToInt32(itemGrid[9][6])}, {Convert.ToInt32(itemGrid[9][7])}, {Convert.ToInt32(itemGrid[9][8])}, {Convert.ToInt32(itemGrid[9][9])}");
 				}
 				else // move to storage
 				{ 
@@ -351,13 +368,27 @@ public partial class draggableObject : Area2D
 						if (parentData.item.Width > 3) // if wider than 3 (won't fit in storage horizontally)
 						{
 							parent.RotationDegrees = parent.RotationDegrees + 90;
+
+							// save rotation amount to data
+							parentData.rotationValue = parentData.rotationValue + 1;
+							parentData.rotationValue = parentData.rotationValue % 4;
+
 							parentData.rotateClockwise(); // rotate
 						}
 						parentData.positionVector = new Vector2(-1, -1);
 						Global.Instance.nodesInStorage.Add(parent);
 
+						// reparent
+						Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+						if (storageControlNode == null)
+						{
+							GD.PrintErr("couldn't find storageAreaControl");
+						}
+						parent.Reparent(storageControlNode);
+
 						// place item into global list of items in storage, and remove from grid
 						Global.Instance.itemsInStorage.Add(parentData);
+						Global.Instance.itemsInGrid.Remove(parentData);
 					}
 					Global.Instance.updateStorage(); // update storage item positions
 				}
@@ -410,6 +441,13 @@ public partial class draggableObject : Area2D
 						// rotate -90 degrees
 						parent.RotationDegrees = parent.RotationDegrees - 90;
 
+						// save rotation amount to data
+						parentData.rotationValue = parentData.rotationValue - 1;
+						if (parentData.rotationValue == -1)
+						{
+							parentData.rotationValue = 3;
+						}
+
 						// effect in data
 						parentData.rotateCounterClockwise();
 
@@ -423,6 +461,10 @@ public partial class draggableObject : Area2D
 					{
 						// rotate 90 degrees
 						parent.RotationDegrees = parent.RotationDegrees + 90;
+
+						// save rotation amount to data
+						parentData.rotationValue = parentData.rotationValue + 1;
+						parentData.rotationValue = parentData.rotationValue % 4;
 
 						// effect in data
 						parentData.rotateClockwise();

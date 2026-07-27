@@ -142,13 +142,40 @@ public partial class Global : Node
 
 	int gridSnapSize = 64;
 	int storageBuffer = 16;
-	int storageCenterX = 756;
+	int storageCenterX = 748;
 	public void updateStorage()
 	{
 		// stack starts at y = 550 (going up)
 		// for each item:
 		//	currentPos =- stackBuffer -> then place sprite at currentPos =- ((itemHeight * 64) / 2) -> then currentPos =- (((itemHeight * 64) / 2) + storageBuffer)
-		int currentHeightInStorage = 550;
+		int currentHeightInStorage = 548;
+		for (int i = 0; i < nodesInStorage.Count; i++)
+		{
+			var currItem = nodesInStorage[i];
+			currentHeightInStorage -= storageBuffer;
+			ObjectData parentData = (ObjectData)currItem.GetMeta("itemObject");
+			int itemHeight = parentData.item.Length * gridSnapSize;
+			currentHeightInStorage -= itemHeight;
+			currentHeightInStorage -= storageBuffer;
+		}
+
+		if (currentHeightInStorage <= 0) // if items go outside the range of the view
+		{ // update to fit size
+				Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+				storageControlNode.CustomMinimumSize = new Vector2(208.0f, 548.0f - currentHeightInStorage);
+				storageControlNode.Position = new Vector2(0.0f, 0.0f + currentHeightInStorage);
+		}
+		else
+		{ // set size equal to default size
+			if (nodesInStorage.Count != 0) // get parent and change size if there is a child in storage, otherwise just skip it because the size is already correct
+			{
+				Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+				storageControlNode.CustomMinimumSize = new Vector2(208.0f, 548.0f);
+				storageControlNode.Position = new Vector2(0.0f, 0.0f);
+			}
+		}
+
+		currentHeightInStorage = 548;
 		for (int i = 0; i < nodesInStorage.Count; i++)
 		{
 			var currItem = nodesInStorage[i];
@@ -160,10 +187,7 @@ public partial class Global : Node
 			currentHeightInStorage -= storageBuffer;
 		}
 
-		
 		// when adding new thing to storage, add to list of items in storage, set position vector to (-1, -1), and update storage
 		// when removing from storage, remove that instance from items in storage, set position vector, and update storage
 	}
 }
-
-

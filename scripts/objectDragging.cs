@@ -327,8 +327,8 @@ public partial class draggableObject : Area2D
 					// remove from list of items in storage if it was in storage
 					if (parentData.positionVector == new Vector2(-1, -1))
 					{
-						// GD.Print($"Removed node from storage: {Global.Instance.nodesInStorage.Remove(parent)}");
-						// GD.Print($"Removed item from storage: {Global.Instance.itemsInStorage.Remove(parentData)}");
+						Global.Instance.nodesInStorage.Remove(parent);
+						Global.Instance.itemsInStorage.Remove(parentData);
 						Global.Instance.itemsInGrid.Add(parentData);
 
 						// reparent

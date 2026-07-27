@@ -32,7 +32,7 @@ public partial class ApproachingNpc : Sprite2D
 					_state = State.AtGuardpost;
 					Hide();
 					_global.npcPresent = true;
-					(GetTree().CurrentScene as HarborView)?.ShowNpcNotification();
+					(GetNode<Node2D>("/root/AspectRatioContainer2/SubViewportContainer/SubViewport/HarborView") as HarborView)?.ShowNpcNotification();
 				}
 				break;
 

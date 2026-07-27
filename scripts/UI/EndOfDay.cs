@@ -28,8 +28,8 @@ public partial class EndOfDay : Control
 		var tweenOut = CreateTween();
 		tweenOut.TweenProperty(this,"modulate", new Color(0,0,0,1),2.0f);
 		await ToSignal(tweenOut, Tween.SignalName.Finished);
-		Global.Instance.State = GameState.NPCNotSeen;
-		Global.Instance.GoToScene("res://scenes/common/npc_interaction.tscn");
+		Global.Instance.State = GameState.GameNotStarted;
+		Global.Instance.GoToScene("res://scenes/common/harbor_view.tscn");
 
 	}
 

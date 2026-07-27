@@ -18,39 +18,39 @@ size = Vector2(256, 64)
 
 [sub_resource type="Curve2D" id="Curve2D_entryNorth"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 50, 340, 2, 0, -50, 0, 0, 308, 272)
+"points": PackedVector2Array(0, 0, 0, 50, 338.02396, -21, 0, -50, 0, 0, 308, 272)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_entryEast"]
 _data = {
-"points": PackedVector2Array(0, 0, -200, 0, 929, 224, 148.8, -71.6, -148.8, 71.6, 372, 268)
+"points": PackedVector2Array(0, 0, -200, 0, 929, 224, 0, 0, 0, 0, 480.87732, 217.20001, 148.8, -71.6, -148.8, 71.6, 372, 268)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_entryWest"]
 _data = {
-"points": PackedVector2Array(0, 0, 200, 0, -2, 200, -74.40001, -92.399994, 74.40001, 92.399994, 308, 275)
+"points": PackedVector2Array(0, 0, 200, 0, -175.33258, 198.6, 0, 0, 0, 0, 265.9739, 206.40001, -74.40001, -92.399994, 74.40001, 92.399994, 308, 275)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_exitSouth"]
 _data = {
-"points": PackedVector2Array(-57.0987, -88.043076, 57.0987, 88.043076, 306, 342, 0, 0, 0, 0, 363.6771, 460.25574, 15.460897, -207.18579, -15.460897, 207.18579, 363.08856, 846.6688)
+"points": PackedVector2Array(-57.0987, -88.043076, 57.0987, 88.043076, 306, 342, 0, 0, 0, 0, 365.83844, 418.94952, 15.460897, -207.18579, -15.460897, 207.18579, 364.07153, 875.6499)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_exitEast"]
 _data = {
-"points": PackedVector2Array(0, 0, 200, 50, 310, 342, -200, 0, 0, 0, 866, 388)
+"points": PackedVector2Array(0, 0, 200, 50, 310, 342, 0, 0, 0, 0, 819.04236, 377.02524, -200, 0, 0, 0, 1026.7024, 372.6)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_exitWest"]
 _data = {
-"points": PackedVector2Array(151.31978, -87.752014, -151.31978, 87.752014, 305, 341, 200, 0, 0, 0, -1, 396)
+"points": PackedVector2Array(151.31978, -87.752014, -151.31978, 87.752014, 305, 341, 0, 0, 0, 0, 262.916, 366.0571, 200, 0, 0, 0, -171.73009, 406.2)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldgNW"]
 size = Vector2(248, 143)
@@ -72,37 +72,37 @@ size = Vector2(351, 74)
 
 [sub_resource type="Curve2D" id="Curve2D_bgNorthToEast"]
 _data = {
-"points": PackedVector2Array(16.44278, -218.25632, -16.44278, 218.25632, 409, -72, 0, 0, 0, 0, 424, 138, -545.6408, 35.263306, 545.6408, -35.263306, 917, 151)
+"points": PackedVector2Array(16.44278, -218.25632, -16.44278, 218.25632, 409.83563, -96.6, 0, 0, 0, 0, 424, 138, -545.6408, 35.263306, 545.6408, -35.263306, 1083.5034, 144.6)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_bgNorthToWest"]
 _data = {
-"points": PackedVector2Array(-9.356537, -218.25632, 9.356537, 218.25632, 158, -7, 316.04648, 6.918335, -316.04648, -6.918335, -200, 230)
+"points": PackedVector2Array(-9.356537, -218.25632, 9.356537, 218.25632, 163.844, -31.800001, 0, 0, 0, 0, 124.21646, 226.8, 316.04648, 6.918335, -316.04648, -6.918335, -371.12756, 231.00002)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_bgEntryWestToEast"]
 _data = {
-"points": PackedVector2Array(-229.76222, 5.440613, 229.76222, -5.440613, -1, 216, -239.68297, 20.069855, 239.68297, -20.069855, 868, 223)
+"points": PackedVector2Array(-229.76222, 5.440613, 229.76222, -5.440613, -154.318, 218.40001, -239.68297, 20.069855, 239.68297, -20.069855, 1024.3005, 204.6)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_bgExitSouthToEast"]
 _data = {
-"points": PackedVector2Array(45.18405, 270.46616, -45.18405, -270.46616, 381, 942, 0, 0, 0, 0, 381, 710, -448.37396, 13.589258, 448.37396, -13.589258, 844, 683)
+"points": PackedVector2Array(45.18405, 270.46616, -45.18405, -270.46616, 381, 942, 0, 0, 0, 0, 417.6911, 683, -448.37396, 13.589258, 448.37396, -13.589258, 1001.8969, 674.6)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_bgExitSouthToWest"]
 _data = {
-"points": PackedVector2Array(8.4424515, 167.03685, -8.4424515, -167.03685, 397, 644, 0, 0, 0, 0, 365.05063, 431.66534, 277.98602, 11.060539, -277.98602, -11.060539, 0, 389)
+"points": PackedVector2Array(8.4424515, 167.03685, -8.4424515, -167.03685, 396.4682, 665.23346, 0, 0, 0, 0, 335.1065, 392.57196, 277.98602, 11.060539, -277.98602, -11.060539, -159.36143, 386.02332)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_bgExitWestToEast"]
 _data = {
-"points": PackedVector2Array(-156.22145, -6.7387695, 156.22145, 6.7387695, 2, 387, -200, 0, 200, 0, 401, 396, -152.4382, 7.2541504, 152.4382, -7.2541504, 859, 387)
+"points": PackedVector2Array(-156.22145, -6.7387695, 156.22145, 6.7387695, -160.92258, 396.6, -200, 0, 200, 0, 401, 396, -152.4382, 7.2541504, 152.4382, -7.2541504, 1025.5015, 385.80002)
 }
 point_count = 3
 
@@ -111,170 +111,186 @@ size = Vector2(20, 36)
 
 [sub_resource type="Theme" id="Theme_r1w1t"]
 
-[node name="HarborView" type="Node2D" unique_id=300000001]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" unique_id=315275710]
+offset_right = 1920.0
+offset_bottom = 1080.0
+ratio = 1.3333
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=844130677]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1833834461]
+handle_input_locally = false
+size = Vector2i(1439, 1080)
+size_2d_override = Vector2i(864, 648)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="HarborView" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=300000001]
 script = ExtResource("2_hv")
 
-[node name="GameBackground" parent="." unique_id=1875029057 instance=ExtResource("1_bgscn")]
+[node name="GameBackground" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1875029057 instance=ExtResource("1_bgscn")]
 
-[node name="Guardpost" type="Node2D" parent="GameBackground" unique_id=527607895]
+[node name="Guardpost" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground" unique_id=527607895]
 
-[node name="Guardpost-Texture" type="Sprite2D" parent="GameBackground/Guardpost" unique_id=1049506940]
+[node name="Guardpost-Texture" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=1049506940]
 position = Vector2(388, 307)
 rotation = 1.5707964
 scale = Vector2(0.5128207, 1.3321674)
 texture = ExtResource("3_621y4")
 
-[node name="GuardpostDetector" type="Area2D" parent="GameBackground/Guardpost" unique_id=594737127]
+[node name="GuardpostDetector" type="Area2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=594737127]
 position = Vector2(389, 275)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameBackground/Guardpost/GuardpostDetector" unique_id=1153289132]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost/GuardpostDetector" unique_id=1153289132]
 position = Vector2(1, 32)
 shape = SubResource("RectangleShape2D_guardpost")
 
-[node name="IngressPoint" type="Marker2D" parent="GameBackground/Guardpost" unique_id=300000031]
+[node name="IngressPoint" type="Marker2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=300000031]
 position = Vector2(307, 274)
 
-[node name="EgressPoint" type="Marker2D" parent="GameBackground/Guardpost" unique_id=300000032]
+[node name="EgressPoint" type="Marker2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=300000032]
 position = Vector2(307, 339)
 
-[node name="StreetPaths" type="Node2D" parent="." unique_id=300000015]
+[node name="StreetPaths" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000015]
 
-[node name="EntryNorth" type="Path2D" parent="StreetPaths" unique_id=300000016]
+[node name="EntryNorth" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000016]
 curve = SubResource("Curve2D_entryNorth")
 
-[node name="EntryEast" type="Path2D" parent="StreetPaths" unique_id=300000017]
+[node name="EntryEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000017]
 position = Vector2(-66, 6)
 curve = SubResource("Curve2D_entryEast")
 
-[node name="EntryWest" type="Path2D" parent="StreetPaths" unique_id=300000018]
+[node name="EntryWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000018]
 curve = SubResource("Curve2D_entryWest")
 
-[node name="ExitSouth" type="Path2D" parent="StreetPaths" unique_id=300000019]
+[node name="ExitSouth" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000019]
 position = Vector2(-213.9292, 136.66536)
 scale = Vector2(1.699115, 0.6003937)
 curve = SubResource("Curve2D_exitSouth")
 
-[node name="ExitEast" type="Path2D" parent="StreetPaths" unique_id=300000020]
+[node name="ExitEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000020]
 curve = SubResource("Curve2D_exitEast")
 
-[node name="ExitWest" type="Path2D" parent="StreetPaths" unique_id=300000021]
+[node name="ExitWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000021]
 curve = SubResource("Curve2D_exitWest")
 
-[node name="Buildings" type="Node2D" parent="." unique_id=300000022]
+[node name="Buildings" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000022]
 
-[node name="BuildingNW" type="StaticBody2D" parent="Buildings" unique_id=300000023]
+[node name="BuildingNW" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000023]
 position = Vector2(119, 88)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingNW" unique_id=300000024]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingNW" unique_id=300000024]
 position = Vector2(-16, -24.5)
 shape = SubResource("RectangleShape2D_bldgNW")
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/BuildingNW" unique_id=300000047]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingNW" unique_id=300000047]
 position = Vector2(-16.500002, -25.499989)
 scale = Vector2(0.96484375, 0.7343748)
 texture = ExtResource("5_bldgNW")
 
-[node name="BuildingNE" type="StaticBody2D" parent="Buildings" unique_id=300000025]
+[node name="BuildingNE" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000025]
 position = Vector2(662, 90)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingNE" unique_id=300000026]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingNE" unique_id=300000026]
 position = Vector2(31.5, -20.5)
 shape = SubResource("RectangleShape2D_bldgNE")
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/BuildingNE" unique_id=300000048]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingNE" unique_id=300000048]
 position = Vector2(33.000008, -21.500015)
 scale = Vector2(0.9375001, 0.7760418)
 texture = ExtResource("6_bldgNE")
 
-[node name="BuildingSW" type="StaticBody2D" parent="Buildings" unique_id=300000027]
+[node name="BuildingSW" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000027]
 position = Vector2(100, 560)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingSW" unique_id=300000028]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingSW" unique_id=300000028]
 position = Vector2(35, 8)
 shape = SubResource("RectangleShape2D_bldgSW")
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/BuildingSW" unique_id=300000049]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingSW" unique_id=300000049]
 position = Vector2(36.000004, 10.0000305)
 scale = Vector2(0.88750005, 0.89583355)
 texture = ExtResource("7_bldgSW")
 
-[node name="BuildingSE" type="StaticBody2D" parent="Buildings" unique_id=300000029]
+[node name="BuildingSE" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000029]
 position = Vector2(700, 560)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/BuildingSE" unique_id=300000030]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingSE" unique_id=300000030]
 position = Vector2(7.5, -0.5)
 shape = SubResource("RectangleShape2D_bldgSE")
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/BuildingSE" unique_id=300000050]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingSE" unique_id=300000050]
 position = Vector2(6.5000196, -0.49995875)
 scale = Vector2(0.85677063, 0.9635419)
 texture = ExtResource("8_bldgSE")
 
-[node name="KeepWallLeft" type="StaticBody2D" parent="Buildings" unique_id=300000033]
+[node name="KeepWallLeft" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000033]
 position = Vector2(260, 280)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/KeepWallLeft" unique_id=300000034]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/KeepWallLeft" unique_id=300000034]
 position = Vector2(-134.5, 29)
 shape = SubResource("RectangleShape2D_keepWallL")
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/KeepWallLeft" unique_id=300000051]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/KeepWallLeft" unique_id=300000051]
 position = Vector2(-133.49998, 29)
 scale = Vector2(1.0351564, 1.203125)
 texture = ExtResource("9_keepL")
 
-[node name="KeepWallRight" type="StaticBody2D" parent="Buildings" unique_id=300000035]
+[node name="KeepWallRight" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000035]
 position = Vector2(520, 280)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/KeepWallRight" unique_id=300000036]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/KeepWallRight" unique_id=300000036]
 position = Vector2(174.5, 26)
 shape = SubResource("RectangleShape2D_keepWallR")
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/KeepWallRight" unique_id=300000052]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/KeepWallRight" unique_id=300000052]
 position = Vector2(174.5, 26)
 scale = Vector2(0.914063, 1.15625)
 texture = ExtResource("10_keepR")
 
-[node name="BgPaths" type="Node2D" parent="." unique_id=300000040]
+[node name="BgPaths" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000040]
 
-[node name="BgEntryNorthToEast" type="Path2D" parent="BgPaths" unique_id=300000041]
+[node name="BgEntryNorthToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000041]
 position = Vector2(-55, 75)
 curve = SubResource("Curve2D_bgNorthToEast")
 
-[node name="BgEntryNorthToWest" type="Path2D" parent="BgPaths" unique_id=300000042]
+[node name="BgEntryNorthToWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000042]
 position = Vector2(203, 9)
 curve = SubResource("Curve2D_bgNorthToWest")
 
-[node name="BgEntryWestToEast" type="Path2D" parent="BgPaths" unique_id=300000043]
+[node name="BgEntryWestToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000043]
 curve = SubResource("Curve2D_bgEntryWestToEast")
 
-[node name="BgExitSouthToEast" type="Path2D" parent="BgPaths" unique_id=300000044]
+[node name="BgExitSouthToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000044]
 position = Vector2(17, -299)
 curve = SubResource("Curve2D_bgExitSouthToEast")
 
-[node name="BgExitSouthToWest" type="Path2D" parent="BgPaths" unique_id=300000045]
+[node name="BgExitSouthToWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000045]
 position = Vector2(-3.9137573, -5.0509644)
 scale = Vector2(1.0078431, 1.0078431)
 curve = SubResource("Curve2D_bgExitSouthToWest")
 
-[node name="BgExitWestToEast" type="Path2D" parent="BgPaths" unique_id=300000046]
+[node name="BgExitWestToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000046]
 curve = SubResource("Curve2D_bgExitWestToEast")
 
-[node name="NpcTemplate" type="CharacterBody2D" parent="." unique_id=300000037]
+[node name="NpcTemplate" type="CharacterBody2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000037]
 position = Vector2(686, -117)
 collision_layer = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="NpcTemplate" unique_id=300000038]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/NpcTemplate" unique_id=300000038]
 scale = Vector2(0.59375, 0.46875)
 texture = ExtResource("4_npcTex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NpcTemplate" unique_id=300000039]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/NpcTemplate" unique_id=300000039]
 shape = SubResource("RectangleShape2D_npcTemplate")
 
-[node name="NPCLayer" type="Node2D" parent="." unique_id=300000002]
+[node name="NPCLayer" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000002]
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=300000003]
+[node name="UI" type="CanvasLayer" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000003]
 
-[node name="SceneLabel" type="Label" parent="UI" unique_id=300000007]
+[node name="SceneLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000007]
 modulate = Color(1, 1, 0, 1)
 offset_left = 10.0
 offset_top = 10.0
@@ -282,13 +298,13 @@ offset_right = 380.0
 offset_bottom = 40.0
 text = "[ SCENE: Harbor View ]"
 
-[node name="NotificationPanel" type="Panel" parent="UI" unique_id=300000004]
+[node name="NotificationPanel" type="Panel" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000004]
 offset_left = 448.0
 offset_top = 12.0
 offset_right = 848.0
 offset_bottom = 72.0
 
-[node name="NotificationLabel" type="Label" parent="UI/NotificationPanel" unique_id=300000005]
+[node name="NotificationLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI/NotificationPanel" unique_id=300000005]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -296,20 +312,20 @@ offset_right = 380.0
 offset_bottom = 50.0
 text = "NPC awaiting inspection at guardpost"
 
-[node name="EnterGuardpostButton" type="Button" parent="UI" unique_id=300000006]
+[node name="EnterGuardpostButton" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000006]
 offset_left = 450.0
 offset_top = 572.0
 offset_right = 850.0
 offset_bottom = 632.0
 text = "Enter Guardpost"
 
-[node name="DebugPanel" type="Panel" parent="UI" unique_id=300000008]
+[node name="DebugPanel" type="Panel" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000008]
 offset_left = 11.0
 offset_top = 458.0
 offset_right = 261.0
 offset_bottom = 668.0
 
-[node name="DebugLabel" type="Label" parent="UI/DebugPanel" unique_id=300000009]
+[node name="DebugLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000009]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 2.0
@@ -317,7 +333,7 @@ offset_right = 240.0
 offset_bottom = 22.0
 text = "DEBUG NAV"
 
-[node name="NavNewGame" type="Button" parent="UI/DebugPanel" unique_id=300000010]
+[node name="NavNewGame" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000010]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 26.0
@@ -326,7 +342,7 @@ offset_bottom = 56.0
 text = "-> New Game"
 script = ExtResource("3_dbg")
 
-[node name="NavNpcInteraction" type="Button" parent="UI/DebugPanel" unique_id=300000011]
+[node name="NavNpcInteraction" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000011]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 61.0
@@ -335,7 +351,7 @@ offset_bottom = 91.0
 text = "-> NPC Interaction"
 script = ExtResource("3_dbg")
 
-[node name="NavItemInspection" type="Button" parent="UI/DebugPanel" unique_id=300000012]
+[node name="NavItemInspection" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000012]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 96.0
@@ -344,7 +360,7 @@ offset_bottom = 126.0
 text = "-> Item Inspection"
 script = ExtResource("3_dbg")
 
-[node name="NavMainMenu" type="Button" parent="UI/DebugPanel" unique_id=300000013]
+[node name="NavMainMenu" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000013]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 131.0
@@ -353,7 +369,7 @@ offset_bottom = 161.0
 text = "-> Main Menu"
 script = ExtResource("3_dbg")
 
-[node name="SpawnNpcDebug" type="Button" parent="UI/DebugPanel" unique_id=300000014]
+[node name="SpawnNpcDebug" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000014]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 166.0
@@ -361,37 +377,37 @@ offset_right = 245.0
 offset_bottom = 196.0
 text = "Spawn NPC (Debug)"
 
-[node name="YearInfo" type="Control" parent="." unique_id=774069679]
+[node name="YearInfo" type="Control" parent="SubViewportContainer/SubViewport/HarborView" unique_id=774069679]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -16.0
 offset_top = 20.0
-offset_right = 1907.0
-offset_bottom = 1111.0
+offset_right = 859.3088
+offset_bottom = 648.0
 theme = SubResource("Theme_r1w1t")
 
-[node name="ColorRect" type="ColorRect" parent="YearInfo" unique_id=1856194177]
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1856194177]
 layout_mode = 0
-offset_left = 24.0
-offset_top = -19.0
-offset_right = 1926.0
-offset_bottom = 1067.0
+offset_left = -3.224144
+offset_top = -18.8
+offset_right = 888.99554
+offset_bottom = 623.2
 color = Color(0, 0, 0, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="YearInfo" unique_id=1504004398]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1504004398]
 layout_mode = 0
-offset_left = 376.0
-offset_top = 357.0
-offset_right = 1537.0
-offset_bottom = 778.0
+offset_left = 44.80922
+offset_top = 112.600006
+offset_right = 854.7716
+offset_bottom = 359.80002
 theme = ExtResource("12_1rwlj")
 bbcode_enabled = true
 fit_content = true
 
-[connection signal="pressed" from="UI/EnterGuardpostButton" to="." method="OnPressedEnterGuardpost"]
-[connection signal="pressed" from="UI/DebugPanel/NavNewGame" to="UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
-[connection signal="pressed" from="UI/DebugPanel/NavNpcInteraction" to="UI/DebugPanel/NavNpcInteraction" method="OnPressedDebugNav" binds= ["res://scenes/common/npc_interaction.tscn"]]
-[connection signal="pressed" from="UI/DebugPanel/NavItemInspection" to="UI/DebugPanel/NavItemInspection" method="OnPressedDebugNav" binds= ["res://scenes/common/item_inspection.tscn"]]
-[connection signal="pressed" from="UI/DebugPanel/NavMainMenu" to="UI/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]
-[connection signal="pressed" from="UI/DebugPanel/SpawnNpcDebug" to="." method="OnPressedSpawnNpc"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/EnterGuardpostButton" to="SubViewportContainer/SubViewport/HarborView" method="OnPressedEnterGuardpost"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNpcInteraction" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNpcInteraction" method="OnPressedDebugNav" binds= ["res://scenes/common/npc_interaction.tscn"]]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavItemInspection" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavItemInspection" method="OnPressedDebugNav" binds= ["res://scenes/common/item_inspection.tscn"]]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavMainMenu" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/SpawnNpcDebug" to="SubViewportContainer/SubViewport/HarborView" method="OnPressedSpawnNpc"]

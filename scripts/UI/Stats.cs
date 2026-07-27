@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Godot;
 
 public partial class Stats : RichTextLabel
@@ -18,7 +19,7 @@ public partial class Stats : RichTextLabel
 				_saveSelect.AddItem(save.name);
 
 			_saveSelect.ItemSelected += OnSaveSelected;
-			DisplayAllStats();
+			Text = DisplayAllStats();
 		}
 		else
 		{
@@ -31,12 +32,9 @@ public partial class Stats : RichTextLabel
 
 	private void OnSaveSelected(long index)
 	{
-		Clear();
-		if (index == 0)
-			Text = DisplayAllStats();
-		else
-
-			Text = _saves[index - 1].GameStats.DisplayStats();
+		if (index == 0) Text = DisplayAllStats();
+		else Text = _saves[index - 1].GameStats.DisplayStats();
+			
 	}
 
 	private string DisplayAllStats()

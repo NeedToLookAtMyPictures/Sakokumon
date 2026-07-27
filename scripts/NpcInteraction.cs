@@ -42,15 +42,11 @@ public partial class NpcInteraction : Node2D
 			
 			if (global.State == GameState.ItemsInspected) ((Control)btnController.GetNode("ActionPanel")).Visible = true;
 		}
-
-		
-		
 		
 		// _dialogueBox = GetNode<Control>("UI/DialogueBox");
 		// _dialogueText = GetNode<Label>("UI/DialogueBox/DialogueText");
 		// _dialogueBox.Visible = false;
 	}
-
 	public async Task StartTransition() 
 	{
 		var color = label.Modulate;
@@ -147,5 +143,19 @@ public partial class NpcInteraction : Node2D
 	{
 		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		_dialogueBox.Visible = false;
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_cancel"))
+        {
+            OnGameToggled();
+        }
+    }
+
+	public void OnGameToggled()
+	{
+		var pauseMenu = GetNode<Control>("PauseMenu");
+		pauseMenu.Visible = !pauseMenu.Visible;
 	}
 }

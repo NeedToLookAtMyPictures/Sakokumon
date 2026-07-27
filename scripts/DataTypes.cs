@@ -270,13 +270,18 @@ namespace Data
 				newtext += a;
 				return newtext;
 			};
-			AppendText($"\n\nInspected persons: {inspectedPersons}\n");
+			if (inspectedPersons == 0)
+			{
+				AppendText("[center][font_size=35]No statistics available.[/font_size][/center]");
+				return newtext;
+			}
+			AppendText($"[center][font_size=35]\n\nInspected persons: {inspectedPersons}\n");
 			AppendText($"Inspected innocents: {totalInnocents}\n");
 			AppendText($"Innocents accused: {innocentsAccused}\n");
 			AppendText($"Smugglers caught: {smugglersCaught}\n");
 			AppendText($"Smugglers missed: {smugglersMissed}\n");
 			AppendText($"\nAccuracy: {accuracy}\n");
-			AppendText($"Catch rate: {catchRate}\n");
+			AppendText($"Catch rate: {catchRate}\n[/font_size][/center]");
 			return newtext;
 		}
 
@@ -324,7 +329,7 @@ namespace Data
         public Dictionary<int, Level> levels;
 		public Stats GameStats
         {
-            get => levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m);
+            get => levels != null ? levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m) : new Stats();
         }
         public DateTime lastUpdated;
 		public GameData() {}

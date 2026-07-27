@@ -75,8 +75,10 @@ namespace Data
 				{
 					string slotName = filename.TrimSuffix(".save");
 					string json = Godot.FileAccess.GetFileAsString($"user://saves/{filename}");
+					if (json.Length == 0) return new SaveSlot();
 					return new SaveSlot { SlotName = slotName, Saves = ParseSlotJson(json) };
 				})
+				.Where(x => x.Saves != null && x.Saves.Length > 0)
 				.ToArray();
 		}
 
@@ -159,6 +161,11 @@ namespace Data
 			}
             file.StoreString(JsonSerializer.Serialize(list, new JsonSerializerOptions { IncludeFields = true}));
             GD.Print("Saved!");
+		}
+
+		public void flush()
+		{
+			Data = null;
 		}
 
 		/**

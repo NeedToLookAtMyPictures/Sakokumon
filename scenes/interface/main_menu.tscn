@@ -266,7 +266,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="StatsMenu" parent="." unique_id=2038880874 instance=ExtResource("7_dfwog")]
 visible = false
-position = Vector2(-2, 10)
+position = Vector2(-4, 1)
 
 [node name="Settings" parent="." unique_id=1487254743 instance=ExtResource("8_dysqo")]
 visible = false

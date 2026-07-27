@@ -19,60 +19,61 @@ theme = ExtResource("1_6e5bw")
 layout_mode = 0
 offset_left = 1.0
 offset_top = 2.0
-offset_right = 863.0
-offset_bottom = 643.0
+offset_right = 1921.0
+offset_bottom = 1089.0
 color = Color(0.047058824, 0.047058824, 0.047058824, 0.3529412)
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1314380493]
-position = Vector2(440.00003, 325.99997)
-scale = Vector2(5.0128207, 4.7333326)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1455213924]
+position = Vector2(410, 123)
+scale = Vector2(7.0250106, 6.633333)
 texture = ExtResource("2_dckan")
+centered = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1876411002]
 layout_mode = 0
-offset_left = 278.0
-offset_top = 117.0
-offset_right = 604.0
-offset_bottom = 181.0
+offset_left = 783.0
+offset_top = 227.0
+offset_right = 1109.0
+offset_bottom = 291.0
 bbcode_enabled = true
-text = "[b][font_size=40
+text = "[b][font_size=60
 ][center][color=#000000]Settings[/color][/center][/font_size][/b]"
 
 [node name="Master Vol" type="HSlider" parent="." unique_id=781445719]
 layout_mode = 0
-offset_left = 287.0
-offset_top = 204.0
-offset_right = 568.0
-offset_bottom = 274.0
+offset_left = 789.0
+offset_top = 387.0
+offset_right = 1118.0
+offset_bottom = 442.0
 value = 100.0
 script = ExtResource("2_bybga")
 SliderID = "master"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=101076450]
 layout_mode = 0
-offset_left = 287.0
-offset_top = 204.0
-offset_right = 434.0
-offset_bottom = 244.0
+offset_left = 788.0
+offset_top = 381.0
+offset_right = 1002.0
+offset_bottom = 421.0
 bbcode_enabled = true
-text = "[b]Master Volume"
+text = "[b][font_size=25]Master Volume[/font_size][/b]"
 
 [node name="Music Vol" type="HSlider" parent="." unique_id=1683176247]
 layout_mode = 0
-offset_left = 289.0
-offset_top = 345.0
-offset_right = 568.0
-offset_bottom = 415.0
+offset_left = 786.0
+offset_top = 515.0
+offset_right = 1110.0
+offset_bottom = 585.0
 value = 100.0
 script = ExtResource("2_bybga")
 SliderID = "music"
 
 [node name="SFX Vol" type="HSlider" parent="." unique_id=1820208156]
 layout_mode = 0
-offset_left = 291.0
-offset_top = 272.0
-offset_right = 571.0
-offset_bottom = 342.0
+offset_left = 788.0
+offset_top = 442.0
+offset_right = 1112.0
+offset_bottom = 512.0
 value = 100.0
 script = ExtResource("2_bybga")
 SliderID = "sfx"
@@ -93,30 +94,30 @@ script = ExtResource("2_rog5w")
 
 [node name="Return" type="Button" parent="." unique_id=660613374]
 layout_mode = 0
-offset_left = 549.0
-offset_top = 446.0
-offset_right = 714.0
-offset_bottom = 529.0
+offset_left = 858.0
+offset_top = 709.0
+offset_right = 1023.0
+offset_bottom = 792.0
 text = "Return"
 script = ExtResource("1_5p8wc")
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="." unique_id=621880374]
 layout_mode = 0
-offset_left = 289.0
-offset_top = 344.0
-offset_right = 436.0
-offset_bottom = 384.0
+offset_left = 786.0
+offset_top = 514.0
+offset_right = 933.0
+offset_bottom = 554.0
 bbcode_enabled = true
-text = "[b]Music Volume[/b]"
+text = "[b][font_size=25]Music Volume[/font_size][/b]"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="." unique_id=1694955137]
 layout_mode = 0
-offset_left = 291.0
-offset_top = 271.0
-offset_right = 438.0
-offset_bottom = 311.0
+offset_left = 788.0
+offset_top = 441.0
+offset_right = 935.0
+offset_bottom = 481.0
 bbcode_enabled = true
-text = "[b]SFX Volume[/b]"
+text = "[b][font_size=25]SFX Volume[/font_size][/b]"
 
 [connection signal="drag_ended" from="Master Vol" to="Master Vol" method="OnChangedVolumeSliders" binds= ["master"]]
 [connection signal="drag_ended" from="Music Vol" to="Music Vol" method="OnChangedVolumeSliders" binds= ["music"]]

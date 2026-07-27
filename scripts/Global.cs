@@ -14,17 +14,26 @@ public partial class Global : Node
 	public List<List<bool>> itemGrid
 	{ 
 		get => Database.Data.CurrentLevel.currentItemGrid;
-		set => Database.Data.CurrentLevel.currentItemGrid = value;
+		set
+		{
+			if (Database != null && Database.Data != null && Database.Data.CurrentLevel != null) Database.Data.CurrentLevel.currentItemGrid = value;
+		}
 	}
 	public List<ObjectData> itemsInGrid 
 	{ 
 		get => Database.Data.CurrentLevel.currentItems;
-		set => Database.Data.CurrentLevel.currentItems = value;
+		set
+		{
+			if (Database != null && Database.Data != null && Database.Data.CurrentLevel != null) Database.Data.CurrentLevel.currentItems = value;
+		}
 	}
 	public List<ObjectData> itemsInStorage
 	{ 
 		get => Database.Data.CurrentLevel.currentItemStorage;
-		set => Database.Data.CurrentLevel.currentItemStorage = value;
+		set
+		{
+			if (Database != null && Database.Data != null && Database.Data.CurrentLevel != null) Database.Data.CurrentLevel.currentItemStorage = value;
+		}
 	}
 	public List<Node2D> nodesInStorage { get; set; }
 	public Database Database { get; set; }

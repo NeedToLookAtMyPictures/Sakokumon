@@ -37,7 +37,34 @@ scale = Vector2(216, 548)
 texture = SubResource("PlaceholderTexture2D_q8wnc")
 flip_h = true
 
+[node name="OuterStorageControl" type="Control" parent="InspectionBox" unique_id=1668614636]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="StorageAreaScroll" type="ScrollContainer" parent="InspectionBox/OuterStorageControl" unique_id=2137371733]
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+offset_left = 648.0
+offset_right = 864.0
+offset_bottom = 548.0
+grow_vertical = 0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+scroll_hint_mode = 1
+
+[node name="StorageAreaControl" type="Control" parent="InspectionBox/OuterStorageControl/StorageAreaScroll" unique_id=200381500]
+custom_minimum_size = Vector2(208, 548)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
 [node name="FlagIllegalItemButton" type="Node2D" parent="." unique_id=879858922]
+z_index = 7
 position = Vector2(648, 548)
 
 [node name="Sprite2D" type="Sprite2D" parent="FlagIllegalItemButton" unique_id=953431619]

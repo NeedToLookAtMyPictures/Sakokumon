@@ -103,6 +103,8 @@ public partial class draggableObject : Area2D
 	{
 		itemGrid = Global.Instance.itemGrid;
 
+		Control storageControlNode = GetNode<Control>("/root/ItemInspection/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+
 
 		// Connect signals in code
 		MouseEntered += OnMouseEntered; // -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
@@ -231,6 +233,14 @@ public partial class draggableObject : Area2D
 					Global.Instance.nodesInStorage.Add(parent);
 					Global.Instance.updateStorage();
 
+					// reparent
+					Control storageControlNode = GetNode<Control>("/root/ItemInspection/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+					if (storageControlNode == null)
+					{
+						GD.PrintErr("couldn't find storageAreaControl");
+					}
+					parent.Reparent(storageControlNode);
+
 					// place item into global list of items in storage, and remove from grid
 					Global.Instance.itemsInStorage.Add(parentData);
 					Global.Instance.itemsInGrid.Remove(parentData);
@@ -321,6 +331,10 @@ public partial class draggableObject : Area2D
 						GD.Print($"Removed item from storage: {Global.Instance.itemsInStorage.Remove(parentData)}");
 						Global.Instance.itemsInGrid.Add(parentData);
 
+						// reparent
+						parent.Reparent(GetNode<Node2D>("/root/ItemInspection/InspectionBox/GoodsGrid"));
+
+
 						Global.Instance.updateStorage();
 					}
 
@@ -363,6 +377,14 @@ public partial class draggableObject : Area2D
 						}
 						parentData.positionVector = new Vector2(-1, -1);
 						Global.Instance.nodesInStorage.Add(parent);
+
+						// reparent
+						Control storageControlNode = GetNode<Control>("/root/ItemInspection/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+						if (storageControlNode == null)
+						{
+							GD.PrintErr("couldn't find storageAreaControl");
+						}
+						parent.Reparent(storageControlNode);
 
 						// place item into global list of items in storage, and remove from grid
 						Global.Instance.itemsInStorage.Add(parentData);

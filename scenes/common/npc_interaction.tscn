@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dwqlpk84pr0aa" path="res://scripts/NpcInteraction.cs" id="1_npcroot"]
 [ext_resource type="Script" uid="uid://cbktrgnm8y40u" path="res://scripts/NpcInteractionOptions.cs" id="2_npcbtn"]
-[ext_resource type="Script" uid="uid://bpbf0otvy2ruy" path="res://scripts/NpcWindowSprite.cs" id="2_tt4yl"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="2_tt4yl"]
+[ext_resource type="Texture2D" uid="uid://es0hrltcx7hc" path="res://assets/frametexture.png" id="2_u4ami"]
+[ext_resource type="Texture2D" uid="uid://c54hou2vl52be" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-3.png" id="3_eyujm"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="4_dbg"]
 [ext_resource type="Texture2D" uid="uid://cqxyid1tnk1y7" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-2.png" id="4_g0iyq"]
 [ext_resource type="Texture2D" uid="uid://dia0kn5gdoxav" path="res://assets/panel.png" id="5_0dbxb"]
 [ext_resource type="PackedScene" uid="uid://tc6occj88o76" path="res://scenes/common/pause_menu.tscn" id="9_eyujm"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_npc"]
-
-[sub_resource type="Theme" id="Theme_u4ami"]
 
 [node name="NpcInteraction" type="Node2D" unique_id=400000001]
 script = ExtResource("1_npcroot")
@@ -24,7 +24,6 @@ texture = ExtResource("3_eyujm")
 position = Vector2(619, 435)
 scale = Vector2(200, 266.953)
 texture = SubResource("PlaceholderTexture2D_npc")
-script = ExtResource("2_tt4yl")
 
 [node name="GuardpostFrame3" type="Sprite2D" parent="." unique_id=276145714]
 position = Vector2(264.9845, 535.99994)
@@ -74,16 +73,6 @@ offset_right = 149.0
 offset_bottom = 89.0
 bbcode_enabled = true
 text = "[color=#FFFFFF][center]CALENDAR[/center][/color]"
-
-[node name="ReturnToHarbor" type="Button" parent="Control" unique_id=400000009]
-visible = false
-layout_mode = 0
-offset_left = 318.0
-offset_top = 22.0
-offset_right = 518.0
-offset_bottom = 62.0
-text = "Return to Harbor"
-script = ExtResource("4_dbg")
 
 [node name="ActionControl" type="Control" parent="Control" unique_id=1954823347]
 visible = false
@@ -202,6 +191,15 @@ offset_right = 569.0
 offset_bottom = -96.0
 text = "Dialogue Bar"
 
+[node name="ReturnToHarbor" type="Button" parent="Control" unique_id=400000009]
+layout_mode = 0
+offset_left = 878.0
+offset_top = 4.0
+offset_right = 1104.0
+offset_bottom = 72.0
+text = "Return to Harbor"
+script = ExtResource("4_dbg")
+
 [node name="UI" type="CanvasLayer" parent="Control" unique_id=400000008]
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=69247541]
@@ -211,42 +209,14 @@ offset_right = 1747.0
 offset_bottom = 853.0
 text = "Dialogue Responses"
 
-[node name="YearInfo" type="Control" parent="." unique_id=2123139396]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = -16.0
-offset_top = 20.0
-offset_right = 1907.0
-offset_bottom = 1111.0
-theme = SubResource("Theme_u4ami")
-
-[node name="ColorRect" type="ColorRect" parent="YearInfo" unique_id=1054978311]
-layout_mode = 0
-offset_left = 24.0
-offset_top = -19.0
-offset_right = 1926.0
-offset_bottom = 1067.0
-color = Color(0, 0, 0, 1)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="YearInfo" unique_id=410929547]
-layout_mode = 0
-offset_left = 376.0
-offset_top = 357.0
-offset_right = 1537.0
-offset_bottom = 778.0
-theme = ExtResource("2_tt4yl")
-bbcode_enabled = true
-fit_content = true
-
 [node name="PauseMenu" parent="." unique_id=58057326 instance=ExtResource("9_eyujm")]
 visible = false
 
-[connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
 [connection signal="pressed" from="Control/ActionControl/IllegalItemListButton" to="Control/ActionControl/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
 [connection signal="pressed" from="Control/ActionControl/InspectItemsButton" to="Control/ActionControl/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
-[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" to="." method="AllowNPC"]
-[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/DetainButton" to="." method="RejectNPC"]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" to="Control/ActionControl/IllegalItemListButton" method="OnPressedNpcOption" binds= ["allow"]]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/DetainButton" to="Control/ActionControl/InspectItemsButton" method="OnPressedNpcOption" binds= ["detain"]]
 [connection signal="pressed" from="Control/DialogueBox/DismissButton" to="." method="OnPressedDismissDialogue"]
 [connection signal="pressed" from="Control/DebugPanel/NavNewGame" to="Control/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
 [connection signal="pressed" from="Control/DebugPanel/NavMainMenu" to="Control/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]
+[connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]

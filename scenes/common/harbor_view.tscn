@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
 [ext_resource type="Texture2D" uid="uid://bxurualrcp6n1" path="res://assets/sprites/scenery/harborView/keepWallL.png" id="9_keepL"]
 [ext_resource type="Texture2D" uid="uid://b6ee0dvdcqd82" path="res://assets/sprites/scenery/harborView/keepWallR.png" id="10_keepR"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="12_1rwlj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
 size = Vector2(256, 64)
@@ -107,6 +108,8 @@ point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_npcTemplate"]
 size = Vector2(20, 36)
+
+[sub_resource type="Theme" id="Theme_r1w1t"]
 
 [node name="HarborView" type="Node2D" unique_id=300000001]
 script = ExtResource("2_hv")
@@ -357,6 +360,34 @@ offset_top = 166.0
 offset_right = 245.0
 offset_bottom = 196.0
 text = "Spawn NPC (Debug)"
+
+[node name="YearInfo" type="Control" parent="." unique_id=774069679]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = 20.0
+offset_right = 1907.0
+offset_bottom = 1111.0
+theme = SubResource("Theme_r1w1t")
+
+[node name="ColorRect" type="ColorRect" parent="YearInfo" unique_id=1856194177]
+layout_mode = 0
+offset_left = 24.0
+offset_top = -19.0
+offset_right = 1926.0
+offset_bottom = 1067.0
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="YearInfo" unique_id=1504004398]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 357.0
+offset_right = 1537.0
+offset_bottom = 778.0
+theme = ExtResource("12_1rwlj")
+bbcode_enabled = true
+fit_content = true
 
 [connection signal="pressed" from="UI/EnterGuardpostButton" to="." method="OnPressedEnterGuardpost"]
 [connection signal="pressed" from="UI/DebugPanel/NavNewGame" to="UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]

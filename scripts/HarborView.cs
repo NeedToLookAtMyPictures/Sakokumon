@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class HarborView : Node2D
 {
@@ -34,18 +35,23 @@ public partial class HarborView : Node2D
 	private Global          _global;
 	private CharacterBody2D _npcTemplate;
 
+	private Control YearInfo;
+
 	private readonly Dictionary<Global.NpcData, CharacterBody2D> _npcBodies = new();
 	private readonly List<BackgroundNpc> _bgNpcs = new();
 	private readonly List<Curve2D> _bgPaths = new();
 	private float _bgSpawnTimer;
 
-	public override void _Ready()
+	private bool transitionComplete = false;
+
+	public override async void _Ready()
 	{
 		_notificationPanel    = GetNode<Control>("UI/NotificationPanel");
 		_enterGuardpostButton = GetNode<Button>("UI/EnterGuardpostButton");
 		_npcLayer             = GetNode<Node2D>("NPCLayer");
 		_global               = GetNode<Global>("/root/Global");
 		_npcTemplate          = GetNode<CharacterBody2D>("NpcTemplate");
+		YearInfo			  = GetNode<Control>("YearInfo");
 
 		RegisterPaths();
 		HideNpcNotification();
@@ -56,6 +62,35 @@ public partial class HarborView : Node2D
 
 		if (_global.npcPresent)
 			ShowNpcNotification();
+		if (Global.Instance.State == Data.GameState.GameNotStarted)
+		{	
+			Global.Instance.State = Data.GameState.NPCNotSeen;
+			await StartTransition();
+		} 
+		transitionComplete = true;
+	}
+
+	public async Task StartTransition() 
+	{
+		var label = YearInfo.GetNode<RichTextLabel>("RichTextLabel");
+		var color = label.Modulate;
+		color.A = 0;
+		label.Modulate = color;
+		label.Text = $"[center][color=#FFFFFF][font_size=60]Current Year[/font_size]\n[b][font_size=200]{Global.Instance.Database.data.CurrentYear}[/font_size][/b][/color][/center]";
+		YearInfo.Visible = true;
+		var tween = CreateTween();
+		tween.TweenProperty(label, "modulate:a",1.0f,2.0f)
+			.SetTrans(Tween.TransitionType.Sine)
+			.SetEase(Tween.EaseType.In);
+		await ToSignal(tween, Tween.SignalName.Finished);
+		await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
+		var tweenOut = CreateTween();
+		tweenOut.TweenProperty(YearInfo, "modulate:a",0.0f,1.0f)
+			.SetTrans(Tween.TransitionType.Sine)
+			.SetEase(Tween.EaseType.Out);
+		await ToSignal(tweenOut, Tween.SignalName.Finished);
+		YearInfo.Visible = false;
+
 	}
 
 	public override void _Process(double delta)
@@ -125,6 +160,7 @@ public partial class HarborView : Node2D
 				_bgNpcs.RemoveAt(i);
 			}
 		}
+		if (Global.Instance.Database.Data.CurrentLevel.CurrentPerson == null) EndDay();
 	}
 
 	private static void MoveWithSlide(CharacterBody2D body, Vector2 motion)
@@ -284,5 +320,16 @@ public partial class HarborView : Node2D
 	public void OnPressedSpawnNpc()
 	{
 		_global.SpawnNpc();
+	}
+
+	public async void EndDay()
+	{
+		Global.Instance.State = Data.GameState.EndDay;
+		var tweenOut = CreateTween();
+		tweenOut.TweenProperty(this,"modulate", new Color(0,0,0,1),1.5f);
+		await ToSignal(tweenOut,Tween.SignalName.Finished);
+		
+		Global.Instance.GoToScene("res://scenes/common/end_of_day.tscn");
+
 	}
 }

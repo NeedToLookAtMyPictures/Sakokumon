@@ -177,7 +177,7 @@ public partial class LoadMenu : Control
 		if (_selectedSlot == null || _selectedSave == null) return;
 		var global = GetNode<Global>("/root/Global");
 		global.Database.LoadSaveFromSlot(_selectedSlot, _selectedSave);
-		global.GoToScene("res://scenes/common/item_inspection.tscn");
+		global.GoToScene("res://scenes/common/harbor_view.tscn");
 	}
 
 	private void OnBackPressed()

@@ -12,8 +12,6 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_npc"]
 
-[sub_resource type="Theme" id="Theme_u4ami"]
-
 [node name="NpcInteraction" type="Node2D" unique_id=400000001]
 script = ExtResource("1_npcroot")
 
@@ -75,16 +73,6 @@ offset_right = 149.0
 offset_bottom = 89.0
 bbcode_enabled = true
 text = "[color=#FFFFFF][center]CALENDAR[/center][/color]"
-
-[node name="ReturnToHarbor" type="Button" parent="Control" unique_id=400000009]
-visible = false
-layout_mode = 0
-offset_left = 318.0
-offset_top = 22.0
-offset_right = 518.0
-offset_bottom = 62.0
-text = "Return to Harbor"
-script = ExtResource("4_dbg")
 
 [node name="ActionControl" type="Control" parent="Control" unique_id=1954823347]
 visible = false
@@ -203,6 +191,15 @@ offset_right = 569.0
 offset_bottom = -96.0
 text = "Dialogue Bar"
 
+[node name="ReturnToHarbor" type="Button" parent="Control" unique_id=400000009]
+layout_mode = 0
+offset_left = 878.0
+offset_top = 4.0
+offset_right = 1104.0
+offset_bottom = 72.0
+text = "Return to Harbor"
+script = ExtResource("4_dbg")
+
 [node name="UI" type="CanvasLayer" parent="Control" unique_id=400000008]
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=69247541]
@@ -212,42 +209,14 @@ offset_right = 1747.0
 offset_bottom = 853.0
 text = "Dialogue Responses"
 
-[node name="YearInfo" type="Control" parent="." unique_id=2123139396]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = -16.0
-offset_top = 20.0
-offset_right = 1907.0
-offset_bottom = 1111.0
-theme = SubResource("Theme_u4ami")
-
-[node name="ColorRect" type="ColorRect" parent="YearInfo" unique_id=1054978311]
-layout_mode = 0
-offset_left = 24.0
-offset_top = -19.0
-offset_right = 1926.0
-offset_bottom = 1067.0
-color = Color(0, 0, 0, 1)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="YearInfo" unique_id=410929547]
-layout_mode = 0
-offset_left = 376.0
-offset_top = 357.0
-offset_right = 1537.0
-offset_bottom = 778.0
-theme = ExtResource("2_tt4yl")
-bbcode_enabled = true
-fit_content = true
-
 [node name="PauseMenu" parent="." unique_id=58057326 instance=ExtResource("9_eyujm")]
 visible = false
 
-[connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
 [connection signal="pressed" from="Control/ActionControl/IllegalItemListButton" to="Control/ActionControl/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
 [connection signal="pressed" from="Control/ActionControl/InspectItemsButton" to="Control/ActionControl/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
-[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" to="." method="AllowNPC"]
-[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/DetainButton" to="." method="RejectNPC"]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" to="Control/ActionControl/IllegalItemListButton" method="OnPressedNpcOption" binds= ["allow"]]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/DetainButton" to="Control/ActionControl/InspectItemsButton" method="OnPressedNpcOption" binds= ["detain"]]
 [connection signal="pressed" from="Control/DialogueBox/DismissButton" to="." method="OnPressedDismissDialogue"]
 [connection signal="pressed" from="Control/DebugPanel/NavNewGame" to="Control/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
 [connection signal="pressed" from="Control/DebugPanel/NavMainMenu" to="Control/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]
+[connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]

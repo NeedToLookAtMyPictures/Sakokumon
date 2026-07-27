@@ -185,8 +185,8 @@ namespace Data
 
 
 		private List<List<bool>> cig; // for retaining items
-		private List<ObjectData> ci; // for existing items being reviewed
-		private List<ObjectData> cis; // for existing items being reviewed
+		private List<ObjectDataSimplified> ci; // for existing items being reviewed
+		private List<ObjectDataSimplified> cis; // for existing items being reviewed
 
 
 		public List<List<bool>> currentItemGrid
@@ -202,7 +202,7 @@ namespace Data
 				cig = value;
 			}
 		}
-		public List<ObjectData> currentItems
+		public List<ObjectDataSimplified> currentItems
 		{
 			get
 			{
@@ -215,7 +215,7 @@ namespace Data
 				ci = value;
 			}
 		}
-		public List<ObjectData> currentItemStorage
+		public List<ObjectDataSimplified> currentItemStorage
 		{
 			get
 			{

@@ -11,7 +11,6 @@ public partial class NewGameOptions : Button
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.Out);
 		await ToSignal(tween,Tween.SignalName.Finished);
-		GetNode<Global>("/root/Global").State = Data.GameState.NPCNotSeen;
-		GetNode<Global>("/root/Global").GoToScene("res://scenes/common/npc_interaction.tscn");
+		GetNode<Global>("/root/Global").GoToScene("res://scenes/common/harbor_view.tscn");
 	}
 }

@@ -57,8 +57,8 @@ namespace Data
 		{
 			string trimmed = json.TrimStart();
 			if (trimmed.StartsWith('['))
-				return JsonSerializer.Deserialize<GameData[]>(trimmed) ?? [];
-			var single = JsonSerializer.Deserialize<GameData>(trimmed);
+				return JsonSerializer.Deserialize<GameData[]>(trimmed, new JsonSerializerOptions { IncludeFields = true}) ?? [];
+			var single = JsonSerializer.Deserialize<GameData>(trimmed, new JsonSerializerOptions { IncludeFields = true});
 			return single != null ? [single] : [];
 		}
 
@@ -75,8 +75,10 @@ namespace Data
 				{
 					string slotName = filename.TrimSuffix(".save");
 					string json = Godot.FileAccess.GetFileAsString($"user://saves/{filename}");
+					if (json.Length == 0) return new SaveSlot();
 					return new SaveSlot { SlotName = slotName, Saves = ParseSlotJson(json) };
 				})
+				.Where(x => x.Saves != null && x.Saves.Length > 0)
 				.ToArray();
 		}
 
@@ -104,6 +106,7 @@ namespace Data
         public void CreateSave(string name)
         {
 			CurrentSlotName = name;
+			if (Godot.FileAccess.FileExists("user://saves/{slotName}.save")) throw new Exception("Save already exists");
             data = new GameData
             {
 				name = name,
@@ -156,8 +159,13 @@ namespace Data
 				GD.PrintErr($"Failed to open file: {Godot.FileAccess.GetOpenError()}");
 				return;
 			}
-            file.StoreString(JsonSerializer.Serialize(list));
+            file.StoreString(JsonSerializer.Serialize(list, new JsonSerializerOptions { IncludeFields = true}));
             GD.Print("Saved!");
+		}
+
+		public void flush()
+		{
+			Data = null;
 		}
 
 		/**
@@ -173,10 +181,9 @@ namespace Data
 				GD.Print("No new encounters were generated");
 				return;
 			}
-			// defines each step(decade?) from 1600 to 2000
 
 			var encounters = new Dictionary<int, Level>();
-			foreach (int step in Enumerable.Range(0,max).Select(i => 1639 + i * 10))
+			foreach (int step in Enumerable.Range(0,max).Select(i => 1695 + i * 10))
 			{
 
 				if (data.levels != null && data.levels.TryGetValue(step,out Level val))
@@ -190,6 +197,7 @@ namespace Data
 							  .ToArray();
 				var ele = arr.Where(x => x.smuggler);
 				if (ele.Count() == 0) {
+					GD.Print("No smugglers?? adding one..");
 					arr[^1] = new Person(this, arr.Count() - 1, true);
 					arr = arr.OrderBy(_ => Random.Shared.Next()).ToArray(); // well..
 				};

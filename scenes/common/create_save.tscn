@@ -50,19 +50,19 @@ text = "[center][font_size=50][b]Name this save[/b][/font_size]"
 
 [node name="Return" type="Button" parent="." unique_id=415036709]
 layout_mode = 0
-offset_left = 1229.0
-offset_top = 778.0
-offset_right = 1484.0
-offset_bottom = 896.0
+offset_left = 447.0
+offset_top = 760.0
+offset_right = 702.0
+offset_bottom = 881.0
 text = "Return"
 script = ExtResource("4_dwm54")
 
 [node name="Save" type="Button" parent="." unique_id=858251568]
 layout_mode = 0
-offset_left = 444.0
-offset_top = 772.0
-offset_right = 711.0
-offset_bottom = 888.0
+offset_left = 1223.0
+offset_top = 777.0
+offset_right = 1490.0
+offset_bottom = 893.0
 text = "Create"
 
 [node name="TextEdit" type="TextEdit" parent="." unique_id=1170695320]

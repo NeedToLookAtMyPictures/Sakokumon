@@ -9,9 +9,8 @@ using System.Text.Json;
 public partial class PopulateGrid : Node2D
 {
 
-	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
-	bool isSmuggler = true;
-	int currentYear = 1695;
+	bool isSmuggler = Global.Instance.Database.Data.CurrentLevel.CurrentPerson.smuggler;
+	int currentYear = Global.Instance.Database.Data.CurrentYear;
 	int difficulty = 5;
 	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
 	// (1/difficulty) is the chance for smugglers to keep any illegal items beyond the first guaranteed item

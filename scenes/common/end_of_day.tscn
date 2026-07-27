@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cihqbhmlrkbtv" path="res://assets/pixellab-A-flat--straight-on-lateral-el-1784792676742.png" id="1_rnise"]
 [ext_resource type="Script" uid="uid://cbthfylt5or8o" path="res://scripts/UI/EndOfDay.cs" id="2_ikpur"]
 [ext_resource type="Texture2D" uid="uid://b4dqq44pk5vfa" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_3.png" id="3_3sslr"]
+[ext_resource type="PackedScene" uid="uid://tc6occj88o76" path="res://scenes/common/pause_menu.tscn" id="5_6lw7o"]
 
 [node name="EndOfDay" type="Control" unique_id=935379371]
 layout_mode = 3
@@ -16,8 +17,8 @@ theme = ExtResource("1_nou7a")
 script = ExtResource("2_ikpur")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=1859584381]
-position = Vector2(963.19806, 641.5)
-scale = Vector2(3.0259433, 3.0259433)
+position = Vector2(960, 641.5)
+scale = Vector2(3.0158226, 3.0259433)
 texture = ExtResource("1_rnise")
 
 [node name="TitleText" type="RichTextLabel" parent="." unique_id=203507216]
@@ -63,5 +64,13 @@ offset_right = 1571.8999
 offset_bottom = 750.0
 theme_override_font_sizes/font_size = 50
 text = "Continue"
+
+[node name="PauseMenu" parent="." unique_id=58057326 instance=ExtResource("5_6lw7o")]
+visible = false
+layout_mode = 1
+offset_left = 9.0
+offset_top = 11.0
+offset_right = 9.0
+offset_bottom = 11.0
 
 [connection signal="pressed" from="StatsControl/Button" to="." method="Continue"]

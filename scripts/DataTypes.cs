@@ -8,15 +8,16 @@ using System.Text.Json.Serialization;
 
 namespace Data
 {
-	public enum GameState
-	{
-		GameNotStarted,
-		NPCNotSeen,
+    public enum GameState
+    {
+        GameNotStarted,
+        NPCNotSeen,
 		NPCSeen,
-		ItemsInspected,
-		NPCAllowed,
-		NPCDenied
-	}
+        ItemsInspected,
+        NPCAllowed,
+        NPCDenied,
+		EndDay
+    }
 
 	public class GameStateManager
 	{
@@ -134,10 +135,11 @@ namespace Data
 		public Person(Database db, int newId, bool forceSmuggler = false)
 		{
 			id = newId;
-			smuggler = forceSmuggler ? true : Random.Shared.Next(0,4) == 1;           
-			sprite = db.cassets.OrderBy(_ => Random.Shared.Next()).First();
+			var chance =  Random.Shared.Next(0,3);
+			if (forceSmuggler) smuggler = true;
+			else smuggler = chance == 1;           
+            sprite = db.cassets.OrderBy(_ => Random.Shared.Next()).First();
 			
-
 		}
 
 	}
@@ -182,11 +184,12 @@ namespace Data
 		}
 
 
-		private Item[] cig; // for retaining items
-		private Item[] cis; // for existing items being reviewed
+		private List<List<bool>> cig; // for retaining items
+		private List<ObjectData> ci; // for existing items being reviewed
+		private List<ObjectData> cis; // for existing items being reviewed
 
 
-		public Item[] currentItemGrid
+		public List<List<bool>> currentItemGrid
 		{
 			get
 			{
@@ -199,7 +202,20 @@ namespace Data
 				cig = value;
 			}
 		}
-		public Item[] currentItemStorage
+		public List<ObjectData> currentItems
+		{
+			get
+			{
+				if (ci == null) return [];
+				return ci;
+			}
+			set
+			{
+				if (value == null) return;
+				ci = value;
+			}
+		}
+		public List<ObjectData> currentItemStorage
 		{
 			get
 			{
@@ -254,13 +270,18 @@ namespace Data
 				newtext += a;
 				return newtext;
 			};
-			AppendText($"\n\nInspected persons: {inspectedPersons}\n");
+			if (inspectedPersons == 0)
+			{
+				AppendText("[center][font_size=35]No statistics available.[/font_size][/center]");
+				return newtext;
+			}
+			AppendText($"[center][font_size=35]\n\nInspected persons: {inspectedPersons}\n");
 			AppendText($"Inspected innocents: {totalInnocents}\n");
 			AppendText($"Innocents accused: {innocentsAccused}\n");
 			AppendText($"Smugglers caught: {smugglersCaught}\n");
 			AppendText($"Smugglers missed: {smugglersMissed}\n");
 			AppendText($"\nAccuracy: {accuracy}\n");
-			AppendText($"Catch rate: {catchRate}\n");
+			AppendText($"Catch rate: {catchRate}\n[/font_size][/center]");
 			return newtext;
 		}
 
@@ -284,20 +305,21 @@ namespace Data
 	}
 	public class GameData
 	{
-		public string name = "Untitled Save";
-		private int currentYear = 1639;
+        public string name = "Untitled Save";
+		private int currentYear = 1695;
 
-		public int CurrentYear
-		{
-			get => currentYear;
-		}
-		public void NextYear()
-		{
-			currentYear += 10;
-		}
-		public Level CurrentLevel
-		{
-			get
+        public int CurrentYear
+        {
+            get => currentYear;
+        }
+        public void NextYear()
+        {
+            currentYear += 10;
+        }
+		public GameState state = GameState.GameNotStarted;
+        public Level CurrentLevel
+        {
+            get
 			{
 				if (currentYear > levels.Keys.OrderDescending().First()) return null;
 				return levels[currentYear];
@@ -306,10 +328,10 @@ namespace Data
 
 		public Dictionary<int, Level> levels;
 		public Stats GameStats
-		{
-			get => levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m);
-		}
-		public DateTime lastUpdated;
+        {
+            get => levels != null ? levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m) : new Stats();
+        }
+        public DateTime lastUpdated;
 		public GameData() {}
 
 	}

@@ -25,7 +25,7 @@ public partial class NpcInteraction : Node2D
 		currentNPC = currentLevel.CurrentPerson;
 		btnController = GetNode<Control>("Control/ActionControl");
 		
-
+		if (global.State == GameState.EndDay) EndDay();
 		if (global.State <= GameState.NPCNotSeen) // handles cases of the game still not having been started the game being started but the NPC hasnt been shown
 		{
 			await StartTransition();
@@ -42,15 +42,11 @@ public partial class NpcInteraction : Node2D
 			
 			if (global.State == GameState.ItemsInspected) ((Control)btnController.GetNode("ActionPanel")).Visible = true;
 		}
-
-		
-		
 		
 		// _dialogueBox = GetNode<Control>("UI/DialogueBox");
 		// _dialogueText = GetNode<Label>("UI/DialogueBox/DialogueText");
 		// _dialogueBox.Visible = false;
 	}
-
 	public async Task StartTransition() 
 	{
 		var color = label.Modulate;
@@ -127,10 +123,12 @@ public partial class NpcInteraction : Node2D
 
 	public async void EndDay()
 	{
+		global.State = GameState.EndDay;
 		var tweenOut = CreateTween();
 		tweenOut.TweenProperty(this,"modulate", new Color(0,0,0,1),1.5f);
 		await ToSignal(tweenOut,Tween.SignalName.Finished);
 		// TBD advance to new screen;
+		
 		global.GoToScene("res://scenes/common/end_of_day.tscn");
 
 	}
@@ -145,5 +143,19 @@ public partial class NpcInteraction : Node2D
 	{
 		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		_dialogueBox.Visible = false;
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_cancel"))
+        {
+            OnGameToggled();
+        }
+    }
+
+	public void OnGameToggled()
+	{
+		var pauseMenu = GetNode<Control>("PauseMenu");
+		pauseMenu.Visible = !pauseMenu.Visible;
 	}
 }

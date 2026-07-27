@@ -41,3 +41,10 @@ project/assembly_name="Sakokumon"
 [editor]
 
 version_control/autoload_on_startup=true
+
+[input]
+
+Pause={
+"deadzone": 0.2,
+"events": []
+}

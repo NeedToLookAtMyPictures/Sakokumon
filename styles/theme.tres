@@ -1619,5 +1619,6 @@ RichTextLabel/font_sizes/bold_font_size = 20
 RichTextLabel/font_sizes/normal_font_size = 20
 RichTextLabel/fonts/bold_font = ExtResource("1_2r7j6")
 RichTextLabel/fonts/normal_font = ExtResource("1_molii")
+TextEdit/colors/selection_color = Color(0.6938089, 0.41475323, 0.38351128, 1)
 TextEdit/font_sizes/font_size = 50
 TextEdit/fonts/font = ExtResource("1_2r7j6")

@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="4_dbg"]
 [ext_resource type="Texture2D" uid="uid://cqxyid1tnk1y7" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-2.png" id="4_g0iyq"]
 [ext_resource type="Texture2D" uid="uid://dia0kn5gdoxav" path="res://assets/panel.png" id="5_0dbxb"]
+[ext_resource type="PackedScene" uid="uid://tc6occj88o76" path="res://scenes/common/pause_menu.tscn" id="9_eyujm"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_npc"]
 
@@ -41,8 +42,8 @@ scale = Vector2(1.7129508, 4.1907716)
 texture = ExtResource("2_u4ami")
 
 [node name="GuardFrame" type="Sprite2D" parent="." unique_id=706556035]
-position = Vector2(1000.00006, 426)
-scale = Vector2(1.5304564, 1.994104)
+position = Vector2(1001.1879, 426)
+scale = Vector2(1.5342156, 1.994104)
 texture = ExtResource("4_g0iyq")
 
 [node name="Boardwalk" type="Sprite2D" parent="." unique_id=400000005]
@@ -238,6 +239,9 @@ offset_bottom = 778.0
 theme = ExtResource("2_tt4yl")
 bbcode_enabled = true
 fit_content = true
+
+[node name="PauseMenu" parent="." unique_id=58057326 instance=ExtResource("9_eyujm")]
+visible = false
 
 [connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
 [connection signal="pressed" from="Control/ActionControl/IllegalItemListButton" to="Control/ActionControl/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]

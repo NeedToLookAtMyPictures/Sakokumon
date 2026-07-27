@@ -391,8 +391,8 @@ theme = SubResource("Theme_r1w1t")
 layout_mode = 0
 offset_left = -3.224144
 offset_top = -18.8
-offset_right = 888.99554
-offset_bottom = 623.2
+offset_right = 879.3889
+offset_bottom = 638.2
 color = Color(0, 0, 0, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1504004398]

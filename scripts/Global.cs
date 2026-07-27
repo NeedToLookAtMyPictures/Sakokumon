@@ -1,6 +1,8 @@
 using Data;
 using Godot;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 
 
@@ -39,20 +41,48 @@ public partial class Global : Node
 			if (Database != null && Database.Data != null && Database.Data.CurrentLevel != null) Database.Data.CurrentLevel.currentItemGrid = value;
 		}
 	}
+	private List<ObjectData> iig;
+	private List<ObjectData> iis;
 	public List<ObjectData> itemsInGrid 
 	{ 
-		get => Database.Data.CurrentLevel.currentItems;
+		get
+		{	if (iig == null && Database == null) return new List<ObjectData>();
+			if (iig == null && Database != null && Database.Data != null)
+			{
+				iig = Database.Data.CurrentLevel.currentItems.Select(x => new ObjectData(x)).ToList();
+				return iig;
+			}
+			return iig;
+		}
 		set
 		{
-			if (Database != null && Database.Data != null && Database.Data.CurrentLevel != null) Database.Data.CurrentLevel.currentItems = value;
+			iig = value;
+			if (Database != null && Database.Data != null)
+			{
+				Database.Data.CurrentLevel.currentItems = value.Select(x => new ObjectDataSimplified(x)).ToList();
+			}
+			
 		}
 	}
+
 	public List<ObjectData> itemsInStorage
 	{ 
-		get => Database.Data.CurrentLevel.currentItemStorage;
+		get
+		{	if (iis == null && Database == null) return new List<ObjectData>();
+			if (iis == null && Database != null && Database.Data != null)
+			{
+				iis = Database.Data.CurrentLevel.currentItemStorage.Select(x => new ObjectData(x)).ToList();
+				return iis;
+			}
+			return iis;
+		}
 		set
 		{
-			if (Database != null && Database.Data != null && Database.Data.CurrentLevel != null) Database.Data.CurrentLevel.currentItemStorage = value;
+			iis = value;
+			if (Database != null && Database.Data != null)
+			{
+				Database.Data.CurrentLevel.currentItemStorage = value.Select(x => new ObjectDataSimplified(x)).ToList();
+			}
 		}
 	}
 	public List<Node2D> nodesInStorage { get; set; }

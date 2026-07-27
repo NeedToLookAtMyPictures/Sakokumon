@@ -57,6 +57,11 @@ public partial class HarborView : Node2D
 		HideNpcNotification();
 		_bgSpawnTimer = GD.Randf() * BgSpawnMax;
 
+		if (Global.Instance.State == Data.GameState.NPCSeen)
+		{
+			Global.Instance.npcPresent = true;
+		}
+
 		foreach (var npcData in _global.ActiveNpcs)
 			CreateBodyFor(npcData);
 
@@ -66,7 +71,8 @@ public partial class HarborView : Node2D
 		{	
 			Global.Instance.State = Data.GameState.NPCNotSeen;
 			await StartTransition();
-		} 
+		}
+		
 		transitionComplete = true;
 	}
 
@@ -326,7 +332,8 @@ public partial class HarborView : Node2D
 	{
 		Global.Instance.State = Data.GameState.EndDay;
 		var tweenOut = CreateTween();
-		tweenOut.TweenProperty(this,"modulate", new Color(0,0,0,1),1.5f);
+		var currentScreen = GetTree().CurrentScene;
+		tweenOut.TweenProperty(currentScreen,"modulate", new Color(0,0,0,1),1.5f);
 		await ToSignal(tweenOut,Tween.SignalName.Finished);
 		
 		Global.Instance.GoToScene("res://scenes/common/end_of_day.tscn");

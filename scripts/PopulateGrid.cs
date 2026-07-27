@@ -306,6 +306,7 @@ public partial class PopulateGrid : Node2D
 		// if a list of items from a previous game has been loaded, load that instead of generating new, otherwise generate new
 		if (Global.Instance.itemsInGrid.Count != 0 || Global.Instance.itemsInStorage.Count != 0)
 		{
+			GD.Print("Item list retained!");
 			for (int currItemIndex = 0; currItemIndex < Global.Instance.itemsInGrid.Count; currItemIndex++)
 			{
 				placeObject(Global.Instance.itemsInGrid[currItemIndex], itemGrid, itemGridNode);

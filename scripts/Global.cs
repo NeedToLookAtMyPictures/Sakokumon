@@ -191,5 +191,3 @@ public partial class Global : Node
 		// when removing from storage, remove that instance from items in storage, set position vector, and update storage
 	}
 }
-
-

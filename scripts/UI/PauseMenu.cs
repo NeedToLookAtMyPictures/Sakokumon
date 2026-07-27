@@ -21,7 +21,7 @@ public partial class PauseMenu : Control
 		tween.TweenProperty(parent,"modulate", new Color(0,0,0,1),1.0f);
 		await ToSignal(tween,Tween.SignalName.Finished);
 		Global.Instance.Database.flush();
-		Global.Instance.GoToScene("res://scenes/common/main_menu.tscn");
+		Global.Instance.GoToScene("res://scenes/interface/main_menu.tscn");
 	}
 
 	public async void OnReturnPressed()

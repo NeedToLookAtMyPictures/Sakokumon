@@ -359,7 +359,7 @@ public partial class Global : Node
 
 		if (currentHeightInStorage <= 0) // if items go outside the range of the view
 		{ // update to fit size
-				Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+				Control storageControlNode = GetNode<Control>("/root/AspectRatioContainer/ScaleViewportContainer/ScaleViewport/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
 				storageControlNode.CustomMinimumSize = new Vector2(208.0f, 548.0f - currentHeightInStorage);
 				storageControlNode.Position = new Vector2(0.0f, 0.0f + currentHeightInStorage);
 		}
@@ -367,7 +367,7 @@ public partial class Global : Node
 		{ // set size equal to default size
 			if (nodesInStorage.Count != 0) // get parent and change size if there is a child in storage, otherwise just skip it because the size is already correct
 			{
-				Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+				Control storageControlNode = GetNode<Control>("/root/AspectRatioContainer/ScaleViewportContainer/ScaleViewport/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
 				storageControlNode.CustomMinimumSize = new Vector2(208.0f, 548.0f);
 				storageControlNode.Position = new Vector2(0.0f, 0.0f);
 			}

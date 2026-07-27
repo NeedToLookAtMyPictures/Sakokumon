@@ -9,11 +9,16 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_q8wnc"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_j35y3"]
-
 [node name="ItemInspection" type="Node2D" unique_id=1346857749]
 
-[node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=1753863181]
+[node name="Control" type="Control" parent="." unique_id=598045285]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_yw62p")
+
+[node name="BackgroundSprite" type="Sprite2D" parent="Control" unique_id=1753863181]
 position = Vector2(324, 324)
 scale = Vector2(648, 648)
 texture = SubResource("PlaceholderTexture2D_lkbh4")
@@ -25,27 +30,27 @@ flip_v = true
 [node name="GoodsGrid" type="Node2D" parent="Control/InspectionBox" unique_id=1662621992]
 script = ExtResource("1_roc8h")
 
-[node name="BoxBackground" type="Sprite2D" parent="InspectionBox/GoodsGrid" unique_id=1522367781]
+[node name="BoxBackground" type="Sprite2D" parent="Control/InspectionBox" unique_id=1522367781]
 position = Vector2(324, 324)
 texture = ExtResource("2_j35y3")
 
-[node name="StorageArea" type="Node2D" parent="InspectionBox" unique_id=387388703]
+[node name="StorageArea" type="Node2D" parent="Control/InspectionBox" unique_id=387388703]
 position = Vector2(648, 0)
 
-[node name="StorageAreaBackground" type="Sprite2D" parent="InspectionBox/StorageArea" unique_id=300521072]
+[node name="StorageAreaBackground" type="Sprite2D" parent="Control/InspectionBox/StorageArea" unique_id=300521072]
 position = Vector2(108, 274)
 scale = Vector2(216, 548)
 texture = SubResource("PlaceholderTexture2D_q8wnc")
 flip_h = true
 
-[node name="OuterStorageControl" type="Control" parent="InspectionBox" unique_id=1668614636]
+[node name="OuterStorageControl" type="Control" parent="Control/InspectionBox" unique_id=1668614636]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="StorageAreaScroll" type="ScrollContainer" parent="InspectionBox/OuterStorageControl" unique_id=2137371733]
+[node name="StorageAreaScroll" type="ScrollContainer" parent="Control/InspectionBox/OuterStorageControl" unique_id=2137371733]
 clip_contents = false
 layout_mode = 1
 anchors_preset = -1
@@ -57,7 +62,7 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 scroll_hint_mode = 1
 
-[node name="StorageAreaControl" type="Control" parent="InspectionBox/OuterStorageControl/StorageAreaScroll" unique_id=200381500]
+[node name="StorageAreaControl" type="Control" parent="Control/InspectionBox/OuterStorageControl/StorageAreaScroll" unique_id=200381500]
 custom_minimum_size = Vector2(208, 548)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -65,6 +70,7 @@ size_flags_vertical = 0
 mouse_filter = 2
 
 [node name="Return" type="Button" parent="Control" unique_id=2090313018]
+z_index = 9
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.075
@@ -79,24 +85,5 @@ text = "Return"
 script = ExtResource("4_yw62p")
 metadata/_edit_use_anchors_ = true
 
-[node name="FlagIllegalItemButton" type="Node2D" parent="Control" unique_id=879858922]
-position = Vector2(864, 550)
-[node name="FlagIllegalItemButton" type="Node2D" parent="." unique_id=879858922]
-z_index = 7
-position = Vector2(648, 548)
-
-[node name="Sprite2D" type="Sprite2D" parent="FlagIllegalItemButton" unique_id=953431619]
-position = Vector2(108, 50)
-scale = Vector2(216, 100)
-texture = SubResource("PlaceholderTexture2D_j35y3")
-flip_h = true
-flip_v = true
-
-[node name="Return" type="Button" parent="FlagIllegalItemButton" unique_id=2090313018]
-offset_right = 216.0
-offset_bottom = 100.0
-text = "Return"
-script = ExtResource("2_8vciv")
-
-[connection signal="child_entered_tree" from="InspectionBox/GoodsGrid" to="InspectionBox/GoodsGrid" method="PopulateGrid"]
-[connection signal="pressed" from="FlagIllegalItemButton/Return" to="FlagIllegalItemButton/Return" method="OnPressedReturn"]
+[connection signal="child_entered_tree" from="Control/InspectionBox/GoodsGrid" to="Control/InspectionBox/GoodsGrid" method="PopulateGrid"]
+[connection signal="pressed" from="Control/Return" to="Control/Return" method="OnPressedReturn"]

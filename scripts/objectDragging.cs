@@ -103,7 +103,7 @@ public partial class draggableObject : Area2D
 	{
 		itemGrid = Global.Instance.itemGrid;
 
-		Control storageControlNode = GetNode<Control>("/root/ItemInspection/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+		Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
 
 
 		// Connect signals in code
@@ -234,7 +234,7 @@ public partial class draggableObject : Area2D
 					Global.Instance.updateStorage();
 
 					// reparent
-					Control storageControlNode = GetNode<Control>("/root/ItemInspection/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+					Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
 					if (storageControlNode == null)
 					{
 						GD.PrintErr("couldn't find storageAreaControl");
@@ -332,7 +332,7 @@ public partial class draggableObject : Area2D
 						Global.Instance.itemsInGrid.Add(parentData);
 
 						// reparent
-						parent.Reparent(GetNode<Node2D>("/root/ItemInspection/InspectionBox/GoodsGrid"));
+						parent.Reparent(GetNode<Node2D>("/root/ItemInspection/Control/InspectionBox/GoodsGrid"));
 
 
 						Global.Instance.updateStorage();
@@ -379,7 +379,7 @@ public partial class draggableObject : Area2D
 						Global.Instance.nodesInStorage.Add(parent);
 
 						// reparent
-						Control storageControlNode = GetNode<Control>("/root/ItemInspection/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+						Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
 						if (storageControlNode == null)
 						{
 							GD.PrintErr("couldn't find storageAreaControl");

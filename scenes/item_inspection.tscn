@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://5kcnaxw1cuwr"]
 
-[ext_resource type="Script" path="res://scenes/ItemInspectionLoadSceneScript.cs" id="1_eiwmv"]
+[ext_resource type="Script" path="res://scripts/UI/ItemInspectionLoadSceneScript.cs" id="1_eiwmv"]
 [ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="2_8vciv"]
 [ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://assets/sprites/boxBackground.png" id="2_j35y3"]

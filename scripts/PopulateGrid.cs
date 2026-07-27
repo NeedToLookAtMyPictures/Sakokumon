@@ -318,7 +318,7 @@ public partial class PopulateGrid : Node2D
 				Node2D itemNode = createNode(Global.Instance.itemsInStorage[currItemIndex], itemGridNode);
 				Global.Instance.nodesInStorage.Add(itemNode);
 				// reparent
-				Control storageControlNode = GetNode<Control>("/root/ItemInspection/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
+				Control storageControlNode = GetNode<Control>("/root/ItemInspection/Control/InspectionBox/OuterStorageControl/StorageAreaScroll/StorageAreaControl");
 				if (storageControlNode == null)
 				{
 					GD.PrintErr("couldn't find storageAreaControl");

@@ -203,7 +203,7 @@ public partial class Global : Node
 				atPost.PathName  = ExitPathNames[GD.Randi() % (uint)ExitPathNames.Length];
 				atPost.Progress  = 0f;
 				atPost.CurrentState = NpcData.State.Departing;
-                Database.Data.CurrentLevel.AcceptCurrentPerson();
+				Database.Data.CurrentLevel.AcceptCurrentPerson();
 			}
 			else
 			{

@@ -16,7 +16,7 @@ public partial class NpcInteraction : Node2D
 	Control btnController;
 	public override async void _Ready()
 	{
-        global = GetNode<Global>("/root/Global");
+		global = GetNode<Global>("/root/Global");
 		npcSprite = GetNode<Sprite2D>("NpcSprite");
 		currentLevel = global.Database.Data.CurrentLevel;
 		currentNPC = currentLevel.CurrentPerson;
@@ -34,16 +34,16 @@ public partial class NpcInteraction : Node2D
 		// _dialogueBox.Visible = false;
 	}
 
-    public override async void _Process(double delta)
-    {
+	public override async void _Process(double delta)
+	{
 		if (global.State <= GameState.NPCNotSeen && global.npcPresent) // handles cases of the game still not having been started the game being started but the NPC hasnt been shown
 		{
 			global.State = GameState.NPCSeen;
 			await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
 			await DisplayNPC();	
 		}
-        
-    }
+		
+	}
 	
 	public void FastDisplayNPC()
 	{
@@ -76,12 +76,12 @@ public partial class NpcInteraction : Node2D
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
-    {
-        if (@event.IsActionPressed("ui_cancel"))
-        {
-            OnGameToggled();
-        }
-    }
+	{
+		if (@event.IsActionPressed("ui_cancel"))
+		{
+			OnGameToggled();
+		}
+	}
 
 	public void OnGameToggled()
 	{

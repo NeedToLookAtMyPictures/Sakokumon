@@ -22,7 +22,7 @@ public partial class IllegalItems : Control
     public override void _Ready()
     {
         var global = GetNode<Global>("/root/Global");
-        int currentYear = global.Database.Data?.currentYear ?? 1695;
+        int currentYear = global.Database.Data?.CurrentYear ?? 1695;
         _illegalItems = global.Database.IllegalItems(currentYear);
         _legalItems = global.Database.LegalItems(currentYear);
         _currentItems = _illegalItems;

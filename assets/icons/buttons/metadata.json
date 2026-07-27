@@ -1,0 +1,88 @@
+{
+  "ui_assets": [
+    {
+      "id": "7855332e-cf0d-4b35-818c-997cfe3cf52e",
+      "name": null,
+      "prompt": "Game UI button, horizontal rounded-rectangle panel framed in aged Japanese red pine with warm reddish-brown grain, beveled raised edges with a soft inner highlight on top and shadow on the bottom for a 3D pressable look, small hammered copper corner brackets with rivets, slightly inset center face of pale cream Shikkui plaster for the label area, 1600s Japanese Dutch-trading-post aesthetic, Shovel Knight-inspired pixel art, limited warm earth-tone palette, crisp clean pixels, bold dark outline, no text",
+      "kind": "template",
+      "file": "Game_UI_button_horizontal_rounded-rectangle_panel/Game_UI_button_horizontal_rounded-rectangle_panel.png",
+      "size": {
+        "width": 256,
+        "height": 256
+      },
+      "group_id": "7855332e-cf0d-4b35-818c-997cfe3cf52e"
+    },
+    {
+      "id": "83313464-20b6-45c8-8ced-45c69b7ddf63",
+      "name": "element 1",
+      "prompt": "Game UI button, horizontal rounded-rectangle panel framed in aged Japanese red pine with warm reddish-brown grain, beveled raised edges with a soft inner highlight on top and shadow on the bottom for a 3D pressable look, small hammered copper corner brackets with rivets, slightly inset center face of pale cream Shikkui plaster for the label area, 1600s Japanese Dutch-trading-post aesthetic, Shovel Knight-inspired pixel art, limited warm earth-tone palette, crisp clean pixels, bold dark outline, no text",
+      "kind": "element",
+      "file": "Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_1.png",
+      "size": {
+        "width": 64,
+        "height": 64
+      },
+      "group_id": "7855332e-cf0d-4b35-818c-997cfe3cf52e"
+    },
+    {
+      "id": "3a2253eb-6958-4528-b61f-8933fd4f446b",
+      "name": "element 2",
+      "prompt": "Game UI button, horizontal rounded-rectangle panel framed in aged Japanese red pine with warm reddish-brown grain, beveled raised edges with a soft inner highlight on top and shadow on the bottom for a 3D pressable look, small hammered copper corner brackets with rivets, slightly inset center face of pale cream Shikkui plaster for the label area, 1600s Japanese Dutch-trading-post aesthetic, Shovel Knight-inspired pixel art, limited warm earth-tone palette, crisp clean pixels, bold dark outline, no text",
+      "kind": "element",
+      "file": "Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_2.png",
+      "size": {
+        "width": 166,
+        "height": 22
+      },
+      "group_id": "7855332e-cf0d-4b35-818c-997cfe3cf52e"
+    },
+    {
+      "id": "f5098ff5-c997-4bbd-bf49-7688c72be8c2",
+      "name": "element 3",
+      "prompt": "Game UI button, horizontal rounded-rectangle panel framed in aged Japanese red pine with warm reddish-brown grain, beveled raised edges with a soft inner highlight on top and shadow on the bottom for a 3D pressable look, small hammered copper corner brackets with rivets, slightly inset center face of pale cream Shikkui plaster for the label area, 1600s Japanese Dutch-trading-post aesthetic, Shovel Knight-inspired pixel art, limited warm earth-tone palette, crisp clean pixels, bold dark outline, no text",
+      "kind": "element",
+      "file": "Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_3.png",
+      "size": {
+        "width": 146,
+        "height": 170
+      },
+      "group_id": "7855332e-cf0d-4b35-818c-997cfe3cf52e"
+    },
+    {
+      "id": "ca5c2f72-3819-44a2-9a33-2120a9f42c7a",
+      "name": "element 4",
+      "prompt": "Game UI button, horizontal rounded-rectangle panel framed in aged Japanese red pine with warm reddish-brown grain, beveled raised edges with a soft inner highlight on top and shadow on the bottom for a 3D pressable look, small hammered copper corner brackets with rivets, slightly inset center face of pale cream Shikkui plaster for the label area, 1600s Japanese Dutch-trading-post aesthetic, Shovel Knight-inspired pixel art, limited warm earth-tone palette, crisp clean pixels, bold dark outline, no text",
+      "kind": "element",
+      "file": "Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_4.png",
+      "size": {
+        "width": 86,
+        "height": 26
+      },
+      "group_id": "7855332e-cf0d-4b35-818c-997cfe3cf52e"
+    },
+    {
+      "id": "3951c27c-d766-43bd-a9ee-03c9a4d6d8e4",
+      "name": "element 5",
+      "prompt": "Game UI button, horizontal rounded-rectangle panel framed in aged Japanese red pine with warm reddish-brown grain, beveled raised edges with a soft inner highlight on top and shadow on the bottom for a 3D pressable look, small hammered copper corner brackets with rivets, slightly inset center face of pale cream Shikkui plaster for the label area, 1600s Japanese Dutch-trading-post aesthetic, Shovel Knight-inspired pixel art, limited warm earth-tone palette, crisp clean pixels, bold dark outline, no text",
+      "kind": "element",
+      "file": "Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_5.png",
+      "size": {
+        "width": 86,
+        "height": 26
+      },
+      "group_id": "7855332e-cf0d-4b35-818c-997cfe3cf52e"
+    },
+    {
+      "id": "5813fe98-20fb-482a-a546-5be07ca9d1e9",
+      "name": "element 6",
+      "prompt": "Game UI button, horizontal rounded-rectangle panel framed in aged Japanese red pine with warm reddish-brown grain, beveled raised edges with a soft inner highlight on top and shadow on the bottom for a 3D pressable look, small hammered copper corner brackets with rivets, slightly inset center face of pale cream Shikkui plaster for the label area, 1600s Japanese Dutch-trading-post aesthetic, Shovel Knight-inspired pixel art, limited warm earth-tone palette, crisp clean pixels, bold dark outline, no text",
+      "kind": "element",
+      "file": "Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_6.png",
+      "size": {
+        "width": 86,
+        "height": 26
+      },
+      "group_id": "7855332e-cf0d-4b35-818c-997cfe3cf52e"
+    }
+  ]
+}

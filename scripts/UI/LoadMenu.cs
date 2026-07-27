@@ -1,6 +1,7 @@
 using Godot;
 using Data;
 using System.Linq;
+using System.Text.Json;
 
 public partial class LoadMenu : Control
 {
@@ -17,6 +18,8 @@ public partial class LoadMenu : Control
 
 		var title = new Label();
 		title.Text = "Load Game";
+		title.AddThemeFontOverride("font", GD.Load<FontFile>("res://styles/fonts/PixelOperator-Bold.ttf"));
+		title.AddThemeFontSizeOverride("font_size", 40);
 		title.HorizontalAlignment = HorizontalAlignment.Center;
 		mainLayout.AddChild(title);
 
@@ -30,6 +33,7 @@ public partial class LoadMenu : Control
 		scroll.AddChild(slotList);
 
 		var btnBar = new HBoxContainer();
+		btnBar.AddThemeConstantOverride("separation", 24);
 		mainLayout.AddChild(btnBar);
 
 		var backBtn = new Button();
@@ -78,6 +82,24 @@ public partial class LoadMenu : Control
 		header.Text = $"{slot.SlotName}     Last saved: {slot.LastUpdated:g}";
 		header.Alignment = HorizontalAlignment.Left;
 		header.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+
+		var sb = new StyleBoxFlat();
+		sb.BgColor = new Color("#e8dec1");
+		sb.BorderColor = new Color(0,0,0);
+		sb.SetBorderWidthAll(2);
+		sb.SetCornerRadiusAll(4);
+		sb.ContentMarginLeft = 12;
+		sb.ContentMarginRight = 12;
+		header.AddThemeStyleboxOverride("normal", sb);
+		
+		var sb2 = new StyleBoxFlat();
+		sb.BgColor = new Color("#fff0c3");
+		sb.BorderColor = new Color(0,0,0);
+		sb.SetBorderWidthAll(2);
+		sb.SetCornerRadiusAll(4);
+		sb.ContentMarginLeft = 12;
+		sb.ContentMarginRight = 12;
+		header.AddThemeStyleboxOverride("hover", sb2);
 
 		var dropdown = new VBoxContainer();
 		dropdown.Visible = false;
@@ -129,6 +151,7 @@ public partial class LoadMenu : Control
 		{
 			if (@event is InputEventMouseButton mb && mb.Pressed && mb.ButtonIndex == MouseButton.Left)
 				SelectSaveEntry(slotName, save.name, panel);
+
 		};
 
 		return panel;

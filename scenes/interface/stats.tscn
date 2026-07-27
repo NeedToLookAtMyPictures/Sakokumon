@@ -1,25 +1,75 @@
 [gd_scene format=3 uid="uid://c0g5cvc12opif"]
 
-[ext_resource type="Texture2D" uid="uid://78ym7vuuk6el" path="res://assets/stats_bg.png" id="1_qkx3n"]
-[ext_resource type="PackedScene" uid="uid://bph0my2a0wgld" path="res://scenes/interface/stats_text.tscn" id="2_74t8q"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_5gdhc"]
+[ext_resource type="Texture2D" uid="uid://iboepicw3qu0" path="res://assets/full.png" id="1_emq7m"]
+[ext_resource type="Script" uid="uid://dwbyejq23tt6k" path="res://scripts/UI/Stats.cs" id="3_cljcv"]
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="3_emq7m"]
+[ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="5_vncd3"]
 
 [node name="StatsMenu" type="Node2D" unique_id=2038880874]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=670453206]
-position = Vector2(441, 319)
-scale = Vector2(0.40442657, 0.4189815)
-texture = ExtResource("1_qkx3n")
+[node name="Control" type="Control" parent="." unique_id=1023632617]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_5gdhc")
 
-[node name="Node2D" parent="." unique_id=465052785 instance=ExtResource("2_74t8q")]
-position = Vector2(190, 88)
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=2053160972]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 863.0
+offset_bottom = 643.0
+color = Color(0.047058824, 0.047058824, 0.047058824, 0.3529412)
 
-[node name="Return" type="Button" parent="." unique_id=1189588254]
-offset_left = 601.0
-offset_top = 547.0
-offset_right = 718.0
-offset_bottom = 590.0
+[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=670453206]
+position = Vector2(440.00003, 325.99997)
+scale = Vector2(5.0128207, 4.7333326)
+texture = ExtResource("1_emq7m")
+
+[node name="Control" type="Control" parent="Control" unique_id=1758501929]
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 156.0
+offset_right = 160.0
+offset_bottom = 196.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Control" unique_id=1900084624]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 20.0
+offset_right = 615.0
+offset_bottom = 312.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+script = ExtResource("3_cljcv")
+
+[node name="TitleText" type="RichTextLabel" parent="Control/Control" unique_id=456672834]
+layout_mode = 0
+offset_left = 220.0
+offset_top = -41.0
+offset_right = 618.0
+offset_bottom = 30.0
+bbcode_enabled = true
+text = "[right][font_size=50][b]Game Statistics[/b][/font_size][/right]"
+
+[node name="SaveNode" type="Node2D" parent="Control/Control" unique_id=1373531999]
+position = Vector2(-120, -156)
+
+[node name="SaveSelect" type="OptionButton" parent="Control/Control/SaveNode" unique_id=322338009]
+offset_left = 129.0
+offset_top = 131.0
+offset_right = 329.0
+offset_bottom = 166.0
+theme_override_fonts/font = ExtResource("5_vncd3")
+
+[node name="Return" type="Button" parent="Control" unique_id=1189588254]
+layout_mode = 0
+offset_left = 572.0
+offset_top = 468.0
+offset_right = 735.2558
+offset_bottom = 528.0
 text = "Return"
 script = ExtResource("3_emq7m")
 
-[connection signal="pressed" from="Return" to="Return" method="OnPressedReturn"]
+[connection signal="pressed" from="Control/Return" to="Control/Return" method="OnPressedReturn"]

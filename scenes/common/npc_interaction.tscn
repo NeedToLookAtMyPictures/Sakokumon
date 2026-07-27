@@ -2,81 +2,82 @@
 
 [ext_resource type="Script" uid="uid://dwqlpk84pr0aa" path="res://scripts/NpcInteraction.cs" id="1_npcroot"]
 [ext_resource type="Script" uid="uid://cbktrgnm8y40u" path="res://scripts/NpcInteractionOptions.cs" id="2_npcbtn"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="2_tt4yl"]
+[ext_resource type="Texture2D" uid="uid://es0hrltcx7hc" path="res://assets/frametexture.png" id="2_u4ami"]
+[ext_resource type="Texture2D" uid="uid://c54hou2vl52be" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-3.png" id="3_eyujm"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="4_dbg"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mountains"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bay"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_boardwalk"]
+[ext_resource type="Texture2D" uid="uid://cqxyid1tnk1y7" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-2.png" id="4_g0iyq"]
+[ext_resource type="Texture2D" uid="uid://dia0kn5gdoxav" path="res://assets/panel.png" id="5_0dbxb"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_npc"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_frame"]
+[sub_resource type="Theme" id="Theme_u4ami"]
 
 [node name="NpcInteraction" type="Node2D" unique_id=400000001]
 script = ExtResource("1_npcroot")
 
-[node name="Background" type="Node2D" parent="." unique_id=400000002]
-
-[node name="Mountains" type="Sprite2D" parent="Background" unique_id=400000003]
-position = Vector2(1371.0001, 250)
-scale = Vector2(357.99997, 120.99992)
-texture = SubResource("PlaceholderTexture2D_mountains")
-
-[node name="BayWater" type="Sprite2D" parent="Background" unique_id=400000004]
-position = Vector2(1397, 59.499992)
-scale = Vector2(429.9999, 103)
-texture = SubResource("PlaceholderTexture2D_bay")
-
-[node name="Boardwalk" type="Sprite2D" parent="Background" unique_id=400000005]
-position = Vector2(1373, 477.00006)
-scale = Vector2(358, 202.99997)
-texture = SubResource("PlaceholderTexture2D_boardwalk")
+[node name="GuardPostBG" type="Sprite2D" parent="." unique_id=1821751888]
+position = Vector2(997.5593, 430.50003)
+scale = Vector2(1.5362461, 2.106132)
+texture = ExtResource("3_eyujm")
 
 [node name="NpcSprite" type="Sprite2D" parent="." unique_id=400000006]
-position = Vector2(423, 278)
-scale = Vector2(163.00003, 261)
+position = Vector2(619, 435)
+scale = Vector2(200, 266.953)
 texture = SubResource("PlaceholderTexture2D_npc")
 
+[node name="GuardpostFrame3" type="Sprite2D" parent="." unique_id=276145714]
+position = Vector2(264.9845, 535.99994)
+scale = Vector2(2.0391839, 4.1796875)
+texture = ExtResource("2_u4ami")
+
 [node name="GuardpostFrame" type="Sprite2D" parent="." unique_id=400000007]
-position = Vector2(119, 215.5)
-scale = Vector2(238.00002, 431)
-texture = SubResource("PlaceholderTexture2D_frame")
+position = Vector2(100.499985, 215.5)
+scale = Vector2(201, 431)
 
-[node name="GuardpostFrame2" type="Sprite2D" parent="." unique_id=1732012190]
-position = Vector2(734.5, 219.50002)
-scale = Vector2(252.99998, 432.99997)
-texture = SubResource("PlaceholderTexture2D_frame")
+[node name="GuardpostFrame5" type="Sprite2D" parent="." unique_id=533192817]
+position = Vector2(1703.7423, 537.5812)
+scale = Vector2(1.7129508, 4.1907716)
+texture = ExtResource("2_u4ami")
 
-[node name="GuardpostDesk" type="Sprite2D" parent="." unique_id=1101725597]
-position = Vector2(433.875, 538.625)
-scale = Vector2(859.75006, 209.24998)
-texture = SubResource("PlaceholderTexture2D_frame")
+[node name="GuardFrame" type="Sprite2D" parent="." unique_id=706556035]
+position = Vector2(1000.00006, 426)
+scale = Vector2(1.5304564, 1.994104)
+texture = ExtResource("4_g0iyq")
 
-[node name="GuardpostTopBar" type="Sprite2D" parent="." unique_id=1588327702]
-position = Vector2(421.5, 41.093758)
-scale = Vector2(370.99997, 75.81249)
-texture = SubResource("PlaceholderTexture2D_frame")
+[node name="Boardwalk" type="Sprite2D" parent="." unique_id=400000005]
+position = Vector2(1002.9531, 912.00006)
+scale = Vector2(1.5223001, 0.7582547)
+texture = ExtResource("5_0dbxb")
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=400000008]
+[node name="Control" type="Control" parent="." unique_id=1603279943]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_tt4yl")
 
-[node name="SceneLabel" type="Label" parent="UI" unique_id=400000019]
+[node name="SceneLabel" type="Label" parent="Control" unique_id=400000019]
 modulate = Color(1, 1, 0, 1)
+layout_mode = 0
 offset_left = 17.0
 offset_top = 18.0
 offset_right = 437.0
 offset_bottom = 48.0
 text = "[ SCENE: NPC Interaction ]"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI" unique_id=1963211396]
-offset_left = 47.0
-offset_top = 92.0
-offset_right = 184.0
-offset_bottom = 166.0
-text = "CALENDAR"
+[node name="RichTextLabel" type="RichTextLabel" parent="Control" unique_id=1963211396]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 60.0
+offset_right = 149.0
+offset_bottom = 89.0
+bbcode_enabled = true
+text = "[color=#FFFFFF][center]CALENDAR[/center][/color]"
 
-[node name="ReturnToHarbor" type="Button" parent="UI" unique_id=400000009]
+[node name="ReturnToHarbor" type="Button" parent="Control" unique_id=400000009]
+visible = false
+layout_mode = 0
 offset_left = 318.0
 offset_top = 22.0
 offset_right = 518.0
@@ -84,57 +85,67 @@ offset_bottom = 62.0
 text = "Return to Harbor"
 script = ExtResource("4_dbg")
 
-[node name="IllegalItemListButton" type="Button" parent="UI" unique_id=400000012]
+[node name="ActionControl" type="Control" parent="Control" unique_id=1954823347]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IllegalItemListButton" type="Button" parent="Control/ActionControl" unique_id=400000012]
 custom_minimum_size = Vector2(0, 80)
-offset_left = 35.0
-offset_top = 292.0
-offset_right = 192.0
-offset_bottom = 372.0
+layout_mode = 0
+offset_left = 58.0
+offset_top = 477.0
+offset_right = 451.97592
+offset_bottom = 677.0
+theme_override_font_sizes/font_size = 25
 text = "See Illegal Item List"
 script = ExtResource("2_npcbtn")
 
-[node name="InspectItemsButton" type="Button" parent="UI" unique_id=400000015]
+[node name="InspectItemsButton" type="Button" parent="Control/ActionControl" unique_id=400000015]
 custom_minimum_size = Vector2(0, 80)
-offset_left = 288.0
-offset_top = 471.0
-offset_right = 585.0
-offset_bottom = 551.0
+layout_mode = 0
+offset_left = 854.0
+offset_top = 845.0
+offset_right = 1173.0
+offset_bottom = 979.0
 text = "Inspect Items"
 script = ExtResource("2_npcbtn")
 
-[node name="ActionPanel" type="Panel" parent="UI" unique_id=400000010]
-offset_left = 634.0
-offset_top = 110.0
-offset_right = 847.0
-offset_bottom = 310.0
+[node name="ActionPanel" type="Panel" parent="Control/ActionControl" unique_id=400000010]
+visible = false
+layout_mode = 0
+offset_left = 1560.0
+offset_top = 344.0
+offset_right = 1886.0
+offset_bottom = 569.0
 
-[node name="Buttons" type="VBoxContainer" parent="UI/ActionPanel" unique_id=400000011]
+[node name="Buttons" type="VBoxContainer" parent="Control/ActionControl/ActionPanel" unique_id=400000011]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 198.0
-offset_bottom = 233.0
+offset_right = 297.0
+offset_bottom = 184.0
 
-[node name="AllowPassageButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000013]
+[node name="AllowPassageButton" type="Button" parent="Control/ActionControl/ActionPanel/Buttons" unique_id=400000013]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Allow Passage"
-script = ExtResource("2_npcbtn")
 
-[node name="DetainButton" type="Button" parent="UI/ActionPanel/Buttons" unique_id=400000014]
+[node name="DetainButton" type="Button" parent="Control/ActionControl/ActionPanel/Buttons" unique_id=400000014]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Detain Subject"
-script = ExtResource("2_npcbtn")
 
-[node name="DialogueBox" type="Panel" parent="UI" unique_id=400000016]
+[node name="DialogueBox" type="Panel" parent="Control" unique_id=400000016]
 visible = false
+layout_mode = 0
 offset_left = 100.0
 offset_top = 830.0
 offset_right = 1300.0
 offset_bottom = 1010.0
 
-[node name="DialogueText" type="Label" parent="UI/DialogueBox" unique_id=400000017]
+[node name="DialogueText" type="Label" parent="Control/DialogueBox" unique_id=400000017]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
@@ -142,7 +153,7 @@ offset_right = 1080.0
 offset_bottom = 130.0
 autowrap_mode = 3
 
-[node name="DismissButton" type="Button" parent="UI/DialogueBox" unique_id=400000018]
+[node name="DismissButton" type="Button" parent="Control/DialogueBox" unique_id=400000018]
 layout_mode = 0
 offset_left = 1010.0
 offset_top = 130.0
@@ -150,13 +161,14 @@ offset_right = 1180.0
 offset_bottom = 165.0
 text = "Ignore"
 
-[node name="DebugPanel" type="Panel" parent="UI" unique_id=400000020]
-offset_left = 7.0
-offset_top = 443.0
-offset_right = 257.0
-offset_bottom = 613.0
+[node name="DebugPanel" type="Panel" parent="Control" unique_id=400000020]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 873.0
+offset_right = 251.0
+offset_bottom = 1043.0
 
-[node name="DebugLabel" type="Label" parent="UI/DebugPanel" unique_id=400000021]
+[node name="DebugLabel" type="Label" parent="Control/DebugPanel" unique_id=400000021]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 2.0
@@ -164,16 +176,7 @@ offset_right = 240.0
 offset_bottom = 22.0
 text = "DEBUG NAV"
 
-[node name="NavHarborDirect" type="Button" parent="UI/DebugPanel" unique_id=400000022]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 26.0
-offset_right = 245.0
-offset_bottom = 56.0
-text = "-> Harbor View"
-script = ExtResource("4_dbg")
-
-[node name="NavNewGame" type="Button" parent="UI/DebugPanel" unique_id=400000023]
+[node name="NavNewGame" type="Button" parent="Control/DebugPanel" unique_id=400000023]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 61.0
@@ -182,7 +185,7 @@ offset_bottom = 91.0
 text = "-> New Game"
 script = ExtResource("4_dbg")
 
-[node name="NavMainMenu" type="Button" parent="UI/DebugPanel" unique_id=400000024]
+[node name="NavMainMenu" type="Button" parent="Control/DebugPanel" unique_id=400000024]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 96.0
@@ -191,26 +194,56 @@ offset_bottom = 126.0
 text = "-> Main Menu"
 script = ExtResource("4_dbg")
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="UI" unique_id=241831368]
-offset_left = 238.0
-offset_top = 81.0
-offset_right = 608.0
-offset_bottom = 136.0
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control" unique_id=241831368]
+layout_mode = 0
+offset_left = 199.0
+offset_top = -151.0
+offset_right = 569.0
+offset_bottom = -96.0
 text = "Dialogue Bar"
 
+[node name="UI" type="CanvasLayer" parent="Control" unique_id=400000008]
+
 [node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=69247541]
-offset_left = 635.0
-offset_top = 468.0
-offset_right = 814.0
-offset_bottom = 600.0
+offset_left = 1568.0
+offset_top = 721.0
+offset_right = 1747.0
+offset_bottom = 853.0
 text = "Dialogue Responses"
 
-[connection signal="pressed" from="UI/ReturnToHarbor" to="UI/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
-[connection signal="pressed" from="UI/IllegalItemListButton" to="UI/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
-[connection signal="pressed" from="UI/InspectItemsButton" to="UI/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
-[connection signal="pressed" from="UI/ActionPanel/Buttons/AllowPassageButton" to="UI/ActionPanel/Buttons/AllowPassageButton" method="OnPressedNpcOption" binds= ["allow"]]
-[connection signal="pressed" from="UI/ActionPanel/Buttons/DetainButton" to="UI/ActionPanel/Buttons/DetainButton" method="OnPressedNpcOption" binds= ["detain"]]
-[connection signal="pressed" from="UI/DialogueBox/DismissButton" to="." method="OnPressedDismissDialogue"]
-[connection signal="pressed" from="UI/DebugPanel/NavHarborDirect" to="UI/DebugPanel/NavHarborDirect" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
-[connection signal="pressed" from="UI/DebugPanel/NavNewGame" to="UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
-[connection signal="pressed" from="UI/DebugPanel/NavMainMenu" to="UI/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]
+[node name="YearInfo" type="Control" parent="." unique_id=2123139396]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = 20.0
+offset_right = 1907.0
+offset_bottom = 1111.0
+theme = SubResource("Theme_u4ami")
+
+[node name="ColorRect" type="ColorRect" parent="YearInfo" unique_id=1054978311]
+layout_mode = 0
+offset_left = 24.0
+offset_top = -19.0
+offset_right = 1926.0
+offset_bottom = 1067.0
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="YearInfo" unique_id=410929547]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 357.0
+offset_right = 1537.0
+offset_bottom = 778.0
+theme = ExtResource("2_tt4yl")
+bbcode_enabled = true
+fit_content = true
+
+[connection signal="pressed" from="Control/ReturnToHarbor" to="Control/ReturnToHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
+[connection signal="pressed" from="Control/ActionControl/IllegalItemListButton" to="Control/ActionControl/IllegalItemListButton" method="OnPressedNpcOption" binds= ["illegal_list"]]
+[connection signal="pressed" from="Control/ActionControl/InspectItemsButton" to="Control/ActionControl/InspectItemsButton" method="OnPressedNpcOption" binds= ["inspect"]]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/AllowPassageButton" to="." method="AllowNPC"]
+[connection signal="pressed" from="Control/ActionControl/ActionPanel/Buttons/DetainButton" to="." method="RejectNPC"]
+[connection signal="pressed" from="Control/DialogueBox/DismissButton" to="." method="OnPressedDismissDialogue"]
+[connection signal="pressed" from="Control/DebugPanel/NavNewGame" to="Control/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
+[connection signal="pressed" from="Control/DebugPanel/NavMainMenu" to="Control/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]

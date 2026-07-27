@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://d0emkr1twl300"]
 
-[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="1_return"]
 [ext_resource type="Script" uid="uid://dicu0866sted8" path="res://scripts/UI/IllegalItems.cs" id="2_illegals"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="2_ip8k0"]
+[ext_resource type="Script" uid="uid://gnaani35yh6" path="res://scripts/UI/SceneReturn.cs" id="3_ip8k0"]
+
+[sub_resource type="Theme" id="Theme_4a30b"]
 
 [node name="IllegalItems" type="Control" unique_id=490082148]
 layout_mode = 3
@@ -10,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_4a30b")
 script = ExtResource("2_illegals")
 
 [node name="VBox" type="VBoxContainer" parent="." unique_id=392541548]
@@ -17,6 +21,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Tabs" type="TabBar" parent="VBox" unique_id=1835826656]
 layout_mode = 2
@@ -53,6 +59,7 @@ size_flags_vertical = 3
 
 [node name="Navigation" type="HBoxContainer" parent="VBox" unique_id=735816108]
 layout_mode = 2
+theme = ExtResource("2_ip8k0")
 
 [node name="PrevButton" type="Button" parent="VBox/Navigation" unique_id=1205832302]
 layout_mode = 2
@@ -70,6 +77,6 @@ text = "Next >"
 [node name="Return" type="Button" parent="VBox/Navigation" unique_id=1077283806]
 layout_mode = 2
 text = "Return"
-script = ExtResource("1_return")
+script = ExtResource("3_ip8k0")
 
 [connection signal="pressed" from="VBox/Navigation/Return" to="VBox/Navigation/Return" method="OnPressedReturn"]

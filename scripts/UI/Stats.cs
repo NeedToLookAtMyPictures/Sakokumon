@@ -8,9 +8,8 @@ public partial class Stats : RichTextLabel
 	public override void _Ready()
 	{
 		var global = GetNode<Global>("/root/Global");
-		_saveSelect = GetParent().GetNode<OptionButton>("SaveSelect");
-
-		if (global.CurrentScene.Name == "StatsMenu")
+		_saveSelect = GetParent().GetNode<OptionButton>("SaveNode/SaveSelect");
+		if (Owner.Owner.Name == "MainMenu")
 		{
 			_saves = global.Database.ListSaves();
 
@@ -24,7 +23,7 @@ public partial class Stats : RichTextLabel
 		else
 		{
 			_saveSelect.Hide();
-			DisplayStats(global.Database.Data.gameStats);
+			global.Database.Data.GameStats.DisplayStats();
 		}
 	}
 
@@ -32,34 +31,26 @@ public partial class Stats : RichTextLabel
 
 	private void OnSaveSelected(long index)
 	{
+		Clear();
 		if (index == 0)
-			DisplayAllStats();
+			Text = DisplayAllStats();
 		else
-			DisplayStats(_saves[index - 1].gameStats);
+
+			Text = _saves[index - 1].GameStats.DisplayStats();
 	}
 
-	private void DisplayAllStats()
+	private string DisplayAllStats()
 	{
 		if (_saves.Length == 0)
 		{
 			Clear();
-			AppendText("\n\nNo statistics available.");
-			return;
+			return "\n\nNo statistics available.";
 		}
 		var total = new Data.Stats();
-		foreach (var save in _saves) total = total + save.gameStats;
-		DisplayStats(total);
+		foreach (var save in _saves) total = total + save.GameStats;
+		
+		return total.DisplayStats();
 	}
 
-	private void DisplayStats(Data.Stats stats)
-	{
-		Clear();
-		AppendText($"\n\nInspected groups: {stats.inspectedGroups}\n");
-		AppendText($"Inspected innocents: {stats.inspectedInnocents}\n");
-		AppendText($"Innocents accused: {stats.innocentsAccused}\n");
-		AppendText($"Smugglers caught: {stats.smugglersCaught}\n");
-		AppendText($"Smugglers missed: {stats.smugglersMissed}\n");
-		AppendText($"\nAccuracy: {stats.accuracy}\n");
-		AppendText($"Catch rate: {stats.catchRate}\n");
-	}
+	
 }

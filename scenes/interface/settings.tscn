@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dh2phnxt0n3qg"]
 
 [ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="1_5p8wc"]
-[ext_resource type="Texture2D" uid="uid://cwyegmt0trqf3" path="res://assets/icons/settings/[PH] SettingsMenu.png" id="1_r6d6q"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_6e5bw"]
 [ext_resource type="Script" uid="uid://l07c3s07cukr" path="res://scripts/UI/VolumeControl.cs" id="2_bybga"]
+[ext_resource type="Texture2D" uid="uid://iboepicw3qu0" path="res://assets/full.png" id="2_dckan"]
 [ext_resource type="Script" uid="uid://drhmhbg18l08g" path="res://scripts/UI/Resolution.cs" id="2_rog5w"]
 
 [node name="Settings" type="Control" unique_id=1487254743]
@@ -12,38 +13,66 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_6e5bw")
 
-[node name="Background" type="Sprite2D" parent="." unique_id=993565554]
-position = Vector2(432.5, 326.5)
-scale = Vector2(1.04125, 1.0649999)
-texture = ExtResource("1_r6d6q")
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1185320018]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 863.0
+offset_bottom = 643.0
+color = Color(0.047058824, 0.047058824, 0.047058824, 0.3529412)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1314380493]
+position = Vector2(440.00003, 325.99997)
+scale = Vector2(5.0128207, 4.7333326)
+texture = ExtResource("2_dckan")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1876411002]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 117.0
+offset_right = 604.0
+offset_bottom = 181.0
+bbcode_enabled = true
+text = "[b][font_size=40
+][center][color=#000000]Settings[/color][/center][/font_size][/b]"
 
 [node name="Master Vol" type="HSlider" parent="." unique_id=781445719]
 layout_mode = 0
-offset_left = 185.0
-offset_top = 50.0
-offset_right = 785.0
-offset_bottom = 120.0
+offset_left = 287.0
+offset_top = 204.0
+offset_right = 568.0
+offset_bottom = 274.0
 value = 100.0
 script = ExtResource("2_bybga")
 SliderID = "master"
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=101076450]
+layout_mode = 0
+offset_left = 287.0
+offset_top = 204.0
+offset_right = 434.0
+offset_bottom = 244.0
+bbcode_enabled = true
+text = "[b]Master Volume"
+
 [node name="Music Vol" type="HSlider" parent="." unique_id=1683176247]
 layout_mode = 0
-offset_left = 172.0
-offset_top = 212.0
-offset_right = 772.0
-offset_bottom = 282.0
+offset_left = 289.0
+offset_top = 345.0
+offset_right = 568.0
+offset_bottom = 415.0
 value = 100.0
 script = ExtResource("2_bybga")
 SliderID = "music"
 
 [node name="SFX Vol" type="HSlider" parent="." unique_id=1820208156]
 layout_mode = 0
-offset_left = 175.0
-offset_top = 354.0
-offset_right = 775.0
-offset_bottom = 424.0
+offset_left = 291.0
+offset_top = 272.0
+offset_right = 571.0
+offset_bottom = 342.0
 value = 100.0
 script = ExtResource("2_bybga")
 SliderID = "sfx"
@@ -64,12 +93,30 @@ script = ExtResource("2_rog5w")
 
 [node name="Return" type="Button" parent="." unique_id=660613374]
 layout_mode = 0
-offset_left = 44.0
-offset_top = 492.0
-offset_right = 615.0
-offset_bottom = 613.0
+offset_left = 549.0
+offset_top = 446.0
+offset_right = 714.0
+offset_bottom = 529.0
 text = "Return"
 script = ExtResource("1_5p8wc")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="." unique_id=621880374]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 344.0
+offset_right = 436.0
+offset_bottom = 384.0
+bbcode_enabled = true
+text = "[b]Music Volume[/b]"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="." unique_id=1694955137]
+layout_mode = 0
+offset_left = 291.0
+offset_top = 271.0
+offset_right = 438.0
+offset_bottom = 311.0
+bbcode_enabled = true
+text = "[b]SFX Volume[/b]"
 
 [connection signal="drag_ended" from="Master Vol" to="Master Vol" method="OnChangedVolumeSliders" binds= ["master"]]
 [connection signal="drag_ended" from="Music Vol" to="Music Vol" method="OnChangedVolumeSliders" binds= ["music"]]

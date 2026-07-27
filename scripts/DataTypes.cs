@@ -19,15 +19,15 @@ namespace Data
 		EndDay
     }
 
-    public class GameStateManager
-    {
-        public GameState state;
-        public Level currentLevel;
-        public GameData currentSave;
-        
-    }
+	public class GameStateManager
+	{
+		public GameState state;
+		public Level currentLevel;
+		public GameData currentSave;
+		
+	}
 
-    public class Asset
+	public class Asset
 	{
 		public string Name {get; set;}
 		public int Id {get; set;}
@@ -61,9 +61,9 @@ namespace Data
 
 		public string type {get; set;}
 		
-        public List<List<bool>> Grid
-        {
-            get => size; 
+		public List<List<bool>> Grid
+		{
+			get => size; 
 			set
 			{
 				if (value.Count < 1) throw new Exception("Size must be greater than 0");
@@ -120,18 +120,18 @@ namespace Data
 			};
 		}
 	}
-    public class Person
+	public class Person
 	{
 		public Item[] goods {get; set;}
 		public int id {get; set;}
-        public bool smuggler {get; set;}
+		public bool smuggler {get; set;}
 		public Asset sprite {get; set;}
 		// possibly a weapon Asset?
 		// Asset weapon {get; set;}
 
 		// we'll see...
 		// public string[] dialogue {get; set;}
-        public Person() {}
+		public Person() {}
 		public Person(Database db, int newId, bool forceSmuggler = false)
 		{
 			id = newId;
@@ -143,45 +143,45 @@ namespace Data
 		}
 
 	}
-    public class Level
+	public class Level
 	{
 		public Person[] people {get; set;}
 
 		private Stats stats;
 
-        public Stats Stats
-        {
-          get => stats;
-        }
-        public bool custom {get; set;}
+		public Stats Stats
+		{
+		  get => stats;
+		}
+		public bool custom {get; set;}
 
-        public int tracker;
+		public int tracker;
 
-        public Person CurrentPerson
-        {
-            get
+		public Person CurrentPerson
+		{
+			get
 			{
 				if (tracker > people.Length - 1) return null;
 				return people[tracker];
 			}
-        }
-        public void RejectCurrentPerson()
-        {
-            stats.inspectedPersons += 1;
-            if (CurrentPerson.smuggler) stats.smugglersCaught += 1;
-            else stats.innocentsAccused += 1;
-       
+		}
+		public void RejectCurrentPerson()
+		{
+			stats.inspectedPersons += 1;
+			if (CurrentPerson.smuggler) stats.smugglersCaught += 1;
+			else stats.innocentsAccused += 1;
+	   
 			tracker += 1;
 
-        }
-        public void AcceptCurrentPerson()
-        {
-            stats.inspectedPersons += 1;
-            if (CurrentPerson.smuggler) stats.smugglersMissed += 1;
-            else stats.innocentsAllowed += 1;
+		}
+		public void AcceptCurrentPerson()
+		{
+			stats.inspectedPersons += 1;
+			if (CurrentPerson.smuggler) stats.smugglersMissed += 1;
+			else stats.innocentsAllowed += 1;
 
 			tracker += 1;
-        }
+		}
 
 
 		private List<List<bool>> cig; // for retaining items
@@ -237,7 +237,7 @@ namespace Data
 	public struct Stats
 	{
 		public int inspectedPersons = 0;
-        
+		
 		public int innocentsAllowed = 0;
 		public int innocentsAccused = 0;
 		public int smugglersCaught = 0;
@@ -251,16 +251,16 @@ namespace Data
 		{
 			get => smugglersCaught > 0 ? ((double)(smugglersCaught) / (smugglersCaught + smugglersMissed)) : 0;
 		}
-        public int totalInnocents 
-        {
-            get => innocentsAccused + innocentsAllowed;
-        }
-        public int totalSmugglers
-        {
-            get => smugglersCaught + smugglersMissed;
-        }
+		public int totalInnocents 
+		{
+			get => innocentsAccused + innocentsAllowed;
+		}
+		public int totalSmugglers
+		{
+			get => smugglersCaught + smugglersMissed;
+		}
 
-        public Stats() {}
+		public Stats() {}
 
 		public string DisplayStats()
 		{
@@ -287,17 +287,17 @@ namespace Data
 
 		public static Stats operator +(Stats a, Stats b)
 		{
-            Stats result = new Stats
-            {
-                inspectedPersons = a.inspectedPersons + b.inspectedPersons,
-                innocentsAllowed = a.innocentsAllowed + b.innocentsAllowed,
-                innocentsAccused = a.innocentsAccused + b.innocentsAccused,
-                smugglersCaught = a.smugglersCaught + b.smugglersCaught,
-                smugglersMissed = a.smugglersMissed + b.smugglersMissed
-            };
+			Stats result = new Stats
+			{
+				inspectedPersons = a.inspectedPersons + b.inspectedPersons,
+				innocentsAllowed = a.innocentsAllowed + b.innocentsAllowed,
+				innocentsAccused = a.innocentsAccused + b.innocentsAccused,
+				smugglersCaught = a.smugglersCaught + b.smugglersCaught,
+				smugglersMissed = a.smugglersMissed + b.smugglersMissed
+			};
 
-            // Recalculate derived stats from the combined raw counts
-        
+			// Recalculate derived stats from the combined raw counts
+		
 			return result;
 		}
 		
@@ -324,9 +324,9 @@ namespace Data
 				if (currentYear > levels.Keys.OrderDescending().First()) return null;
 				return levels[currentYear];
 			}
-        }
+		}
 
-        public Dictionary<int, Level> levels;
+		public Dictionary<int, Level> levels;
 		public Stats GameStats
         {
             get => levels != null ? levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m) : new Stats();

@@ -4,6 +4,25 @@ using System;
 using System.Collections.Generic;
 
 
+
+public class ObjectDataSimplified
+{
+	public Item item;
+	public int rotationValue;
+	public bool isXFlipped;
+	public bool isYFlipped;
+	public Vector2 positionVector = Vector2.Zero;
+
+	public ObjectDataSimplified(ObjectData data)
+	{
+		item = data.item;
+		rotationValue = data.rotationValue;
+		isXFlipped = data.isXFlipped;
+		isYFlipped = data.isYFlipped;
+		positionVector = data.positionVector;
+	}
+
+}
 public partial class ObjectData : RefCounted
 {
 	/// <summary>
@@ -42,6 +61,15 @@ public partial class ObjectData : RefCounted
 		isXFlipped = isThisXFlipped;
 		isYFlipped = isThisYFlipped;
 		positionVector = thisPositionVector;
+	}
+
+	public ObjectData(ObjectDataSimplified result)
+	{
+		item = result.item;
+		rotationValue = result.rotationValue;
+		isXFlipped = result.isXFlipped;
+		isYFlipped = result.isYFlipped;
+		positionVector = result.positionVector;
 	}
 
 	// public void swapWidthAndHeight()

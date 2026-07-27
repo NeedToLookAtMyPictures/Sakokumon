@@ -33,8 +33,17 @@ public partial class EndOfDay : Control
 
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_cancel"))
+        {
+            OnGameToggled();
+        }
+    }
+
+	public void OnGameToggled()
 	{
+		var pauseMenu = GetNode<Control>("PauseMenu");
+		pauseMenu.Visible = !pauseMenu.Visible;
 	}
 }

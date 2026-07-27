@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://dc7as6lm0l2y4"]
 
-[ext_resource type="Script" uid="uid://cgv2ibprw457d" path="res://scripts/UI/ItemInspectionLoadSceneScript.cs" id="1_mrkuq"]
 [ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_yw62p"]
 [ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://assets/sprites/boxBackground.png" id="2_j35y3"]
@@ -10,49 +9,62 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_q8wnc"]
 
-[node name="ItemInspection" type="Node2D" unique_id=1346857749]
-script = ExtResource("1_mrkuq")
+[node name="AspectRatioContainer" type="AspectRatioContainer" unique_id=586973596]
+offset_right = 1920.0
+offset_bottom = 1080.0
+ratio = 1.3333
 
-[node name="Control" type="Control" parent="." unique_id=598045285]
+[node name="ScaleViewportContainer" type="SubViewportContainer" parent="." unique_id=1942565875]
+layout_mode = 2
+stretch = true
+
+[node name="ScaleViewport" type="SubViewport" parent="ScaleViewportContainer" unique_id=2077994723]
+handle_input_locally = false
+size = Vector2i(1439, 1080)
+size_2d_override = Vector2i(864, 648)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="ScaleViewportContainer/ScaleViewport" unique_id=598045285]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_yw62p")
 
-[node name="BackgroundSprite" type="Sprite2D" parent="Control" unique_id=1753863181]
+[node name="BackgroundSprite" type="Sprite2D" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=1753863181]
 position = Vector2(324, 324)
 scale = Vector2(648, 648)
 texture = SubResource("PlaceholderTexture2D_lkbh4")
 flip_h = true
 flip_v = true
 
-[node name="InspectionBox" type="Node2D" parent="Control" unique_id=140198155]
+[node name="InspectionBox" type="Node2D" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=140198155]
 
-[node name="GoodsGrid" type="Node2D" parent="Control/InspectionBox" unique_id=1662621992]
+[node name="GoodsGrid" type="Node2D" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox" unique_id=1662621992]
 script = ExtResource("1_roc8h")
 
-[node name="BoxBackground" type="Sprite2D" parent="Control/InspectionBox" unique_id=1522367781]
+[node name="BoxBackground" type="Sprite2D" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox" unique_id=1522367781]
 position = Vector2(324, 324)
 texture = ExtResource("2_j35y3")
 
-[node name="StorageArea" type="Node2D" parent="Control/InspectionBox" unique_id=387388703]
+[node name="StorageArea" type="Node2D" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox" unique_id=387388703]
 position = Vector2(648, 0)
 
-[node name="StorageAreaBackground" type="Sprite2D" parent="Control/InspectionBox/StorageArea" unique_id=300521072]
+[node name="StorageAreaBackground" type="Sprite2D" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/StorageArea" unique_id=300521072]
 position = Vector2(108, 274)
 scale = Vector2(216, 548)
 texture = SubResource("PlaceholderTexture2D_q8wnc")
 flip_h = true
 
-[node name="OuterStorageControl" type="Control" parent="Control/InspectionBox" unique_id=1668614636]
+[node name="OuterStorageControl" type="Control" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox" unique_id=1668614636]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="StorageAreaScroll" type="ScrollContainer" parent="Control/InspectionBox/OuterStorageControl" unique_id=2137371733]
+[node name="StorageAreaScroll" type="ScrollContainer" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/OuterStorageControl" unique_id=2137371733]
 clip_contents = false
 layout_mode = 1
 anchors_preset = -1
@@ -64,14 +76,14 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 scroll_hint_mode = 1
 
-[node name="StorageAreaControl" type="Control" parent="Control/InspectionBox/OuterStorageControl/StorageAreaScroll" unique_id=200381500]
+[node name="StorageAreaControl" type="Control" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/OuterStorageControl/StorageAreaScroll" unique_id=200381500]
 custom_minimum_size = Vector2(208, 548)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="Return" type="Button" parent="Control" unique_id=2090313018]
+[node name="Return" type="Button" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=2090313018]
 z_index = 9
 layout_mode = 1
 anchors_preset = -1
@@ -87,5 +99,5 @@ text = "Return"
 script = ExtResource("4_yw62p")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="child_entered_tree" from="Control/InspectionBox/GoodsGrid" to="Control/InspectionBox/GoodsGrid" method="PopulateGrid"]
-[connection signal="pressed" from="Control/Return" to="Control/Return" method="OnPressedReturn"]
+[connection signal="child_entered_tree" from="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/GoodsGrid" to="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/GoodsGrid" method="PopulateGrid"]
+[connection signal="pressed" from="ScaleViewportContainer/ScaleViewport/Control/Return" to="ScaleViewportContainer/ScaleViewport/Control/Return" method="OnPressedReturn"]

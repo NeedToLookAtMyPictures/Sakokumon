@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://didl6qv5pq8y4" path="res://assets/sprites/scroll.png" id="6_0t3l1"]
 [ext_resource type="PackedScene" uid="uid://c0g5cvc12opif" path="res://scenes/interface/stats.tscn" id="7_dfwog"]
 [ext_resource type="PackedScene" uid="uid://dh2phnxt0n3qg" path="res://scenes/interface/settings.tscn" id="8_dysqo"]
-[ext_resource type="PackedScene" uid="uid://castsbu0514kx" path="res://scenes/common/create_save.tscn" id="9_4bsd4"]
+[ext_resource type="PackedScene" uid="uid://b8jndpauygl6a" path="res://scenes/common/create_save.tscn" id="9_4bsd4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfwog"]
 atlas = ExtResource("6_0t3l1")
@@ -134,7 +134,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 7.0
+"speed": 16.0
 }]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]

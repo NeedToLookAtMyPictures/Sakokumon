@@ -111,7 +111,7 @@ size = Vector2(20, 36)
 
 [sub_resource type="Theme" id="Theme_r1w1t"]
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" unique_id=315275710]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" unique_id=315275710]
 offset_right = 1920.0
 offset_bottom = 1080.0
 ratio = 1.3333
@@ -383,24 +383,24 @@ layout_mode = 3
 anchors_preset = 0
 offset_left = -16.0
 offset_top = 20.0
-offset_right = 1907.0
-offset_bottom = 1111.0
+offset_right = 859.3088
+offset_bottom = 648.0
 theme = SubResource("Theme_r1w1t")
 
 [node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1856194177]
 layout_mode = 0
-offset_left = 24.0
-offset_top = -19.0
-offset_right = 1926.0
-offset_bottom = 1067.0
+offset_left = -3.224144
+offset_top = -18.8
+offset_right = 888.99554
+offset_bottom = 623.2
 color = Color(0, 0, 0, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1504004398]
 layout_mode = 0
-offset_left = 376.0
-offset_top = 357.0
-offset_right = 1537.0
-offset_bottom = 778.0
+offset_left = 44.80922
+offset_top = 112.600006
+offset_right = 854.7716
+offset_bottom = 359.80002
 theme = ExtResource("12_1rwlj")
 bbcode_enabled = true
 fit_content = true

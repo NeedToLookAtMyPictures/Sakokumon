@@ -82,7 +82,7 @@ public partial class HarborView : Node2D
 		var color = label.Modulate;
 		color.A = 0;
 		label.Modulate = color;
-		label.Text = $"[center][color=#FFFFFF][font_size=60]Current Year[/font_size]\n[b][font_size=200]{Global.Instance.Database.data.CurrentYear}[/font_size][/b][/color][/center]";
+		label.Text = $"[center][color=#FFFFFF][font_size=60]Current Year[/font_size]\n[b][font_size=150]{Global.Instance.Database.data.CurrentYear}[/font_size][/b][/color][/center]";
 		YearInfo.Visible = true;
 		var tween = CreateTween();
 		tween.TweenProperty(label, "modulate:a",1.0f,2.0f)

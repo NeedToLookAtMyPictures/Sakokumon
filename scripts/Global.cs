@@ -223,7 +223,7 @@ public partial class Global : Node
 			next.Progress       = 1f;
 			next.CurrentState   = NpcData.State.AtGuardpost;
 			npcPresent          = true;
-			(GetTree().CurrentScene as HarborView)?.ShowNpcNotification();
+			(GetNode<Node2D>("/root/AspectRatioContainer2/SubViewportContainer/SubViewport/HarborView") as HarborView)?.ShowNpcNotification();
 
 			int idx = 0;
 			foreach (var q in _waitQueue)
@@ -245,8 +245,7 @@ public partial class Global : Node
 		{
 			npc.CurrentState = NpcData.State.AtGuardpost;
 			npcPresent = true;
-			(GetTree().CurrentScene as HarborView)?.ShowNpcNotification();
-		}
+			(GetNode<Node2D>("/root/AspectRatioContainer2/SubViewportContainer/SubViewport/HarborView") as HarborView)?.ShowNpcNotification();		}
 		else
 		{
 			npc.CurrentState   = NpcData.State.Queued;

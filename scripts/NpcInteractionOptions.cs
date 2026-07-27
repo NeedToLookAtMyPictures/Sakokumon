@@ -11,6 +11,8 @@ public partial class NpcInteractionOptions : Button
 		var global = GetNode<Global>("/root/Global");
 		var Animate = async () =>
 		{
+			var returnBtn = GetNode<Button>("/root/NpcInteraction/Control/ReturnToHarbor");
+			returnBtn.Visible = false;
 			GetNode<Control>("/root/NpcInteraction/Control/ActionControl").Visible = false;
 			
 			var npcSprite = GetNode<Sprite2D>("/root/NpcInteraction/NpcSprite");
@@ -18,6 +20,7 @@ public partial class NpcInteractionOptions : Button
 			tween.TweenProperty(npcSprite,"position:x",1494.0,2.0f);
 			await ToSignal(tween,Tween.SignalName.Finished);
 			npcSprite.Texture = new PlaceholderTexture2D(); 
+			returnBtn.Visible = true;
 
 		};
 		switch (id)
@@ -28,11 +31,13 @@ public partial class NpcInteractionOptions : Button
 				break;
 			case "allow":
 				global.State = Data.GameState.NPCAllowed;
-				await Animate();
-				global.ReleaseGuardpost(depart: true);
 				Global.Instance.nodesInStorage = new List<Node2D>();
 				Global.Instance.itemsInStorage = new List<ObjectData>();
 				Global.Instance.itemsInGrid = new List<ObjectData>();
+				await Animate();
+				global.ReleaseGuardpost(depart: true);
+				
+				
 				// global.ReturnToPreviousScene();
 				
 				break;

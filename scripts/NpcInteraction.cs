@@ -22,6 +22,7 @@ public partial class NpcInteraction : Node2D
 		currentNPC = currentLevel.CurrentPerson;
 		btnController = GetNode<Control>("Control/ActionControl");
 		
+		GD.Print($"Current state: {global.State}");
 		if (global.State >= GameState.NPCSeen && global.State < GameState.NPCAllowed)
 		{
 			FastDisplayNPC();			
@@ -38,6 +39,7 @@ public partial class NpcInteraction : Node2D
 	{
 		if (global.State <= GameState.NPCNotSeen && global.npcPresent) // handles cases of the game still not having been started the game being started but the NPC hasnt been shown
 		{
+			
 			global.State = GameState.NPCSeen;
 			await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
 			await DisplayNPC();	
@@ -54,6 +56,7 @@ public partial class NpcInteraction : Node2D
 	}
 	public async Task DisplayNPC()
 	{
+		var currentNPC = Global.Instance.Database.Data.CurrentLevel.CurrentPerson;
 		npcSprite.Position = new Vector2(619.0f,435.0f);
 		npcSprite.Texture = GD.Load<Texture2D>(currentNPC.sprite.Path);
 		npcSprite.Scale = new Vector2(2.0f,2.0f);

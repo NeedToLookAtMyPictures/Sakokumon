@@ -300,30 +300,6 @@ offset_right = 850.0
 offset_bottom = 632.0
 text = "Enter Guardpost"
 
-[node name="DayCompletePanel" type="Panel" parent="UI" unique_id=300000053]
-visible = false
-offset_left = 175.0
-offset_top = 220.0
-offset_right = 675.0
-offset_bottom = 440.0
-
-[node name="DayCompleteLabel" type="Label" parent="UI/DayCompletePanel" unique_id=300000054]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 15.0
-offset_right = 490.0
-offset_bottom = 65.0
-text = "Day Complete!"
-horizontal_alignment = 1
-
-[node name="ViewReportButton" type="Button" parent="UI/DayCompletePanel" unique_id=300000055]
-layout_mode = 0
-offset_left = 125.0
-offset_top = 110.0
-offset_right = 375.0
-offset_bottom = 160.0
-text = "View Day Report"
-
 [node name="DebugPanel" type="Panel" parent="UI" unique_id=300000008]
 offset_left = 11.0
 offset_top = 458.0
@@ -382,19 +358,9 @@ offset_right = 245.0
 offset_bottom = 196.0
 text = "Spawn NPC (Debug)"
 
-[node name="EndDayDebug" type="Button" parent="UI/DebugPanel" unique_id=300000056]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 201.0
-offset_right = 245.0
-offset_bottom = 231.0
-text = "End Day (Debug)"
-
 [connection signal="pressed" from="UI/EnterGuardpostButton" to="." method="OnPressedEnterGuardpost"]
-[connection signal="pressed" from="UI/DayCompletePanel/ViewReportButton" to="." method="OnPressedViewReport"]
 [connection signal="pressed" from="UI/DebugPanel/NavNewGame" to="UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
 [connection signal="pressed" from="UI/DebugPanel/NavNpcInteraction" to="UI/DebugPanel/NavNpcInteraction" method="OnPressedDebugNav" binds= ["res://scenes/common/npc_interaction.tscn"]]
 [connection signal="pressed" from="UI/DebugPanel/NavItemInspection" to="UI/DebugPanel/NavItemInspection" method="OnPressedDebugNav" binds= ["res://scenes/common/item_inspection.tscn"]]
 [connection signal="pressed" from="UI/DebugPanel/NavMainMenu" to="UI/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]
 [connection signal="pressed" from="UI/DebugPanel/SpawnNpcDebug" to="." method="OnPressedSpawnNpc"]
-[connection signal="pressed" from="UI/DebugPanel/EndDayDebug" to="." method="OnPressedDebugEndDay"]

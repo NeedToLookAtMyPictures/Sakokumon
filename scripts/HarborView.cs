@@ -30,7 +30,6 @@ public partial class HarborView : Node2D
 
 	private Control         _notificationPanel;
 	private Button          _enterGuardpostButton;
-	private Panel           _dayCompletePanel;
 	private Node2D          _npcLayer;
 	private Global          _global;
 	private CharacterBody2D _npcTemplate;
@@ -44,18 +43,13 @@ public partial class HarborView : Node2D
 	{
 		_notificationPanel    = GetNode<Control>("UI/NotificationPanel");
 		_enterGuardpostButton = GetNode<Button>("UI/EnterGuardpostButton");
-		_dayCompletePanel     = GetNode<Panel>("UI/DayCompletePanel");
 		_npcLayer             = GetNode<Node2D>("NPCLayer");
 		_global               = GetNode<Global>("/root/Global");
 		_npcTemplate          = GetNode<CharacterBody2D>("NpcTemplate");
 
 		RegisterPaths();
 		HideNpcNotification();
-		_dayCompletePanel.Visible = false;
 		_bgSpawnTimer = GD.Randf() * BgSpawnMax;
-
-		if (_global.DayNpcQuota == 0)
-			_global.StartDay();
 
 		foreach (var npcData in _global.ActiveNpcs)
 			CreateBodyFor(npcData);
@@ -67,13 +61,6 @@ public partial class HarborView : Node2D
 	public override void _Process(double delta)
 	{
 		float dt = (float)delta;
-
-		if (_global.DayComplete && !_global.DayReportViewed && !_dayCompletePanel.Visible)
-		{
-			_dayCompletePanel.Visible     = true;
-			_notificationPanel.Visible    = false;
-			_enterGuardpostButton.Visible = false;
-		}
 
 		// Remove bodies for NPCs culled from Global
 		var toRemove = new List<Global.NpcData>();
@@ -288,13 +275,6 @@ public partial class HarborView : Node2D
 		_enterGuardpostButton.Visible = false;
 	}
 
-	public void OnPressedViewReport()
-	{
-		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
-		_global.DayReportViewed = true;
-		_global.GoToScene("res://scenes/interface/stats.tscn");
-	}
-
 	public void OnPressedEnterGuardpost()
 	{
 		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
@@ -304,11 +284,5 @@ public partial class HarborView : Node2D
 	public void OnPressedSpawnNpc()
 	{
 		_global.SpawnNpc();
-	}
-
-	public void OnPressedDebugEndDay()
-	{
-		_global.DayNpcsInspected = _global.DayNpcQuota;
-		_global.DayComplete      = true;
 	}
 }

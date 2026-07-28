@@ -17,14 +17,14 @@ namespace Data
 		public Dictionary<string, Item> items;
 
 		private struct AssetJson
-        {
-            public Dictionary<string, Asset[]> character_assets { get; set; }
-            public Dictionary<string, Item> items { get; set; }
-            public Dictionary<int, Level> custom_levels {get; set;}
-        }
+		{
+			public Dictionary<string, Asset[]> character_assets { get; set; }
+			public Dictionary<string, Item> items { get; set; }
+			public Dictionary<int, Level> custom_levels {get; set;}
+		}
 
 		public Dictionary<string, Asset[]> cassets; // exclusively for characters
-        private Dictionary<int, Level> clevels;
+		private Dictionary<int, Level> clevels;
 		public GameData data;
 		public string CurrentSlotName { get; private set; }
 		public GameData Data 
@@ -41,15 +41,15 @@ namespace Data
 		public Database(string apath)
 		{
 			asset_path = apath;
-            string assetJson = Godot.FileAccess.GetFileAsString(asset_path);
+			string assetJson = Godot.FileAccess.GetFileAsString(asset_path);
 			var gameData = JsonSerializer.Deserialize<AssetJson>(assetJson, options);
-            cassets = gameData.character_assets;
-            items = gameData.items;
+			cassets = gameData.character_assets;
+			items = gameData.items;
 			if (items.Count == 0)
 			{
 				throw new Exception("No items appear in the database");
 			}
-            clevels = gameData.custom_levels;
+			clevels = gameData.custom_levels;
 		}
 
 		// Parses a slot file's JSON, supporting both old single-object and new array formats.
@@ -82,17 +82,17 @@ namespace Data
 				.ToArray();
 		}
 
-        public GameData[] ListSaves()
-        {
+		public GameData[] ListSaves()
+		{
 			GD.Print(ListSlots().SelectMany(slot => slot.Saves).ToArray().Length);
-            return ListSlots().SelectMany(slot => slot.Saves).ToArray();
-        }
+			return ListSlots().SelectMany(slot => slot.Saves).ToArray();
+		}
 
-        public void LoadSave(GameData save)
-        {
+		public void LoadSave(GameData save)
+		{
 			
-            data = save;
-        }
+			data = save;
+		}
 
 		public Asset GetAsset(string type, int id)
 		{
@@ -109,21 +109,21 @@ namespace Data
 			data = save;
 		}
 
-        public void CreateSave(string name)
-        {
+		public void CreateSave(string name)
+		{
 			CurrentSlotName = name;
 			if (Godot.FileAccess.FileExists("user://saves/{slotName}.save")) throw new Exception("Save already exists");
-            data = new GameData
-            {
+			data = new GameData
+			{
 				name = name,
-                levels = clevels // loads prev custom encounters into arr
-            };
+				levels = clevels // loads prev custom encounters into arr
+			};
 			data.name = name;
-            data.levels = clevels; // loads prev custom encounters into arr
-            this.encounterGenerate();
-            this.save();
+			data.levels = clevels; // loads prev custom encounters into arr
+			this.encounterGenerate();
+			this.save();
 
-        }
+		}
 
 		public Item[] LegalItems(int currentYear)
 		{
@@ -163,7 +163,7 @@ namespace Data
 				GD.PrintErr($"Failed to open file: {Godot.FileAccess.GetOpenError()}");
 				return;
 			}
-            file.StoreString(JsonSerializer.Serialize(list, new JsonSerializerOptions { IncludeFields = true}));
+			file.StoreString(JsonSerializer.Serialize(list, new JsonSerializerOptions { IncludeFields = true}));
 			GD.Print($"Save written to {ProjectSettings.GlobalizePath(path)}");
 		}
 
@@ -173,8 +173,8 @@ namespace Data
 		}
 
 		/**
-            * Generates up to max (40) unique encounters with 5-10 persons per encounter,
-            * less any existing/custom encounters, and stores them in GameData.
+			* Generates up to max (40) unique encounters with 5-10 persons per encounter,
+			* less any existing/custom encounters, and stores them in GameData.
 		*/
 		public void encounterGenerate()
 		{
@@ -193,7 +193,7 @@ namespace Data
 				if (data.levels != null && data.levels.TryGetValue(step,out Level val))
 				{
 					GD.Print("Encounter already found! Skipping..");
-                    encounters[step] = data.levels[step];
+					encounters[step] = data.levels[step];
 					continue;
 				}
 				Person[] arr = Enumerable.Range(1,rand.Next(5,11)) // anywhere from 5-10 people
@@ -209,7 +209,7 @@ namespace Data
 				encounters[step] = new Level {people = arr};
 
 			}
-            data.levels = encounters;
+			data.levels = encounters;
 			GD.Print("Generated all encounters!");
 
 		}

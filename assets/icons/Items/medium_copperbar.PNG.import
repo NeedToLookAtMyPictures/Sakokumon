@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmdks1g0qdfwf"
-path="res://.godot/imported/Transparent_wood.PNG-7895f5c5d76b9378ae906e3c8b28bedd.ctex"
+uid="uid://dgtu0yqutqiop"
+path="res://.godot/imported/medium_copperbar.PNG-9031c481dece7665dfa7b8f837c91090.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/Items/Transparent_wood.PNG"
-dest_files=["res://.godot/imported/Transparent_wood.PNG-7895f5c5d76b9378ae906e3c8b28bedd.ctex"]
+source_file="res://assets/icons/Items/medium_copperbar.PNG"
+dest_files=["res://.godot/imported/medium_copperbar.PNG-9031c481dece7665dfa7b8f837c91090.ctex"]
 
 [params]
 

@@ -8,16 +8,16 @@ using System.Text.Json.Serialization;
 
 namespace Data
 {
-    public enum GameState
-    {
-        GameNotStarted,
-        NPCNotSeen,
+	public enum GameState
+	{
+		GameNotStarted,
+		NPCNotSeen,
 		NPCSeen,
-        ItemsInspected,
-        NPCAllowed,
-        NPCDenied,
+		ItemsInspected,
+		NPCAllowed,
+		NPCDenied,
 		EndDay
-    }
+	}
 
 	public class GameStateManager
 	{

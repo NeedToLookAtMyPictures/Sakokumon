@@ -24,3 +24,6 @@ test.png
 .DS_Store
 
 test_data/
+
+# Build output
+build/

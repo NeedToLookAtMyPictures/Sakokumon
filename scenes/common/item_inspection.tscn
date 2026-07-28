@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="5_mrkuq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sxwg2"]
-load_path = "res://.godot/imported/usethiswall.PNG-645ca9c7f39b4658fd69b9730f4ec09a.ctex"
+load_path = "res://.godot/imported/usethiswall.png-645ca9c7f39b4658fd69b9730f4ec09a.ctex"
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" unique_id=586973596]
 offset_right = 1920.0

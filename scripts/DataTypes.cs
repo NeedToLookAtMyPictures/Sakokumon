@@ -52,7 +52,7 @@ namespace Data
 			set
 			{
 				foreach (var texture in value)
-					if (!Godot.FileAccess.FileExists(texture))
+					if (!ResourceLoader.Exists(texture))
 						throw new Exception($"{texture} does not exist");
 
 				textures = value;

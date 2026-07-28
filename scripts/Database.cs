@@ -178,7 +178,7 @@ namespace Data
 		*/
 		public void encounterGenerate()
 		{
-			int max = 1853;
+			int max = 10;
 			int num = data.levels != null ? data.levels.Values.Count : 0;
 			if (num == max)
 			{

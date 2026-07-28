@@ -315,6 +315,7 @@ namespace Data
         public int CurrentYear
         {
             get => currentYear;
+			set => currentYear = value;
         }
         public void NextYear()
         {

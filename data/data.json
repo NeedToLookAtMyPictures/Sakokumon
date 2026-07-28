@@ -38,6 +38,24 @@
         "Height": 64,
         "Type": "torso",
         "Rotation": 0.0
+      },
+      {
+        "Name": "image1",
+        "Id": 4,
+        "Path": "res://assets/sprites/characters/torso/Guy2.PNG",
+        "Width": 64,
+        "Height": 64,
+        "Type": "torso",
+        "Rotation": 0.0
+      },
+      {
+        "Name": "image2",
+        "Id": 5,
+        "Path": "res://assets/sprites/characters/torso/Guy3.PNG",
+        "Width": 64,
+        "Height": 64,
+        "Type": "torso",
+        "Rotation": 0.0
       }
     ]
   },

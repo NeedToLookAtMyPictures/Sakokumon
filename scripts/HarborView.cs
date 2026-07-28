@@ -277,9 +277,26 @@ public partial class HarborView : Node2D
 			foreach (var child in bgPaths.GetChildren())
 			{
 				if (child is Path2D p && p.Curve != null)
-					_bgPaths.Add(p.Curve);
+					_bgPaths.Add(TransformCurve(p.Curve, p.Transform));
 			}
 		}
+	}
+
+	// Bakes a Path2D node's position/rotation/scale into its curve's points so the
+	// sampled path exactly matches what the node renders in the editor. Without this,
+	// curves under a scaled/offset Path2D (e.g. BgEntryWestToEast) are sampled in raw,
+	// un-transformed point space, so NPCs drift off the visible path.
+	private static Curve2D TransformCurve(Curve2D curve, Transform2D transform)
+	{
+		var result = new Curve2D();
+		for (int i = 0; i < curve.PointCount; i++)
+		{
+			Vector2 position = transform * curve.GetPointPosition(i);
+			Vector2 pointIn  = transform.BasisXform(curve.GetPointIn(i));
+			Vector2 pointOut = transform.BasisXform(curve.GetPointOut(i));
+			result.AddPoint(position, pointIn, pointOut);
+		}
+		return result;
 	}
 
 	private void CreateSpriteFor(Global.NpcData data) => CreateBodyFor(data);

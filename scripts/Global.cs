@@ -17,19 +17,18 @@ public partial class Global : Node
 		public State CurrentState = State.Approaching;
 		public string PathName;
 		public float Progress;      // 0→1 along the assigned path
-		public float NoisePhase;    // per-NPC random phase for perpendicular sway
 		public int QueueIndex = -1;        // position in wait queue, -1 if not queued
 		public Vector2 QueuedPosition;    // world position while in Queued state
 	}
 
-	private static readonly string[] EntryPathNames = { "EntryNorth", "EntryEast", "EntryWest" };
+	private static readonly string[] EntryPathNames = { "EntryEast", "EntryWest" };
 	private static readonly string[] ExitPathNames  = { "ExitSouth",  "ExitEast",  "ExitWest"  };
 
 	private const float NpcMoveSpeed   = 80f;  // px/sec along path
 	private const float NpcQueueSpeed  = 30f;  // px/sec when shuffling in queue
 	private const float QueueSpacing   = 70f;  // px between queued NPCs (along path length)
-	private const float NoiseAmplitude = 12f;  // max perpendicular sway in px
-	private const float NoiseFrequency = 0.4f; // sway cycles per second
+	private const float NpcSpawnMin    = 8f;   // min seconds between important-NPC spawns
+	private const float NpcSpawnMax    = 18f;  // max seconds between important-NPC spawns
 
 	public Node CurrentScene { get; set; }
 	public static Global Instance { get; set; }
@@ -103,6 +102,7 @@ public partial class Global : Node
 
 	private readonly Queue<NpcData> _waitQueue = new();
 	private ulong _noiseCounter; // rolling counter for per-NPC phase generation
+	private float _npcSpawnTimer;
 
 	private Preferences prefs;
 
@@ -143,6 +143,7 @@ public partial class Global : Node
 			// TODO: make sure to provide a reasonable error message
 		}
 		Database = new Database("res://data/data.json");
+		_npcSpawnTimer = GD.Randf() * NpcSpawnMax;
 	}
 
 	public override void _Process(double delta)
@@ -158,31 +159,42 @@ public partial class Global : Node
 				case NpcData.State.Departing:   ProcessDeparting(npc, dt, i);   break;
 			}
 		}
+
+		_npcSpawnTimer -= dt;
+		if (_npcSpawnTimer <= 0f)
+		{
+			_npcSpawnTimer = NpcSpawnMin + GD.Randf() * (NpcSpawnMax - NpcSpawnMin);
+			TrySpawnLevelNpc();
+		}
+	}
+
+	// Spawns the next inspectable NPC for the current level, up to that level's
+	// roster size (Database.Data.CurrentLevel.people). Without this, ActiveNpcs
+	// never grows outside the debug button and only decorative background NPCs appear.
+	private void TrySpawnLevelNpc()
+	{
+		var level = Database?.Data?.CurrentLevel;
+		if (level?.people == null) return;
+
+		int accountedFor = level.tracker + ActiveNpcs.Count(n => n.CurrentState != NpcData.State.Departing);
+		if (accountedFor < level.people.Length)
+			SpawnNpc();
 	}
 
 	public void SpawnNpc()
 	{
 		ActiveNpcs.Add(new NpcData
 		{
-			PathName   = EntryPathNames[GD.Randi() % (uint)EntryPathNames.Length],
-			Progress   = 0f,
-			NoisePhase = GD.Randf() * Mathf.Tau
+			PathName = EntryPathNames[GD.Randi() % (uint)EntryPathNames.Length],
+			Progress = 0f
 		});
 	}
 
-	// Returns the world-space position of an NPC including perpendicular sway noise.
+	// Returns the world-space position of an NPC strictly along its assigned path.
 	public Vector2 GetNpcWorldPosition(NpcData npc)
 	{
-		float time = Time.GetTicksMsec() / 1000f;
-		float sway = Mathf.Sin(time * NoiseFrequency + npc.NoisePhase) * NoiseAmplitude * 0.7f
-				   + Mathf.Sin(time * NoiseFrequency * 1.7f + npc.NoisePhase * 1.3f) * NoiseAmplitude * 0.3f;
-
 		if (npc.CurrentState == NpcData.State.Queued)
-		{
-			// Sway perpendicular to the queue line direction
-			Vector2 perp = new Vector2(-QueueDirection.Y, QueueDirection.X);
-			return npc.QueuedPosition + perp * sway;
-		}
+			return npc.QueuedPosition;
 
 		var paths = npc.CurrentState == NpcData.State.Departing ? ExitPaths : EntryPaths;
 		if (!paths.TryGetValue(npc.PathName, out var curve) || curve == null)
@@ -192,10 +204,7 @@ public partial class Global : Node
 		if (len <= 0f) return Vector2.Zero;
 
 		float offset = Mathf.Clamp(npc.Progress * len, 0f, len);
-		Transform2D t = curve.SampleBakedWithRotation(offset);
-
-		// t.Y is perpendicular to the path tangent (t.X)
-		return t.Origin + t.Y * sway;
+		return curve.SampleBaked(offset);
 	}
 
 	// Called by NpcInteractionOptions: depart=true→allow passage, depart=false→detain.

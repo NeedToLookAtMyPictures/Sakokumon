@@ -111,7 +111,6 @@ position = Vector2(463.51108, 216.6)
 position = Vector2(464.7119, 279.6)
 
 [node name="StreetPaths" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000015]
-visible = false
 
 [node name="EntryEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000017]
 position = Vector2(-66, 6)
@@ -134,7 +133,6 @@ curve = SubResource("Curve2D_exitWest")
 [node name="Buildings" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000022]
 
 [node name="BgPaths" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000040]
-visible = false
 
 [node name="BgEntryWestToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000043]
 position = Vector2(0, -436.80005)
@@ -174,6 +172,7 @@ shape = SubResource("RectangleShape2D_npcTemplate")
 [node name="UI" type="CanvasLayer" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000003]
 
 [node name="SceneLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000007]
+visible = false
 modulate = Color(1, 1, 0, 1)
 offset_left = 10.0
 offset_top = 9.0
@@ -182,31 +181,37 @@ offset_bottom = 39.0
 text = "[ SCENE: Harbor View ]"
 
 [node name="NotificationPanel" type="Panel" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000004]
-offset_left = 448.0
-offset_top = 12.0
-offset_right = 848.0
-offset_bottom = 72.0
+offset_left = 559.5778
+offset_top = 8.4
+offset_right = 861.5876
+offset_bottom = 48.6
+theme = ExtResource("12_1rwlj")
 
 [node name="NotificationLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI/NotificationPanel" unique_id=300000005]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 380.0
-offset_bottom = 50.0
+offset_left = 39.02295
+offset_top = 12.0
+offset_right = 268.3822
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0.007843138, 1)
+theme_override_font_sizes/font_size = 14
 text = "NPC awaiting inspection at guardpost"
 
 [node name="EnterGuardpostButton" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000006]
-offset_left = 450.0
-offset_top = 572.0
-offset_right = 850.0
-offset_bottom = 632.0
+offset_left = 619.6195
+offset_top = 562.8
+offset_right = 855.4037
+offset_bottom = 605.6
+theme = ExtResource("12_1rwlj")
 text = "Enter Guardpost"
 
 [node name="DebugPanel" type="Panel" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000008]
-offset_left = 11.0
-offset_top = 458.0
-offset_right = 261.0
-offset_bottom = 668.0
+visible = false
+offset_left = 10.796685
+offset_top = 404.40002
+offset_right = 260.7967
+offset_bottom = 614.4
+theme = ExtResource("12_1rwlj")
 
 [node name="DebugLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000009]
 layout_mode = 0

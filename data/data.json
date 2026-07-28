@@ -33,25 +33,34 @@
       {
         "Name": "image",
         "Id": 3,
-        "Path": "res://assets/sprites/characters/torso/image.png",
+        "Path": "res://assets/sprites/characters/char1.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
         "Rotation": 0.0
       },
       {
-        "Name": "image1",
-        "Id": 4,
-        "Path": "res://assets/sprites/characters/torso/Guy2.PNG",
+        "Name": "image",
+        "Id": 3,
+        "Path": "res://assets/sprites/characters/char2.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
         "Rotation": 0.0
       },
       {
-        "Name": "image2",
-        "Id": 5,
-        "Path": "res://assets/sprites/characters/torso/Guy3.PNG",
+        "Name": "image",
+        "Id": 3,
+        "Path": "res://assets/sprites/characters/char3.png",
+        "Width": 64,
+        "Height": 64,
+        "Type": "torso",
+        "Rotation": 0.0
+      },
+      {
+        "Name": "image",
+        "Id": 3,
+        "Path": "res://assets/sprites/characters/char4.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",

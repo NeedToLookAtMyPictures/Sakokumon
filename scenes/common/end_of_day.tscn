@@ -49,10 +49,10 @@ texture = ExtResource("3_3sslr")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="StatsControl" unique_id=1715994846]
 layout_mode = 0
-offset_left = 205.0
-offset_top = 419.0
-offset_right = 636.0
-offset_bottom = 965.0
+offset_left = 207.0
+offset_top = 417.0
+offset_right = 638.0
+offset_bottom = 963.0
 bbcode_enabled = true
 text = "[center][b][font_size=50]Stats[/font_size][/b][/center]"
 
@@ -67,10 +67,5 @@ text = "Continue"
 
 [node name="PauseMenu" parent="." unique_id=58057326 instance=ExtResource("5_6lw7o")]
 visible = false
-layout_mode = 1
-offset_left = 9.0
-offset_top = 11.0
-offset_right = 9.0
-offset_bottom = 11.0
 
 [connection signal="pressed" from="StatsControl/Button" to="." method="Continue"]

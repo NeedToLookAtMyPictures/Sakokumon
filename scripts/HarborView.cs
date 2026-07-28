@@ -163,6 +163,7 @@ public partial class HarborView : Node2D
 				_bgNpcs.RemoveAt(i);
 			}
 		}
+		if (Global.Instance.Database.Data == null) EndDay();
 		if (Global.Instance.Database.Data.CurrentLevel.CurrentPerson == null) EndDay();
 	}
 

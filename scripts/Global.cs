@@ -129,6 +129,7 @@ public partial class Global : Node
 
 	public override void _Ready()
 	{
+		ProcessMode = ProcessModeEnum.Always;
 		Viewport root = GetTree().Root;
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");

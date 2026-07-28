@@ -383,6 +383,7 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="PauseMenu" parent="." unique_id=207830368 instance=ExtResource("9_iw43f")]
+visible = false
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/EnterGuardpostButton" to="SubViewportContainer/SubViewport/HarborView" method="OnPressedEnterGuardpost"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]

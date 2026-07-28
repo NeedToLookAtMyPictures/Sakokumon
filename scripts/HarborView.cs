@@ -332,7 +332,7 @@ public partial class HarborView : Node2D
 		await ToSignal(tweenOut,Tween.SignalName.Finished);
 		if (Global.Instance.Database.Data.CurrentLevel == null)
 		{
-			// Global.Instance.GoToScene("res://scenes/common/")
+			Global.Instance.GoToScene("res://scenes/common/game_end.tscn");
 		}
 		else Global.Instance.GoToScene("res://scenes/common/end_of_day.tscn");
 

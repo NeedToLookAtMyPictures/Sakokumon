@@ -28,3 +28,5 @@ offset_bottom = 974.0
 theme = ExtResource("1_r5bk0")
 theme_override_font_sizes/font_size = 60
 text = "Return to Main Menu"
+
+[connection signal="pressed" from="Button" to="." method="OnClick"]

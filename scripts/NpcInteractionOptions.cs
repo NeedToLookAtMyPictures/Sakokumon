@@ -11,11 +11,12 @@ public partial class NpcInteractionOptions : Button
 		var global = GetNode<Global>("/root/Global");
 		var Animate = async () =>
 		{
-			var btnController = GetNode<Control>("Control/ActionControl");
+			var btnController = GetNode<Control>("/root/NpcInteraction/Control/ActionControl");
 			var returnBtn = GetNode<Button>("/root/NpcInteraction/Control/ReturnToHarbor");
 			returnBtn.Visible = false;
-			btnController.Visible = true;
+			btnController.Visible = false;
 			GetNode<Control>("/root/NpcInteraction/Control/ActionControl").Visible = false;
+			GetNode<Control>("/root/NpcInteraction/Control/ActionControl/ActionPanel").Visible = false;
 			
 			var npcSprite = GetNode<Control>("/root/NpcInteraction/NpcSprite");
 			var tween = CreateTween();

@@ -23,22 +23,20 @@ scale = Vector2(3.0395565, 2.5495281)
 texture = ExtResource("2_y8irx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=383429784]
-position = Vector2(630.6666, 563.99994)
-scale = Vector2(4.65625, 4.65625)
+position = Vector2(640.00006, 424.25)
+scale = Vector2(4.65625, 5.622395)
 texture = ExtResource("3_qxr33")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1952038853]
 layout_mode = 0
-offset_left = 212.0
-offset_top = 356.0
-offset_right = 1064.0
-offset_bottom = 828.0
+offset_left = 225.0
+offset_top = 168.0
+offset_right = 1077.0
+offset_bottom = 747.0
 bbcode_enabled = true
 text = "[center]
-[b][font_size=60]Welcome, inspector.[/font_size][/b]
-
-[font_size=40]The Emperor has been awaitng your arrival.  You will be the primary enforcer of the Sakoku edict, carefully controlling who will enter Dejima Island. Certain specified are strictly prohibited and must be properly enforced.
-
+[b][font_size=40]Welcome, inspector.[/font_size][/b]
+[font_size=40] The Portuguese and their Christianity tried to overthrow the government, so the westerners have been confined to this island. We have determined that we will trade with just the Dutch here. They are strictly watched at all times, but some smugglers may try to bring illegal items with them. Check your notebook before each day in order to check the current laws about prohibited items. If you need to organize the items that you are inspecting, place them to the right of the working space for temporary holding. While you are holding an item press 'q' or 'e' to rotate the items.
 
 [/font_size]"
 

@@ -33,12 +33,13 @@
       "Name": "Gold",
       "Id": 101,
       "Textures": [
-        "res://assets/sprites/Items/goldBar.png"
+        "res://assets/icons/Items/IMG_0031.png"
       ],
       "type": "goldBar",
       "Description": "Gold discs and bars traded through Dejima, banned from export in 1763.",
       "Grid": [
-        [true, true]
+        [true],
+        [true]
       ],
       "introYear": 1600,
       "exitYear": 1868,
@@ -65,7 +66,7 @@
       "Name": "Christian Cross",
       "Id": 103,
       "Textures": [
-        "res://assets/sprites/Items/cross.png"
+        "res://assets/icons/Items/cross.PNG"
       ],
       "type": "cross",
       "Description": "A symbol of the banned Christian faith, strictly prohibited under the Sakoku edicts.",
@@ -84,7 +85,7 @@
       "Name": "Raw Silk",
       "Id": 104,
       "Textures": [
-        "res://assets/sprites/Items/rawSilk.png"
+        "res://assets/icons/Items/raw_silk.PNG"
       ],
       "type": "rawSilk",
       "Description": "Unprocessed silk bundled for export, a staple of Dejima trade throughout the period.",
@@ -119,12 +120,13 @@
       "Name": "Silver",
       "Id": 106,
       "Textures": [
-        "res://assets/sprites/Items/silver.png"
+        "res://assets/icons/Items/silver_bar.PNG"
       ],
       "type": "silver",
       "Description": "Silver discs and bars, the primary medium of Dejima trade until the export ban of 1668.",
       "Grid": [
-        [true, true, true]
+        [true],
+        [true]
       ],
       "introYear": 1600,
       "exitYear": 1868,
@@ -189,7 +191,7 @@
       "Name": "Nagasaki Trade Coin",
       "Id": 110,
       "Textures": [
-        "res://assets/sprites/Items/nagasakiTradeCoin.png"
+        "res://assets/icons/IMG_0067.PNG"
       ],
       "type": "nagasakiTradeCoin",
       "Description": "A specially minted copper coin authorized for foreign trade at Dejima. Produced only from 1659 to 1685.",
@@ -205,7 +207,7 @@
       "Name": "Silverware",
       "Id": 111,
       "Textures": [
-        "res://assets/sprites/Items/silverware.png"
+        "res://assets/icons/Items/cutlery_but_shiny.PNG"
       ],
       "type": "silverware",
       "Description": "Silver tableware exploited as a loophole after the 1668 silver export ban. Outlawed once authorities took notice.",
@@ -221,8 +223,8 @@
       "Name": "Goods Sack",
       "Id": 112,
       "Textures": [
-        "res://assets/sprites/Items/goodsSack_pepper.png",
-        "res://assets/sprites/Items/goodsSack_sugar.png"
+        "res://assets/icons/Items/pepper_achoo.PNG",
+        "res://assets/icons/Items/Shugaa.PNG"
       ],
       "type": "goodsSack",
       "Description": "A large burlap sack of pepper or sugar, identified by kanji markings. A staple of legal Dejima commerce.",
@@ -241,7 +243,7 @@
       "Name": "Camphor Wood",
       "Id": 113,
       "Textures": [
-        "res://assets/sprites/Items/camphorWood.png"
+        "res://assets/icons/Items/Campfor.PNG"
       ],
       "type": "camphorWood",
       "Description": "Planks and blocks of aromatic camphor wood, valued in craftsmanship and medicine.",
@@ -260,7 +262,7 @@
       "Name": "Ceramic Bowl",
       "Id": 114,
       "Textures": [
-        "res://assets/sprites/Items/ceramicBowl.png"
+        "res://assets/icons/Items/ceramic_proper_size.PNG"
       ],
       "type": "ceramicBowl",
       "Description": "Fine ceramic bowls, a prized export of Japanese craftsmanship sought by Dutch traders.",
@@ -277,7 +279,7 @@
       "Name": "Lacquerware Bowl",
       "Id": 115,
       "Textures": [
-        "res://assets/sprites/Items/lacquerwareBowl.png"
+        "res://assets/icons/Items/Lacquerware.PNG"
       ],
       "type": "lacquerwareBowl",
       "Description": "Bowls finished in traditional urushi lacquer, highly sought after by European traders.",
@@ -294,7 +296,7 @@
       "Name": "Christian Text",
       "Id": 116,
       "Textures": [
-        "res://assets/sprites/Items/christianBook.png"
+        "res://assets/icons/Items/holybook.PNG"
       ],
       "type": "christianBook",
       "Description": "A prohibited Christian religious text, identifiable by the cross embossed on its cover. Banned at all times.",
@@ -313,7 +315,7 @@
       "Name": "Scientific Text",
       "Id": 117,
       "Textures": [
-        "res://assets/sprites/Items/scienceBook.png"
+        "res://assets/icons/Items/Yeah_Science.PNG"
       ],
       "type": "scienceBook",
       "Description": "A European text on natural philosophy or science. Banned from 1685 to 1720 before restrictions were lifted.",
@@ -332,7 +334,7 @@
       "Name": "Opium (Medical)",
       "Id": 118,
       "Textures": [
-        "res://assets/sprites/Items/opiumSmall.png"
+        "res://assets/icons/Items/opium_updated.PNG"
       ],
       "type": "opiumSmall",
       "Description": "A small tray of four cloth opium balls, tolerated in limited quantities for medicinal use before the 1857 ban.",
@@ -348,7 +350,7 @@
       "Name": "Opium (Bulk)",
       "Id": 119,
       "Textures": [
-        "res://assets/sprites/Items/opiumLarge.png"
+        "res://assets/icons/Items/toomuchopium.PNG"
       ],
       "type": "opiumLarge",
       "Description": "A wooden tray packed with rows of cloth opium balls. The quantity unambiguously indicates smuggling.",

@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="2_ip8k0"]
 [ext_resource type="Texture2D" uid="uid://csuua6s62iy2u" path="res://assets/icons/Book screen.PNG" id="2_j5mvr"]
 [ext_resource type="Script" uid="uid://gnaani35yh6" path="res://scripts/UI/SceneReturn.cs" id="3_ip8k0"]
-[ext_resource type="PackedScene" uid="uid://tc6occj88o76" path="res://scenes/common/pause_menu.tscn" id="4_4a30b"]
+[ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="4_4a30b"]
 
 [sub_resource type="Theme" id="Theme_4a30b"]
 

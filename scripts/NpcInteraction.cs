@@ -57,9 +57,7 @@ public partial class NpcInteraction : Node2D
 	public void FastDisplayNPC()
 	{
 		var torso = db.GetAsset("torso",currentNPC.torso);
-		var face = db.GetAsset("face",currentNPC.face);
 		npcTorso.Texture = GD.Load<Texture2D>(torso.Path);
-		npcFace.Texture = GD.Load<Texture2D>(face.Path);
 		npcSprite.Position = new Vector2(736.0f,156.0f);
 		btnController.Visible = true;
 	}
@@ -69,9 +67,7 @@ public partial class NpcInteraction : Node2D
 		var currentNPC = Global.Instance.Database.Data.CurrentLevel.CurrentPerson;
 		npcSprite.Position = new Vector2(188.0f,156.0f);
 		var torso = db.GetAsset("torso",currentNPC.torso);
-		var face = db.GetAsset("face",currentNPC.face);
 		npcTorso.Texture = GD.Load<Texture2D>(torso.Path);
-		npcFace.Texture = GD.Load<Texture2D>(face.Path);
 		var tween = CreateTween();
 		tween.TweenProperty(npcSprite,"position:x",736.0f,2.0f);
 		await ToSignal(tween,Tween.SignalName.Finished);

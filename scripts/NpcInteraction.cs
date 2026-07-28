@@ -17,9 +17,11 @@ public partial class NpcInteraction : Node2D
 	Level currentLevel;
 	Person currentNPC;
 	Control btnController;
+	Database db;
 	public override async void _Ready()
 	{
 		global = GetNode<Global>("/root/Global");
+		db = global.Database;
 		npcSprite = GetNode<Control>("NpcSprite");
 		npcTorso = GetNode<Sprite2D>("NpcSprite/NpcTorso");
 		npcFace = GetNode<Sprite2D>("NpcSprite/NpcFace");
@@ -54,18 +56,22 @@ public partial class NpcInteraction : Node2D
 	
 	public void FastDisplayNPC()
 	{
-
-		npcTorso.Texture = GD.Load<Texture2D>(currentNPC.torso.Path);
-		npcFace.Texture = GD.Load<Texture2D>(currentNPC.face.Path);
+		var torso = db.GetAsset("torso",currentNPC.torso);
+		var face = db.GetAsset("face",currentNPC.face);
+		npcTorso.Texture = GD.Load<Texture2D>(torso.Path);
+		npcFace.Texture = GD.Load<Texture2D>(face.Path);
 		npcSprite.Position = new Vector2(736.0f,156.0f);
 		btnController.Visible = true;
 	}
 	public async Task DisplayNPC()
 	{
+		
 		var currentNPC = Global.Instance.Database.Data.CurrentLevel.CurrentPerson;
 		npcSprite.Position = new Vector2(188.0f,156.0f);
-		npcTorso.Texture = GD.Load<Texture2D>(currentNPC.torso.Path);
-		npcFace.Texture = GD.Load<Texture2D>(currentNPC.face.Path);
+		var torso = db.GetAsset("torso",currentNPC.torso);
+		var face = db.GetAsset("face",currentNPC.face);
+		npcTorso.Texture = GD.Load<Texture2D>(torso.Path);
+		npcFace.Texture = GD.Load<Texture2D>(face.Path);
 		var tween = CreateTween();
 		tween.TweenProperty(npcSprite,"position:x",736.0f,2.0f);
 		await ToSignal(tween,Tween.SignalName.Finished);

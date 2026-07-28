@@ -84,6 +84,7 @@ namespace Data
 
         public GameData[] ListSaves()
         {
+			GD.Print(ListSlots().SelectMany(slot => slot.Saves).ToArray().Length);
             return ListSlots().SelectMany(slot => slot.Saves).ToArray();
         }
 
@@ -92,6 +93,11 @@ namespace Data
 			
             data = save;
         }
+
+		public Asset GetAsset(string type, int id)
+		{
+			return cassets[type].Where(x => x.Id == id).First();
+		}
 
 		public void LoadSaveFromSlot(string slotName, string saveName)
 		{
@@ -134,7 +140,6 @@ namespace Data
 		{
 			data.lastUpdated = DateTime.Now;
 			if (!DirAccess.DirExistsAbsolute("user://saves")) DirAccess.MakeDirAbsolute("user://saves");
-
 			string slotName = CurrentSlotName ?? data.name;
 			string path = $"user://saves/{slotName}.save";
 

@@ -4,7 +4,7 @@
       {
         "Name": "eyes2",
         "Id": 0,
-        "Path": "res://sprites/characters/face/eyes2.PNG",
+        "Path": "res://assets/sprites/characters/face/eyes2.PNG",
         "Width": 64,
         "Height": 64,
         "Type": "eyes",
@@ -13,7 +13,7 @@
       {
         "Name": "eyes3",
         "Id": 1,
-        "Path": "res://sprites/characters/face/eyes3.PNG",
+        "Path": "res://assets/sprites/characters/face/eyes3.PNG",
         "Width": 64,
         "Height": 64,
         "Type": "eyes",
@@ -22,7 +22,7 @@
       {
         "Name": "Face1",
         "Id": 2,
-        "Path": "res://sprites/characters/face/Face1.PNG",
+        "Path": "res://assets/sprites/characters/face/Face1.PNG",
         "Width": 64,
         "Height": 64,
         "Type": "face",
@@ -33,7 +33,7 @@
       {
         "Name": "image",
         "Id": 3,
-        "Path": "res://sprites/characters/torso/image.png",
+        "Path": "res://assets/sprites/characters/torso/image.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",

@@ -20,7 +20,7 @@ public partial class PauseMenu : Control
 	public async void OnSavePressed()
 	{
 		Global.Instance.Database.save();
-		var parent = GetParent();
+		var parent = GetTree().CurrentScene;
 		var tween = CreateTween();
 		tween.TweenProperty(parent,"modulate", new Color(0,0,0,1),1.0f);
 		await ToSignal(tween,Tween.SignalName.Finished);

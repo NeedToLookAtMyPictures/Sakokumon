@@ -13,6 +13,7 @@ public partial class Stats : RichTextLabel
 		if (Owner.Owner.Name == "MainMenu")
 		{
 			_saves = global.Database.ListSaves();
+			GD.Print(_saves.Length);
 
 			_saveSelect.AddItem("All Saves");
 			foreach (var save in _saves)

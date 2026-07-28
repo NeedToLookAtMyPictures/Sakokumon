@@ -50,7 +50,7 @@
       "Name": "Copper Coin",
       "Id": 102,
       "Textures": [
-        "res://assets/sprites/Items/copperCoin.png"
+        "res://assets/icons/Items/normalCopperCoin.png"
       ],
       "type": "copperCoin",
       "Description": "Standard domestic currency. Export of ordinary copper coinage was strictly forbidden at all times.",
@@ -85,10 +85,10 @@
       "Name": "Raw Silk",
       "Id": 104,
       "Textures": [
-        "res://assets/icons/Items/raw_silk.PNG"
+        "res://assets/icons/unrefined_silk.PNG"
       ],
       "type": "rawSilk",
-      "Description": "Unprocessed silk bundled for export, a staple of Dejima trade throughout the period.",
+      "Description": "Unprocessed silk bundled for export, a staple of early Dejima trade.",
       "Grid": [
         [true, true],
         [true, true]
@@ -102,12 +102,10 @@
       "Name": "Silk Roll",
       "Id": 105,
       "Textures": [
-        "res://assets/sprites/Items/silkRoll_1.png",
-        "res://assets/sprites/Items/silkRoll_2.png",
-        "res://assets/sprites/Items/silkRoll_3.png"
+        "res://assets/icons/Items/Processed_silk.PNG"
       ],
       "type": "silkRoll",
-      "Description": "A bolt of finished, dyed silk. Rolls come in several colors and patterns.",
+      "Description": "Three rolls of finished, dyed silk. Extremely expensive and highly prized by nobility, with colors that commoners cannot wear.",
       "Grid": [
         [true, true, true, true]
       ],
@@ -137,7 +135,7 @@
       "Name": "Copper Bar (Small)",
       "Id": 107,
       "Textures": [
-        "res://assets/sprites/Items/copperBar_s.png"
+        "res://assets/icons/Items/Copper_bar.PNG"
       ],
       "type": "copperBar_s",
       "Description": "A small refined copper bar, a legal and common export from Japan throughout the Edo period.",
@@ -154,7 +152,7 @@
       "Name": "Copper Bar (Medium)",
       "Id": 108,
       "Textures": [
-        "res://assets/sprites/Items/copperBar_m.png"
+        "res://assets/icons/Items/medium_copperbar.PNG"
       ],
       "type": "copperBar_m",
       "Description": "A medium refined copper bar, a legal and common export from Japan throughout the Edo period.",
@@ -172,7 +170,7 @@
       "Name": "Copper Bar (Large)",
       "Id": 109,
       "Textures": [
-        "res://assets/sprites/Items/copperBar_l.png"
+        "res://assets/icons/Items/Looongboi.PNG"
       ],
       "type": "copperBar_l",
       "Description": "A large refined copper bar, a legal and common export from Japan throughout the Edo period.",
@@ -227,7 +225,7 @@
         "res://assets/icons/Items/Shugaa.PNG"
       ],
       "type": "goodsSack",
-      "Description": "A large burlap sack of pepper or sugar, identified by kanji markings. A staple of legal Dejima commerce.",
+      "Description": "A large burlap sack of pepper or sugar, identified by the color of the filling. A staple of legal Dejima commerce.",
       "Grid": [
         [true, true, true],
         [true, true, true],
@@ -243,7 +241,7 @@
       "Name": "Camphor Wood",
       "Id": 113,
       "Textures": [
-        "res://assets/icons/Items/Campfor.PNG"
+        "res://assets/icons/Items/Transparent_wood.PNG"
       ],
       "type": "camphorWood",
       "Description": "Planks and blocks of aromatic camphor wood, valued in craftsmanship and medicine.",

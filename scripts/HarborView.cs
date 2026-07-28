@@ -335,8 +335,11 @@ public partial class HarborView : Node2D
 		var currentScreen = GetTree().CurrentScene;
 		tweenOut.TweenProperty(currentScreen,"modulate", new Color(0,0,0,1),1.5f);
 		await ToSignal(tweenOut,Tween.SignalName.Finished);
-		
-		Global.Instance.GoToScene("res://scenes/common/end_of_day.tscn");
+		if (Global.Instance.Database.Data.CurrentLevel == null)
+		{
+			// Global.Instance.GoToScene("res://scenes/common/")
+		}
+		else Global.Instance.GoToScene("res://scenes/common/end_of_day.tscn");
 
 	}
 }

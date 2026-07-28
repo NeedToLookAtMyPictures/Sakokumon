@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://beajvgq2bf1sh"]
+
+[ext_resource type="Script" uid="uid://1oxbk1n85whb" path="res://scripts/UI/GameDone.cs" id="1_jotm8"]
+[ext_resource type="Texture2D" uid="uid://xol4c77536et" path="res://assets/sprites/space.png" id="1_o6xut"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="2_opuo4"]
+
+[node name="Node2D" type="Node2D" unique_id=221938827]
+script = ExtResource("1_jotm8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1522882499]
+position = Vector2(960.74994, 536)
+scale = Vector2(2.7812498, 2.78125)
+texture = ExtResource("1_o6xut")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=832996095]
+offset_left = 341.0
+offset_top = 396.0
+offset_right = 1650.0
+offset_bottom = 652.0
+theme = ExtResource("2_opuo4")
+bbcode_enabled = true
+text = "[center][color=#ffffff][b][font_size=200]You Win[/font_size][/b][/color][/center]"

@@ -43,6 +43,7 @@ text = "[center]
 [/font_size]"
 
 [node name="TextCrawl" type="RichTextLabel" parent="." unique_id=200000002]
+visible = false
 layout_mode = 0
 offset_left = 171.0
 offset_top = 114.0

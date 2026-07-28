@@ -43,7 +43,7 @@ public partial class HarborView : Node2D
 		_npcLayer             = GetNode<Node2D>("NPCLayer");
 		_global               = GetNode<Global>("/root/Global");
 		_npcTemplate          = GetNode<CharacterBody2D>("NpcTemplate");
-		YearInfo			  = GetNode<Control>("YearInfo");
+		YearInfo			  = GetNode<Control>("YearInfoLayer/YearInfo");
 
 		_enterGuardpostButton.Visible = true;
 

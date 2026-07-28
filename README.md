@@ -4,19 +4,13 @@ The player must keep track of varying rules and regulations as they inspect the 
 By seeing the varied people moving into and out of the isolated island, and learning about the various regulations on goods put into place and/or removed over time, players can learn more about the culture of Japan during the Sakoku period, with a focus on the exchange with the West.
 
 
-- One-line build command (desktop and mobile) and installation package executable link (desktop)
-(From main folder in project)
-build --headless --export-release "Windows Desktop" build/Sakokumon.exe
+- One-line build command and installation package executable link:
+  (From main folder in project)
+  build --headless --export-release "Windows Desktop" build/Sakokumon.exe
 
+- Link to this repository:
+  https://github.com/NeedToLookAtMyPictures/Sakokumon/
 
-- Link to the repository for the project (e.g., GitHub) [Note: if private, you must add instructors]
-https://github.com/NeedToLookAtMyPictures/Sakokumon/
-
-
-- Link to installation package executable (desktop) or link to the application package (APK) (mobile)
-https://github.com/NeedToLookAtMyPictures/Sakokumon/blob/release/demo/build/Sakokumon.exe
-
-
-- Run executable command
-(From main folder in project)
-"build/Sakokumon.exe"
+- Run installer command:
+  PowerShell -> ./Sakokumon-Setup-1.0.0.exe
+    After the installer has completed, you can run the new game executable as you would any other program. Explicitly, it would be ./Sakokumon.exe

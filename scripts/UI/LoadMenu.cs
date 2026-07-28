@@ -41,17 +41,13 @@ public partial class LoadMenu : Control
 		backBtn.Pressed += OnBackPressed;
 		btnBar.AddChild(backBtn);
 
-		var returnBtn = new Button();
-		returnBtn.Text = "Return to Main Menu";
-		returnBtn.Pressed += OnReturnPressed;
-		btnBar.AddChild(returnBtn);
-
 		var spacer = new Control();
 		spacer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
 		btnBar.AddChild(spacer);
 
 		_loadButton = new Button();
 		_loadButton.Text = "Load";
+		_loadButton.AddThemeFontOverride("font", GD.Load<FontFile>("res://styles/fonts/PixelOperator-Bold.ttf"));
 		_loadButton.Disabled = true;
 		_loadButton.Pressed += OnLoadPressed;
 		btnBar.AddChild(_loadButton);
@@ -184,15 +180,5 @@ public partial class LoadMenu : Control
 	{
 		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		GetNode<Global>("/root/Global").ReturnToPreviousScene();
-	}
-
-	// TODO: this is effectively a debug issue since currently game saves aren't fully implemented
-	// when you enter a gave "save" currently you are trapped as "return" in the inspection scene 
-	// sends you back to the LoadMenu as opposed to the NPC interaction scene
-	private void OnReturnPressed()
-	{
-		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
-		var global = GetNode<Global>("/root/Global");
-		global.GoToScene("res://scenes/interface/main_menu.tscn");
 	}
 }

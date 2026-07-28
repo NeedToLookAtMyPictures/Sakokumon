@@ -141,7 +141,6 @@ namespace Data
 			if (forceSmuggler) smuggler = true;
 			else smuggler = chance == 1;           
             torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First().Id;
-			face = db.cassets["face"].OrderBy(_ => Random.Shared.Next()).First().Id;
 			
 		}
 

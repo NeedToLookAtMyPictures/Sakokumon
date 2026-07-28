@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://c54hou2vl52be" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-3.png" id="3_eyujm"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="4_dbg"]
 [ext_resource type="Texture2D" uid="uid://cqxyid1tnk1y7" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-2.png" id="4_g0iyq"]
-[ext_resource type="Texture2D" uid="uid://disxv1ydit5xk" path="res://assets/sprites/characters/face/Face1.PNG" id="4_r0lrc"]
 [ext_resource type="Texture2D" uid="uid://dia0kn5gdoxav" path="res://assets/panel.png" id="5_0dbxb"]
 [ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="9_eyujm"]
 
@@ -35,7 +34,6 @@ centered = false
 
 [node name="NpcFace" type="Sprite2D" parent="NpcSprite" unique_id=1699350646]
 position = Vector2(-9.999992, -14.5)
-texture = ExtResource("4_r0lrc")
 centered = false
 
 [node name="GuardpostFrame3" type="Sprite2D" parent="." unique_id=276145714]

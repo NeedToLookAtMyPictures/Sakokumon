@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq7asfk01wstg"
-path="res://.godot/imported/Looongboi.png-c40fe582f88c578993961750d6669570.ctex"
+uid="uid://ead4no5xjv16"
+path="res://.godot/imported/Looongboi.png-3ca6cfe44dc87aed4618fd75c7785ebc.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/Looongboi.png"
-dest_files=["res://.godot/imported/Looongboi.png-c40fe582f88c578993961750d6669570.ctex"]
+dest_files=["res://.godot/imported/Looongboi.png-3ca6cfe44dc87aed4618fd75c7785ebc.ctex"]
 
 [params]
 

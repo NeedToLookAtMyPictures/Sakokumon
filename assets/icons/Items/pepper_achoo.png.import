@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvpephtc245hv"
-path="res://.godot/imported/pepper_achoo.png-0fc9a930239e9e18f339a668f8f80a42.ctex"
+uid="uid://c2amyny3ckejx"
+path="res://.godot/imported/pepper_achoo.png-9c58cb948b0cf1d70aba7dfe52a27d39.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/pepper_achoo.png"
-dest_files=["res://.godot/imported/pepper_achoo.png-0fc9a930239e9e18f339a668f8f80a42.ctex"]
+dest_files=["res://.godot/imported/pepper_achoo.png-9c58cb948b0cf1d70aba7dfe52a27d39.ctex"]
 
 [params]
 

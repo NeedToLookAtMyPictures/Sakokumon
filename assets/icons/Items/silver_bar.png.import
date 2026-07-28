@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4u40ui4sb5fo"
-path="res://.godot/imported/silver_bar.png-a1ed04ca57992067b21b0d9ac2d1b50c.ctex"
+uid="uid://b21qywl0crehe"
+path="res://.godot/imported/silver_bar.png-21883f69ffbda5620f675daf60ebb749.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/silver_bar.png"
-dest_files=["res://.godot/imported/silver_bar.png-a1ed04ca57992067b21b0d9ac2d1b50c.ctex"]
+dest_files=["res://.godot/imported/silver_bar.png-21883f69ffbda5620f675daf60ebb749.ctex"]
 
 [params]
 

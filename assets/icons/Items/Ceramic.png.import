@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h3amgmfrx837"
-path="res://.godot/imported/Ceramic.png-ecdfb3e68d12347a2ebef06363311ba8.ctex"
+uid="uid://crjp2kjbkiqdi"
+path="res://.godot/imported/Ceramic.png-77a2b1d289d1c03942c770f30c02d1d4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/Ceramic.png"
-dest_files=["res://.godot/imported/Ceramic.png-ecdfb3e68d12347a2ebef06363311ba8.ctex"]
+dest_files=["res://.godot/imported/Ceramic.png-77a2b1d289d1c03942c770f30c02d1d4.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfynhjkts2r20"
-path="res://.godot/imported/raw_silk.png-290661359daaa05391779f82c6f19cfd.ctex"
+uid="uid://dx4tll5w1fsla"
+path="res://.godot/imported/raw_silk.png-75c4a3c8982a93513cf2b7fa2f674956.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/raw_silk.png"
-dest_files=["res://.godot/imported/raw_silk.png-290661359daaa05391779f82c6f19cfd.ctex"]
+dest_files=["res://.godot/imported/raw_silk.png-75c4a3c8982a93513cf2b7fa2f674956.ctex"]
 
 [params]
 

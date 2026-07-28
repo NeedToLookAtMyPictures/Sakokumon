@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7it5wnng4oy2"
-path="res://.godot/imported/Campfor.png-33c5bfc69534a4ef8f153cdb0c9be295.ctex"
+uid="uid://clksyfw3lob1f"
+path="res://.godot/imported/Campfor.png-0c2ec8a86c3ddba517d4148da88e3c44.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/Campfor.png"
-dest_files=["res://.godot/imported/Campfor.png-33c5bfc69534a4ef8f153cdb0c9be295.ctex"]
+dest_files=["res://.godot/imported/Campfor.png-0c2ec8a86c3ddba517d4148da88e3c44.ctex"]
 
 [params]
 

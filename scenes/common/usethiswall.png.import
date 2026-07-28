@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c657abs21dfky"
-path="res://.godot/imported/usethiswall.png-ade1019f801225d3677958a750909ef4.ctex"
+uid="uid://davuh8bypwgls"
+path="res://.godot/imported/usethiswall.png-13a014d6792cf0111f3cf06f1d1c0660.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://scenes/common/usethiswall.png"
-dest_files=["res://.godot/imported/usethiswall.png-ade1019f801225d3677958a750909ef4.ctex"]
+dest_files=["res://.godot/imported/usethiswall.png-13a014d6792cf0111f3cf06f1d1c0660.ctex"]
 
 [params]
 

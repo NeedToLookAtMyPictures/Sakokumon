@@ -2,19 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://ce7io7fbvgiba" path="res://scenes/common/game_background.tscn" id="1_bgscn"]
 [ext_resource type="Script" uid="uid://7rt3mousqrg0" path="res://scripts/HarborView.cs" id="2_hv"]
-[ext_resource type="Texture2D" uid="uid://dxc5rafb6yhd7" path="res://assets/sprites/scenery/harborView/guardhouse.png" id="3_621y4"]
+[ext_resource type="Texture2D" uid="uid://brahyv0ocnqyy" path="res://assets/harborview.png" id="2_n0qcd"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
-[ext_resource type="Texture2D" uid="uid://bryhojmhif1br" path="res://assets/sprites/people/person.png" id="4_npcTex"]
 [ext_resource type="Texture2D" uid="uid://c5cc752fyo8hf" path="res://assets/sprites/scenery/harborView/bldgNW.png" id="5_bldgNW"]
 [ext_resource type="Texture2D" uid="uid://b4sle7adg3a0s" path="res://assets/sprites/scenery/harborView/bldgNE.png" id="6_bldgNE"]
 [ext_resource type="Texture2D" uid="uid://gefo6wvilf0s" path="res://assets/sprites/scenery/harborView/bldgSW.png" id="7_bldgSW"]
+[ext_resource type="Texture2D" uid="uid://cjd6366noosow" path="res://assets/icons/Silhouette1.0.PNG" id="8_a8hag"]
 [ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
-[ext_resource type="Texture2D" uid="uid://bxurualrcp6n1" path="res://assets/sprites/scenery/harborView/keepWallL.png" id="9_keepL"]
-[ext_resource type="Texture2D" uid="uid://b6ee0dvdcqd82" path="res://assets/sprites/scenery/harborView/keepWallR.png" id="10_keepR"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="12_1rwlj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
-size = Vector2(256, 64)
+size = Vector2(85.25922, 72.60001)
 
 [sub_resource type="Curve2D" id="Curve2D_entryNorth"]
 _data = {
@@ -68,7 +66,7 @@ size = Vector2(333, 189)
 size = Vector2(267, 77)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_keepWallR"]
-size = Vector2(351, 74)
+size = Vector2(362.65845, 99.399994)
 
 [sub_resource type="Curve2D" id="Curve2D_bgNorthToEast"]
 _data = {
@@ -130,21 +128,20 @@ render_target_update_mode = 4
 [node name="HarborView" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=300000001]
 script = ExtResource("2_hv")
 
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1618802722]
+position = Vector2(460.58496, 309.00003)
+scale = Vector2(1.4745282, 1.4745284)
+texture = ExtResource("2_n0qcd")
+
 [node name="GameBackground" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1875029057 instance=ExtResource("1_bgscn")]
 
 [node name="Guardpost" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground" unique_id=527607895]
-
-[node name="Guardpost-Texture" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=1049506940]
-position = Vector2(388, 307)
-rotation = 1.5707964
-scale = Vector2(0.5128207, 1.3321674)
-texture = ExtResource("3_621y4")
 
 [node name="GuardpostDetector" type="Area2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=594737127]
 position = Vector2(389, 275)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost/GuardpostDetector" unique_id=1153289132]
-position = Vector2(1, 32)
+position = Vector2(72.70987, -22.09999)
 shape = SubResource("RectangleShape2D_guardpost")
 
 [node name="IngressPoint" type="Marker2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=300000031]
@@ -233,22 +230,12 @@ position = Vector2(260, 280)
 position = Vector2(-134.5, 29)
 shape = SubResource("RectangleShape2D_keepWallL")
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/KeepWallLeft" unique_id=300000051]
-position = Vector2(-133.49998, 29)
-scale = Vector2(1.0351564, 1.203125)
-texture = ExtResource("9_keepL")
-
 [node name="KeepWallRight" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000035]
 position = Vector2(520, 280)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/KeepWallRight" unique_id=300000036]
-position = Vector2(174.5, 26)
+position = Vector2(168.67078, 13.299988)
 shape = SubResource("RectangleShape2D_keepWallR")
-
-[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/KeepWallRight" unique_id=300000052]
-position = Vector2(174.5, 26)
-scale = Vector2(0.914063, 1.15625)
-texture = ExtResource("10_keepR")
 
 [node name="BgPaths" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000040]
 
@@ -281,7 +268,7 @@ collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/NpcTemplate" unique_id=300000038]
 scale = Vector2(0.59375, 0.46875)
-texture = ExtResource("4_npcTex")
+texture = ExtResource("8_a8hag")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/NpcTemplate" unique_id=300000039]
 shape = SubResource("RectangleShape2D_npcTemplate")

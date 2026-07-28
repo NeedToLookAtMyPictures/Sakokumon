@@ -108,8 +108,10 @@ size = Vector2(20, 36)
 [sub_resource type="Theme" id="Theme_r1w1t"]
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" unique_id=315275710]
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 274.0
+offset_top = 900.0
+offset_right = 2194.0
+offset_bottom = 1980.0
 ratio = 1.3333
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=844130677]

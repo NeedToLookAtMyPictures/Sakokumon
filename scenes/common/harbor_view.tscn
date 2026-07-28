@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://brahyv0ocnqyy" path="res://assets/harborview.png" id="2_n0qcd"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
 [ext_resource type="Texture2D" uid="uid://cjd6366noosow" path="res://assets/icons/Silhouette1.0.PNG" id="8_a8hag"]
+[ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
+[ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="9_iw43f"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="12_1rwlj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
@@ -295,6 +297,37 @@ offset_top = 166.0
 offset_right = 245.0
 offset_bottom = 196.0
 text = "Spawn NPC (Debug)"
+
+[node name="YearInfo" type="Control" parent="SubViewportContainer/SubViewport/HarborView" unique_id=774069679]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = 20.0
+offset_right = 859.3088
+offset_bottom = 648.0
+theme = SubResource("Theme_r1w1t")
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1856194177]
+layout_mode = 0
+offset_left = -3.224144
+offset_top = -18.8
+offset_right = 879.3889
+offset_bottom = 638.2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1504004398]
+layout_mode = 0
+offset_left = 44.80922
+offset_top = 112.600006
+offset_right = 854.7716
+offset_bottom = 359.80002
+theme = ExtResource("12_1rwlj")
+bbcode_enabled = true
+fit_content = true
+
+[node name="PauseMenu" parent="." unique_id=207830368 instance=ExtResource("9_iw43f")]
+visible = false
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/EnterGuardpostButton" to="SubViewportContainer/SubViewport/HarborView" method="OnPressedEnterGuardpost"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]

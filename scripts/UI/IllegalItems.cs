@@ -166,13 +166,6 @@ public partial class IllegalItems : Control
         return card;
     }
 
-	public override void _UnhandledInput(InputEvent @event)
-    {
-        if (@event.IsActionPressed("ui_cancel"))
-        {
-            OnGameToggled();
-        }
-    }
 
 	public void OnGameToggled()
 	{

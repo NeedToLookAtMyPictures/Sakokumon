@@ -18,12 +18,12 @@ namespace Data
 
 		private struct AssetJson
         {
-            public Asset[] character_assets { get; set; }
+            public Dictionary<string, Asset[]> character_assets { get; set; }
             public Dictionary<string, Item> items { get; set; }
             public Dictionary<int, Level> custom_levels {get; set;}
         }
 
-		public Asset[] cassets; // exclusively for characters
+		public Dictionary<string, Asset[]> cassets; // exclusively for characters
         private Dictionary<int, Level> clevels;
 		public GameData data;
 		public string CurrentSlotName { get; private set; }
@@ -84,6 +84,7 @@ namespace Data
 
         public GameData[] ListSaves()
         {
+			GD.Print(ListSlots().SelectMany(slot => slot.Saves).ToArray().Length);
             return ListSlots().SelectMany(slot => slot.Saves).ToArray();
         }
 
@@ -92,6 +93,11 @@ namespace Data
 			
             data = save;
         }
+
+		public Asset GetAsset(string type, int id)
+		{
+			return cassets[type].Where(x => x.Id == id).First();
+		}
 
 		public void LoadSaveFromSlot(string slotName, string saveName)
 		{
@@ -134,7 +140,6 @@ namespace Data
 		{
 			data.lastUpdated = DateTime.Now;
 			if (!DirAccess.DirExistsAbsolute("user://saves")) DirAccess.MakeDirAbsolute("user://saves");
-
 			string slotName = CurrentSlotName ?? data.name;
 			string path = $"user://saves/{slotName}.save";
 
@@ -182,7 +187,7 @@ namespace Data
 			}
 
 			var encounters = new Dictionary<int, Level>();
-			foreach (int step in Enumerable.Range(0,max).Select(i => 1695 + i * 10))
+			foreach (int step in Enumerable.Range(0,max).Select(i => 1695 + i * 20))
 			{
 
 				if (data.levels != null && data.levels.TryGetValue(step,out Level val))

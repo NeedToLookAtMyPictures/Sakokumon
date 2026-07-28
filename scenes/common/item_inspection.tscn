@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_yw62p"]
 [ext_resource type="Script" uid="uid://gnaani35yh6" path="res://scripts/UI/SceneReturn.cs" id="4_yw62p"]
+[ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="5_mrkuq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sxwg2"]
 load_path = "res://.godot/imported/usethiswall.PNG-645ca9c7f39b4658fd69b9730f4ec09a.ctex"
@@ -85,6 +86,9 @@ offset_bottom = 651.0
 text = "Return"
 script = ExtResource("4_yw62p")
 metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenu" parent="." unique_id=207830368 instance=ExtResource("5_mrkuq")]
+visible = false
 
 [connection signal="child_entered_tree" from="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/GoodsGrid" to="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/GoodsGrid" method="PopulateGrid"]
 [connection signal="pressed" from="ScaleViewportContainer/ScaleViewport/Control/Return" to="ScaleViewportContainer/ScaleViewport/Control/Return" method="OnPressedReturn"]

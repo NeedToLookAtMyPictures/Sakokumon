@@ -125,7 +125,9 @@ namespace Data
 		public Item[] goods {get; set;}
 		public int id {get; set;}
 		public bool smuggler {get; set;}
-		public Asset sprite {get; set;}
+		public int torso {get; set;}
+
+		public int face {get; set;}
 		// possibly a weapon Asset?
 		// Asset weapon {get; set;}
 
@@ -138,7 +140,8 @@ namespace Data
 			var chance =  Random.Shared.Next(0,3);
 			if (forceSmuggler) smuggler = true;
 			else smuggler = chance == 1;           
-            sprite = db.cassets.OrderBy(_ => Random.Shared.Next()).First();
+            torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First().Id;
+			face = db.cassets["face"].OrderBy(_ => Random.Shared.Next()).First().Id;
 			
 		}
 
@@ -152,6 +155,7 @@ namespace Data
 		public Stats Stats
 		{
 		  get => stats;
+		  set => stats = value;
 		}
 		public bool custom {get; set;}
 
@@ -314,7 +318,7 @@ namespace Data
         }
         public void NextYear()
         {
-            currentYear += 10;
+            currentYear += 20;
 			Global.Instance.Difficulty += 1;
         }
 		public GameState state = GameState.GameNotStarted;
@@ -328,9 +332,12 @@ namespace Data
 		}
 
 		public Dictionary<int, Level> levels;
+
 		public Stats GameStats
         {
             get => levels != null ? levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m) : new Stats();
+			
+
         }
         public DateTime lastUpdated;
 		public GameData() {}

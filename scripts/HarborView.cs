@@ -336,4 +336,7 @@ public partial class HarborView : Node2D
 		else Global.Instance.GoToScene("res://scenes/common/end_of_day.tscn");
 
 	}
+
+	
+
 }

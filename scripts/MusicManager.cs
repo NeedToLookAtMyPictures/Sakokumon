@@ -41,6 +41,7 @@ public partial class MusicManager : Node
 
 	public override void _Ready()
 	{
+		ProcessMode = ProcessModeEnum.Always;
 		var prefs = GetNode<Global>("/root/Global").Preferences;		
 		_musicPlayer = new AudioStreamPlayer();
 		_musicPlayer.Bus = "Music";

@@ -131,6 +131,7 @@ public partial class Global : Node
 
 	public override void _Ready()
 	{
+		ProcessMode = ProcessModeEnum.Always;
 		Viewport root = GetTree().Root;
 		CurrentScene = root.GetChild(-1);
 		GD.Print($"Scene initialized: {CurrentScene.Name}");
@@ -146,6 +147,22 @@ public partial class Global : Node
 		}
 		Database = new Database("res://data/data.json");
 		_npcSpawnTimer = GD.Randf() * NpcSpawnMax;
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("ui_cancel"))
+		{
+			var name = GetTree().CurrentScene.Name;
+			List<string> permittedScenes = ["EndOfDay","AspectRatioContainer2","IllegalItems","AspectRatioContainer","NpcInteraction","CurrentDay"];
+			if (permittedScenes.Contains(name))
+			{
+				GD.Print(GetTree().CurrentScene);
+				var pauseMenu = GetTree().CurrentScene.GetNode<CanvasLayer>("PauseMenu");
+				pauseMenu.Visible = !pauseMenu.Visible;
+				GetTree().Paused = !GetTree().Paused;
+			}	
+		}
 	}
 
 	public override void _Process(double delta)

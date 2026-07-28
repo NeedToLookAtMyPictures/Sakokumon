@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cihqbhmlrkbtv" path="res://assets/pixellab-A-flat--straight-on-lateral-el-1784792676742.png" id="1_rnise"]
 [ext_resource type="Script" uid="uid://cbthfylt5or8o" path="res://scripts/UI/EndOfDay.cs" id="2_ikpur"]
 [ext_resource type="Texture2D" uid="uid://b4dqq44pk5vfa" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/element_3.png" id="3_3sslr"]
-[ext_resource type="PackedScene" uid="uid://tc6occj88o76" path="res://scenes/common/pause_menu.tscn" id="5_6lw7o"]
+[ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="5_6lw7o"]
 
 [node name="EndOfDay" type="Control" unique_id=935379371]
 layout_mode = 3

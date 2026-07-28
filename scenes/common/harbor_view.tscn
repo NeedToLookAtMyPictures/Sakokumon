@@ -4,8 +4,6 @@
 [ext_resource type="Script" uid="uid://7rt3mousqrg0" path="res://scripts/HarborView.cs" id="2_hv"]
 [ext_resource type="Texture2D" uid="uid://brahyv0ocnqyy" path="res://assets/harborview.png" id="2_n0qcd"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
-[ext_resource type="Texture2D" uid="uid://c5cc752fyo8hf" path="res://assets/sprites/scenery/harborView/bldgNW.png" id="5_bldgNW"]
-[ext_resource type="Texture2D" uid="uid://b4sle7adg3a0s" path="res://assets/sprites/scenery/harborView/bldgNE.png" id="6_bldgNE"]
 [ext_resource type="Texture2D" uid="uid://gefo6wvilf0s" path="res://assets/sprites/scenery/harborView/bldgSW.png" id="7_bldgSW"]
 [ext_resource type="Texture2D" uid="uid://cjd6366noosow" path="res://assets/icons/Silhouette1.0.PNG" id="8_a8hag"]
 [ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
@@ -182,22 +180,12 @@ position = Vector2(119, 88)
 position = Vector2(-16, -24.5)
 shape = SubResource("RectangleShape2D_bldgNW")
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingNW" unique_id=300000047]
-position = Vector2(-16.500002, -25.499989)
-scale = Vector2(0.96484375, 0.7343748)
-texture = ExtResource("5_bldgNW")
-
 [node name="BuildingNE" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000025]
 position = Vector2(662, 90)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingNE" unique_id=300000026]
 position = Vector2(31.5, -20.5)
 shape = SubResource("RectangleShape2D_bldgNE")
-
-[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings/BuildingNE" unique_id=300000048]
-position = Vector2(33.000008, -21.500015)
-scale = Vector2(0.9375001, 0.7760418)
-texture = ExtResource("6_bldgNE")
 
 [node name="BuildingSW" type="StaticBody2D" parent="SubViewportContainer/SubViewport/HarborView/Buildings" unique_id=300000027]
 position = Vector2(100, 560)
@@ -267,7 +255,8 @@ position = Vector2(686, -117)
 collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/NpcTemplate" unique_id=300000038]
-scale = Vector2(0.59375, 0.46875)
+position = Vector2(-223.68979, 63.000004)
+scale = Vector2(0.10264646, 0.08103667)
 texture = ExtResource("8_a8hag")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/NpcTemplate" unique_id=300000039]

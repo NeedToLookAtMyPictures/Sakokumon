@@ -35,12 +35,9 @@ theme = ExtResource("1_yw62p")
 [node name="BackgroundSprite" type="Sprite2D" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=1753863181]
 texture_repeat = 1
 position = Vector2(432, 324)
-scale = Vector2(864, 648)
 texture = SubResource("CompressedTexture2D_sxwg2")
 flip_h = true
 flip_v = true
-region_enabled = true
-region_rect = Rect2(0, 0, 1, 1)
 
 [node name="InspectionBox" type="Node2D" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=140198155]
 

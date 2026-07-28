@@ -43,6 +43,12 @@ public partial class Global : Node
 	}
 	private List<ObjectData> iig;
 	private List<ObjectData> iis;
+	private int difficulty;
+	public int Difficulty
+	{
+		get => difficulty;
+		set => difficulty = value;
+	}
 	public List<ObjectData> itemsInGrid 
 	{ 
 		get

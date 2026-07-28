@@ -6,6 +6,7 @@ public partial class PauseMenu : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		ProcessMode = ProcessModeEnum.Always;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,11 +28,12 @@ public partial class PauseMenu : Control
 		Global.Instance.GoToScene("res://scenes/interface/main_menu.tscn");
 	}
 
-	public async void OnReturnPressed()
+	public void OnReturnPressed()
 	{
 		var settings = GetNode<Control>("Settings");
 		settings.Visible = false;
-		Visible = false;	
+		GetParent<CanvasLayer>().Visible = false;
+		GetTree().Paused = false;
 	}
 
 	public async void OnSettingsPressed()

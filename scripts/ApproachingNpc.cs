@@ -4,7 +4,7 @@ public partial class ApproachingNpc : Sprite2D
 {
 	private enum State { Approaching, AtGuardpost, Departing }
 
-	public float MoveSpeed = 80f;
+	public float MoveSpeed = 60f;
 	public float GuardpostY = 220f;
 
 	private State _state = State.Approaching;

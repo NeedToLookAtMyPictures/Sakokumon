@@ -70,6 +70,7 @@ offset_bottom = 40.0
 theme = ExtResource("2_tt4yl")
 
 [node name="SceneLabel" type="Label" parent="Control" unique_id=400000019]
+visible = false
 modulate = Color(1, 1, 0, 1)
 layout_mode = 0
 offset_left = 17.0
@@ -79,6 +80,7 @@ offset_bottom = 48.0
 text = "[ SCENE: NPC Interaction ]"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control" unique_id=1963211396]
+visible = false
 layout_mode = 0
 offset_left = 65.0
 offset_top = 60.0
@@ -164,6 +166,7 @@ offset_bottom = 165.0
 text = "Ignore"
 
 [node name="DebugPanel" type="Panel" parent="Control" unique_id=400000020]
+visible = false
 layout_mode = 0
 offset_left = 1.0
 offset_top = 873.0
@@ -197,6 +200,7 @@ text = "-> Main Menu"
 script = ExtResource("4_dbg")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Control" unique_id=241831368]
+visible = false
 layout_mode = 0
 offset_left = 199.0
 offset_top = -151.0
@@ -206,16 +210,18 @@ text = "Dialogue Bar"
 
 [node name="ReturnToHarbor" type="Button" parent="Control" unique_id=400000009]
 layout_mode = 0
-offset_left = 878.0
-offset_top = 4.0
-offset_right = 1104.0
-offset_bottom = 72.0
+offset_left = 799.0
+offset_top = 10.0
+offset_right = 1195.0
+offset_bottom = 105.0
+theme_override_font_sizes/font_size = 32
 text = "Return to Harbor"
 script = ExtResource("4_dbg")
 
 [node name="UI" type="CanvasLayer" parent="Control" unique_id=400000008]
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=69247541]
+visible = false
 offset_left = 1568.0
 offset_top = 721.0
 offset_right = 1747.0

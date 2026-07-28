@@ -153,14 +153,13 @@ namespace Data
 			else list.Add(data);
 
 			using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Write);
-			GD.Print($"Debug: File Saved to {ProjectSettings.GlobalizePath(file.GetPath())}");
 			if (file == null)
 			{
 				GD.PrintErr($"Failed to open file: {Godot.FileAccess.GetOpenError()}");
 				return;
 			}
             file.StoreString(JsonSerializer.Serialize(list, new JsonSerializerOptions { IncludeFields = true}));
-            GD.Print("Saved!");
+			GD.Print($"Save written to {ProjectSettings.GlobalizePath(path)}");
 		}
 
 		public void flush()

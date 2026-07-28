@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjqrfq6s3axoj"
-path="res://.godot/imported/Yeah_Science.PNG-2fd05c47fc2505736cd4bd0a5256a77c.ctex"
+uid="uid://ccmer6i5o23hs"
+path="res://.godot/imported/Caleb copper coin.PNG-1bffab88634678e494ba628ae8304ef8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/Items/Yeah_Science.PNG"
-dest_files=["res://.godot/imported/Yeah_Science.PNG-2fd05c47fc2505736cd4bd0a5256a77c.ctex"]
+source_file="res://assets/icons/Items/Caleb copper coin.PNG"
+dest_files=["res://.godot/imported/Caleb copper coin.PNG-1bffab88634678e494ba628ae8304ef8.ctex"]
 
 [params]
 

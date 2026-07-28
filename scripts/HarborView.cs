@@ -9,9 +9,6 @@ public partial class HarborView : Node2D
 		public Curve2D Curve;
 		public float   Progress;
 		public float   Speed;
-		public float   NoisePhase;
-		public float   NoiseScale;
-		public float   LaneOffset;
 		public bool    Reversed;
 		public CharacterBody2D Body;
 	}
@@ -21,11 +18,6 @@ public partial class HarborView : Node2D
 	private const int   BgMaxCount         = 8;
 	private const float BgSpeedMin         = 45f;
 	private const float BgSpeedMax         = 95f;
-	private const float BgNoiseAmp         = 10f;
-	private const float BgNoiseFreq        = 0.4f;
-	private const float BgNoiseScaleMin    = 0.4f;
-	private const float BgNoiseScaleMax    = 1.6f;
-	private const float BgLaneOffsetMax    = 14f;
 	private const float SeparationRadius   = 28f;
 	private const float SeparationStrength = 1.5f;
 
@@ -51,7 +43,12 @@ public partial class HarborView : Node2D
 		_npcLayer             = GetNode<Node2D>("NPCLayer");
 		_global               = GetNode<Global>("/root/Global");
 		_npcTemplate          = GetNode<CharacterBody2D>("NpcTemplate");
-		YearInfo			  = GetNode<Control>("YearInfo");
+		YearInfo			  = GetNode<Control>("YearInfoLayer/YearInfo");
+
+		_enterGuardpostButton.Visible = true;
+
+		if (_npcTemplate.GetNodeOrNull<CollisionShape2D>("CollisionShape2D")?.Shape is RectangleShape2D npcShape)
+			_global.QueueSpacing = Mathf.Max(npcShape.Size.X, npcShape.Size.Y);
 
 		RegisterPaths();
 		HideNpcNotification();
@@ -202,9 +199,6 @@ public partial class HarborView : Node2D
 			Curve      = curve,
 			Progress   = GD.Randf() * 0.07f,
 			Speed      = BgSpeedMin + GD.Randf() * (BgSpeedMax - BgSpeedMin),
-			NoisePhase = GD.Randf() * Mathf.Tau,
-			NoiseScale = BgNoiseScaleMin + GD.Randf() * (BgNoiseScaleMax - BgNoiseScaleMin),
-			LaneOffset = (GD.Randf() * 2f - 1f) * BgLaneOffsetMax,
 			Reversed   = GD.Randf() > 0.5f,
 			Body       = (CharacterBody2D)_npcTemplate.Duplicate()
 		};
@@ -220,12 +214,7 @@ public partial class HarborView : Node2D
 		if (len <= 0f) return Vector2.Zero;
 		float tAlong = bg.Reversed ? 1f - bg.Progress : bg.Progress;
 		float offset = Mathf.Clamp(tAlong * len, 0f, len);
-		Transform2D t = bg.Curve.SampleBakedWithRotation(offset);
-		float time = Time.GetTicksMsec() / 1000f;
-		float sway = (Mathf.Sin(time * BgNoiseFreq + bg.NoisePhase) * 0.7f
-		           +  Mathf.Sin(time * BgNoiseFreq * 1.7f + bg.NoisePhase * 1.3f) * 0.3f)
-		           * BgNoiseAmp * bg.NoiseScale;
-		return t.Origin + t.Y * (sway + bg.LaneOffset);
+		return bg.Curve.SampleBaked(offset);
 	}
 
 	private void CreateBodyFor(Global.NpcData data)
@@ -249,7 +238,7 @@ public partial class HarborView : Node2D
 			return;
 		}
 
-		foreach (string name in new[] { "EntryNorth", "EntryEast", "EntryWest" })
+		foreach (string name in new[] { "EntryEast", "EntryWest" })
 		{
 			var p = streetPaths.GetNodeOrNull<Path2D>(name);
 			if (p?.Curve != null) _global.EntryPaths[name] = p.Curve;
@@ -270,18 +259,8 @@ public partial class HarborView : Node2D
 			foreach (var curve in _global.EntryPaths.Values)
 				curve.SetPointPosition(curve.PointCount - 1, ingress.GlobalPosition);
 
-			// Queue direction: the reverse of the last path segment approaching the gate.
-			// Default to Vector2.Up (northward) if EntryNorth isn't available.
-			if (_global.EntryPaths.TryGetValue("EntryNorth", out var northCurve) && northCurve.PointCount >= 2)
-			{
-				int last = northCurve.PointCount - 1;
-				Vector2 approach = (northCurve.GetPointPosition(last) - northCurve.GetPointPosition(last - 1)).Normalized();
-				_global.QueueDirection = -approach; // reverse = away from gate
-			}
-			else
-			{
-				_global.QueueDirection = Vector2.Up;
-			}
+			// Queue line grows straight away from the gate.
+			_global.QueueDirection = Vector2.Up;
 		}
 
 		if (egress != null)
@@ -298,23 +277,38 @@ public partial class HarborView : Node2D
 			foreach (var child in bgPaths.GetChildren())
 			{
 				if (child is Path2D p && p.Curve != null)
-					_bgPaths.Add(p.Curve);
+					_bgPaths.Add(TransformCurve(p.Curve, p.Transform));
 			}
 		}
+	}
+
+	// Bakes a Path2D node's position/rotation/scale into its curve's points so the
+	// sampled path exactly matches what the node renders in the editor. Without this,
+	// curves under a scaled/offset Path2D (e.g. BgEntryWestToEast) are sampled in raw,
+	// un-transformed point space, so NPCs drift off the visible path.
+	private static Curve2D TransformCurve(Curve2D curve, Transform2D transform)
+	{
+		var result = new Curve2D();
+		for (int i = 0; i < curve.PointCount; i++)
+		{
+			Vector2 position = transform * curve.GetPointPosition(i);
+			Vector2 pointIn  = transform.BasisXform(curve.GetPointIn(i));
+			Vector2 pointOut = transform.BasisXform(curve.GetPointOut(i));
+			result.AddPoint(position, pointIn, pointOut);
+		}
+		return result;
 	}
 
 	private void CreateSpriteFor(Global.NpcData data) => CreateBodyFor(data);
 
 	public void ShowNpcNotification()
 	{
-		_notificationPanel.Visible    = true;
-		_enterGuardpostButton.Visible = true;
+		_notificationPanel.Visible = true;
 	}
 
 	public void HideNpcNotification()
 	{
-		_notificationPanel.Visible    = false;
-		_enterGuardpostButton.Visible = false;
+		_notificationPanel.Visible = false;
 	}
 
 	public void OnPressedEnterGuardpost()

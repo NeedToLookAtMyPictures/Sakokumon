@@ -19,6 +19,7 @@ script = ExtResource("2_3vidh")
 [node name="GameBackground" parent="." unique_id=1163722950 instance=ExtResource("1_bgscn")]
 
 [node name="TextCrawl" type="RichTextLabel" parent="." unique_id=200000002]
+visible = false
 layout_mode = 0
 offset_left = 171.0
 offset_top = 114.0
@@ -39,6 +40,7 @@ text = "Assume Your Post"
 script = ExtResource("2_ngopt")
 
 [node name="SceneLabel" type="Label" parent="." unique_id=200000004]
+visible = false
 modulate = Color(1, 1, 0, 1)
 layout_mode = 0
 offset_left = 10.0
@@ -48,6 +50,7 @@ offset_bottom = 40.0
 text = "[ SCENE: Current Day ]"
 
 [node name="DebugPanel" type="Panel" parent="." unique_id=200000005]
+visible = false
 layout_mode = 0
 offset_left = 34.0
 offset_top = 829.0

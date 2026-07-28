@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://dc7as6lm0l2y4"]
+
+[ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_yw62p"]
+[ext_resource type="Script" uid="uid://gnaani35yh6" path="res://scripts/UI/SceneReturn.cs" id="4_yw62p"]
+[ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="5_mrkuq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sxwg2"]
+load_path = "res://.godot/imported/usethiswall.PNG-645ca9c7f39b4658fd69b9730f4ec09a.ctex"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" unique_id=586973596]
+offset_right = 1920.0
+offset_bottom = 1080.0
+ratio = 1.3333
+
+[node name="ScaleViewportContainer" type="SubViewportContainer" parent="." unique_id=1942565875]
+layout_mode = 2
+stretch = true
+
+[node name="ScaleViewport" type="SubViewport" parent="ScaleViewportContainer" unique_id=2077994723]
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(1439, 1080)
+size_2d_override = Vector2i(864, 648)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="ScaleViewportContainer/ScaleViewport" unique_id=598045285]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+theme = ExtResource("1_yw62p")
+
+[node name="BackgroundSprite" type="Sprite2D" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=1753863181]
+texture_repeat = 1
+position = Vector2(432, 324)
+texture = SubResource("CompressedTexture2D_sxwg2")
+flip_h = true
+flip_v = true
+
+[node name="InspectionBox" type="Node2D" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=140198155]
+
+[node name="GoodsGrid" type="Node2D" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox" unique_id=1662621992]
+script = ExtResource("1_roc8h")
+
+[node name="OuterStorageControl" type="Control" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox" unique_id=1668614636]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="StorageAreaScroll" type="ScrollContainer" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/OuterStorageControl" unique_id=2137371733]
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+offset_left = 648.0
+offset_right = 864.0
+offset_bottom = 548.0
+grow_vertical = 0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+scroll_hint_mode = 1
+
+[node name="StorageAreaControl" type="Control" parent="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/OuterStorageControl/StorageAreaScroll" unique_id=200381500]
+custom_minimum_size = Vector2(208, 548)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Return" type="Button" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=2090313018]
+z_index = 9
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.025
+anchor_right = 0.075
+anchor_bottom = 0.025
+offset_left = 642.0
+offset_top = 551.0
+offset_right = 862.0
+offset_bottom = 651.0
+text = "Return"
+script = ExtResource("4_yw62p")
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenu" parent="." unique_id=207830368 instance=ExtResource("5_mrkuq")]
+visible = false
+
+[connection signal="child_entered_tree" from="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/GoodsGrid" to="ScaleViewportContainer/ScaleViewport/Control/InspectionBox/GoodsGrid" method="PopulateGrid"]
+[connection signal="pressed" from="ScaleViewportContainer/ScaleViewport/Control/Return" to="ScaleViewportContainer/ScaleViewport/Control/Return" method="OnPressedReturn"]

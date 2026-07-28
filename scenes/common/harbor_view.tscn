@@ -1,0 +1,337 @@
+[gd_scene format=3 uid="uid://dfdf3px8tp5aa"]
+
+[ext_resource type="PackedScene" uid="uid://ce7io7fbvgiba" path="res://scenes/common/game_background.tscn" id="1_bgscn"]
+[ext_resource type="Script" uid="uid://7rt3mousqrg0" path="res://scripts/HarborView.cs" id="2_hv"]
+[ext_resource type="Texture2D" uid="uid://brahyv0ocnqyy" path="res://assets/harborview.png" id="2_n0qcd"]
+[ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
+[ext_resource type="Texture2D" uid="uid://cjd6366noosow" path="res://assets/icons/Silhouette1.0.PNG" id="8_a8hag"]
+[ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
+[ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="9_iw43f"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="12_1rwlj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
+size = Vector2(85.25922, 72.60001)
+
+[sub_resource type="Curve2D" id="Curve2D_entryEast"]
+_data = {
+"points": PackedVector2Array(144.3021, 37.879204, -144.3021, -37.879204, 949.80304, 80.4, 0, 0, 0, 0, 662.8037, 27.600002, 0, 0, 0, 0, 525.3082, 25.800001, 1.819397, -104.84093, -1.819397, 104.84093, 529.5111, 232.20001)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_entryWest"]
+_data = {
+"points": PackedVector2Array(-182.49615, 69.96676, 182.49615, -69.96676, -24.027496, 142.8, 0, 0, 0, 0, 459.30823, 34.800003, 0.6374588, -108.63394, -0.6374588, 108.63394, 465.31238, 242.40001)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_exitSouth"]
+_data = {
+"points": PackedVector2Array(-0.43912125, -187.95451, 0.43912125, 187.95451, 399.40863, 236.06953, 2.4397373, -227.01427, -2.4397373, 227.01427, 397.99515, 845.66956)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_exitEast"]
+_data = {
+"points": PackedVector2Array(-5.9855957, -146.08948, 5.9855957, 146.08948, 463.5111, 280.2, 0, 0, 0, 0, 512.1449, 402.00003, -154.04922, -64.62655, 154.04922, 64.62655, 888.6064, 484.2)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_exitWest"]
+_data = {
+"points": PackedVector2Array(-8.3194275, -126.40426, 8.3194275, 126.40426, 467.11365, 280.2, 0, 0, 0, 0, 446.69946, 393.00003, 0, 0, 0, 0, 257.56808, 432.00003, 183.01097, -129.02692, -183.01097, 129.02692, -28.230415, 596.4)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_bgEntryWestToEast"]
+_data = {
+"points": PackedVector2Array(-212.32016, 23.700563, 212.32016, -23.700563, -19.22416, 191.00003, 0, 0, 0, 0, 386.0573, 158.00002, -250.89572, -29.730007, 250.89572, 29.730007, 895.211, 178.80002)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_bgExitSouthToEast"]
+_data = {
+"points": PackedVector2Array(-2.7293816, 265.36407, 2.7293816, -265.36407, 372.404, 936.80005, 0, 0, 0, 0, 383.22235, 695, -414.74832, -127.37316, 414.74832, 127.37316, 844.3546, 779)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_bgExitSouthToWest"]
+_data = {
+"points": PackedVector2Array(-4.4362335, 169.30798, 4.4362335, -169.30798, 451.26233, 640.26843, 0, 0, 0, 0, 451.8503, 400.53558, 0, 0, 0, 0, 303.67712, 420.51337, 240.10754, -167.60175, -240.10754, 167.60175, -8.544993, 582.09796)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_bgExitWestToEast"]
+_data = {
+"points": PackedVector2Array(-148.74628, 111.53593, 148.74628, -111.53593, -10.818329, 593.4, 0, 0, 0, 0, 264.7731, 413.32663, 0, 0, 0, 0, 470.71613, 377.43567, -154.52689, -53.25981, 154.52689, 53.25981, 879.6001, 475.2)
+}
+point_count = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npcTemplate"]
+size = Vector2(15.010422, 16.800003)
+
+[sub_resource type="Theme" id="Theme_r1w1t"]
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" unique_id=315275710]
+offset_right = 1920.0
+offset_bottom = 1080.0
+ratio = 1.3333
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=844130677]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1833834461]
+handle_input_locally = false
+size = Vector2i(1439, 1080)
+size_2d_override = Vector2i(864, 648)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="HarborView" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=300000001]
+script = ExtResource("2_hv")
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1618802722]
+position = Vector2(460.58496, 309.00003)
+scale = Vector2(1.4745282, 1.4745284)
+texture = ExtResource("2_n0qcd")
+
+[node name="GameBackground" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1875029057 instance=ExtResource("1_bgscn")]
+
+[node name="Guardpost" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground" unique_id=527607895]
+
+[node name="GuardpostDetector" type="Area2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=594737127]
+position = Vector2(389, 275)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost/GuardpostDetector" unique_id=1153289132]
+position = Vector2(72.70987, -22.09999)
+shape = SubResource("RectangleShape2D_guardpost")
+
+[node name="IngressPoint" type="Marker2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=300000031]
+position = Vector2(463.51108, 216.6)
+
+[node name="EgressPoint" type="Marker2D" parent="SubViewportContainer/SubViewport/HarborView/GameBackground/Guardpost" unique_id=300000032]
+position = Vector2(464.7119, 279.6)
+
+[node name="StreetPaths" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000015]
+
+[node name="EntryEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000017]
+position = Vector2(-66, 6)
+curve = SubResource("Curve2D_entryEast")
+
+[node name="EntryWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000018]
+curve = SubResource("Curve2D_entryWest")
+
+[node name="ExitSouth" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000019]
+position = Vector2(-213.9292, 136.66536)
+scale = Vector2(1.699115, 0.6003937)
+curve = SubResource("Curve2D_exitSouth")
+
+[node name="ExitEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000020]
+curve = SubResource("Curve2D_exitEast")
+
+[node name="ExitWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000021]
+curve = SubResource("Curve2D_exitWest")
+
+[node name="Buildings" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000022]
+
+[node name="BgPaths" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000040]
+
+[node name="BgEntryWestToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000043]
+position = Vector2(0, -436.80005)
+scale = Vector2(1, 3)
+curve = SubResource("Curve2D_bgEntryWestToEast")
+
+[node name="BgExitSouthToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000044]
+position = Vector2(129.21472, -299)
+scale = Vector2(0.88799775, 1)
+curve = SubResource("Curve2D_bgExitSouthToEast")
+
+[node name="BgExitSouthToWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000045]
+position = Vector2(-3.8939617, -12.401562)
+scale = Vector2(1.0211366, 1.0211366)
+curve = SubResource("Curve2D_bgExitSouthToWest")
+
+[node name="BgExitWestToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000046]
+position = Vector2(0, 18.03659)
+scale = Vector2(1, 0.96960473)
+curve = SubResource("Curve2D_bgExitWestToEast")
+
+[node name="NpcTemplate" type="CharacterBody2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000037]
+position = Vector2(686.26575, -42.600002)
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView/NpcTemplate" unique_id=300000038]
+position = Vector2(2.4795532e-05, -6.67572e-06)
+scale = Vector2(0.028234877, 0.017378004)
+texture = ExtResource("8_a8hag")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/HarborView/NpcTemplate" unique_id=300000039]
+position = Vector2(-0.3001709, -7.6293945e-06)
+shape = SubResource("RectangleShape2D_npcTemplate")
+
+[node name="NPCLayer" type="Node2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000002]
+
+[node name="YearInfoLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport/HarborView" unique_id=774069680]
+layer = 2
+
+[node name="YearInfo" type="Control" parent="SubViewportContainer/SubViewport/HarborView/YearInfoLayer" unique_id=774069679]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = 20.0
+offset_right = 859.3088
+offset_bottom = 648.0
+theme = SubResource("Theme_r1w1t")
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/HarborView/YearInfoLayer/YearInfo" unique_id=1856194177]
+layout_mode = 0
+offset_left = -3.224144
+offset_top = -21.2
+offset_right = 882.99133
+offset_bottom = 638.2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/HarborView/YearInfoLayer/YearInfo" unique_id=1504004398]
+layout_mode = 0
+offset_left = 44.80922
+offset_top = 112.600006
+offset_right = 854.7716
+offset_bottom = 359.80002
+theme = ExtResource("12_1rwlj")
+bbcode_enabled = true
+fit_content = true
+
+[node name="UI" type="CanvasLayer" parent="SubViewportContainer/SubViewport/HarborView" unique_id=300000003]
+
+[node name="SceneLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000007]
+visible = false
+modulate = Color(1, 1, 0, 1)
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 380.0
+offset_bottom = 39.0
+text = "[ SCENE: Harbor View ]"
+
+[node name="NotificationPanel" type="Panel" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000004]
+offset_left = 559.5778
+offset_top = 8.4
+offset_right = 861.5876
+offset_bottom = 48.6
+theme = ExtResource("12_1rwlj")
+
+[node name="NotificationLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI/NotificationPanel" unique_id=300000005]
+layout_mode = 0
+offset_left = 39.02295
+offset_top = 12.0
+offset_right = 268.3822
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0.007843138, 1)
+theme_override_font_sizes/font_size = 14
+text = "NPC awaiting inspection at guardpost"
+
+[node name="EnterGuardpostButton" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000006]
+offset_left = 619.6195
+offset_top = 562.8
+offset_right = 855.4037
+offset_bottom = 605.6
+theme = ExtResource("12_1rwlj")
+text = "Enter Guardpost"
+
+[node name="DebugPanel" type="Panel" parent="SubViewportContainer/SubViewport/HarborView/UI" unique_id=300000008]
+visible = false
+offset_left = 10.796685
+offset_top = 404.40002
+offset_right = 260.7967
+offset_bottom = 614.4
+theme = ExtResource("12_1rwlj")
+
+[node name="DebugLabel" type="Label" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000009]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 240.0
+offset_bottom = 22.0
+text = "DEBUG NAV"
+
+[node name="NavNewGame" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000010]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 26.0
+offset_right = 245.0
+offset_bottom = 56.0
+text = "-> New Game"
+script = ExtResource("3_dbg")
+
+[node name="NavNpcInteraction" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000011]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 61.0
+offset_right = 245.0
+offset_bottom = 91.0
+text = "-> NPC Interaction"
+script = ExtResource("3_dbg")
+
+[node name="NavItemInspection" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000012]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 96.0
+offset_right = 245.0
+offset_bottom = 126.0
+text = "-> Item Inspection"
+script = ExtResource("3_dbg")
+
+[node name="NavMainMenu" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000013]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 131.0
+offset_right = 245.0
+offset_bottom = 161.0
+text = "-> Main Menu"
+script = ExtResource("3_dbg")
+
+[node name="SpawnNpcDebug" type="Button" parent="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel" unique_id=300000014]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 166.0
+offset_right = 245.0
+offset_bottom = 196.0
+text = "Spawn NPC (Debug)"
+
+[node name="YearInfo" type="Control" parent="SubViewportContainer/SubViewport/HarborView" unique_id=774069679]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = 20.0
+offset_right = 859.3088
+offset_bottom = 648.0
+theme = SubResource("Theme_r1w1t")
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1856194177]
+layout_mode = 0
+offset_left = -3.224144
+offset_top = -18.8
+offset_right = 879.3889
+offset_bottom = 638.2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1504004398]
+layout_mode = 0
+offset_left = 44.80922
+offset_top = 112.600006
+offset_right = 854.7716
+offset_bottom = 359.80002
+theme = ExtResource("12_1rwlj")
+bbcode_enabled = true
+fit_content = true
+
+[node name="PauseMenu" parent="." unique_id=207830368 instance=ExtResource("9_iw43f")]
+visible = false
+
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/EnterGuardpostButton" to="SubViewportContainer/SubViewport/HarborView" method="OnPressedEnterGuardpost"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNpcInteraction" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNpcInteraction" method="OnPressedDebugNav" binds= ["res://scenes/common/npc_interaction.tscn"]]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavItemInspection" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavItemInspection" method="OnPressedDebugNav" binds= ["res://scenes/common/item_inspection.tscn"]]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavMainMenu" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/SpawnNpcDebug" to="SubViewportContainer/SubViewport/HarborView" method="OnPressedSpawnNpc"]

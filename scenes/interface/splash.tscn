@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://dl0kwutftyqat"]
+
+[ext_resource type="Texture2D" uid="uid://d3hkivdko55v7" path="res://assets/splash.png" id="1_8teny"]
+[ext_resource type="Script" uid="uid://chc5btb0h3b0h" path="res://scripts/UI/SplashTextControl.cs" id="3_8teny"]
+[ext_resource type="Texture2D" uid="uid://kxqk4cxxjngr" path="res://assets/icons/buttons/Game_UI_button_horizontal_rounded-rectangle_panel/elements/clicked.png" id="3_d2ahf"]
+[ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="122_abj02"]
+[ext_resource type="FontFile" uid="uid://cc68i4as6d4a4" path="res://styles/fonts/PixelOperator-Bold.ttf" id="122_yp7du"]
+
+[sub_resource type="Theme" id="Theme_ryewm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eipqs"]
+texture = ExtResource("3_d2ahf")
+
+[sub_resource type="Image" id="Image_8teny"]
+data = {
+"data": PackedByteArray(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255),
+"format": "RGBA8",
+"height": 2,
+"mipmaps": false,
+"width": 2
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_2r7j6"]
+image = SubResource("Image_8teny")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dejc1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5llwy"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="Theme" id="Theme_abj02"]
+default_font = ExtResource("122_abj02")
+default_font_size = 21
+Button/styles/pressed = SubResource("StyleBoxTexture_eipqs")
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/colors/font_selected_color = Color(0, 0, 0, 0)
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0)
+RichTextLabel/colors/selection_color = Color(0.1, 0.1, 1, 0.8)
+RichTextLabel/colors/table_border = Color(0, 0, 0, 0)
+RichTextLabel/colors/table_even_row_bg = Color(0, 0, 0, 0)
+RichTextLabel/colors/table_odd_row_bg = Color(0, 0, 0, 0)
+RichTextLabel/constants/line_separation = 0
+RichTextLabel/constants/outline_size = 0
+RichTextLabel/constants/paragraph_separation = 0
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 1
+RichTextLabel/constants/shadow_outline_size = 1
+RichTextLabel/constants/strikethrough_alpha = 50
+RichTextLabel/constants/table_h_separation = 3
+RichTextLabel/constants/table_v_separation = 3
+RichTextLabel/constants/text_highlight_h_padding = 3
+RichTextLabel/constants/text_highlight_v_padding = 3
+RichTextLabel/constants/underline_alpha = 50
+RichTextLabel/font_sizes/normal_font_size = 40
+RichTextLabel/fonts/bold_font = ExtResource("122_yp7du")
+RichTextLabel/fonts/normal_font = ExtResource("122_abj02")
+RichTextLabel/icons/horizontal_rule = SubResource("ImageTexture_2r7j6")
+RichTextLabel/styles/focus = SubResource("StyleBoxFlat_dejc1")
+RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_5llwy")
+
+[node name="Node2D" type="Node2D" unique_id=1979320281]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=895187448]
+position = Vector2(961.5, 543.49994)
+scale = Vector2(5.571839, 6.0722213)
+texture = ExtResource("1_8teny")
+
+[node name="Control" type="Control" parent="." unique_id=467889223]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_ryewm")
+metadata/_edit_use_anchors_ = true
+
+[node name="SplashTextControl" type="Control" parent="Control" unique_id=1756671832]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_8teny")
+metadata/_edit_use_anchors_ = true
+
+[node name="TitleText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1511004730]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 429.0
+offset_right = 1568.0
+offset_bottom = 646.0
+theme = SubResource("Theme_abj02")
+bbcode_enabled = true
+text = "[font_size=200][center][b]SAKOKUMON[/b][/center][/font_size]"
+
+[node name="SplashText" type="RichTextLabel" parent="Control/SplashTextControl" unique_id=1720372774]
+layout_mode = 0
+offset_left = 695.0
+offset_top = 660.0
+offset_right = 1168.0
+offset_bottom = 725.0
+theme = SubResource("Theme_abj02")
+bbcode_enabled = true
+text = "[font_size=50][center]PRESS ANY KEY TO PLAY[/center][/font_size]"

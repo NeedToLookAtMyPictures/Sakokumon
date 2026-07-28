@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://5kcnaxw1cuwr"]
+
+[ext_resource type="Script" uid="uid://cgv2ibprw457d" path="res://scripts/UI/ItemInspectionLoadSceneScript.cs" id="1_eiwmv"]
+[ext_resource type="Script" uid="uid://b3iv4a0eif50u" path="res://scripts/PopulateGrid.cs" id="1_roc8h"]
+[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="2_8vciv"]
+[ext_resource type="Texture2D" uid="uid://d32mhh13odk6o" path="res://assets/sprites/boxBackground.png" id="2_j35y3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lkbh4"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_q8wnc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j35y3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_j35y3"]
+
+[node name="ItemInspection" type="Node2D" unique_id=1346857749]
+script = ExtResource("1_eiwmv")
+
+[node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=1753863181]
+position = Vector2(324, 324)
+scale = Vector2(648, 648)
+texture = SubResource("PlaceholderTexture2D_lkbh4")
+flip_h = true
+flip_v = true
+
+[node name="InspectionBox" type="Node2D" parent="." unique_id=140198155]
+
+[node name="GoodsGrid" type="Node2D" parent="InspectionBox" unique_id=1662621992]
+script = ExtResource("1_roc8h")
+
+[node name="BoxBackground" type="Sprite2D" parent="InspectionBox" unique_id=1522367781]
+position = Vector2(324, 324)
+texture = ExtResource("2_j35y3")
+
+[node name="InspectedGoods" type="Node2D" parent="." unique_id=387388703]
+position = Vector2(648, 0)
+
+[node name="InspectedGoodsBackground" type="Sprite2D" parent="InspectedGoods" unique_id=300521072]
+position = Vector2(108, 275)
+scale = Vector2(216, 550)
+texture = SubResource("PlaceholderTexture2D_q8wnc")
+flip_h = true
+
+[node name="InspectedGoodsArea" type="Area2D" parent="InspectedGoods" unique_id=1344813508]
+
+[node name="InspectedGoodsCollision" type="CollisionShape2D" parent="InspectedGoods/InspectedGoodsArea" unique_id=1641745947]
+position = Vector2(108, 275.00003)
+scale = Vector2(10.8, 27.5)
+shape = SubResource("RectangleShape2D_j35y3")
+
+[node name="FlagIllegalItemButton" type="Node2D" parent="." unique_id=879858922]
+top_level = true
+position = Vector2(648, 550)
+
+[node name="Return" type="Button" parent="FlagIllegalItemButton" unique_id=2090313018]
+offset_top = -2.0
+offset_right = 216.0
+offset_bottom = 98.0
+text = "Return"
+script = ExtResource("2_8vciv")
+
+[node name="Sprite2D" type="Sprite2D" parent="FlagIllegalItemButton" unique_id=953431619]
+top_level = true
+position = Vector2(756, 598)
+scale = Vector2(216, 99)
+texture = SubResource("PlaceholderTexture2D_j35y3")
+flip_h = true
+flip_v = true
+
+[connection signal="child_entered_tree" from="InspectionBox/GoodsGrid" to="InspectionBox/GoodsGrid" method="PopulateGrid"]
+[connection signal="pressed" from="FlagIllegalItemButton/Return" to="FlagIllegalItemButton/Return" method="OnPressedReturn"]

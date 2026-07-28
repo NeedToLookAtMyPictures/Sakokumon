@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://qiykl8ja4a76"]
+
+[ext_resource type="PackedScene" uid="uid://ce7io7fbvgiba" path="res://scenes/common/game_background.tscn" id="1_bgscn"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_y8irx"]
+[ext_resource type="Script" uid="uid://bdcwrxr0h5sej" path="res://scripts/UI/CurrentDay.cs" id="2_3vidh"]
+[ext_resource type="Script" uid="uid://dn4erj4njfp8m" path="res://scripts/NewGameOptions.cs" id="2_ngopt"]
+[ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
+
+[node name="CurrentDay" type="Control" unique_id=200000001]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_y8irx")
+script = ExtResource("2_3vidh")
+
+[node name="GameBackground" parent="." unique_id=1163722950 instance=ExtResource("1_bgscn")]
+
+[node name="TextCrawl" type="RichTextLabel" parent="." unique_id=200000002]
+visible = false
+layout_mode = 0
+offset_left = 171.0
+offset_top = 114.0
+offset_right = 680.0
+offset_bottom = 277.0
+bbcode_enabled = true
+text = "[center]PLACEHOLDER[/center]"
+scroll_active = false
+
+[node name="BeginButton" type="Button" parent="." unique_id=200000003]
+layout_mode = 0
+offset_left = 857.0
+offset_top = 861.0
+offset_right = 1205.0
+offset_bottom = 997.0
+theme_override_font_sizes/font_size = 25
+text = "Assume Your Post"
+script = ExtResource("2_ngopt")
+
+[node name="SceneLabel" type="Label" parent="." unique_id=200000004]
+visible = false
+modulate = Color(1, 1, 0, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 350.0
+offset_bottom = 40.0
+text = "[ SCENE: Current Day ]"
+
+[node name="DebugPanel" type="Panel" parent="." unique_id=200000005]
+visible = false
+layout_mode = 0
+offset_left = 34.0
+offset_top = 829.0
+offset_right = 329.0
+offset_bottom = 993.0
+
+[node name="DebugLabel" type="Label" parent="DebugPanel" unique_id=200000006]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 240.0
+offset_bottom = 22.0
+text = "DEBUG NAV"
+
+[node name="NavHarbor" type="Button" parent="DebugPanel" unique_id=200000007]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 26.0
+offset_right = 245.0
+offset_bottom = 56.0
+text = "-> Harbor View"
+script = ExtResource("3_dbg")
+
+[node name="NavNpcInteraction" type="Button" parent="DebugPanel" unique_id=200000008]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 61.0
+offset_right = 245.0
+offset_bottom = 91.0
+text = "-> NPC Interaction"
+script = ExtResource("3_dbg")
+
+[node name="NavItemInspection" type="Button" parent="DebugPanel" unique_id=200000009]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 96.0
+offset_right = 245.0
+offset_bottom = 126.0
+text = "-> Item Inspection"
+script = ExtResource("3_dbg")
+
+[node name="NavMainMenu" type="Button" parent="DebugPanel" unique_id=200000010]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 131.0
+offset_right = 245.0
+offset_bottom = 161.0
+text = "-> Main Menu"
+script = ExtResource("3_dbg")
+
+[connection signal="pressed" from="BeginButton" to="BeginButton" method="OnPressedBegin"]
+[connection signal="pressed" from="DebugPanel/NavHarbor" to="DebugPanel/NavHarbor" method="OnPressedDebugNav" binds= ["res://scenes/common/harbor_view.tscn"]]
+[connection signal="pressed" from="DebugPanel/NavNpcInteraction" to="DebugPanel/NavNpcInteraction" method="OnPressedDebugNav" binds= ["res://scenes/common/npc_interaction.tscn"]]
+[connection signal="pressed" from="DebugPanel/NavItemInspection" to="DebugPanel/NavItemInspection" method="OnPressedDebugNav" binds= ["res://scenes/common/item_inspection.tscn"]]
+[connection signal="pressed" from="DebugPanel/NavMainMenu" to="DebugPanel/NavMainMenu" method="OnPressedDebugNav" binds= ["res://scenes/interface/main_menu.tscn"]]

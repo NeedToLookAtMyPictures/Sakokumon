@@ -1,11 +1,14 @@
 using Godot;
-using System;
 
 public partial class MainMenuOptions : Button
 {
+	Node2D StatsScreen;
+	Control CreateSaveScreen;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		StatsScreen = GetNode<Node2D>("/root/MainMenu/StatsMenu/");
+		CreateSaveScreen = GetNode<Control>("/root/MainMenu/SaveCreate");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -13,25 +16,22 @@ public partial class MainMenuOptions : Button
 	{
 	}
 	
-	// Organize all main_menu.tscn button behaviors in one function
 	public void OnPressedMainMenuOptions(string ID){
+		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
 		var global = GetNode<Global>("/root/Global");
 		if (ID == "new"){
-			GD.Print("New Game is under construciton");
-			// global.GoToScene("res://scenes/common/save-access/newgame.tscn");
+			CreateSaveScreen.Visible = true;
+			// global.GoToScene("res://scenes/common/save-access/new_game.tscn");
 		}
 		else if (ID == "load"){
-			GD.Print("Load Game is under construction");
-			// global.GoToScene("res://scenes/common/save-access/loadgame.tscn");
+			global.GoToScene("res://scenes/interface/load_menu.tscn");
 		}
 		else if (ID == "settings"){
-			global.GoToScene("res://scenes/interface/settings.tscn");
+			var settings = (Control)GetNode("/root/MainMenu/Settings");
+			settings.Visible = true;
 		}
 		else if (ID == "statistics"){
-			GD.Print("Statistics is under construction");
-			// # TODO: Jossaya, set this to whatever .tscn you want to navigate to.
-			//         Please make sure to organize it within the scenes/ folder.
-			// global.GoToScene("res://scenes/interface/statistics.tscn");
+			StatsScreen.Visible = true;
 		}
 		else if (ID == "quit"){
 			GetTree().Quit();

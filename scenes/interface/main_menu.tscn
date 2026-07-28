@@ -1,7 +1,141 @@
 [gd_scene format=3 uid="uid://cmxgswmbesmh5"]
 
-[ext_resource type="Texture2D" uid="uid://c0u166mty8kh0" path="res://icons/main-menu/[PH] MainMenu.png" id="1_bqqt6"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_0t3l1"]
+[ext_resource type="Script" uid="uid://brr21xurgr8d6" path="res://scripts/UI/MainMenu.cs" id="1_bvgs0"]
 [ext_resource type="Script" uid="uid://cwrn421d6vohb" path="res://scripts/UI/MainMenuOptions.cs" id="2_b5nk6"]
+[ext_resource type="Texture2D" uid="uid://d3hkivdko55v7" path="res://assets/splash.png" id="3_dfwog"]
+[ext_resource type="Script" uid="uid://k6o6buhkuubh" path="res://scripts/UI/SaveGeneration.cs" id="4_ylig1"]
+[ext_resource type="Texture2D" uid="uid://didl6qv5pq8y4" path="res://assets/sprites/scroll.png" id="6_0t3l1"]
+[ext_resource type="PackedScene" uid="uid://c0g5cvc12opif" path="res://scenes/interface/stats.tscn" id="7_dfwog"]
+[ext_resource type="PackedScene" uid="uid://dh2phnxt0n3qg" path="res://scenes/interface/settings.tscn" id="8_dysqo"]
+[ext_resource type="PackedScene" uid="uid://b8jndpauygl6a" path="res://scenes/common/create_save.tscn" id="9_4bsd4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfwog"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(0, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dysqo"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(82, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bsd4"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(164, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a6mn"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(246, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8vjg"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(328, 0, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf28x"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(0, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjmv1"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(82, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikdv5"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(164, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an0al"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(246, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm7g0"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(328, 187, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2q0c"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(0, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqvw5"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(82, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_574a2"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(164, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5fjc"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(246, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wimp"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(328, 374, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_av4dy"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(0, 561, 82, 187)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ay63"]
+atlas = ExtResource("6_0t3l1")
+region = Rect2(82, 561, 82, 187)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g0ice"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfwog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dysqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bsd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a6mn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8vjg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tf28x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjmv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikdv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an0al")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm7g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2q0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqvw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_574a2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5fjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wimp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_av4dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ay63")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]
 layout_mode = 3
@@ -12,60 +146,145 @@ offset_left = 1.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_0t3l1")
+script = ExtResource("1_bvgs0")
 
-[node name="Background" type="Sprite2D" parent="." unique_id=1656313475]
-position = Vector2(990, 540)
+[node name="Background" type="Sprite2D" parent="." unique_id=951571259]
+position = Vector2(961.5, 543.49994)
+scale = Vector2(5.571839, 6.0722213)
+texture = ExtResource("3_dfwog")
+
+[node name="BannerControl" type="Control" parent="." unique_id=824856562]
+anchors_preset = 0
+offset_left = 1080.0
+offset_top = 25.0
+offset_right = 1689.0
+offset_bottom = 728.62146
+
+[node name="SideBanner" type="AnimatedSprite2D" parent="BannerControl" unique_id=1659358783]
+position = Vector2(548.00006, 503)
+scale = Vector2(7.4878044, 5.558824)
+sprite_frames = SubResource("SpriteFrames_g0ice")
+frame = 16
+frame_progress = 1.0
+
+[node name="ButtonControl" type="Control" parent="BannerControl" unique_id=759487245]
+anchors_preset = 0
+offset_left = 371.0
+offset_top = 193.0
+offset_right = 600.0
+offset_bottom = 624.0
+
+[node name="New Game" type="Button" parent="BannerControl/ButtonControl" unique_id=1625591059]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.023000002
+anchor_bottom = 0.023000002
+offset_left = 40.0
+offset_top = -54.913002
+offset_right = 210.66669
+offset_bottom = 14.420327
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("1_bqqt6")
-
-[node name="New Game" type="Button" parent="." unique_id=1625591059]
-layout_mode = 0
-offset_left = 473.0
-offset_top = 240.0
-offset_right = 904.0
-offset_bottom = 443.0
 text = "New Game"
 script = ExtResource("2_b5nk6")
 
-[node name="Load Game" type="Button" parent="." unique_id=1985514870]
-layout_mode = 0
-offset_left = 1044.0
-offset_top = 240.0
-offset_right = 1475.0
-offset_bottom = 443.0
+[node name="Load Game" type="Button" parent="BannerControl/ButtonControl" unique_id=1985514870]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.88000005
+anchor_top = 0.379
+anchor_right = 0.88000005
+anchor_bottom = 0.379
+offset_left = -158.52
+offset_top = -98.349
+offset_right = 8.421127
+offset_bottom = -41.01567
+scale = Vector2(1.5, 1.5)
 text = "Load Game
 "
 script = ExtResource("2_b5nk6")
 
-[node name="Settings" type="Button" parent="." unique_id=981319319]
-layout_mode = 0
-offset_left = 435.0
-offset_top = 602.0
-offset_right = 911.0
-offset_bottom = 797.0
+[node name="Settings" type="Button" parent="BannerControl/ButtonControl" unique_id=981319319]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.88100004
+anchor_top = 0.437
+anchor_right = 0.88100004
+anchor_bottom = 0.437
+offset_left = -156.74898
+offset_top = -17.347
+offset_right = 3.8260956
+offset_bottom = 37.98633
+scale = Vector2(1.5, 1.5)
 text = "Settings"
 script = ExtResource("2_b5nk6")
 
-[node name="Statistics" type="Button" parent="." unique_id=680231055]
-layout_mode = 0
-offset_left = 1046.0
-offset_top = 601.0
-offset_right = 1477.0
-offset_bottom = 804.0
+[node name="Statistics" type="Button" parent="BannerControl/ButtonControl" unique_id=680231055]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.882
+anchor_top = 0.5
+anchor_right = 0.882
+anchor_bottom = 0.5
+offset_left = -153.978
+offset_top = 45.5
+offset_right = 0.86076355
+offset_bottom = 95.5
+scale = Vector2(1.5, 1.5)
 text = "Statistics"
 script = ExtResource("2_b5nk6")
 
-[node name="Quit" type="Button" parent="." unique_id=1497351047]
-layout_mode = 0
-offset_left = 650.0
-offset_top = 886.0
-offset_right = 1232.0
-offset_bottom = 971.0
+[node name="Generate Save" type="Button" parent="BannerControl/ButtonControl" unique_id=682904246]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.87700003
+anchor_top = 0.555
+anchor_right = 0.87700003
+anchor_bottom = 0.555
+offset_left = -191.833
+offset_top = 395.79498
+offset_right = -12.832977
+offset_bottom = 439.79498
+text = "Debug: Generate Save"
+script = ExtResource("4_ylig1")
+
+[node name="Quit" type="Button" parent="BannerControl/ButtonControl" unique_id=1497351047]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39714417
+anchor_top = 1.0581717
+anchor_right = 0.65943414
+anchor_bottom = 1.1007085
+offset_left = -17.946007
+offset_top = 87.92798
+offset_right = 24.053986
+offset_bottom = 118.92801
+scale = Vector2(1.5, 1.5)
 text = "Quit"
 script = ExtResource("2_b5nk6")
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="New Game" to="New Game" method="OnPressedMainMenuOptions" binds= ["new"]]
-[connection signal="pressed" from="Load Game" to="Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]
-[connection signal="pressed" from="Settings" to="Settings" method="OnPressedMainMenuOptions" binds= ["settings"]]
-[connection signal="pressed" from="Statistics" to="Statistics" method="OnPressedMainMenuOptions" binds= ["statistics"]]
-[connection signal="pressed" from="Quit" to="Quit" method="OnPressedMainMenuOptions" binds= ["quit"]]
+[node name="StatsMenu" parent="." unique_id=2038880874 instance=ExtResource("7_dfwog")]
+visible = false
+position = Vector2(-4, 1)
+
+[node name="Settings" parent="." unique_id=1487254743 instance=ExtResource("8_dysqo")]
+visible = false
+layout_mode = 1
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 1.0
+offset_bottom = 7.0
+
+[node name="SaveCreate" parent="." unique_id=1880139977 instance=ExtResource("9_4bsd4")]
+visible = false
+layout_mode = 1
+
+[connection signal="animation_finished" from="BannerControl/SideBanner" to="." method="_Animate"]
+[connection signal="pressed" from="BannerControl/ButtonControl/New Game" to="BannerControl/ButtonControl/New Game" method="OnPressedMainMenuOptions" binds= ["new"]]
+[connection signal="pressed" from="BannerControl/ButtonControl/Load Game" to="BannerControl/ButtonControl/Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]
+[connection signal="pressed" from="BannerControl/ButtonControl/Settings" to="BannerControl/ButtonControl/Settings" method="OnPressedMainMenuOptions" binds= ["settings"]]
+[connection signal="pressed" from="BannerControl/ButtonControl/Statistics" to="BannerControl/ButtonControl/Statistics" method="OnPressedMainMenuOptions" binds= ["statistics"]]
+[connection signal="pressed" from="BannerControl/ButtonControl/Generate Save" to="BannerControl/ButtonControl/Generate Save" method="DebugSave"]
+[connection signal="pressed" from="BannerControl/ButtonControl/Quit" to="BannerControl/ButtonControl/Quit" method="OnPressedMainMenuOptions" binds= ["quit"]]

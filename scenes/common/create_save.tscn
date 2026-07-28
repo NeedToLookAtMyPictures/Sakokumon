@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://b8jndpauygl6a"]
+
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_bpvsq"]
+[ext_resource type="Script" uid="uid://bthi181v8tixx" path="res://scripts/UI/CreateSave.cs" id="2_sys8g"]
+[ext_resource type="Texture2D" uid="uid://iboepicw3qu0" path="res://assets/full.png" id="3_7te74"]
+[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="4_dwm54"]
+
+[node name="SaveCreate" type="Control" unique_id=1880139977]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_bpvsq")
+script = ExtResource("2_sys8g")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=484479654]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1909.0
+offset_bottom = 1077.0
+color = Color(0.047058824, 0.047058824, 0.047058824, 0.3529412)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1917998364]
+position = Vector2(970, 545)
+scale = Vector2(8.701835, 8.216667)
+texture = ExtResource("3_7te74")
+
+[node name="SlotList" type="VBoxContainer" parent="." unique_id=1782367411]
+layout_mode = 0
+offset_left = 453.99994
+offset_top = 269.0
+offset_right = 1476.0
+offset_bottom = 778.0
+theme_override_constants/separation = 8
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1969871782]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.13800001
+anchor_bottom = 0.11400001
+offset_left = 434.0
+offset_top = 393.0
+offset_right = 1219.04
+offset_bottom = 350.88
+bbcode_enabled = true
+text = "[center][font_size=50][b]Name this save[/b][/font_size]"
+
+[node name="Return" type="Button" parent="." unique_id=415036709]
+layout_mode = 0
+offset_left = 447.0
+offset_top = 760.0
+offset_right = 702.0
+offset_bottom = 881.0
+text = "Return"
+script = ExtResource("4_dwm54")
+
+[node name="Save" type="Button" parent="." unique_id=858251568]
+layout_mode = 0
+offset_left = 1223.0
+offset_top = 777.0
+offset_right = 1490.0
+offset_bottom = 893.0
+text = "Create"
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=1170695320]
+layout_mode = 0
+offset_left = 509.0
+offset_top = 476.0
+offset_right = 1432.0
+offset_bottom = 541.0
+placeholder_text = "Untitled Save"
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[connection signal="pressed" from="Return" to="Return" method="OnPressedReturn"]
+[connection signal="pressed" from="Save" to="." method="CreateButtonPressed"]

@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://c0g5cvc12opif"]
+
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_5gdhc"]
+[ext_resource type="Texture2D" uid="uid://iboepicw3qu0" path="res://assets/full.png" id="1_emq7m"]
+[ext_resource type="Script" uid="uid://dwbyejq23tt6k" path="res://scripts/UI/Stats.cs" id="3_cljcv"]
+[ext_resource type="Script" uid="uid://cep1y5spdu28t" path="res://scripts/UI/Return.cs" id="3_emq7m"]
+[ext_resource type="FontFile" uid="uid://bg855mst8ovu5" path="res://styles/fonts/PixelOperator.ttf" id="5_vncd3"]
+
+[node name="StatsMenu" type="Node2D" unique_id=2038880874]
+
+[node name="Control" type="Control" parent="." unique_id=1023632617]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_5gdhc")
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=2053160972]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -28.0
+offset_right = 1924.0
+offset_bottom = 1096.0
+color = Color(0.047058824, 0.047058824, 0.047058824, 0.3529412)
+
+[node name="Control" type="Control" parent="Control" unique_id=1758501929]
+anchors_preset = 0
+offset_left = 413.0
+offset_top = 128.0
+offset_right = 1509.0
+offset_bottom = 924.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Control" unique_id=670453206]
+scale = Vector2(7.0250106, 6.633333)
+texture = ExtResource("1_emq7m")
+centered = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Control" unique_id=1900084624]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 236.0
+offset_right = 763.0
+offset_bottom = 632.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+script = ExtResource("3_cljcv")
+
+[node name="TitleText" type="RichTextLabel" parent="Control/Control" unique_id=456672834]
+layout_mode = 0
+offset_left = 355.0
+offset_top = 120.0
+offset_right = 753.0
+offset_bottom = 191.0
+bbcode_enabled = true
+text = "[center][font_size=50][b]Game Statistics[/b][/font_size][/center]"
+
+[node name="SaveNode" type="Node2D" parent="Control/Control" unique_id=1373531999]
+position = Vector2(-120, -156)
+
+[node name="SaveSelect" type="OptionButton" parent="Control/Control/SaveNode" unique_id=322338009]
+offset_left = 244.0
+offset_top = 347.0
+offset_right = 444.0
+offset_bottom = 382.0
+theme_override_fonts/font = ExtResource("5_vncd3")
+
+[node name="Return" type="Button" parent="Control" unique_id=1189588254]
+layout_mode = 0
+offset_left = 1187.0
+offset_top = 304.0
+offset_right = 1350.2559
+offset_bottom = 364.0
+text = "Return"
+script = ExtResource("3_emq7m")
+
+[connection signal="pressed" from="Control/Return" to="Control/Return" method="OnPressedReturn"]

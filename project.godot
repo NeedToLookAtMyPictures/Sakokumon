@@ -15,19 +15,37 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Sakokumon"
-run/main_scene="uid://cmxgswmbesmh5"
+run/main_scene="uid://dl0kwutftyqat"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+config/icon="res://appIcon.svg"
 
 [autoload]
 
+MusicManager="uid://b7vim7c4sxxvv"
 Global="res://scripts/Global.cs"
+
+[debug]
+
+settings/stdout/verbose_stdout=true
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="viewport"
 
 [dotnet]
 
 project/assembly_name="Sakokumon"
+
+[editor]
+
+version_control/autoload_on_startup=true
+
+[input]
+
+Pause={
+"deadzone": 0.2,
+"events": []
+}

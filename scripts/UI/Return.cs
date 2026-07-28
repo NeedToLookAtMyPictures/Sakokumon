@@ -1,5 +1,4 @@
-using Godot;
-using System;
+	using Godot;
 
 public partial class Return : Button
 {
@@ -14,7 +13,19 @@ public partial class Return : Button
 	}
 	
 	public void OnPressedReturn(){
-		var global = GetNode<Global>("/root/Global");
-		global.ReturnToPreviousScene();
+		GetNode<MusicManager>("/root/MusicManager").PlayButtonSfx();
+		// var global = GetNode<Global>("/root/Global");
+		// global.ReturnToPreviousScene();
+		var parent = (Control)GetParent();
+		var higherParent = parent.GetParent();
+		
+		if (higherParent.GetType() == typeof(Node2D))
+		{	
+			var p = (Node2D)higherParent;
+			p.Visible = false;
+			return;
+		}
+		parent.Visible = false;
+
 	}
 }

@@ -152,7 +152,7 @@
       "Name": "Raw Silk",
       "Id": 104,
       "Textures": [
-        "res://assets/icons/unrefined_silk.PNG"
+        "res://assets/icons/Items/unrefinedsilk2.0.PNG"
       ],
       "type": "rawSilk",
       "Description": "Unprocessed silk bundled for export, a staple of early Dejima trade.",

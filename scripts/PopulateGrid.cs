@@ -11,7 +11,7 @@ public partial class PopulateGrid : Node2D
 
 	bool isSmuggler = Global.Instance.Database.Data.CurrentLevel.CurrentPerson.smuggler;
 	int currentYear = Global.Instance.Database.Data.CurrentYear;
-	int difficulty = 5;
+
 	// on the backend this is done by changing the odds that a smuggler drops extra illegal items
 	// (1/difficulty) is the chance for smugglers to keep any illegal items beyond the first guaranteed item
 
@@ -21,10 +21,6 @@ public partial class PopulateGrid : Node2D
 	public Database db;
 	
 
-	
-
-
-	// --------------------------------  TEMP DATA FOR DEMO  --------------------------------	TODO:	Delete
 
 
 	public static bool isIllegal(ObjectData currentObject, int currentYear)
@@ -503,7 +499,7 @@ public partial class PopulateGrid : Node2D
 						// generate number 0-difficulty
 						// if not 0 (1/difficulty chance), skip illegal item
 						// this is done to reduce the amount of illegal items (1 guaranteed above) so it isn't super obvious every time
-						if (randomGenerator.Next(0,difficulty) != 0)
+						if (randomGenerator.Next(0,Global.Instance.Difficulty) != 0)
 						{
 							continue;
 						}

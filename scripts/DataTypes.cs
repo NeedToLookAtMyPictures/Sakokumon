@@ -315,6 +315,7 @@ namespace Data
         public void NextYear()
         {
             currentYear += 10;
+			Global.Instance.Difficulty += 1;
         }
 		public GameState state = GameState.GameNotStarted;
         public Level CurrentLevel

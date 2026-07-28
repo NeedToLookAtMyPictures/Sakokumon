@@ -100,7 +100,7 @@
       "Name": "Gold",
       "Id": 101,
       "Textures": [
-        "res://assets/icons/Items/goldBar.png"
+        "res://assets/icons/Items/IMG_0031.png"
       ],
       "type": "goldBar",
       "Description": "Gold discs and bars traded through Dejima, banned from export in 1763.",

@@ -6,7 +6,7 @@
       {
         "Name": "image",
         "Id": 1,
-        "Path": "res://assets/sprites/characters/torso/guy1.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy1.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -15,7 +15,7 @@
       {
         "Name": "image",
         "Id": 2,
-        "Path": "res://assets/sprites/characters/torso/guy2.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy2.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -24,7 +24,7 @@
       {
         "Name": "image",
         "Id": 3,
-        "Path": "res://assets/sprites/characters/torso/guy3.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy3.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -33,7 +33,7 @@
       {
         "Name": "image",
         "Id": 4,
-        "Path": "res://assets/sprites/characters/torso/guy4.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy4.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -42,7 +42,7 @@
       {
         "Name": "image",
         "Id": 5,
-        "Path": "res://assets/sprites/characters/torso/guy5.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy5.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -51,7 +51,7 @@
       {
         "Name": "image",
         "Id": 6,
-        "Path": "res://assets/sprites/characters/torso/guy6.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy6.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -60,7 +60,7 @@
       {
         "Name": "image",
         "Id": 7,
-        "Path": "res://assets/sprites/characters/torso/guy7.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy7.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -69,7 +69,7 @@
       {
         "Name": "image",
         "Id": 8,
-        "Path": "res://assets/sprites/characters/torso/guy8.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy8.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -78,7 +78,7 @@
       {
         "Name": "image",
         "Id": 9,
-        "Path": "res://assets/sprites/characters/torso/guy9.0.PNG",
+        "Path": "res://assets/sprites/characters/torso/guy9.0.png",
         "Width": 64,
         "Height": 64,
         "Type": "torso",
@@ -133,7 +133,7 @@
       "Name": "Christian Cross",
       "Id": 103,
       "Textures": [
-        "res://assets/icons/Items/cross.PNG"
+        "res://assets/icons/Items/cross.png"
       ],
       "type": "cross",
       "Description": "A symbol of the banned Christian faith, strictly prohibited under the Sakoku edicts.",
@@ -152,7 +152,7 @@
       "Name": "Raw Silk",
       "Id": 104,
       "Textures": [
-        "res://assets/icons/Items/unrefinedsilk2.0.PNG"
+        "res://assets/icons/Items/unrefinedsilk2.0.png"
       ],
       "type": "rawSilk",
       "Description": "Unprocessed silk bundled for export, a staple of early Dejima trade.",
@@ -169,7 +169,7 @@
       "Name": "Silk Roll",
       "Id": 105,
       "Textures": [
-        "res://assets/icons/Items/Processed_silk.PNG"
+        "res://assets/icons/Items/Processed_silk.png"
       ],
       "type": "silkRoll",
       "Description": "Three rolls of finished, dyed silk. Extremely expensive and highly prized by nobility, with colors that commoners cannot wear.",
@@ -185,7 +185,7 @@
       "Name": "Silver",
       "Id": 106,
       "Textures": [
-        "res://assets/icons/Items/silver_bar.PNG"
+        "res://assets/icons/Items/silver_bar.png"
       ],
       "type": "silver",
       "Description": "Silver discs and bars, the primary medium of Dejima trade until the export ban of 1668.",
@@ -202,7 +202,7 @@
       "Name": "Copper Bar (Small)",
       "Id": 107,
       "Textures": [
-        "res://assets/icons/Items/Copper_bar.PNG"
+        "res://assets/icons/Items/Copper_bar.png"
       ],
       "type": "copperBar_s",
       "Description": "A small refined copper bar, a legal and common export from Japan throughout the Edo period.",
@@ -219,7 +219,7 @@
       "Name": "Copper Bar (Medium)",
       "Id": 108,
       "Textures": [
-        "res://assets/icons/Items/medium_copperbar.PNG"
+        "res://assets/icons/Items/medium_copperbar.png"
       ],
       "type": "copperBar_m",
       "Description": "A medium refined copper bar, a legal and common export from Japan throughout the Edo period.",
@@ -237,7 +237,7 @@
       "Name": "Copper Bar (Large)",
       "Id": 109,
       "Textures": [
-        "res://assets/icons/Items/Looongboi.PNG"
+        "res://assets/icons/Items/Looongboi.png"
       ],
       "type": "copperBar_l",
       "Description": "A large refined copper bar, a legal and common export from Japan throughout the Edo period.",
@@ -256,7 +256,7 @@
       "Name": "Nagasaki Trade Coin",
       "Id": 110,
       "Textures": [
-        "res://assets/icons/IMG_0067.PNG"
+        "res://assets/icons/IMG_0067.png"
       ],
       "type": "nagasakiTradeCoin",
       "Description": "A specially minted copper coin authorized for foreign trade at Dejima. Produced only from 1659 to 1685.",
@@ -272,7 +272,7 @@
       "Name": "Silverware",
       "Id": 111,
       "Textures": [
-        "res://assets/icons/Items/cutlery_but_shiny.PNG"
+        "res://assets/icons/Items/cutlery_but_shiny.png"
       ],
       "type": "silverware",
       "Description": "Silver tableware exploited as a loophole after the 1668 silver export ban. Outlawed once authorities took notice.",
@@ -288,8 +288,8 @@
       "Name": "Goods Sack",
       "Id": 112,
       "Textures": [
-        "res://assets/icons/Items/pepper_achoo.PNG",
-        "res://assets/icons/Items/Shugaa.PNG"
+        "res://assets/icons/Items/pepper_achoo.png",
+        "res://assets/icons/Items/Shugaa.png"
       ],
       "type": "goodsSack",
       "Description": "A large burlap sack of pepper or sugar, identified by the color of the filling. A staple of legal Dejima commerce.",
@@ -308,7 +308,7 @@
       "Name": "Camphor Wood",
       "Id": 113,
       "Textures": [
-        "res://assets/icons/Items/Transparent_wood.PNG"
+        "res://assets/icons/Items/Transparent_wood.png"
       ],
       "type": "camphorWood",
       "Description": "Planks and blocks of aromatic camphor wood, valued in craftsmanship and medicine.",
@@ -327,7 +327,7 @@
       "Name": "Ceramic Bowl",
       "Id": 114,
       "Textures": [
-        "res://assets/icons/Items/ceramic_proper_size.PNG"
+        "res://assets/icons/Items/ceramic_proper_size.png"
       ],
       "type": "ceramicBowl",
       "Description": "Fine ceramic bowls, a prized export of Japanese craftsmanship sought by Dutch traders.",
@@ -344,7 +344,7 @@
       "Name": "Lacquerware Bowl",
       "Id": 115,
       "Textures": [
-        "res://assets/icons/Items/Lacquerware.PNG"
+        "res://assets/icons/Items/Lacquerware.png"
       ],
       "type": "lacquerwareBowl",
       "Description": "Bowls finished in traditional urushi lacquer, highly sought after by European traders.",
@@ -361,7 +361,7 @@
       "Name": "Christian Text",
       "Id": 116,
       "Textures": [
-        "res://assets/icons/Items/holybook.PNG"
+        "res://assets/icons/Items/holybook.png"
       ],
       "type": "christianBook",
       "Description": "A prohibited Christian religious text, identifiable by the cross embossed on its cover. Banned at all times.",
@@ -380,7 +380,7 @@
       "Name": "Scientific Text",
       "Id": 117,
       "Textures": [
-        "res://assets/icons/Items/Yeah_Science.PNG"
+        "res://assets/icons/Items/Yeah_Science.png"
       ],
       "type": "scienceBook",
       "Description": "A European text on natural philosophy or science. Banned from 1685 to 1720 before restrictions were lifted.",
@@ -399,7 +399,7 @@
       "Name": "Opium (Medical)",
       "Id": 118,
       "Textures": [
-        "res://assets/icons/Items/opium_updated.PNG"
+        "res://assets/icons/Items/opium_updated.png"
       ],
       "type": "opiumSmall",
       "Description": "A small tray of four cloth opium balls, tolerated in limited quantities for medicinal use before the 1857 ban.",
@@ -415,7 +415,7 @@
       "Name": "Opium (Bulk)",
       "Id": 119,
       "Textures": [
-        "res://assets/icons/Items/toomuchopium.PNG"
+        "res://assets/icons/Items/toomuchopium.png"
       ],
       "type": "opiumLarge",
       "Description": "A wooden tray packed with rows of cloth opium balls. The quantity unambiguously indicates smuggling.",

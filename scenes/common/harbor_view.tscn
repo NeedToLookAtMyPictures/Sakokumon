@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://7rt3mousqrg0" path="res://scripts/HarborView.cs" id="2_hv"]
 [ext_resource type="Texture2D" uid="uid://brahyv0ocnqyy" path="res://assets/harborview.png" id="2_n0qcd"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
-[ext_resource type="Texture2D" uid="uid://cjd6366noosow" path="res://assets/icons/Silhouette1.0.PNG" id="8_a8hag"]
+[ext_resource type="Texture2D" uid="uid://cjd6366noosow" path="res://assets/icons/Silhouette1.0.png" id="8_a8hag"]
 [ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
 [ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="9_iw43f"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="12_1rwlj"]

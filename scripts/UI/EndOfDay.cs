@@ -32,15 +32,6 @@ public partial class EndOfDay : Control
 		Global.Instance.GoToScene("res://scenes/common/harbor_view.tscn");
 
 	}
-
-	public override void _UnhandledInput(InputEvent @event)
-    {
-        if (@event.IsActionPressed("ui_cancel"))
-        {
-            OnGameToggled();
-        }
-    }
-
 	public void OnGameToggled()
 	{
 		var pauseMenu = GetNode<Control>("PauseMenu");

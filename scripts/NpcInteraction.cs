@@ -8,7 +8,10 @@ public partial class NpcInteraction : Node2D
 	private Control _dialogueBox;
 	private Label _dialogueText;
 	RichTextLabel label;
-	Sprite2D npcSprite;
+
+	Control npcSprite;
+	Sprite2D npcTorso;
+	Sprite2D npcFace;
 
 	Global global;
 	Level currentLevel;
@@ -17,7 +20,9 @@ public partial class NpcInteraction : Node2D
 	public override async void _Ready()
 	{
 		global = GetNode<Global>("/root/Global");
-		npcSprite = GetNode<Sprite2D>("NpcSprite");
+		npcSprite = GetNode<Control>("NpcSprite");
+		npcTorso = GetNode<Sprite2D>("NpcSprite/NpcTorso");
+		npcFace = GetNode<Sprite2D>("NpcSprite/NpcFace");
 		currentLevel = global.Database.Data.CurrentLevel;
 		currentNPC = currentLevel.CurrentPerson;
 		btnController = GetNode<Control>("Control/ActionControl");
@@ -49,19 +54,20 @@ public partial class NpcInteraction : Node2D
 	
 	public void FastDisplayNPC()
 	{
-		npcSprite.Texture = GD.Load<Texture2D>(currentNPC.sprite.Path);
-		npcSprite.Position = new Vector2(966.0f,435.0f);
-		npcSprite.Scale = new Vector2(2.0f,2.0f);
+
+		npcTorso.Texture = GD.Load<Texture2D>(currentNPC.torso.Path);
+		npcFace.Texture = GD.Load<Texture2D>(currentNPC.face.Path);
+		npcSprite.Position = new Vector2(736.0f,156.0f);
 		btnController.Visible = true;
 	}
 	public async Task DisplayNPC()
 	{
 		var currentNPC = Global.Instance.Database.Data.CurrentLevel.CurrentPerson;
-		npcSprite.Position = new Vector2(619.0f,435.0f);
-		npcSprite.Texture = GD.Load<Texture2D>(currentNPC.sprite.Path);
-		npcSprite.Scale = new Vector2(2.0f,2.0f);
+		npcSprite.Position = new Vector2(188.0f,156.0f);
+		npcTorso.Texture = GD.Load<Texture2D>(currentNPC.torso.Path);
+		npcFace.Texture = GD.Load<Texture2D>(currentNPC.face.Path);
 		var tween = CreateTween();
-		tween.TweenProperty(npcSprite,"position:x",966.0f,2.0f);
+		tween.TweenProperty(npcSprite,"position:x",736.0f,2.0f);
 		await ToSignal(tween,Tween.SignalName.Finished);
 		btnController.Visible = true;
 	}
@@ -78,18 +84,11 @@ public partial class NpcInteraction : Node2D
 		_dialogueBox.Visible = false;
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (@event.IsActionPressed("ui_cancel"))
-		{
-			OnGameToggled();
-		}
-	}
-
 	public void OnGameToggled()
 	{
 		var pauseMenu = GetNode<Control>("PauseMenu");
 		pauseMenu.Visible = !pauseMenu.Visible;
+		GetTree().Paused = !GetTree().Paused;
 	}
 
 	

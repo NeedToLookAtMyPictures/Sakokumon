@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjqrfq6s3axoj"
-path="res://.godot/imported/Yeah_Science.PNG-2fd05c47fc2505736cd4bd0a5256a77c.ctex"
+uid="uid://c7it5wnng4oy2"
+path="res://.godot/imported/Campfor.PNG-33c5bfc69534a4ef8f153cdb0c9be295.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/Items/Yeah_Science.PNG"
-dest_files=["res://.godot/imported/Yeah_Science.PNG-2fd05c47fc2505736cd4bd0a5256a77c.ctex"]
+source_file="res://assets/icons/Items/Campfor.PNG"
+dest_files=["res://.godot/imported/Campfor.PNG-33c5bfc69534a4ef8f153cdb0c9be295.ctex"]
 
 [params]
 

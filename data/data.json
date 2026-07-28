@@ -1,33 +1,46 @@
 {
-  "character_assets": [
+  "character_assets": {
+    "face": [
       {
-        "Name": "Character 1",
-        "Id": 5001,
-        "Path": "res://assets/sprites/characters/character1.png",
-        "Width": 3,
-        "Height": 4,
-        "Type": "portrait",
+        "Name": "eyes2",
+        "Id": 0,
+        "Path": "res://sprites/characters/face/eyes2.PNG",
+        "Width": 64,
+        "Height": 64,
+        "Type": "eyes",
         "Rotation": 0.0
       },
       {
-        "Name": "Character 2",
-        "Id": 5002,
-        "Path": "res://assets/sprites/characters/character2.png",
-        "Width": 3,
-        "Height": 4,
-        "Type": "portrait",
+        "Name": "eyes3",
+        "Id": 1,
+        "Path": "res://sprites/characters/face/eyes3.PNG",
+        "Width": 64,
+        "Height": 64,
+        "Type": "eyes",
         "Rotation": 0.0
       },
       {
-        "Name": "Character 3",
-        "Id": 5003,
-        "Path": "res://assets/sprites/characters/character3.png",
-        "Width": 3,
-        "Height": 4,
-        "Type": "portrait",
+        "Name": "Face1",
+        "Id": 2,
+        "Path": "res://sprites/characters/face/Face1.PNG",
+        "Width": 64,
+        "Height": 64,
+        "Type": "face",
         "Rotation": 0.0
       }
-  ],
+    ],
+    "torso": [
+      {
+        "Name": "image",
+        "Id": 3,
+        "Path": "res://sprites/characters/torso/image.png",
+        "Width": 64,
+        "Height": 64,
+        "Type": "torso",
+        "Rotation": 0.0
+      }
+    ]
+  },
   "items": {
     "goldBar": {
       "Name": "Gold",

@@ -145,6 +145,22 @@ public partial class Global : Node
 		Database = new Database("res://data/data.json");
 	}
 
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("ui_cancel"))
+		{
+			var name = GetTree().CurrentScene.Name;
+			List<string> permittedScenes = ["EndOfDay","AspectRatioContainer2","IllegalItems","AspectRatioContainer","NpcInteraction","CurrentDay"];
+			if (permittedScenes.Contains(name))
+			{
+				GD.Print(GetTree().CurrentScene);
+				var pauseMenu = GetTree().CurrentScene.GetNode<CanvasLayer>("PauseMenu");
+				pauseMenu.Visible = !pauseMenu.Visible;
+				GetTree().Paused = !GetTree().Paused;
+			}	
+		}
+	}
+
 	public override void _Process(double delta)
 	{
 		float dt = (float)delta;

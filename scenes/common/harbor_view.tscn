@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://gefo6wvilf0s" path="res://assets/sprites/scenery/harborView/bldgSW.png" id="7_bldgSW"]
 [ext_resource type="Texture2D" uid="uid://cjd6366noosow" path="res://assets/icons/Silhouette1.0.PNG" id="8_a8hag"]
 [ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
+[ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="9_iw43f"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="12_1rwlj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guardpost"]
@@ -380,6 +381,8 @@ offset_bottom = 359.80002
 theme = ExtResource("12_1rwlj")
 bbcode_enabled = true
 fit_content = true
+
+[node name="PauseMenu" parent="." unique_id=207830368 instance=ExtResource("9_iw43f")]
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/EnterGuardpostButton" to="SubViewportContainer/SubViewport/HarborView" method="OnPressedEnterGuardpost"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" to="SubViewportContainer/SubViewport/HarborView/UI/DebugPanel/NavNewGame" method="OnPressedDebugNav" binds= ["res://scenes/common/save-access/new_game.tscn"]]

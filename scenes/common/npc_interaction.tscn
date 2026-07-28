@@ -4,13 +4,13 @@
 [ext_resource type="Script" uid="uid://cbktrgnm8y40u" path="res://scripts/NpcInteractionOptions.cs" id="2_npcbtn"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="2_tt4yl"]
 [ext_resource type="Texture2D" uid="uid://es0hrltcx7hc" path="res://assets/frametexture.png" id="2_u4ami"]
+[ext_resource type="Texture2D" uid="uid://bxvbimf8ay3x" path="res://assets/sprites/characters/torso/image.png" id="3_0dbxb"]
 [ext_resource type="Texture2D" uid="uid://c54hou2vl52be" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-3.png" id="3_eyujm"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="4_dbg"]
 [ext_resource type="Texture2D" uid="uid://cqxyid1tnk1y7" path="res://assets/pixellab-Create-a-dimly-lit-interior-sc-1784918381233-2.png" id="4_g0iyq"]
+[ext_resource type="Texture2D" uid="uid://disxv1ydit5xk" path="res://assets/sprites/characters/face/Face1.PNG" id="4_r0lrc"]
 [ext_resource type="Texture2D" uid="uid://dia0kn5gdoxav" path="res://assets/panel.png" id="5_0dbxb"]
 [ext_resource type="PackedScene" uid="uid://tc6occj88o76" path="res://scenes/common/pause_menu.tscn" id="9_eyujm"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_npc"]
 
 [node name="NpcInteraction" type="Node2D" unique_id=400000001]
 script = ExtResource("1_npcroot")
@@ -20,10 +20,23 @@ position = Vector2(997.5593, 430.50003)
 scale = Vector2(1.5362461, 2.106132)
 texture = ExtResource("3_eyujm")
 
-[node name="NpcSprite" type="Sprite2D" parent="." unique_id=400000006]
-position = Vector2(619, 435)
-scale = Vector2(200, 266.953)
-texture = SubResource("PlaceholderTexture2D_npc")
+[node name="NpcSprite" type="Control" parent="." unique_id=446631476]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 188.0
+offset_top = 156.0
+offset_right = 444.0
+offset_bottom = 412.0
+scale = Vector2(2, 2)
+
+[node name="NpcTorso" type="Sprite2D" parent="NpcSprite" unique_id=400000006]
+texture = ExtResource("3_0dbxb")
+centered = false
+
+[node name="NpcFace" type="Sprite2D" parent="NpcSprite" unique_id=1699350646]
+position = Vector2(-9.999992, -14.5)
+texture = ExtResource("4_r0lrc")
+centered = false
 
 [node name="GuardpostFrame3" type="Sprite2D" parent="." unique_id=276145714]
 position = Vector2(264.9845, 535.99994)

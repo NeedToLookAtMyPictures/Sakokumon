@@ -15,11 +15,12 @@ public partial class NpcInteractionOptions : Button
 			returnBtn.Visible = false;
 			GetNode<Control>("/root/NpcInteraction/Control/ActionControl").Visible = false;
 			
-			var npcSprite = GetNode<Sprite2D>("/root/NpcInteraction/NpcSprite");
+			var npcSprite = GetNode<Control>("/root/NpcInteraction/NpcSprite");
 			var tween = CreateTween();
-			tween.TweenProperty(npcSprite,"position:x",1494.0,2.0f);
+			tween.TweenProperty(npcSprite,"position:x",1331.0,2.0f);
 			await ToSignal(tween,Tween.SignalName.Finished);
-			npcSprite.Texture = new PlaceholderTexture2D(); 
+			((Sprite2D)npcSprite.GetNode("NpcFace")).Texture = new PlaceholderTexture2D(); 
+			((Sprite2D)npcSprite.GetNode("NpcTorso")).Texture = new PlaceholderTexture2D(); 
 			returnBtn.Visible = true;
 
 		};

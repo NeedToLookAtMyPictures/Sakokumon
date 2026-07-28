@@ -5,7 +5,7 @@
     "torso": [
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 1,
         "Path": "res://assets/sprites/characters/torso/guy1.0.PNG",
         "Width": 64,
         "Height": 64,
@@ -14,7 +14,7 @@
       },
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 2,
         "Path": "res://assets/sprites/characters/torso/guy2.0.PNG",
         "Width": 64,
         "Height": 64,
@@ -32,7 +32,7 @@
       },
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 4,
         "Path": "res://assets/sprites/characters/torso/guy4.0.PNG",
         "Width": 64,
         "Height": 64,
@@ -41,7 +41,7 @@
       },
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 5,
         "Path": "res://assets/sprites/characters/torso/guy5.0.PNG",
         "Width": 64,
         "Height": 64,
@@ -50,7 +50,7 @@
       },
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 6,
         "Path": "res://assets/sprites/characters/torso/guy6.0.PNG",
         "Width": 64,
         "Height": 64,
@@ -59,7 +59,7 @@
       },
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 7,
         "Path": "res://assets/sprites/characters/torso/guy7.0.PNG",
         "Width": 64,
         "Height": 64,
@@ -68,7 +68,7 @@
       },
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 8,
         "Path": "res://assets/sprites/characters/torso/guy8.0.PNG",
         "Width": 64,
         "Height": 64,
@@ -77,7 +77,7 @@
       },
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 9,
         "Path": "res://assets/sprites/characters/torso/guy9.0.PNG",
         "Width": 64,
         "Height": 64,
@@ -86,7 +86,7 @@
       },
       {
         "Name": "image",
-        "Id": 3,
+        "Id": 10,
         "Path": "res://assets/sprites/characters/torso/guy10.0.png",
         "Width": 64,
         "Height": 64,

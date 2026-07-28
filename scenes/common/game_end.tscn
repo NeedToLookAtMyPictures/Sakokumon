@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bgwtg1qw78e8f"]
+
+[ext_resource type="Script" uid="uid://1oxbk1n85whb" path="res://scripts/UI/GameDone.cs" id="1_clqbv"]
+[ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_r5bk0"]
+
+[node name="GameEnd" type="Node2D" unique_id=430097893]
+script = ExtResource("1_clqbv")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1812181649]
+offset_right = 1914.0
+offset_bottom = 1082.0
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1367450441]
+offset_left = 284.0
+offset_top = 240.0
+offset_right = 1664.0
+offset_bottom = 836.0
+theme = ExtResource("1_r5bk0")
+bbcode_enabled = true
+text = "[center][color=#ffffff][font_size=60]On July 8 1853 in the Christian calendar some westerners, from America, arrived with extremely large ships called 'gunboats'. They have provided assurance to the Emperor that they have no intentions to spread Christianity or religion. This event in combination with the recent suggestion by the Dutch King have resulted in the Sakoku policy being ended. The Dutch have decided to move their operations closer to the capital, Edo, which will be renamed Tokyo soon.[/font_size][/color][/center]"
+
+[node name="Button" type="Button" parent="." unique_id=1122380977]
+offset_left = 568.5953
+offset_top = 796.0
+offset_right = 1221.0
+offset_bottom = 974.0
+theme = ExtResource("1_r5bk0")
+theme_override_font_sizes/font_size = 60
+text = "Return to Main Menu"

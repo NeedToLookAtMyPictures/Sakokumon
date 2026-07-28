@@ -45,6 +45,11 @@ public partial class HarborView : Node2D
 		_npcTemplate          = GetNode<CharacterBody2D>("NpcTemplate");
 		YearInfo			  = GetNode<Control>("YearInfo");
 
+		_enterGuardpostButton.Visible = true;
+
+		if (_npcTemplate.GetNodeOrNull<CollisionShape2D>("CollisionShape2D")?.Shape is RectangleShape2D npcShape)
+			_global.QueueSpacing = Mathf.Max(npcShape.Size.X, npcShape.Size.Y);
+
 		RegisterPaths();
 		HideNpcNotification();
 		_bgSpawnTimer = GD.Randf() * BgSpawnMax;
@@ -281,14 +286,12 @@ public partial class HarborView : Node2D
 
 	public void ShowNpcNotification()
 	{
-		_notificationPanel.Visible    = true;
-		_enterGuardpostButton.Visible = true;
+		_notificationPanel.Visible = true;
 	}
 
 	public void HideNpcNotification()
 	{
-		_notificationPanel.Visible    = false;
-		_enterGuardpostButton.Visible = false;
+		_notificationPanel.Visible = false;
 	}
 
 	public void OnPressedEnterGuardpost()

@@ -12,7 +12,7 @@ size = Vector2(85.25922, 72.60001)
 
 [sub_resource type="Curve2D" id="Curve2D_entryEast"]
 _data = {
-"points": PackedVector2Array(144.3021, 37.879204, -144.3021, -37.879204, 949.80304, 80.4, 0, 0, 0, 0, 731.2512, 42, 0, 0, 0, 0, 532.5132, 25.800001, 1.819397, -104.84093, -1.819397, 104.84093, 529.5111, 232.20001)
+"points": PackedVector2Array(144.3021, 37.879204, -144.3021, -37.879204, 949.80304, 80.4, 0, 0, 0, 0, 662.8037, 27.600002, 0, 0, 0, 0, 532.5132, 25.800001, 1.819397, -104.84093, -1.819397, 104.84093, 529.5111, 232.20001)
 }
 point_count = 4
 
@@ -278,8 +278,8 @@ theme = SubResource("Theme_r1w1t")
 [node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1856194177]
 layout_mode = 0
 offset_left = -3.224144
-offset_top = -18.8
-offset_right = 879.3889
+offset_top = -21.2
+offset_right = 882.99133
 offset_bottom = 638.2
 color = Color(0, 0, 0, 1)
 

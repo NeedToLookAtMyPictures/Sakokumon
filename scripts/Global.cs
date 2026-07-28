@@ -26,7 +26,9 @@ public partial class Global : Node
 
 	private const float NpcMoveSpeed   = 80f;  // px/sec along path
 	private const float NpcQueueSpeed  = 30f;  // px/sec when shuffling in queue
-	private const float QueueSpacing   = 70f;  // px between queued NPCs (along path length)
+
+	// px between queued NPCs; set by HarborView from the NPC template's sprite size.
+	public float QueueSpacing = 70f;
 	private const float NpcSpawnMin    = 8f;   // min seconds between important-NPC spawns
 	private const float NpcSpawnMax    = 18f;  // max seconds between important-NPC spawns
 

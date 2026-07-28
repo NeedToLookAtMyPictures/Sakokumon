@@ -7,6 +7,7 @@ public partial class PauseMenu : Control
 	public override void _Ready()
 	{
 		ProcessMode = ProcessModeEnum.Always;
+		VisibilityChanged += OnVisibilityChanged;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -14,8 +15,16 @@ public partial class PauseMenu : Control
 	{
 	}
 
-
-	
+	// Keeps the settings submenu from staying open across a close/reopen of the
+	// pause menu (it lives under a CanvasLayer whose visibility is toggled by
+	// Global, not this node's own Visible flag, so it needs its own reset here).
+	private void OnVisibilityChanged()
+	{
+		if (!IsVisibleInTree())
+		{
+			GetNode<Control>("Settings").Visible = false;
+		}
+	}
 
 	public async void OnSavePressed()
 	{
@@ -25,6 +34,7 @@ public partial class PauseMenu : Control
 		tween.TweenProperty(parent,"modulate", new Color(0,0,0,1),1.0f);
 		await ToSignal(tween,Tween.SignalName.Finished);
 		Global.Instance.Database.flush();
+		GetTree().Paused = false;
 		Global.Instance.GoToScene("res://scenes/interface/main_menu.tscn");
 	}
 

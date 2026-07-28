@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csuua6s62iy2u"
-path="res://.godot/imported/Book screen.png-aadf6be7351d7c4217c6d5e2d2579b30.ctex"
+uid="uid://xe2ycnoorpi8"
+path="res://.godot/imported/Book screen.png-a2c8bbf022ec09248c5866ee8fa0bc77.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Book screen.png"
-dest_files=["res://.godot/imported/Book screen.png-aadf6be7351d7c4217c6d5e2d2579b30.ctex"]
+dest_files=["res://.godot/imported/Book screen.png-a2c8bbf022ec09248c5866ee8fa0bc77.ctex"]
 
 [params]
 

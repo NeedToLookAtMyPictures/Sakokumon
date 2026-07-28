@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bisojstaxkxtm"
-path="res://.godot/imported/guy9.0.png-23e2a2bdbfae902f8f467cbc8aaa0198.ctex"
+uid="uid://ccq4gc2bjhwjx"
+path="res://.godot/imported/guy9.0.png-81920376ef62ad6e2713521aa49227da.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/sprites/characters/torso/guy9.0.png"
-dest_files=["res://.godot/imported/guy9.0.png-23e2a2bdbfae902f8f467cbc8aaa0198.ctex"]
+dest_files=["res://.godot/imported/guy9.0.png-81920376ef62ad6e2713521aa49227da.ctex"]
 
 [params]
 

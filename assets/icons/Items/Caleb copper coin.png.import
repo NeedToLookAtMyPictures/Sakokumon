@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccmer6i5o23hs"
-path="res://.godot/imported/Caleb copper coin.png-1bffab88634678e494ba628ae8304ef8.ctex"
+uid="uid://dx4scclcewe7a"
+path="res://.godot/imported/Caleb copper coin.png-dd71ba92f0db67442e5b33402676eeae.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/Caleb copper coin.png"
-dest_files=["res://.godot/imported/Caleb copper coin.png-1bffab88634678e494ba628ae8304ef8.ctex"]
+dest_files=["res://.godot/imported/Caleb copper coin.png-dd71ba92f0db67442e5b33402676eeae.ctex"]
 
 [params]
 

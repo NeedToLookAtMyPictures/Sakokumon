@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pnbearejdpf4"
-path="res://.godot/imported/holybook.png-ce72146eb974ec50427b30c5840d632d.ctex"
+uid="uid://pg62pqx6ui7a"
+path="res://.godot/imported/holybook.png-0dc31fc463c8b12095bf953fdc78aae9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/holybook.png"
-dest_files=["res://.godot/imported/holybook.png-ce72146eb974ec50427b30c5840d632d.ctex"]
+dest_files=["res://.godot/imported/holybook.png-0dc31fc463c8b12095bf953fdc78aae9.ctex"]
 
 [params]
 

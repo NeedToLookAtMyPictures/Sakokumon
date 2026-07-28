@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwvvvnml860vq"
-path="res://.godot/imported/toomuchopium.png-938946320fd6015b2ea6a856c2c232e7.ctex"
+uid="uid://b7515ll83huin"
+path="res://.godot/imported/toomuchopium.png-e8d70909ddbbabcde0280ed9251c5723.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/toomuchopium.png"
-dest_files=["res://.godot/imported/toomuchopium.png-938946320fd6015b2ea6a856c2c232e7.ctex"]
+dest_files=["res://.godot/imported/toomuchopium.png-e8d70909ddbbabcde0280ed9251c5723.ctex"]
 
 [params]
 

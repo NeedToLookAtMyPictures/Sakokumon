@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vhg2hgqpljvp"
-path="res://.godot/imported/opium_updated.png-e3b1c478bb817eafaee204674f8a5043.ctex"
+uid="uid://dolpqxxfromk7"
+path="res://.godot/imported/opium_updated.png-fc05f5948ca84bcd3d912a6d48e94506.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/opium_updated.png"
-dest_files=["res://.godot/imported/opium_updated.png-e3b1c478bb817eafaee204674f8a5043.ctex"]
+dest_files=["res://.godot/imported/opium_updated.png-fc05f5948ca84bcd3d912a6d48e94506.ctex"]
 
 [params]
 

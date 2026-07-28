@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxoqruqqidg76"
-path="res://.godot/imported/Cutlery .png-722a58180956674702fddd88e94ea8ea.ctex"
+uid="uid://cjhu6lair5wcq"
+path="res://.godot/imported/Cutlery .png-6219cad760d1746483d1b8035a3527a5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/Cutlery .png"
-dest_files=["res://.godot/imported/Cutlery .png-722a58180956674702fddd88e94ea8ea.ctex"]
+dest_files=["res://.godot/imported/Cutlery .png-6219cad760d1746483d1b8035a3527a5.ctex"]
 
 [params]
 

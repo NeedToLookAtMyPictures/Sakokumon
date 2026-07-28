@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmdks1g0qdfwf"
-path="res://.godot/imported/Transparent_wood.png-7895f5c5d76b9378ae906e3c8b28bedd.ctex"
+uid="uid://ck8nf0j851ede"
+path="res://.godot/imported/Transparent_wood.png-9b10341d4d18012bba5231db5b55425d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/Transparent_wood.png"
-dest_files=["res://.godot/imported/Transparent_wood.png-7895f5c5d76b9378ae906e3c8b28bedd.ctex"]
+dest_files=["res://.godot/imported/Transparent_wood.png-9b10341d4d18012bba5231db5b55425d.ctex"]
 
 [params]
 

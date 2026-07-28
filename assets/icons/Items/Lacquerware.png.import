@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://flycpyv0wpgi"
-path="res://.godot/imported/Lacquerware.png-b5e4c22b69259343f8f07502abce7a52.ctex"
+uid="uid://mrg2hmyy6e1a"
+path="res://.godot/imported/Lacquerware.png-cd306f9bfe94713a024d5d661c9170ac.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/Lacquerware.png"
-dest_files=["res://.godot/imported/Lacquerware.png-b5e4c22b69259343f8f07502abce7a52.ctex"]
+dest_files=["res://.godot/imported/Lacquerware.png-cd306f9bfe94713a024d5d661c9170ac.ctex"]
 
 [params]
 

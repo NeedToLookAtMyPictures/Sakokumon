@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0ay7g6h2bny2"
-path="res://.godot/imported/eyes3.png-3569f1621c0dbf1ae455a51ab3abcc30.ctex"
+uid="uid://dpb83nr6mnvpq"
+path="res://.godot/imported/eyes3.png-0556164868d509241f28ffc4dd92f290.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/sprites/characters/face/eyes3.png"
-dest_files=["res://.godot/imported/eyes3.png-3569f1621c0dbf1ae455a51ab3abcc30.ctex"]
+dest_files=["res://.godot/imported/eyes3.png-0556164868d509241f28ffc4dd92f290.ctex"]
 
 [params]
 

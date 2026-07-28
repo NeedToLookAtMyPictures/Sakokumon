@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpk4n6rawsda5"
-path="res://.godot/imported/nose2.png-7076710a26a6a03475ed1f4f061d5297.ctex"
+uid="uid://ctrm7qchdukbh"
+path="res://.godot/imported/nose2.png-01ba9d846bdc3bcf527e7767dc78e39e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/nose2.png"
-dest_files=["res://.godot/imported/nose2.png-7076710a26a6a03475ed1f4f061d5297.ctex"]
+dest_files=["res://.godot/imported/nose2.png-01ba9d846bdc3bcf527e7767dc78e39e.ctex"]
 
 [params]
 

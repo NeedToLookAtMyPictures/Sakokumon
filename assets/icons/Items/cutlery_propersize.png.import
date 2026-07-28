@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qwcwhn3uj47i"
-path="res://.godot/imported/cutlery_propersize.png-7f688af63ddd5005faf65c77e248ca59.ctex"
+uid="uid://dmg6hsutueito"
+path="res://.godot/imported/cutlery_propersize.png-7afc508d2f1ad39a8a947dec31cbed6f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/cutlery_propersize.png"
-dest_files=["res://.godot/imported/cutlery_propersize.png-7f688af63ddd5005faf65c77e248ca59.ctex"]
+dest_files=["res://.godot/imported/cutlery_propersize.png-7afc508d2f1ad39a8a947dec31cbed6f.ctex"]
 
 [params]
 

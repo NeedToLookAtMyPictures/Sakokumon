@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1trcjrgrurt7"
-path="res://.godot/imported/random_ahh_book.png-a70c022810d1dc45ca4e0a530acf13d2.ctex"
+uid="uid://dqo31efijnf8i"
+path="res://.godot/imported/random_ahh_book.png-20d6a67e7c71eed36e39f2d30e5f6a70.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/random_ahh_book.png"
-dest_files=["res://.godot/imported/random_ahh_book.png-a70c022810d1dc45ca4e0a530acf13d2.ctex"]
+dest_files=["res://.godot/imported/random_ahh_book.png-20d6a67e7c71eed36e39f2d30e5f6a70.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgtu0yqutqiop"
-path="res://.godot/imported/medium_copperbar.png-9031c481dece7665dfa7b8f837c91090.ctex"
+uid="uid://bnema1tmrir4i"
+path="res://.godot/imported/medium_copperbar.png-00e670aae5dca38ff2f00160b047ed91.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/medium_copperbar.png"
-dest_files=["res://.godot/imported/medium_copperbar.png-9031c481dece7665dfa7b8f837c91090.ctex"]
+dest_files=["res://.godot/imported/medium_copperbar.png-00e670aae5dca38ff2f00160b047ed91.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ct6xgfe68700l"
-path="res://.godot/imported/normalCopperCoin.png-cb7f1271311de09dd5216a4af1d3166b.ctex"
+uid="uid://x0u3iah80dal"
+path="res://.godot/imported/normalCopperCoin.png-f5b2298019a88a29961699cbcfdf752d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/normalCopperCoin.png"
-dest_files=["res://.godot/imported/normalCopperCoin.png-cb7f1271311de09dd5216a4af1d3166b.ctex"]
+dest_files=["res://.godot/imported/normalCopperCoin.png-f5b2298019a88a29961699cbcfdf752d.ctex"]
 
 [params]
 

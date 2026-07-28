@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w401ri2eiqa4"
-path="res://.godot/imported/guy5.0.png-7bf702686640f2172447620d7a1e48b5.ctex"
+uid="uid://c6yy12c7jke5q"
+path="res://.godot/imported/guy5.0.png-402f0699da6eaa75b2ed08d0c447f173.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/sprites/characters/torso/guy5.0.png"
-dest_files=["res://.godot/imported/guy5.0.png-7bf702686640f2172447620d7a1e48b5.ctex"]
+dest_files=["res://.godot/imported/guy5.0.png-402f0699da6eaa75b2ed08d0c447f173.ctex"]
 
 [params]
 

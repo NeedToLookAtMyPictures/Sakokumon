@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8fucjqkb1p67"
-path="res://.godot/imported/Shugaa.png-c05eaecd473462b2724a1eb35e069139.ctex"
+uid="uid://b47kk28287esx"
+path="res://.godot/imported/Shugaa.png-28b6a60f2aefdd8daedfa4edb1ed7820.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/Shugaa.png"
-dest_files=["res://.godot/imported/Shugaa.png-c05eaecd473462b2724a1eb35e069139.ctex"]
+dest_files=["res://.godot/imported/Shugaa.png-28b6a60f2aefdd8daedfa4edb1ed7820.ctex"]
 
 [params]
 

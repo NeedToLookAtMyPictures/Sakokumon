@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjd6366noosow"
-path="res://.godot/imported/Silhouette1.0.png-391aaddb85fb728ca6badcd2dd3782dd.ctex"
+uid="uid://c5a8c13pxnyji"
+path="res://.godot/imported/Silhouette1.0.png-04baf98471726398217779dd13ac0e74.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Silhouette1.0.png"
-dest_files=["res://.godot/imported/Silhouette1.0.png-391aaddb85fb728ca6badcd2dd3782dd.ctex"]
+dest_files=["res://.godot/imported/Silhouette1.0.png-04baf98471726398217779dd13ac0e74.ctex"]
 
 [params]
 

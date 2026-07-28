@@ -4,9 +4,7 @@
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_yw62p"]
 [ext_resource type="Script" uid="uid://gnaani35yh6" path="res://scripts/UI/SceneReturn.cs" id="4_yw62p"]
 [ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="5_mrkuq"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sxwg2"]
-load_path = "res://.godot/imported/usethiswall.png-645ca9c7f39b4658fd69b9730f4ec09a.ctex"
+[ext_resource type="Texture2D" uid="uid://davuh8bypwgls" path="res://scenes/common/usethiswall.png" id="6_wall"]
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" unique_id=586973596]
 offset_right = 1920.0
@@ -36,7 +34,7 @@ theme = ExtResource("1_yw62p")
 [node name="BackgroundSprite" type="Sprite2D" parent="ScaleViewportContainer/ScaleViewport/Control" unique_id=1753863181]
 texture_repeat = 1
 position = Vector2(432, 324)
-texture = SubResource("CompressedTexture2D_sxwg2")
+texture = ExtResource("6_wall")
 flip_h = true
 flip_v = true
 

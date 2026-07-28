@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di0r2jsbc7q7x"
-path="res://.godot/imported/cutlery_but_shiny.png-d94783365fe7469348613553f63521ba.ctex"
+uid="uid://byebtgdr2v8qi"
+path="res://.godot/imported/cutlery_but_shiny.png-67940dfd7f11de35e50237b97b8bd748.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icons/Items/cutlery_but_shiny.png"
-dest_files=["res://.godot/imported/cutlery_but_shiny.png-d94783365fe7469348613553f63521ba.ctex"]
+dest_files=["res://.godot/imported/cutlery_but_shiny.png-67940dfd7f11de35e50237b97b8bd748.ctex"]
 
 [params]
 

@@ -112,7 +112,7 @@ namespace Data
 		public void CreateSave(string name)
 		{
 			CurrentSlotName = name;
-			if (Godot.FileAccess.FileExists("user://saves/{slotName}.save")) throw new Exception("Save already exists");
+			if (Godot.FileAccess.FileExists($"user://saves/{name}.save")) throw new Exception("Save already exists");
 			data = new GameData
 			{
 				name = name,

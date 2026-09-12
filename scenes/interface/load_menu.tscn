@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drm17ehj5po1g" path="res://scripts/UI/LoadMenu.cs" id="1_lmenu"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_p4x6s"]
-[ext_resource type="Texture2D" uid="uid://cihqbhmlrkbtv" path="res://assets/pixellab-A-flat--straight-on-lateral-el-1784792676742.png" id="3_7rlbi"]
+[ext_resource type="Texture2D" uid="uid://2kl5a18mfejp" path="res://assets/Sakokumon_Short_Vert_Scroll.png" id="3_7rlbi"]
 
 [node name="LoadMenu" type="Control" unique_id=1936335488]
 layout_mode = 3
@@ -15,6 +15,5 @@ theme = ExtResource("1_p4x6s")
 script = ExtResource("1_lmenu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=654376734]
-position = Vector2(963.50006, 706)
-scale = Vector2(3.05538, 3.349057)
+position = Vector2(963.5, 540)
 texture = ExtResource("3_7rlbi")

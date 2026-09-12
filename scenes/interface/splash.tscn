@@ -85,7 +85,7 @@ RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_5llwy")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=895187448]
 position = Vector2(961.5, 543.49994)
-scale = Vector2(5.571839, 6.0722213)
+scale = Vector2(1, 1.091)
 texture = ExtResource("1_8teny")
 
 [node name="Control" type="Control" parent="." unique_id=467889223]

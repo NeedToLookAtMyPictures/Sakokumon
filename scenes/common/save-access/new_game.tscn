@@ -3,9 +3,8 @@
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="1_y8irx"]
 [ext_resource type="Script" uid="uid://yf4iewwobdit" path="res://scripts/UI/NewGame.cs" id="2_b5mbw"]
 [ext_resource type="Script" uid="uid://dn4erj4njfp8m" path="res://scripts/NewGameOptions.cs" id="2_ngopt"]
-[ext_resource type="Texture2D" uid="uid://cihqbhmlrkbtv" path="res://assets/pixellab-A-flat--straight-on-lateral-el-1784792676742.png" id="2_y8irx"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
-[ext_resource type="Texture2D" uid="uid://bkmkf7u073mvx" path="res://assets/wallreadtutorial.png" id="3_qxr33"]
+[ext_resource type="Texture2D" uid="uid://2kl5a18mfejp" path="res://assets/Sakokumon_Short_Vert_Scroll.png" id="3_qxr33"]
 
 [node name="CurrentDay" type="Control" unique_id=200000001]
 layout_mode = 3
@@ -19,12 +18,7 @@ script = ExtResource("2_b5mbw")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=824669423]
 position = Vector2(959.4999, 540.5)
-scale = Vector2(3.0395565, 2.5495281)
-texture = ExtResource("2_y8irx")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=383429784]
-position = Vector2(640.00006, 424.25)
-scale = Vector2(4.65625, 5.622395)
+scale = Vector2(1, 0.839)
 texture = ExtResource("3_qxr33")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1952038853]

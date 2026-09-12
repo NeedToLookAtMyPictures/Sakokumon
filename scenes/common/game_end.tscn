@@ -12,19 +12,19 @@ offset_bottom = 1082.0
 color = Color(0, 0, 0, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1367450441]
-offset_left = 284.0
-offset_top = 240.0
-offset_right = 1664.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 1880.0
 offset_bottom = 836.0
 theme = ExtResource("1_r5bk0")
 bbcode_enabled = true
-text = "[center][color=#ffffff][font_size=60]On July 8 1853 in the Christian calendar some westerners, from America, arrived with extremely large ships called 'gunboats'. They have provided assurance to the Emperor that they have no intentions to spread Christianity or religion. This event in combination with the recent suggestion by the Dutch King have resulted in the Sakoku policy being ended. The Dutch have decided to move their operations closer to the capital, Edo, which will be renamed Tokyo soon.[/font_size][/color][/center]"
+text = "[center][color=#ffffff][font_size=60]On July 8 1853 in the Christian calendar some westerners arrived from America. They came with extremely large ships called 'gunboats', more than ten times larger than the largest warships in our history, the O-Atakebune. The Edo government banned and destroyed all Japanese ships that large, claiming that they are no longer of use now that Japan has one unified ruler. The westerners have provided assurance to the Emperor that they have no intentions to spread Christianity or religion, but they will either be permitted trade or begin attacking. This event in combination with the recent suggestion by the Dutch King have resulted in the Sakoku policy being ended. The Dutch have decided to move their operations closer to the capital, Edo, which will be renamed Tokyo soon. And so my time as a guard here comes to an end, and this island will slowly rejoin the Nagasaki waterfront.[/font_size][/color][/center]"
 
 [node name="Button" type="Button" parent="." unique_id=1122380977]
-offset_left = 568.5953
-offset_top = 796.0
-offset_right = 1221.0
-offset_bottom = 974.0
+offset_left = 680.5953
+offset_top = 868.0
+offset_right = 1333.0
+offset_bottom = 1046.0
 theme = ExtResource("1_r5bk0")
 theme_override_font_sizes/font_size = 60
 text = "Return to Main Menu"

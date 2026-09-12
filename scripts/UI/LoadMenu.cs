@@ -13,7 +13,8 @@ public partial class LoadMenu : Control
 	public override void _Ready()
 	{
 		var mainLayout = new VBoxContainer();
-		mainLayout.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+		mainLayout.Size = new Vector2(1840.0f, 920.0f);
+		mainLayout.Position = new Vector2(40.0f, 110.0f);
 		AddChild(mainLayout);
 
 		var title = new Label();
@@ -34,10 +35,13 @@ public partial class LoadMenu : Control
 
 		var btnBar = new HBoxContainer();
 		btnBar.AddThemeConstantOverride("separation", 24);
+		btnBar.Size = new Vector2(1840.0f, 80.0f);
+		btnBar.Position = new Vector2(40.0f, 950.0f);
 		mainLayout.AddChild(btnBar);
 
 		var backBtn = new Button();
 		backBtn.Text = "Back";
+		backBtn.CustomMinimumSize = new Vector2(160.0f, 80.0f);
 		backBtn.Pressed += OnBackPressed;
 		btnBar.AddChild(backBtn);
 
@@ -47,6 +51,7 @@ public partial class LoadMenu : Control
 
 		_loadButton = new Button();
 		_loadButton.Text = "Load";
+		_loadButton.CustomMinimumSize = new Vector2(160.0f, 80.0f);
 		_loadButton.AddThemeFontOverride("font", GD.Load<FontFile>("res://styles/fonts/PixelOperator-Bold.ttf"));
 		_loadButton.Disabled = true;
 		_loadButton.Pressed += OnLoadPressed;

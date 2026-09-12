@@ -58,18 +58,18 @@ public partial class NpcInteraction : Node2D
 	{
 		var torso = db.GetAsset("torso",currentNPC.torso);
 		npcTorso.Texture = GD.Load<Texture2D>(torso.Path);
-		npcSprite.Position = new Vector2(736.0f,156.0f);
+		npcSprite.Position = new Vector2(400.0f,0.0f);
 		btnController.Visible = true;
 	}
 	public async Task DisplayNPC()
 	{
 		
 		var currentNPC = Global.Instance.Database.Data.CurrentLevel.CurrentPerson;
-		npcSprite.Position = new Vector2(188.0f,156.0f);
+		npcSprite.Position = new Vector2(-800.0f,0.0f);
 		var torso = db.GetAsset("torso",currentNPC.torso);
 		npcTorso.Texture = GD.Load<Texture2D>(torso.Path);
 		var tween = CreateTween();
-		tween.TweenProperty(npcSprite,"position:x",736.0f,2.0f);
+		tween.TweenProperty(npcSprite,"position:x",400.0f,1.0f);
 		await ToSignal(tween,Tween.SignalName.Finished);
 		btnController.Visible = true;
 	}

@@ -4,138 +4,11 @@
 [ext_resource type="Script" uid="uid://brr21xurgr8d6" path="res://scripts/UI/MainMenu.cs" id="1_bvgs0"]
 [ext_resource type="Script" uid="uid://cwrn421d6vohb" path="res://scripts/UI/MainMenuOptions.cs" id="2_b5nk6"]
 [ext_resource type="Texture2D" uid="uid://d3hkivdko55v7" path="res://assets/splash.png" id="3_dfwog"]
+[ext_resource type="Texture2D" uid="uid://c1e7wahuic31o" path="res://assets/TallVerticalScroll.png" id="4_4bsd4"]
 [ext_resource type="Script" uid="uid://k6o6buhkuubh" path="res://scripts/UI/SaveGeneration.cs" id="4_ylig1"]
-[ext_resource type="Texture2D" uid="uid://didl6qv5pq8y4" path="res://assets/sprites/scroll.png" id="6_0t3l1"]
 [ext_resource type="PackedScene" uid="uid://c0g5cvc12opif" path="res://scenes/interface/stats.tscn" id="7_dfwog"]
 [ext_resource type="PackedScene" uid="uid://dh2phnxt0n3qg" path="res://scenes/interface/settings.tscn" id="8_dysqo"]
-[ext_resource type="PackedScene" uid="uid://b8jndpauygl6a" path="res://scenes/common/create_save.tscn" id="9_4bsd4"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dfwog"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(0, 0, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dysqo"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(82, 0, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4bsd4"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(164, 0, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4a6mn"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(246, 0, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h8vjg"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(328, 0, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tf28x"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(0, 187, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qjmv1"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(82, 187, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ikdv5"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(164, 187, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_an0al"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(246, 187, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mm7g0"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(328, 187, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v2q0c"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(0, 374, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rqvw5"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(82, 374, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_574a2"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(164, 374, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p5fjc"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(246, 374, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1wimp"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(328, 374, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_av4dy"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(0, 561, 82, 187)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ay63"]
-atlas = ExtResource("6_0t3l1")
-region = Rect2(82, 561, 82, 187)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_g0ice"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dfwog")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dysqo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4bsd4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4a6mn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h8vjg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tf28x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qjmv1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ikdv5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_an0al")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mm7g0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v2q0c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rqvw5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_574a2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p5fjc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1wimp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_av4dy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0ay63")
-}],
-"loop": false,
-"name": &"default",
-"speed": 16.0
-}]
+[ext_resource type="PackedScene" uid="uid://castsbu0514kx" path="res://scenes/common/create_save.tscn" id="9_4bsd4"]
 
 [node name="MainMenu" type="Control" unique_id=1233782965]
 layout_mode = 3
@@ -151,7 +24,7 @@ script = ExtResource("1_bvgs0")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=951571259]
 position = Vector2(961.5, 543.49994)
-scale = Vector2(5.571839, 6.0722213)
+scale = Vector2(1, 1.09)
 texture = ExtResource("3_dfwog")
 
 [node name="BannerControl" type="Control" parent="." unique_id=824856562]
@@ -161,12 +34,9 @@ offset_top = 25.0
 offset_right = 1689.0
 offset_bottom = 728.62146
 
-[node name="SideBanner" type="AnimatedSprite2D" parent="BannerControl" unique_id=1659358783]
-position = Vector2(548.00006, 503)
-scale = Vector2(7.4878044, 5.558824)
-sprite_frames = SubResource("SpriteFrames_g0ice")
-frame = 16
-frame_progress = 1.0
+[node name="Banner" type="Sprite2D" parent="BannerControl" unique_id=536730023]
+position = Vector2(535, 525)
+texture = ExtResource("4_4bsd4")
 
 [node name="ButtonControl" type="Control" parent="BannerControl" unique_id=759487245]
 anchors_preset = 0
@@ -281,7 +151,6 @@ offset_bottom = 7.0
 visible = false
 layout_mode = 1
 
-[connection signal="animation_finished" from="BannerControl/SideBanner" to="." method="_Animate"]
 [connection signal="pressed" from="BannerControl/ButtonControl/New Game" to="BannerControl/ButtonControl/New Game" method="OnPressedMainMenuOptions" binds= ["new"]]
 [connection signal="pressed" from="BannerControl/ButtonControl/Load Game" to="BannerControl/ButtonControl/Load Game" method="OnPressedMainMenuOptions" binds= ["load"]]
 [connection signal="pressed" from="BannerControl/ButtonControl/Settings" to="BannerControl/ButtonControl/Settings" method="OnPressedMainMenuOptions" binds= ["settings"]]

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dfdf3px8tp5aa"]
 
 [ext_resource type="PackedScene" uid="uid://ce7io7fbvgiba" path="res://scenes/common/game_background.tscn" id="1_bgscn"]
+[ext_resource type="Texture2D" uid="uid://bh1bgroxoo8oq" path="res://assets/harborViewBottomBuildings.png" id="2_3yi21"]
 [ext_resource type="Script" uid="uid://7rt3mousqrg0" path="res://scripts/HarborView.cs" id="2_hv"]
 [ext_resource type="Texture2D" uid="uid://brahyv0ocnqyy" path="res://assets/harborview.png" id="2_n0qcd"]
 [ext_resource type="Script" uid="uid://xhjxy2tisd1d" path="res://scripts/DebugSceneNav.cs" id="3_dbg"]
-[ext_resource type="Texture2D" uid="uid://cjd6366noosow" path="res://assets/icons/Silhouette1.0.png" id="8_a8hag"]
-[ext_resource type="Texture2D" uid="uid://bklrr1d6ly7bj" path="res://assets/sprites/scenery/harborView/bldgSE.png" id="8_bldgSE"]
+[ext_resource type="Texture2D" uid="uid://c5a8c13pxnyji" path="res://assets/icons/Silhouette1.0.png" id="8_a8hag"]
 [ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="9_iw43f"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="12_1rwlj"]
 
@@ -14,55 +14,37 @@ size = Vector2(85.25922, 72.60001)
 
 [sub_resource type="Curve2D" id="Curve2D_entryEast"]
 _data = {
-"points": PackedVector2Array(144.3021, 37.879204, -144.3021, -37.879204, 949.80304, 80.4, 0, 0, 0, 0, 662.8037, 27.600002, 0, 0, 0, 0, 525.3082, 25.800001, 1.819397, -104.84093, -1.819397, 104.84093, 529.5111, 232.20001)
+"points": PackedVector2Array(144.3021, 37.879204, -144.3021, -37.879204, 949.80304, 80.4, 0, 0, 0, 0, 541.5195, 27.600002, 0, 0, 0, 0, 524.10736, 55.800003, -9.588526, -100.64093, 9.588526, 100.64093, 529.5111, 232.20001)
 }
 point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_entryWest"]
 _data = {
-"points": PackedVector2Array(-182.49615, 69.96676, 182.49615, -69.96676, -24.027496, 142.8, 0, 0, 0, 0, 459.30823, 34.800003, 0.6374588, -108.63394, -0.6374588, 108.63394, 465.31238, 242.40001)
+"points": PackedVector2Array(-182.49615, 69.96676, 182.49615, -69.96676, -22.22625, 117.00001, 0, 0, 0, 0, 459.30823, 34.800003, 0.6374588, -108.63394, -0.6374588, 108.63394, 465.31238, 242.40001)
 }
 point_count = 3
 
-[sub_resource type="Curve2D" id="Curve2D_exitSouth"]
-_data = {
-"points": PackedVector2Array(-0.43912125, -187.95451, 0.43912125, 187.95451, 399.40863, 236.06953, 2.4397373, -227.01427, -2.4397373, 227.01427, 397.99515, 845.66956)
-}
-point_count = 2
-
 [sub_resource type="Curve2D" id="Curve2D_exitEast"]
 _data = {
-"points": PackedVector2Array(-5.9855957, -146.08948, 5.9855957, 146.08948, 463.5111, 280.2, 0, 0, 0, 0, 512.1449, 402.00003, -154.04922, -64.62655, 154.04922, 64.62655, 888.6064, 484.2)
+"points": PackedVector2Array(11.450514, -251.3595, -11.450514, 251.3595, 463.5111, 280.2, 0, 0, 0, 0, 500.13654, 561.60004, -168.57932, -44.298546, 168.57932, 44.298546, 845.37634, 613.80005)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_exitWest"]
 _data = {
-"points": PackedVector2Array(-8.3194275, -126.40426, 8.3194275, 126.40426, 467.11365, 280.2, 0, 0, 0, 0, 446.69946, 393.00003, 0, 0, 0, 0, 257.56808, 432.00003, 183.01097, -129.02692, -183.01097, 129.02692, -28.230415, 596.4)
+"points": PackedVector2Array(14.202213, -173.59427, -14.202213, 173.59427, 467.11365, 280.2, 0, 0, 0, 0, 450.90234, 454.2, 0, 0, 0, 0, 415.47778, 580.80005, 192.45554, -78.20691, -192.45554, 78.20691, 50.42421, 653.4)
 }
 point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_bgEntryWestToEast"]
 _data = {
-"points": PackedVector2Array(-212.32016, 23.700563, 212.32016, -23.700563, -19.22416, 191.00003, 0, 0, 0, 0, 386.0573, 158.00002, -250.89572, -29.730007, 250.89572, 29.730007, 895.211, 178.80002)
+"points": PackedVector2Array(-212.32016, 23.700563, 212.32016, -23.700563, -28.230415, 185.20003, 0, 0, 0, 0, 387.85858, 161.20003, -250.89572, -29.730007, 250.89572, 29.730007, 898.8134, 175.80002)
 }
 point_count = 3
-
-[sub_resource type="Curve2D" id="Curve2D_bgExitSouthToEast"]
-_data = {
-"points": PackedVector2Array(-2.7293816, 265.36407, 2.7293816, -265.36407, 372.404, 936.80005, 0, 0, 0, 0, 383.22235, 695, -414.74832, -127.37316, 414.74832, 127.37316, 844.3546, 779)
-}
-point_count = 3
-
-[sub_resource type="Curve2D" id="Curve2D_bgExitSouthToWest"]
-_data = {
-"points": PackedVector2Array(-4.4362335, 169.30798, 4.4362335, -169.30798, 451.26233, 640.26843, 0, 0, 0, 0, 451.8503, 400.53558, 0, 0, 0, 0, 303.67712, 420.51337, 240.10754, -167.60175, -240.10754, 167.60175, -8.544993, 582.09796)
-}
-point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_bgExitWestToEast"]
 _data = {
-"points": PackedVector2Array(-148.74628, 111.53593, 148.74628, -111.53593, -10.818329, 593.4, 0, 0, 0, 0, 264.7731, 413.32663, 0, 0, 0, 0, 470.71613, 377.43567, -154.52689, -53.25981, 154.52689, 53.25981, 879.6001, 475.2)
+"points": PackedVector2Array(-214.277, 67.05965, 214.277, -67.05965, 41.417953, 662.7066, 0, 0, 0, 0, 362.04065, 581.0238, 0, 0, 0, 0, 437.69318, 572.9793, -154.52689, -53.25981, 154.52689, 53.25981, 852.58136, 622.484)
 }
 point_count = 4
 
@@ -90,9 +72,17 @@ render_target_update_mode = 4
 [node name="HarborView" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=300000001]
 script = ExtResource("2_hv")
 
+[node name="Sprite2D2" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1009952575]
+z_index = 999
+z_as_relative = false
+position = Vector2(433.49017, 323.39996)
+rotation = 0.0023764397
+scale = Vector2(0.6020847, 0.6011111)
+texture = ExtResource("2_3yi21")
+
 [node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1618802722]
-position = Vector2(460.58496, 309.00003)
-scale = Vector2(1.4745282, 1.4745284)
+position = Vector2(433.49017, 323.39996)
+scale = Vector2(0.6020847, 0.6011111)
 texture = ExtResource("2_n0qcd")
 
 [node name="GameBackground" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1875029057 instance=ExtResource("1_bgscn")]
@@ -121,11 +111,6 @@ curve = SubResource("Curve2D_entryEast")
 [node name="EntryWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000018]
 curve = SubResource("Curve2D_entryWest")
 
-[node name="ExitSouth" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000019]
-position = Vector2(-213.9292, 136.66536)
-scale = Vector2(1.699115, 0.6003937)
-curve = SubResource("Curve2D_exitSouth")
-
 [node name="ExitEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/StreetPaths" unique_id=300000020]
 curve = SubResource("Curve2D_exitEast")
 
@@ -140,16 +125,6 @@ curve = SubResource("Curve2D_exitWest")
 position = Vector2(0, -436.80005)
 scale = Vector2(1, 3)
 curve = SubResource("Curve2D_bgEntryWestToEast")
-
-[node name="BgExitSouthToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000044]
-position = Vector2(129.21472, -299)
-scale = Vector2(0.88799775, 1)
-curve = SubResource("Curve2D_bgExitSouthToEast")
-
-[node name="BgExitSouthToWest" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000045]
-position = Vector2(-3.8939617, -12.401562)
-scale = Vector2(1.0211366, 1.0211366)
-curve = SubResource("Curve2D_bgExitSouthToWest")
 
 [node name="BgExitWestToEast" type="Path2D" parent="SubViewportContainer/SubViewport/HarborView/BgPaths" unique_id=300000046]
 position = Vector2(0, 18.03659)
@@ -298,7 +273,7 @@ offset_right = 245.0
 offset_bottom = 196.0
 text = "Spawn NPC (Debug)"
 
-[node name="YearInfo" type="Control" parent="SubViewportContainer/SubViewport/HarborView" unique_id=774069679]
+[node name="YearInfo" type="Control" parent="SubViewportContainer/SubViewport/HarborView" unique_id=1021798349]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -308,7 +283,7 @@ offset_right = 859.3088
 offset_bottom = 648.0
 theme = SubResource("Theme_r1w1t")
 
-[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1856194177]
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=811613917]
 layout_mode = 0
 offset_left = -3.224144
 offset_top = -18.8
@@ -316,7 +291,7 @@ offset_right = 879.3889
 offset_bottom = 638.2
 color = Color(0, 0, 0, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=1504004398]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/HarborView/YearInfo" unique_id=827724488]
 layout_mode = 0
 offset_left = 44.80922
 offset_top = 112.600006

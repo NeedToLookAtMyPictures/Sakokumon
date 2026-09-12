@@ -18,7 +18,7 @@ config/name="Sakokumon"
 run/main_scene="uid://dl0kwutftyqat"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-config/icon="res://appIcon.svg"
+config/icon="uid://cn4a3v2oh503l"
 
 [autoload]
 

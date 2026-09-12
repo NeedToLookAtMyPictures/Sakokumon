@@ -37,3 +37,14 @@ After the installer has completed, you can run the new game executable as you wo
 ```powershell
 ./Sakokumon.exe
 ```
+
+
+
+CREDITS:
+All of these images were edited to adjust colors, to pixelize the images, etc. but the attribution for the base files are as follows:
+
+Harbor view: By Kawahara Keiga - https://www.rijksmuseum.nl/collectie/NG-1191 (handle), Public Domain, https://commons.wikimedia.org/w/index.php?curid=33344720
+
+Background of NPC Interaction Screen: By 氏子 - Own work, CC0, https://commons.wikimedia.org/w/index.php?curid=151025037
+
+Splash Screen: By Unknown artist - Leiden University Library, KITLV, image 36D536 Collection page Southeast Asian & Caribbean Images (KITLV), Public Domain, https://commons.wikimedia.org/w/index.php?curid=48409039

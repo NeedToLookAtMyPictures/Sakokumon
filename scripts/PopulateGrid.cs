@@ -21,7 +21,14 @@ public partial class PopulateGrid : Node2D
 	public Database db;
 	
 
-
+	public static bool isValid(ObjectData currentObject, int currentYear)
+	{
+		bool isValidNow = true;
+		if (currentObject.item.introYear > currentYear || currentObject.item.exitYear < currentYear) {
+			isValidNow = false;
+		}
+		return isValidNow;
+	}
 
 	public static bool isIllegal(ObjectData currentObject, int currentYear)
 	{
@@ -460,6 +467,11 @@ public partial class PopulateGrid : Node2D
 				// randomly select class and attempt to create
 				string randomItemType = itemLibrary.Keys.ElementAt(randomGenerator.Next(itemLibrary.Count));
 				ObjectData currentObject = new ObjectData(itemLibrary[randomItemType].Copy(), randomRotation, horizontallyFlipped, verticallyFlipped, positionVector);
+
+				if (isValid(currentObject, currentYear) == false)
+				{
+					continue;
+				}
 
 				// flip grid if needed
 				if (currentObject.isXFlipped)

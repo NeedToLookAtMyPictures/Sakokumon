@@ -264,7 +264,7 @@
 		[true]
 	  ],
 	  "introYear": 1659,
-	  "exitYear": 1686,
+	  "exitYear": 1725,
 	  "legalStartYear": 1659,
 	  "legalEndYear": 9999
 	},
@@ -279,7 +279,7 @@
 	  "Grid": [
 		[true, true]
 	  ],
-	  "introYear": 1600,
+	  "introYear": 1668,
 	  "exitYear": 1868,
 	  "legalStartYear": 0,
 	  "legalEndYear": 1680

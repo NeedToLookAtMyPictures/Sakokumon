@@ -140,7 +140,7 @@ namespace Data
 			var chance =  Random.Shared.Next(0,3);
 			if (forceSmuggler) smuggler = true;
 			else smuggler = chance == 1;           
-            torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First().Id;
+			torso = db.cassets["torso"].OrderBy(_ => Random.Shared.Next()).First().Id;
 			
 		}
 
@@ -308,23 +308,23 @@ namespace Data
 	}
 	public class GameData
 	{
-        public string name = "Untitled Save";
-		private int currentYear = 1695;
+		public string name = "Untitled Save";
+		private int currentYear = 1645;
 
-        public int CurrentYear
-        {
-            get => currentYear;
+		public int CurrentYear
+		{
+			get => currentYear;
 			set => currentYear = value;
-        }
-        public void NextYear()
-        {
-            currentYear += 20;
+		}
+		public void NextYear()
+		{
+			currentYear += 20;
 			Global.Instance.Difficulty += 1;
-        }
+		}
 		public GameState state = GameState.GameNotStarted;
-        public Level CurrentLevel
-        {
-            get
+		public Level CurrentLevel
+		{
+			get
 			{
 				if (currentYear > levels.Keys.OrderDescending().First()) return null;
 				return levels[currentYear];
@@ -334,12 +334,12 @@ namespace Data
 		public Dictionary<int, Level> levels;
 
 		public Stats GameStats
-        {
-            get => levels != null ? levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m) : new Stats();
+		{
+			get => levels != null ? levels.Values.Select(x => x.Stats).Aggregate(new Stats(), (acc, m) => acc + m) : new Stats();
 			
 
-        }
-        public DateTime lastUpdated;
+		}
+		public DateTime lastUpdated;
 		public GameData() {}
 
 	}

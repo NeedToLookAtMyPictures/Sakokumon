@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dicu0866sted8" path="res://scripts/UI/IllegalItems.cs" id="2_illegals"]
 [ext_resource type="Theme" uid="uid://c8rgd01568qvd" path="res://styles/theme.tres" id="2_ip8k0"]
-[ext_resource type="Texture2D" uid="uid://csuua6s62iy2u" path="res://assets/icons/Book screen.png" id="2_j5mvr"]
+[ext_resource type="Texture2D" uid="uid://xe2ycnoorpi8" path="res://assets/icons/Book screen.png" id="2_j5mvr"]
 [ext_resource type="Script" uid="uid://gnaani35yh6" path="res://scripts/UI/SceneReturn.cs" id="3_ip8k0"]
 [ext_resource type="PackedScene" uid="uid://irkm2rhd3bam" path="res://scenes/common/small_pause_menu.tscn" id="4_4a30b"]
 
@@ -97,10 +97,5 @@ script = ExtResource("3_ip8k0")
 
 [node name="PauseMenu" parent="." unique_id=58057326 instance=ExtResource("4_4a30b")]
 visible = false
-layout_mode = 1
-offset_left = 11.0
-offset_top = 17.0
-offset_right = 11.0
-offset_bottom = 17.0
 
 [connection signal="pressed" from="VBox/Navigation/Return" to="VBox/Navigation/Return" method="OnPressedReturn"]

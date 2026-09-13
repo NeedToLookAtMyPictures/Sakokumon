@@ -178,7 +178,7 @@ namespace Data
 		*/
 		public void encounterGenerate()
 		{
-			int max = 10;
+			int max = 11;
 			int num = data.levels != null ? data.levels.Values.Count : 0;
 			if (num == max)
 			{
@@ -187,7 +187,7 @@ namespace Data
 			}
 
 			var encounters = new Dictionary<int, Level>();
-			foreach (int step in Enumerable.Range(0,max).Select(i => 1695 + i * 20))
+			foreach (int step in Enumerable.Range(0,max).Select(i => 1645 + i * 20))
 			{
 
 				if (data.levels != null && data.levels.TryGetValue(step,out Level val))

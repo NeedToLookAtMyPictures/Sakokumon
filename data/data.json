@@ -103,12 +103,29 @@
         "res://assets/icons/Items/IMG_0031.png"
 	  ],
 	  "type": "goldBar",
-	  "Description": "Gold discs and bars traded through Dejima, banned from export in 1763.",
+	  "Description": "Gold bars traded through Dejima, the next main export following silver.",
 	  "Grid": [
 		[true],
 		[true]
 	  ],
 	  "introYear": 1600,
+	  "exitYear": 1762,
+	  "legalStartYear": 0,
+	  "legalEndYear": 1762
+	},
+	"goldBar2": {
+	  "Name": "Gold",
+	  "Id": 201,
+	  "Textures": [
+        "res://assets/icons/Items/IMG_0031.png"
+	  ],
+	  "type": "goldBar",
+	  "Description": "To ensure enough domestic supply gold became a banned export in 1763.",
+	  "Grid": [
+		[true],
+		[true]
+	  ],
+	  "introYear": 1763,
 	  "exitYear": 1868,
 	  "legalStartYear": 0,
 	  "legalEndYear": 1762
@@ -120,7 +137,7 @@
         "res://assets/icons/Items/normalCopperCoin.png"
 	  ],
 	  "type": "copperCoin",
-	  "Description": "Standard domestic currency. Export of ordinary copper coinage was strictly forbidden at all times.",
+	  "Description": "Standard domestic currency. Export of ordinary copper coinage was strictly forbidden.",
 	  "Grid": [
 		[true]
 	  ],
@@ -136,7 +153,7 @@
         "res://assets/icons/Items/cross.png"
 	  ],
 	  "type": "cross",
-	  "Description": "A symbol of the banned Christian faith, strictly prohibited under the Sakoku edicts.",
+	  "Description": "A symbol of the banned Christian faith, strictly prohibited under the Sakoku edicts, but highly desired by the hidden Christians.",
 	  "Grid": [
 		[false, true, false],
 		[true,  true, true],
@@ -188,12 +205,29 @@
         "res://assets/icons/Items/silver_bar.png"
 	  ],
 	  "type": "silver",
-	  "Description": "Silver discs and bars, the primary medium of Dejima trade until the export ban of 1668.",
+	  "Description": "A silver bar, the primary export at Dejima.",
 	  "Grid": [
 		[true],
 		[true]
 	  ],
 	  "introYear": 1600,
+	  "exitYear": 1667,
+	  "legalStartYear": 0,
+	  "legalEndYear": 1667
+	},
+	"silver2": {
+	  "Name": "Silver",
+	  "Id": 206,
+	  "Textures": [
+        "res://assets/icons/Items/silver_bar.png"
+	  ],
+	  "type": "silver",
+	  "Description": "It turns out that Japan has been producing up to a third of the silver in the world, but we have exported so much that an export ban has been put in place to ensure domestic supply.",
+	  "Grid": [
+		[true],
+		[true]
+	  ],
+	  "introYear": 1668,
 	  "exitYear": 1868,
 	  "legalStartYear": 0,
 	  "legalEndYear": 1667
@@ -259,11 +293,27 @@
         "res://assets/icons/IMG_0067.png"
 	  ],
 	  "type": "nagasakiTradeCoin",
-	  "Description": "A specially minted copper coin authorized for foreign trade at Dejima. Produced only from 1659 to 1685.",
+	  "Description": "A specially minted copper coin authorized for foreign trade at Dejima. Made by copying other nations coins for simplicity, their production started in 1659.",
 	  "Grid": [
 		[true]
 	  ],
 	  "introYear": 1659,
+	  "exitYear": 1684,
+	  "legalStartYear": 1659,
+	  "legalEndYear": 9999
+	},
+	"nagasakiTradeCoin2": {
+	  "Name": "Nagasaki Trade Coin",
+	  "Id": 210,
+	  "Textures": [
+        "res://assets/icons/IMG_0067.png"
+	  ],
+	  "type": "nagasakiTradeCoin",
+	  "Description": "A specially minted copper coin authorized for foreign trade at Dejima. Production only ran from 1659 to 1685, but many were made.",
+	  "Grid": [
+		[true]
+	  ],
+	  "introYear": 1685,
 	  "exitYear": 1725,
 	  "legalStartYear": 1659,
 	  "legalEndYear": 9999
@@ -275,12 +325,28 @@
         "res://assets/icons/Items/cutlery_but_shiny.png"
 	  ],
 	  "type": "silverware",
-	  "Description": "Silver tableware exploited as a loophole after the 1668 silver export ban. Outlawed once authorities took notice.",
+	  "Description": "Silver tableware has become a booming export, and it isn't a silver bar so it is not under the effect of the 1668 silver export ban.",
 	  "Grid": [
 		[true, true]
 	  ],
 	  "introYear": 1668,
-	  "exitYear": 1868,
+	  "exitYear": 1680,
+	  "legalStartYear": 0,
+	  "legalEndYear": 1680
+	},
+	"silverware2": {
+	  "Name": "Silverware",
+	  "Id": 211,
+	  "Textures": [
+        "res://assets/icons/Items/cutlery_but_shiny.png"
+	  ],
+	  "type": "silverware",
+	  "Description": "It took some time but a new law has been passed making sure silverware is also illegal to export, it was simply being used to bypass the silver export ban.",
+	  "Grid": [
+		[true, true]
+	  ],
+	  "introYear": 1680,
+	  "exitYear": 1740,
 	  "legalStartYear": 0,
 	  "legalEndYear": 1680
 	},
@@ -330,7 +396,7 @@
         "res://assets/icons/Items/ceramic_proper_size.png"
 	  ],
 	  "type": "ceramicBowl",
-	  "Description": "Fine ceramic bowls, a prized export of Japanese craftsmanship sought by Dutch traders.",
+	  "Description": "Fine ceramic bowls, a prized export of Japanese craftsmanship sought by Dutch traders to resell in Europe.",
 	  "Grid": [
 		[true, true],
 		[true, true]
@@ -347,7 +413,7 @@
         "res://assets/icons/Items/Lacquerware.png"
 	  ],
 	  "type": "lacquerwareBowl",
-	  "Description": "Bowls finished in traditional urushi lacquer, highly sought after by European traders.",
+	  "Description": "Bowls finished in traditional urushi lacquer, highly sought after by Dutch traders to resell in Europe.",
 	  "Grid": [
 		[true, true],
 		[true, true]
@@ -364,7 +430,7 @@
         "res://assets/icons/Items/holybook.png"
 	  ],
 	  "type": "christianBook",
-	  "Description": "A prohibited Christian religious text, identifiable by the cross embossed on its cover. Banned at all times.",
+	  "Description": "A prohibited Christian religious text, identifiable by the cross embossed on its cover.",
 	  "Grid": [
 		[true, true, true],
 		[true, true, true],
@@ -383,7 +449,7 @@
         "res://assets/icons/Items/Yeah_Science.png"
 	  ],
 	  "type": "scienceBook",
-	  "Description": "A European text on natural philosophy or science. Banned from 1685 to 1720 before restrictions were lifted.",
+	  "Description": "A European text on natural philosophy or science. Just more Western books banned alongside religious texts.",
 	  "Grid": [
 		[true, true, true],
 		[true, true, true],
@@ -391,7 +457,26 @@
 		[true, true, true]
 	  ],
 	  "introYear": 1600,
-	  "exitYear": 1868,
+	  "exitYear": 1720,
+	  "legalStartYear": 1720,
+	  "legalEndYear": 9999
+	},
+	"scienceBook2": {
+	  "Name": "Scientific Text",
+	  "Id": 217,
+	  "Textures": [
+        "res://assets/icons/Items/Yeah_Science.png"
+	  ],
+	  "type": "scienceBook",
+	  "Description": "A European text on natural philosophy or science. Interest in this new field called 'Dutch Studies' is slowly expanding, their religion may be dangerous but these scientific books are legal now.",
+	  "Grid": [
+		[true, true, true],
+		[true, true, true],
+		[true, true, true],
+		[true, true, true]
+	  ],
+	  "introYear": 1720,
+	  "exitYear": 9999,
 	  "legalStartYear": 1720,
 	  "legalEndYear": 9999
 	},
@@ -402,11 +487,27 @@
         "res://assets/icons/Items/opium_updated.png"
 	  ],
 	  "type": "opiumSmall",
-	  "Description": "A small tray of four cloth opium balls, tolerated in limited quantities for medicinal use before the 1857 ban.",
+	  "Description": "A small tray of four cloth opium balls, tolerated in limited quantities for medicinal use",
 	  "Grid": [
 		[true]
 	  ],
 	  "introYear": 1600,
+	  "exitYear": 1856,
+	  "legalStartYear": 0,
+	  "legalEndYear": 1856
+	},
+	"opiumSmall2": {
+	  "Name": "Opium (Medical)",
+	  "Id": 218,
+	  "Textures": [
+        "res://assets/icons/Items/opium_updated.png"
+	  ],
+	  "type": "opiumSmall",
+	  "Description": "A small tray of four cloth opium balls, seeing the second opium war begin caused a strict ban in 1857.",
+	  "Grid": [
+		[true]
+	  ],
+	  "introYear": 1856,
 	  "exitYear": 1868,
 	  "legalStartYear": 0,
 	  "legalEndYear": 1856
@@ -418,7 +519,7 @@
         "res://assets/icons/Items/toomuchopium.png"
 	  ],
 	  "type": "opiumLarge",
-	  "Description": "A wooden tray packed with rows of cloth opium balls. The quantity unambiguously indicates smuggling.",
+	  "Description": "A wooden box packed with excessive amounts of opium balls. Opium may be allowed, but only in small, very restricted amounts. This is highly illegal",
 	  "Grid": [
 		[true, true],
 		[true, true],
